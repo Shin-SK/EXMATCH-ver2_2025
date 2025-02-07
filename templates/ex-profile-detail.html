@@ -1,0 +1,399 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+<!-- テンプレートフィルタ-->
+<!-- データベースから読込んだデータがNone又は'-----'の時空白の値を返す-->
+{% load none_filter %}
+
+{% block active_terms_member %}active{% endblock %}
+
+{% block title %}プロフィール詳細 | EXMatch{% endblock %}
+
+{% block head %}
+<!--    <style>-->
+<!--    body {-->
+<!--    font-family:"ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;-->
+<!--    color:#630;-->
+<!--    line-height:25px;-->
+<!--    font-size:0.95em;-->
+<!--    }-->
+
+<!--    </style>-->
+{% endblock %}
+
+{% block contents %}
+
+<div class="form ex ex-pdt">
+
+    <div class="mainTitle">プロフィール</div>
+    <div class="subTitle">{{ object.nickname }} さん</div>
+    <p class="subtext">
+        修正する場合は、「編集」ボタンをクリックしてください。会員登録時の項目は、印の項目です。
+    </p>
+    <div class="form__wrap mt-40">
+        <!-- <div class="table-responsive">
+            {% if p_gender %}
+            <table class="table table-bordered table-hover table-striped profile-table">
+            {% else %}
+            <table class="table table-bordered table-hover table-striped profile-table bg-pink">
+            {% endif %}
+                <tr>
+                    <td> -->
+                        <div class="area">
+                            <div class="title">ニックネーム</div>
+                            {{ object.nickname }}
+                        </div>
+                        <div class="area">
+                            <div class="title">性別</div>
+                            <div class="text radio-area">
+                                {% if p_gender == True %}
+                                <div class="box radio">
+                                    <div class="radio__wrap">
+                                        <input type="radio" name="gender" id="exampleRadios1" value="True" checked disabled="disabled">
+                                        <div for="exampleRadios1" class="radio__wrap--label">
+                                            男性
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box radio">
+                                    <div class="radio__wrap">
+                                        <input type="radio" name="gender" id="exampleRadios2" value="False" disabled="disabled">
+                                        <div for="exampleRadios2" class="radio__wrap--label">
+                                            女性
+                                        </div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="box radio">
+                                    <div class="radio__wrap">
+                                        <input type="radio" name="gender" id="exampleRadios3" value="True" disabled="disabled">
+                                        <div for="exampleRadios3" class="radio__wrap--label">
+                                            男性
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box radio">
+                                    <div class="radio__wrap">
+                                        <input type="radio" name="gender" id="exampleRadios4" value="False" checked disabled="disabled">
+                                        <div for="exampleRadios4" class="radio__wrap--label">
+                                            女性
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="area">
+                            <div class="title">国籍</div>
+                            {{ object.nationality }}
+                        </div>
+                        <div class="area">
+                            <div class="title">都道府県</div>
+                            {{ object.address1 | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">生年月日</div>
+                            {{ object.birthday1 | checkNone | date:"Y-n-j" }}
+                        </div>
+                        <div class="area">
+                            <div class="title">年齢</div>
+                            {{ object.age1 | checkNone }}
+                        </div>
+                        
+                        <div class="area">
+                            <div class="title">自己PR</div>
+                            {{ object.article | checkNone }}
+                        </div>
+                        {% if object.what_doing_now %}
+                        <div class="area">
+                            <div class="title">今何している！</div>
+                            {{ object.what_doing_now | checkNone }}
+                        </div>
+                        {% endif %}
+                        <div class="area">
+                            <div class="title">趣味・興味</div>
+                            {{ object.keyword | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">こだわり</div>
+                            {{ object.commitment | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">嗜好品</div>
+                            {{ object.luxury_items | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">誕生(月 日)</div>
+                            {{ object.birthday | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">出身地</div>
+                            {{ object.birthplace | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">出没エリア</div>
+                            {{ object.haunting_area | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">資格</div>
+                            {{ object.qualification | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">言語</div>
+                            {{ object.language | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">学歴</div>
+                            {{ object.education | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">最終学歴</div>
+                            {{ object.final_education | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">セクシュアリティ</div>
+                            {{ object.sexuality | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">血液型</div>
+                            {{ object.blood_type | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">年齢</div>
+                            {{ object.age | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">ルックス</div>
+                            {{ object.looks | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">お酒</div>
+                            {{ object.osake | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">性格</div>
+                            {{ object.personality | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">身長</div>
+                            {{ object.height | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">体重</div>
+                            {{ object.body_weight | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">体型</div>
+                            {% if object.serviceclient_id.gender %}
+                                {{ object.body_shape_man | checkNone }}
+                            {% else %}
+                                {{ object.body_shape_woman | checkNone }}
+                            {% endif %}
+                        </div>
+                        <div class="area">
+                            <div class="title">結婚歴</div>
+                            {{ object.marriage_history | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">子供有無</div>
+                            {{ object.children | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">同居人</div>
+                            {{ object.housemate | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">タバコ</div>
+                            {{ object.tobacco | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">ギャンブル</div>
+                            {{ object.gambling | checkNone }}
+                        </div>
+                        {% if object.gambling == 'その他' %}
+                        <div class="area">
+                            <div class="title">ギャンブル（記入）</div>
+                            {{ object.gambling_fill_in | checkNone }}
+                        </div>
+                        {% endif %}
+                        <div class="area">
+                            <div class="title">職業</div>
+                            {{ object.occupation | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">職種</div>
+                            {{ object.job_title | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">運転免許証</div>
+                            {{ object.drivers_license | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">年収</div>
+                            {{ object.annual_income | checkNone }}
+                        </div>
+                        
+                        <div class="area">
+                            <div class="title">祖父</div>
+                            {{ object.grandfather | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">祖母</div>
+                            {{ object.grandmother | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">父</div>
+                            {{ object.father | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">母</div>
+                            {{ object.mother | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">兄</div>
+                            {{ object.older_brother | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">弟</div>
+                            {{ object.younger_brother | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">姉</div>
+                            {{ object.older_sister | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">妹</div>
+                            {{ object.younger_sister | checkNone }}
+                        </div>
+
+                        {% if object.face_photo %}
+                        <div class="row my-row-style1">
+                            顔写真
+                        </div>
+                        <div class="col-sm-6 col-md-3 profile-img-col">
+                            <img src="{{ object.face_photo.url }}" alt="顔写真"/>
+                        </div>
+                        {% endif %}
+
+                        {% if object.photo1 %}
+                        <div class="row my-row-style1">
+                            写真１
+                        </div>
+                        <div class="col-sm-6 col-md-3 profile-img-col">
+                            <img src="{{ object.photo1.url }}" alt="写真1"/>
+                        </div>
+                        {% endif %}
+
+                        {% if object.photo2 %}
+                        <div class="row my-row-style1">
+                            写真２
+                        </div>
+                        <div class="col-sm-6 col-md-3 profile-img-col">
+                            <img src="{{ object.photo2.url }}" alt="写真2"/>
+                        </div>
+                        {% endif %}
+
+                        {% if object.photo3 %}
+                        <div class="row my-row-style1">
+                            写真３
+                        </div>
+                        <div class="col-sm-6 col-md-3 profile-img-col">
+                            <img src="{{ object.photo3.url }}" alt="写真3"/>
+                        </div>
+                        {% endif %}
+                        <div class="area">
+                            <div class="title">身分証明書</div>
+                            {{ object.identification | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">収入証明書</div>
+                            {{ object.proof_income | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">独身証明書</div>
+                            {{ object.singleness_certificate | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">会員認定</div>
+                            {% if not membership_certification %}
+                                {% if membership_certification_flag %}
+                                    
+                                    ゴールド、シルバー、ブロンズの何れかの会員認定はされていません！
+                                {% else %}
+                                    
+                                    ゴールドの会員認定はされていません！
+                                {% endif %}
+                            {% else %}
+                                {{ object.membership_certification | checkNone }}
+                            {% endif %}
+                        </div>
+
+                        {% if object.lciq_diagnosis %}
+                        <div class="row my-row-style1">
+                            LCIQ診断（画像）
+                        </div>
+                        <div class="col-sm-6 col-md-3 profile-img-col">
+                            <img src="{{ object.lciq_diagnosis.url }}" alt="LCIQ診断"/>
+                        </div>
+                        {% endif %}
+
+                        {% if object.serviceclient_id.membership_type == 'オプション会員' %}
+                        <div class="area">
+                            <div class="title">恋愛や結婚にSEXは重要だ</div>
+                            {{ object.importance_sex | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">手をつなぎたい方だ</div>
+                            {{ object.holding_hands | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">キスをしたい方だ</div>
+                            {{ object.kiss | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">性に対して積極的だ</div>
+                            {{ object.sexual_desire | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">SEXは好きな方だ</div>
+                            {{ object.sex_preference | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">SEXの相性は重要だ</div>
+                            {{ object.sex_compatibility | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">出会った日にSEXはあり？</div>
+                            {{ object.date_encounter_sex | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">何回目のデートならSEXはあり？</div>
+                            {{ object.date_sex | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">一度に何回が理想？</div>
+                            {{ object.number_sex | checkNone }}
+                        </div>
+                        <div class="area">
+                            <div class="title">好みの性癖は？</div>
+                            {{ object.proclivity | checkNone }}
+                        </div>
+                        {% endif %}
+
+                    <!-- </td>
+                </tr>
+            </table>
+        </div> -->
+
+        <div class="btnArea d-flex">
+            <a class="button" href="{% url 'live:ex_profile_update' object.pk %}">編集</a>
+            <!--<a class="btn btn-success mt-5 ml-2 mb-3" href="{% url 'live:my_page' %}">OK</a><br><br>-->
+            <a class="button" href="{% url 'live:ex_dailyrate' %}">OK</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

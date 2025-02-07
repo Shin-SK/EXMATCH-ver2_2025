@@ -1,0 +1,628 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block active_terms_member %}active{% endblock %}
+
+{% block title %}プロフィール登録 | EXMatch{% endblock %}
+
+{% block contents %}
+<section class="form">
+    <!-- エラーメッセージ表示 -->
+    {{ form.errors }}
+    <div class="mainTitle">プロフィール登録</div>
+    <div class="subTitle">
+        プロフィールを充実させると、お友達とマッチングしやすくなります！
+    </div>
+    <div class="form__wrap mt-40">
+    <form action="{% url 'live:ex_profile_create' %}" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <!-- 自己ピーアール -->
+      <div class="area">
+        <label for="formGroup20" class="title required">自己ピーアール： <span class="textarea">(必須)</span> (～500文字)</label>
+        <textarea id="formGroup20" name="article" rows="2" cols="100%" placeholder=""></textarea>
+        <!-- <p class="caution" id="groupHelp20">※ 自己ピーアールを入力してください。（500文字）</p> -->
+        <p class="caution" id="groupHelp20">
+          <span class="textarea">
+            例：）はじめまして、プロフィール見て頂きありがとうございます！  
+            長野県出身、今は都内に住んでいます。  
+            仕事はIT会社でプログラムエンジニアをしています。  
+            大変な仕事ですが、やりがいがあるので仕事はとても楽しいです。  
+            性格は、優しい、おおらか、落ち着いていると周りから言われる事が多く、  
+            どちらかというとアウトドア派で、休日はサイクリングをしたり、ゴルフ、ドライブをしてすごしています。  
+            あと、美味しい料理やお酒が大好きなので、都内のおいしいお店を探索中です！  
+            ぜひ一緒にお酒やご飯を食べられたらいいなぁと。  
+            よろしくお願いします！
+          </span>
+        </p>
+      </div>
+
+      <!-- 趣味・興味 -->
+      <div class="area">
+        <label for="formGroup30" class="title">趣味・興味：(任意) (～300文字)</label>
+        <textarea id="formGroup30" name="keyword" rows="1" cols="100%" placeholder=""></textarea>
+        <p class="caution" id="groupHelp30"><span class="textarea">例：）ゴルフ　ドライブ　サイクリング　アウトドア派</span></p>
+      </div>
+
+      <!-- こだわり -->
+      <div class="area">
+        <label for="formGroup4000" class="title">こだわり：(任意) (～100文字)</label>
+        <textarea id="formGroup4000" name="commitment" rows="1" cols="100%" placeholder=""></textarea>
+        <p class="caution" id="groupHelp40"><span class="textarea">例：）国産ウイスキー　国産車</span></p>
+      </div>
+
+      <!-- 嗜好品 -->
+      <div class="area">
+        <label for="formGroup50" class="title">嗜好品：(任意) (～100文字)</label>
+        <textarea id="formGroup50" name="luxury_items" rows="1" cols="100%" placeholder=""></textarea>
+        <p class="caution" id="groupHelp50"><span class="textarea">例：）お酒　コーヒー</span></p>
+      </div>
+
+      <!-- 誕生(月 日) -->
+      <div class="area">
+        <label for="formGroup51" class="title">誕生(月 日)：(任意) (月：半角2数字、日：半角2数字)</label>
+        <input type="text" id="formGroup51" name="birthday" size="4" placeholder="" aria-describedby="groupHelp51">
+        <p class="caution" id="groupHelp51"><span class="textarea">例：）0418、1005、1120<br>※ 誕生日登録で、誕生日ポッチをGET！</span></p>
+      </div>
+
+      <!-- 出身地 -->
+      <div class="area">
+        <label for="formGroup60" class="title">出身地：(任意) (～100文字)</label>
+        <textarea id="formGroup60" name="birthplace" rows="1" cols="100%" placeholder=""></textarea>
+        <p class="caution" id="groupHelp60"><span class="textarea">例：）都道府県名　市町村名　学校名70期　アメリカ</span></p>
+      </div>
+
+      <!-- 出没エリア -->
+      <div class="area">
+        <label for="formGroup70" class="title">出没エリア：(任意) (～100文字)</label>
+        <textarea id="formGroup70" name="haunting_area" rows="1" cols="100%" placeholder=""></textarea>
+        <p class="caution" id="groupHelp70"><span class="textarea">例：）吉祥寺ハモニカ横丁　三鷹　中野中野飲み屋街　渋谷</span></p>
+      </div>
+
+      <!-- 資格 -->
+      <div class="area">
+        <label for="formGroup80" class="title">資格：(任意) (～100文字)</label>
+        <textarea id="formGroup80" name="qualification" rows="1" cols="100%" placeholder=""></textarea>
+        <p class="caution" id="groupHelp80"><span class="textarea">例：）教育職員免許状</span></p>
+      </div>
+
+      <!-- 言語 -->
+      <div class="area">
+        <label for="formGroup90" class="title">言語：(任意) (～50文字)</label>
+        <textarea id="formGroup90" name="language" rows="1" cols="100%" placeholder=""></textarea>
+        <p class="caution" id="groupHelp90"><span class="textarea">例：）日本語　英語</span></p>
+      </div>
+
+      <!-- 学歴 -->
+      <div class="area">
+        <label for="formGroup230" class="title">学歴：(任意)</label>
+        <select id="formGroup230" name="education" aria-describedby="groupHelp230">
+          <option value="" selected>-----</option>
+          {% for g in education_s %}
+            <option value="{{ g.0 }}"> {{ g.0 }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- 最終学歴 -->
+      <div class="area">
+        <label for="formGroup300" class="title">最終学歴：(任意)</label>
+        <input type="text" id="formGroup300" name="final_education" size="20" placeholder="○○学校">
+      </div>
+
+      <!-- セクシュアリティ -->
+      <div class="area">
+        <label for="formGroup120" class="title">セクシュアリティ：(任意)</label>
+        <select id="formGroup120" name="sexuality" aria-describedby="groupHelp120">
+          <option value="" selected>-----</option>
+          {% for g in sexuality_s %}
+            <option value="{{ g.0 }}"> {{ g.0 }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- 血液型 -->
+      <div class="area">
+        <label for="formGroup43" class="title">血液型：</label>
+        <input type="text" id="formGroup43" name="blood_type" size="10" value="{{ blood_type }}" readonly>
+      </div>
+
+      <!-- 年齢 -->
+      <div class="area">
+        <label for="formGroup130" class="title">年齢：(任意)</label>
+        <select id="formGroup130" name="age" aria-describedby="groupHelp130">
+          <option value="" selected>-----</option>
+          {% for g in age_s %}
+            <option value="{{ g.0 }}"> {{ g.0 }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- ルックス -->
+      <div class="area">
+        <label for="formGroup131" class="title">ルックス：(任意)</label>
+        <select id="formGroup131" name="looks" aria-describedby="groupHelp131">
+          <option value="" selected>-----</option>
+          {% for g in looks_s %}
+            <option value="{{ g.0 }}"> {{ g.0 }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- お酒 -->
+      <div class="area">
+        <label for="formGroup140" class="title">お酒：(任意)</label>
+        <select id="formGroup140" name="osake" aria-describedby="groupHelp140">
+          <option value="" selected>-----</option>
+          {% for g in osake_s %}
+            <option value="{{ g.0 }}"> {{ g.0 }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- 性格 -->
+      <div class="area">
+        <label for="formGroup150" class="title">性格：(任意)</label>
+        <select id="formGroup150" name="personality" aria-describedby="groupHelp150">
+          <option value="" selected>-----</option>
+          {% for g in personality_s %}
+            <option value="{{ g.0 }}"> {{ g.0 }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- 身長 -->
+      <div class="area">
+        <label for="formGroup160" class="title">身長：(任意)</label>
+        <select id="formGroup160" name="height" aria-describedby="groupHelp160">
+          <option value="" selected>-----</option>
+          {% for g in height_s %}
+            <option value="{{ g.0 }}"> {{ g.0 }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- 体重 -->
+      <div class="area">
+        <label for="formGroup170" class="title">体重：(任意)</label>
+        <select id="formGroup170" name="body_weight" aria-describedby="groupHelp170">
+          <option value="" selected>-----</option>
+          {% for g in weight_s %}
+            <option value="{{ g.0 }}"> {{ g.0 }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- 体型（性別で分岐） -->
+      {% if gender %}
+      <div class="area">
+        <label for="formGroup180" class="title">体型：(任意)</label>
+        <select id="formGroup180" name="body_shape_man" aria-describedby="groupHelp180">
+          <option value="" selected>-----</option>
+          {% for g in body_shape %}
+            <option value="{{ g.0 }}"> {{ g.0 }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      {% else %}
+      <div class="area">
+        <label for="formGroup190" class="title">体型：(任意)</label>
+        <select id="formGroup190" name="body_shape_woman" aria-describedby="groupHelp190">
+          <option value="" selected>-----</option>
+          {% for g in body_shape %}
+            <option value="{{ g.0 }}"> {{ g.0 }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      {% endif %}
+
+      <!-- 結婚歴 -->
+      <div class="area">
+        <label for="formGroup200" class="title">結婚歴：(任意)</label>
+        <select id="formGroup200" name="marriage_history" aria-describedby="groupHelp200">
+          <option value="" selected>-----</option>
+          {% for g in m_history_s %}
+            <option value="{{ g.0 }}"> {{ g.0 }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- 子供有無 -->
+      <div class="area">
+        <label for="formGroup210" class="title">子供有無：(任意)</label>
+        <select id="formGroup210" name="children" aria-describedby="groupHelp210">
+          <option value="" selected>-----</option>
+          {% for g in children_s %}
+            <option value="{{ g.0 }}"> {{ g.0 }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- 同居人 -->
+      <div class="area">
+        <label for="formGroup211" class="title">同居人：(任意)</label>
+        <select id="formGroup211" name="housemate" aria-describedby="groupHelp211">
+          <option value="" selected>-----</option>
+          {% for g in housemate_s %}
+            <option value="{{ g.0 }}"> {{ g.0 }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- タバコ -->
+      <div class="area">
+        <label for="formGroup220" class="title">タバコ：(任意)</label>
+        <select id="formGroup220" name="tobacco" aria-describedby="groupHelp220">
+          <option value="" selected>-----</option>
+          {% for g in tobacco_s %}
+            <option value="{{ g.0 }}"> {{ g.0 }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- ギャンブル -->
+      <div class="area">
+        <label for="formGroup2788" class="title">ギャンブル：(任意)</label>
+        <select id="formGroup2788" name="gambling" aria-describedby="groupHelp270">
+          <option value="" selected>-----</option>
+          {% for g in gambling_s %}
+            <option value="{{ g.0 }}"> {{ g.0 }}</option>
+          {% endfor %}
+        </select>
+        <p class="caution" id="groupHelp1">※ ’その他’を選択した場合は、ギャンブル名を以下の欄に記入してください。</p>
+      </div>
+
+      <!-- ギャンブル（記入） -->
+      <div class="area">
+        <label for="formGroup39" class="title">ギャンブル（記入）：(任意)</label>
+        <input type="text" id="formGroup39" name="gambling_fill_in" size="20" placeholder="">
+      </div>
+
+      <!-- 職業 -->
+      <div class="area">
+        <label for="formGroup261" class="title">職業：(任意)</label>
+        <select id="formGroup261" name="occupation" aria-describedby="groupHelp250">
+          <option value="" selected>-----</option>
+          {% for g in occupation_s %}
+            <option value="{{ g.0 }}"> {{ g.0 }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- 職種 -->
+      <div class="area">
+        <label for="formGroup250" class="title">職種：(任意)</label>
+        <select id="formGroup250" name="job_title" aria-describedby="groupHelp250">
+          <option value="" selected>-----</option>
+          {% for g in job_title_s %}
+            <option value="{{ g.0 }}"> {{ g.0 }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- 運転免許証 -->
+      <div class="area">
+        <label for="formGroup260" class="title">運転免許証：(任意)</label>
+        <select id="formGroup260" name="drivers_license" aria-describedby="groupHelp260">
+          <option value="" selected>-----</option>
+          {% for g in d_license_s %}
+            <option value="{{ g.0 }}"> {{ g.0 }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- 年収 -->
+      <div class="area">
+        <label for="formGroup270" class="title">年収：(任意)</label>
+        <select id="formGroup270" name="annual_income" aria-describedby="groupHelp270">
+          <option value="" selected>-----</option>
+          {% for g in income_s %}
+            <option value="{{ g.0 }}"> {{ g.0 }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- 祖父 -->
+      <div class="area">
+        <label for="formGroup271" class="title">祖父：(任意)</label>
+        <select id="formGroup271" name="grandfather" aria-describedby="groupHelp270">
+          <option value="" selected>-----</option>
+          {% for g in grandparents %}
+            <option value="{{ g.0 }}"> {{ g.0 }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- 祖母 -->
+      <div class="area">
+        <label for="formGroup272" class="title">祖母：(任意)</label>
+        <select id="formGroup272" name="grandmother" aria-describedby="groupHelp270">
+          <option value="" selected>-----</option>
+          {% for g in grandparents %}
+            <option value="{{ g.0 }}"> {{ g.0 }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- 父 -->
+      <div class="area">
+        <label for="formGroup273" class="title">父：(任意)</label>
+        <select id="formGroup273" name="father" aria-describedby="groupHelp270">
+          <option value="" selected>-----</option>
+          {% for g in parents %}
+            <option value="{{ g.0 }}"> {{ g.0 }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- 母 -->
+      <div class="area">
+        <label for="formGroup274" class="title">母：(任意)</label>
+        <select id="formGroup274" name="mother" aria-describedby="groupHelp270">
+          <option value="" selected>-----</option>
+          {% for g in parents %}
+            <option value="{{ g.0 }}"> {{ g.0 }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- 兄 -->
+      <div class="area">
+        <label for="formGroup275" class="title">兄：(任意)</label>
+        <select id="formGroup275" name="older_brother" aria-describedby="groupHelp270">
+          <option value="" selected>-----</option>
+          {% for g in brothers_sisters %}
+            <option value="{{ g.0 }}"> {{ g.0 }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- 弟 -->
+      <div class="area">
+        <label for="formGroup276" class="title">弟：(任意)</label>
+        <select id="formGroup276" name="younger_brother" aria-describedby="groupHelp270">
+          <option value="" selected>-----</option>
+          {% for g in brothers_sisters %}
+            <option value="{{ g.0 }}"> {{ g.0 }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- 姉 -->
+      <div class="area">
+        <label for="formGroup277" class="title">姉：(任意)</label>
+        <select id="formGroup277" name="older_sister" aria-describedby="groupHelp270">
+          <option value="" selected>-----</option>
+          {% for g in brothers_sisters %}
+            <option value="{{ g.0 }}"> {{ g.0 }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- 妹 -->
+      <div class="area">
+        <label for="formGroup278" class="title">妹：(任意)</label>
+        <select id="formGroup278" name="younger_sister" aria-describedby="groupHelp270">
+          <option value="" selected>-----</option>
+          {% for g in brothers_sisters %}
+            <option value="{{ g.0 }}"> {{ g.0 }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- 身分証明書 -->
+      <div class="area">
+        <label for="formGroup601" class="title">身分証明書：</label>
+        <input type="text" id="formGroup601" name="identification" size="5" value="{{ identification }}" readonly>
+      </div>
+
+      <!-- 収入証明書 -->
+      <div class="area">
+        <label for="formGroup602" class="title">収入証明書：</label>
+        <input type="text" id="formGroup602" name="proof_income" size="5" value="{{ proof_income }}" readonly>
+      </div>
+
+      <!-- 独身証明書 -->
+      <div class="area">
+        <label for="formGroup603" class="title">独身証明書：</label>
+        <input type="text" id="formGroup603" name="singleness_certificate" size="5" value="{{ singleness_certificate }}" readonly>
+      </div>
+
+      <!-- 会員認定 -->
+      <div class="area">
+        <label for="formGroup40001" class="title">会員認定：</label>
+        {% if not membership_certification %}
+          <input type="text" id="formGroup40001" name="membership_certification" size="5" value="　" readonly>
+          {% if membership_certification_flag %}
+            <p class="caution">ゴールド、シルバー、ブロンズの何れかの会員認定はされていません！</p>
+          {% else %}
+            <p class="caution">ゴールドの会員認定はされていません！</p>
+          {% endif %}
+        {% else %}
+          <input type="text" id="formGroup4" name="membership_certification" size="5" value="{{ membership_certification }}" readonly>
+        {% endif %}
+      </div>
+
+      <!-- LCIQ診断 -->
+      <div class="area">
+        <label for="formGroup280" class="title required">LCIQ診断： <span class="textarea">(必須)</span></label>
+        <input type="file" id="formGroup280" name="lciq_diagnosis">
+        <p class="caution" id="groupHel2801">※ LCIQ診断（画像）登録は必須です。</p>
+      </div>
+
+      <!-- 顔写真 -->
+      <div class="area">
+        <label for="formGroup2801" class="title">顔写真：(任意)</label>
+        <input type="file" id="formGroup2801" name="face_photo">
+        <p class="caution" id="groupHel280">※ できるだけ入力してください。</p>
+      </div>
+
+      <!-- 写真１ -->
+      <div class="area">
+        <label for="formGroup290" class="title">写真１：(任意)</label>
+        <input type="file" id="formGroup290" name="photo1">
+      </div>
+
+      <!-- 写真２ -->
+      <div class="area">
+        <label for="formGroup301" class="title">写真２：(任意)</label>
+        <input type="file" id="formGroup301" name="photo2">
+      </div>
+
+      <!-- 写真３ -->
+      <div class="area">
+        <label for="formGroup310" class="title">写真３：(任意)</label>
+        <input type="file" id="formGroup310" name="photo3">
+      </div>
+
+      {% if membership_type == 'オプション会員' %}
+        <!-- オプション会員向け 性に関する項目 -->
+        <div class="area">
+          <label for="formGroup2701" class="title">恋愛や結婚にSEXは重要だ：(任意)</label>
+          <select id="formGroup2701" name="importance_sex" aria-describedby="groupHelp270">
+            <option value="" selected>-----</option>
+            {% for g in sex_op1 %}
+              <option value="{{ g.0 }}"> {{ g.0 }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="area">
+          <label for="formGroup2702" class="title">手をつなぎたい方だ：(任意)</label>
+          <select id="formGroup2702" name="holding_hands" aria-describedby="groupHelp270">
+            <option value="" selected>-----</option>
+            {% for g in sex_op1 %}
+              <option value="{{ g.0 }}"> {{ g.0 }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="area">
+          <label for="formGroup2703" class="title">キスをしたい方だ：(任意)</label>
+          <select id="formGroup2703" name="kiss" aria-describedby="groupHelp270">
+            <option value="" selected>-----</option>
+            {% for g in sex_op1 %}
+              <option value="{{ g.0 }}"> {{ g.0 }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="area">
+          <label for="formGroup2704" class="title">性に対して積極的だ：(任意)</label>
+          <select id="formGroup2704" name="sexual_desire" aria-describedby="groupHelp270">
+            <option value="" selected>-----</option>
+            {% for g in sex_op1 %}
+              <option value="{{ g.0 }}"> {{ g.0 }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="area">
+          <label for="formGroup2705" class="title">SEXは好きな方だ：(任意)</label>
+          <select id="formGroup2705" name="sex_preference" aria-describedby="groupHelp270">
+            <option value="" selected>-----</option>
+            {% for g in sex_op1 %}
+              <option value="{{ g.0 }}"> {{ g.0 }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="area">
+          <label for="formGroup2706" class="title">SEXの相性は重要だ：(任意)</label>
+          <select id="formGroup2706" name="sex_compatibility" aria-describedby="groupHelp270">
+            <option value="" selected>-----</option>
+            {% for g in sex_op1 %}
+              <option value="{{ g.0 }}"> {{ g.0 }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="area">
+          <label for="formGroup2707" class="title">出会った日にSEXはあり？：(任意)</label>
+          <select id="formGroup2707" name="date_encounter_sex" aria-describedby="groupHelp270">
+            <option value="" selected>-----</option>
+            {% for g in sex_op1 %}
+              <option value="{{ g.0 }}"> {{ g.0 }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="area">
+          <label for="formGroup2708" class="title">何回目のデートならSEXはあり？：(任意)</label>
+          <select id="formGroup2708" name="date_sex" aria-describedby="groupHelp270">
+            <option value="" selected>-----</option>
+            {% for g in sex_op2 %}
+              <option value="{{ g.0 }}"> {{ g.0 }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="area">
+          <label for="formGroup2709" class="title">一度に何回が理想？：(任意)</label>
+          <select id="formGroup2709" name="number_sex" aria-describedby="groupHelp2709">
+            <option value="" selected>-----</option>
+            {% for g in sex_op2 %}
+              <option value="{{ g.0 }}"> {{ g.0 }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="area">
+          <label for="formGroup3" class="title">好みの性癖は？：(任意)</label>
+          <input type="text" id="formGroup3" name="proclivity" size="100">
+        </div>
+      {% endif %}
+
+      <!-- 以下は非表示フィールド -->
+      <div class="area">
+        <input type="hidden" id="formGroup0" name="nickname" size="20" value="{{ nickname }}" readonly>
+      </div>
+
+      <!-- 以下のコメントアウトは絶対に残す -->
+      <div class="area">
+        <!--&lt;!&ndash;                    男性&ndash;&gt;-->
+        <!--                  </label>-->
+        <!--                </div>-->
+        <!--                <div class="form-check">-->
+        <!--                  　　<input class="form-check-input" type="radio" name="gender" id="exampleRadios4" value="False" checked disabled="disabled" style="visibility:hidden">-->
+        <!--                  <label class="form-check-label" for="exampleRadios4" style="font-size:13px;">-->
+        <!--&lt;!&ndash;                    女性&ndash;&gt;-->
+        <!--                  </label>-->
+        <!--                </div>-->
+        <!--                    {# {% endif %} #} -->
+        <!--                </div>-->
+        <!--                <div class="form-group">-->
+        <!--                <label for="formGroup1" style="font-size:13px;"><strong>性別：</strong></label>-->
+        <!--                 {# {% if gender %} #}-->
+        <!--                <input type="text" class="form-control form-control-sm" id="formGroup1" name="gender" value='男性' readonly>-->
+        <!--                {# {% else %} #}-->
+        <!--                <input type="text" class="form-control form-control-sm" id="formGroup1" name="gender" value='女性' readonly>-->
+        <!--                {# {% endif %} #}-->
+        <!--                </div>-->
+      </div>
+
+      <div class="area">
+        <input type="hidden" id="formGroup2" name="nationality" size="25" value="{{ nationality }}" readonly>
+      </div>
+
+      <div class="area">
+        <input type="hidden" id="formGroup400" name="address1" size="10" value="{{ address1 }}" readonly>
+      </div>
+
+      <div class="area">
+        <input type="hidden" id="formGroup40" name="birthday1" size="10" value="{{ birthday1 }}" readonly>
+      </div>
+
+      <div class="area">
+        <input type="hidden" id="formGroup41" name="age1" value="{{ age1 }}" readonly>
+      </div>
+
+      <!-- ボタンエリア -->
+      <div class="area btnArea">
+        <button type="submit">登録</button>
+        <input type="reset" value="リセット">
+      </div>
+    </form>
+  </div>
+</section>
+{% endblock %}

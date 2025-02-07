@@ -1,0 +1,50 @@
+{% load static %}
+<header class="header header__index">
+
+    <div class="header__wrap">
+
+        <nav id="navigation" class="nav">
+
+            <div class="nav__wrap d-md-flex d-none">
+                <div class="logo">
+                    <a href="/">
+                        <img src="{% static 'img/logo.svg' %}" alt="Logo">
+                    </a>
+                </div>
+                <div class="menu">
+                    <ul>
+                        <li><a class="search" href="search.html">さがす</a></li>
+                        <li><a class="imadoko" href="imadoko.html">いまどこ</a></li>
+                        <li><a class="apply" href="apply.html">申込み</a></li>
+                        <li><a class="message" href="message.html">メッセージ</a></li>
+                        <li><a class="mypage" href="mypage.html">マイページ</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="nav__sp d-md-none d-flex">
+                <div class="logo">
+                    <a href="/">
+                        <img src="{% static 'img/logo.svg' %}" alt="Logo">
+                    </a>
+                </div>
+                <button type="button" class="drawer-toggle drawer-hamburger">
+                    <span class="sr-only">toggle navigation</span>
+                    <span class="drawer-hamburger-icon"></span>
+                </button>
+            </div>
+            <aside class="drawer-nav drawer-close" role="navigation">
+                <div class="nav-inner drawer-menu">
+                    <ul>
+                        <li><a class="search" href="search.html">さがす</a></li>
+                        <li><a class="imadoko" href="imadoko.html">いまどこ</a></li>
+                        <li><a class="apply" href="apply.html">申込み</a></li>
+                        <li><a class="message" href="message.html">メッセージ</a></li>
+                        <li><a class="mypage" href="mypage.html">マイページ</a></li>
+                    </ul>
+                </div>
+            </aside>
+        </nav>
+
+    </div>        
+</header>

@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block active_card %}active{% endblock %}
+
+{% block title %}サイトマップ | EXMatch{% endblock %}
+
+{% block head %}
+
+
+{% endblock %}
+
+
+{% block contents %}
+
+<div class="container ex ex-stm">
+    <div class="mainTitle">サイトマップ</div>
+
+    <div class="wrap">
+        <ul>
+          <li><a href="{% url 'live:index' %}">ホーム（EXMATCH）</a>
+            <ul>
+              <li><a href="{% url 'live:member-profile-check' 82 %}">プロフィール検索</a>
+                <ul>
+                  <li><a href="{% url 'live:member-profile-check' 18 %}">プロフィール検索</a></li>
+                  <li><a href="{% url 'live:member-profile-check' 5 %}">GPS-LIVE検索</a></li>
+                  <li><a href="{% url 'live:member-profile-check' 66 %}">GPS-LIVE条件検索</a></li>
+                </ul>
+              </li>
+              <li><a href="{% url 'live:member-profile-check' 67 %}">マイページ</a>
+                <ul>
+                  <li><a href="{% url 'live:member-profile-check' 70 %}">マッチング</a></li>
+                  <li><a href="{% url 'live:member-profile-check' 69 %}">いいね！</a></li>
+                  <li><a href="{% url 'live:member-profile-check' 27 %}">チャット</a></li>
+                  <li><a href="{% url 'live:member-profile-check' 68 %}">メッセージ</a></li>
+                  <li><a href="{% url 'live:member-profile-check' 72 %}">今何してる！</a></li>
+        <!--          <li><a href="{% url 'live:member-profile-check' 64 %}">検索サービス</a></li>-->
+                  <li><a href="{% url 'live:member-profile-check' 73 %}">ポイント</a></li>
+        <!--          <li><a href="{% url 'live:member-profile-check' 76 %}">プレミアムぼっち会員</a></li>-->
+                  <li><a href="{% url 'live:event' %}">お知らせ</a></li>
+                  <li><a href="{% url 'live:member-profile-check' 19 %}">プロフィール</a></li>
+                  <li><a href="{% url 'live:member-profile-check' 86 %}">会員情報参照/登録/変更</a></li>
+                  <li><a href="{% url 'live:member-profile-check' 71 %}">クレジットカード</a></li>
+                  <li><a href="{% url 'live:member-profile-check' 75 %}">退会</a></li>
+                  <li><a href="{% url 'live:currentlocation_delete' %}">ログアウト</a></li>
+                </ul>
+              </li>
+              <li><a href="{% url 'live:member-profile-check' 74 %}">キャンペーン</a></li>
+              <li><a href="{% url 'live:service' %}">サービス内容</a>
+                    <ul>
+                      <li><a href="{% url 'live:services_provided' %}">サイト内容・特徴</a></li>
+                      <li><a href="{% url 'live:faq' %}">よくある質問</a></li>
+                      <li><a href="{% url 'live:price_list' %}">料金体系</a></li>
+                      <li><a href="{% url 'live:business_flow' %}">利用フロー</a></li>
+                      <li><a href="{% url 'live:service_area' %}">サービスエリア</a></li>
+                      <li><a href="{% url 'live:terms_service' %}">会員規約</a></li>
+                      <li><a href="{% url 'live:operation' %}">会社概要</a></li>
+                      <li><a href="{% url 'live:bank_accounts' %}">銀行口座</a></li>
+                    </ul>
+              </li>
+              <li><a href="{% url 'live:member-profile-check' 88 %}">サイトマップ</a></li>
+              <li><a href="{% url 'live:ex_inquiry' %}">お問合せ</a></li>
+              <li><a href="https://kj.itbiz.pro/" target="_blank" rel="noopener">ブログ</a></li>
+              <li><a href="{% url 'live:currentlocation_delete' %}">ログアウト</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <ul>
+          <li><a href="#">フローティングメニュー</a>
+            <ul>
+              <li><a href="{% url 'live:member-profile-check' 68 %}">メッセージ</a></li>
+              <li><a href="{% url 'live:member-profile-check' 69 %}">いいね！</a></li>
+<!--              <li><a href="{% url 'live:member-profile-check' 18 %}">検索（プロフィール）</a>-->
+              <li><a href="{% url 'live:member-profile-check' 82 %}">検索（プロフィール）</a>
+                <ul>
+                  <li><a href="{% url 'live:member-profile-check' 18 %}">プロフィール検索</a></li>
+                  <li><a href="{% url 'live:member-profile-check' 5 %}">GPS-LIVE検索</a></li>
+                  <li><a href="{% url 'live:member-profile-check' 66 %}">GPS-LIVE条件検索</a></li>
+                </ul>
+                </li>
+              <li><a href="{% url 'live:member-profile-check' 67 %}">マイページ</a>
+                <ul>
+                  <li><a href="{% url 'live:member-profile-check' 70 %}">マッチング</a></li>
+                  <li><a href="{% url 'live:member-profile-check' 69 %}">いいね！</a></li>
+                  <li><a href="{% url 'live:member-profile-check' 27 %}">チャット</a></li>
+                  <li><a href="{% url 'live:member-profile-check' 68 %}">メッセージ</a></li>
+                  <li><a href="{% url 'live:member-profile-check' 72 %}">今何してる！</a></li>
+<!--                  <li><a href="{% url 'live:member-profile-check' 64 %}">検索サービス</a></li>-->
+                  <li><a href="{% url 'live:member-profile-check' 73 %}">ポイント</a></li>
+<!--                  <li><a href="{% url 'live:member-profile-check' 76 %}">プレミアムぼっち会員</a></li>-->
+                  <li><a href="{% url 'live:event' %}">お知らせ</a></li>
+                  <li><a href="{% url 'live:member-profile-check' 19 %}">プロフィール</a></li>
+                  <li><a href="{% url 'live:member-profile-check' 86 %}">会員情報参照/登録/変更</a></li>
+                  <li><a href="{% url 'live:member-profile-check' 71 %}">クレジットカード</a></li>
+                  <li><a href="{% url 'live:member-profile-check' 75 %}">退会</a></li>
+                  <li><a href="{% url 'live:currentlocation_delete' %}">ログアウト</a></li>
+                </ul>
+                </li>
+              <li><a href="{% url 'live:index' %}">ぼっち店</a></li>
+            </ul>
+          </li>
+    </ul>
+
+    </div>
+    <div class="btnArea">
+      <a class="button" href="{% url 'live:index' %}">ホーム</a>
+    </div>
+
+</div>
+
+{% endblock %}

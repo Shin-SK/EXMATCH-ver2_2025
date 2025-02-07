@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}マイページ{% endblock %}
+{% block body_class %}mypage{% endblock %}
+
+{% block contents %}
+
+    <div class="mainTitle">マイページ</div>
+    
+    <section class="profile">
+        <div class="image">
+            <img src="{% static 'img/user-unset.svg' %}" alt="">
+        </div>
+
+        <div class="text">
+            <div class="name">たけひこ</div>
+            <button><a href="/">プロフィールを編集する</a></button>
+        </div>
+    </section>
+
+    <section class="score">
+        <div class="score__wrap">
+            <div class="box lciq">
+                <div class="title">LCIQスコア</div>
+                <div class="numb">86</div>
+                <button class="yellow"><a href="/">再診断</a></button>
+                <a class="point" href="/">スコアをあげるには？</a>
+            </div>
+            <div class="box like">
+                <div class="title"><i class="fa-solid fa-heart"></i>いいね</div>
+                <div class="numb">23</div>
+                <button><a href="/">確認する</a></button>
+            </div>
+            <div class="box prof">
+                <div class="title">プロフ充実度</div>
+                <div class="numb">3</div>
+                <button><a href="/">編集する</a></button>
+            </div>
+        </div>
+    </section>
+
+    <section class="menu">
+        <ul>
+            <li><a href="/"><i class="fa-solid fa-shoe-prints"></i>あしあと</a></li>
+            <li><a href="/"><i class="fa-solid fa-heart"></i>いいね</a></li>
+            <li><a href="/"><i class="fa-solid fa-comments"></i>メッセージ</a></li>
+            <li><a href="/"><i class="fa-solid fa-location-dot"></i>いまドコ検索</a></li>
+            <li><a href="/"><i class="fa-solid fa-circle-info"></i>キャンペーン</a></li>
+            <li><a href="/"><i class="fa-solid fa-yen-sign"></i>プラン変更</a></li>
+            <li><a href="/"><i class="fa-solid fa-pen-nib"></i>会員情報</a></li>
+            <li><a href="/"><i class="fa-regular fa-envelope"></i>お問い合わせ</a></li>
+        </ul>
+    </section>
+
+{% endblock %}

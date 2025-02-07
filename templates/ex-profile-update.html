@@ -1,0 +1,483 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block active_terms_member %}active{% endblock %}
+
+{% block title %}プロフィール編集 | EXMatch{% endblock %}
+
+
+{% block contents %}
+
+<div class="container ex ex-upd">
+
+    <!-- エラーメッセージ表示 -->
+    <div class="error">
+        {{form.errors}}
+    </div>
+
+    <div class="mainTitle">プロフィール編集</div>
+    <div class="subTitle">{{ object.nickname }} さん</div>
+
+    <div class="form">
+
+        <form action="{% url 'live:ex_profile_update' object.pk %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+            <!-- グリッドコンテナ開始 -->
+            <div class="form__wrap">
+
+                <!-- 自己ピーアール -->
+                <div class="grid area">
+                    <label for="formGroup20" class="title required">自己ピーアール (～500文字)</label>
+                    <textarea class="form-control" id="formGroup20" name="article" rows="4" cols="100%"
+                    placeholder="">
+                    {{ object.article }}
+                    </textarea>
+                    <div class="example">
+                    例）はじめまして、プロフィール見て頂きありがとうございます！<br>長野県出身、今は都内に住んでいます。
+                    仕事はIT会社でプログラムエンジニアをしています。大変な仕事ですが、やりがいがあるので仕事はとても楽しいです。
+                    性格は、優しい、おおらか、落ち着いていると周りから言われる事が多く、どちらかというとアウトドア派で、休日はサイクリング、ゴルフ、ドライブをしてすごしています。あと、美味しい料理やお酒が大好きなので、都内のおいしいお店を探索中です!<br>
+                    ぜひ一緒にお酒やご飯を食べられたらいいなぁと。<br>
+                    よろしくお願いします！
+                    </div>
+                </div>
+
+                <!-- 趣味・興味 -->
+                {% if object.keyword == None %}
+                <div class="grid area">
+                    <label for="formGroup30" class="title">趣味・興味(任意) (～300文字)</label>
+                    <textarea class="form-control" id="formGroup30" name="keyword" rows="2" cols="100%"
+                    placeholder="例：）ゴルフ　ドライブ　サイクリング　アウトドア派"></textarea>
+                </div>
+                {% else %}
+
+                <div class="grid area">
+                    <label for="formGroup31" class="title">趣味・興味(任意) (～300文字)</label>
+                    <textarea class="form-control" id="formGroup31" name="keyword" rows="2" cols="100%"
+                    placeholder="例：）ゴルフ　ドライブ　サイクリング　アウトドア派">{{ object.keyword }}</textarea>
+                </div>
+                {% endif %}
+
+                <!-- こだわり -->
+                {% if object.commitment == None %}
+                <div class="grid area">
+                    <label for="formGroup4040" class="title">こだわり：(任意) (～100文字)</label>
+                    <textarea class="form-control" id="formGroup4040" name="commitment" rows="2" cols="100%"
+                    placeholder="例：）国産ウイスキー　国産車"></textarea>
+                </div>
+                {% else %}
+                <div class="grid area">
+                    <label for="formGroup4141" class="title">こだわり：(任意) (～100文字)</label>
+                    <textarea class="form-control" id="formGroup4141" name="commitment" rows="2" cols="100%"
+                    placeholder="例：）国産ウイスキー　国産車">{{ object.commitment }}</textarea>
+                </div>
+                {% endif %}
+
+                <!-- 嗜好品 -->
+                {% if object.luxury_items == None %}
+                <div class="grid area">
+                    <label for="formGroup50" class="title">嗜好品：(任意) (～100文字)</label>
+                    <textarea class="form-control" id="formGroup50" name="luxury_items" rows="2" cols="100%"
+                    placeholder="例：）お酒　コーヒー"></textarea>
+                </div>
+                {% else %}
+                <div class="grid area">
+                    <label for="formGroup51" class="title">嗜好品：(任意) (～100文字)</label>
+                    <textarea class="form-control" id="formGroup51" name="luxury_items" rows="2" cols="100%"
+                    placeholder="例：）お酒　コーヒー">{{ object.luxury_items }}</textarea>
+                </div>
+                {% endif %}
+
+                <!-- 誕生(月 日) -->
+                {% if object.birthday == None %}
+                <div class="grid area">
+                    <label for="formGroup60" class="title">誕生(月 日)：(任意) (月：半角2数字、日：半角2数字)</label>
+                    <textarea class="form-control" id="formGroup60" name="birthday" rows="1" cols="100%"
+                    placeholder="例：）0418、1005、1120"></textarea>
+                <!-- ※ 誕生日登録で、誕生日ポッチをGET！ -->
+                </div>
+                {% else %}
+                <div class="grid area">
+                <label for="formGroup70" class="title">誕生(月 日)：(任意) (月：半角2数字、日：半角2数字)</label>
+                <textarea class="form-control" id="formGroup70" name="birthday" rows="1" cols="100%"
+                placeholder="例：）0418、1005、1120">{{ object.birthday }}</textarea>
+                </div>
+                {% endif %}
+
+                <!-- 出身地 -->
+                {% if object.birthplace == None %}
+                <div class="grid area">
+                    <label for="formGroup80" class="title">出身地：(任意) (～100文字)</label>
+                    <textarea class="form-control" id="formGroup80" name="birthplace" rows="2" cols="100%"
+                    placeholder="例：）都道府県名 市町村名 学校名70期 アメリカ"></textarea>
+                </div>
+                {% else %}
+                <div class="grid area">
+                    <label for="formGroup90" class="title">出身地：(任意) (～100文字)</label>
+                    <textarea class="form-control" id="formGroup90" name="birthplace" rows="2" cols="100%"
+                    placeholder="例：）都道府県名 市町村名 学校名70期 アメリカ">{{ object.birthplace }}</textarea>
+                </div>
+                {% endif %}
+
+                <!-- 都道府県 -->
+                <div class="grid area">
+                    <label for="formGroup7" class="title">都道府県：(任意)</label>
+                    <div class="text">
+                        <select id="formGroup7" name="address1">
+                            <!-- 以下、既存の選択肢はそのまま -->
+                            <option value="北海道">北海道</option>
+                            <option value="青森県">青森県</option>
+                            <!-- … -->
+                            <option value="沖縄県">沖縄県</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- メールアドレス -->
+                <div class="grid area">
+                    <label for="exampleInputEmail1" class="title">メールアドレス</label>
+                    <input type="email" id="exampleInputEmail1" name="email1" placeholder="" value="hogehoge@gmail.com" readonly>
+                </div>
+
+                <!-- 予備メールアドレス -->
+                <div class="grid area">
+                    <label for="exampleInputEmail2" class="title">予備メールアドレス</label>
+                    <input type="email" id="exampleInputEmail2" name="email2" placeholder="email@example.jp">
+                    <!-- ※ LINEに登録しているメールアドレスを普段ご利用していない場合はこちらに登録 -->
+                </div>
+
+                <!-- 更新・戻る ボタン -->
+                <div class="grid area btnArea d-flex">
+                    <button class="btn" type="submit">更新</button>
+                    <button>
+                        <a href="{% url 'live:ex_profile_detail' object.pk %}">戻る</a>
+                    </button>
+                </div>
+
+                <!-- Hidden 項目 -->
+                <div class="grid area">
+                    <input type="hidden" id="formGroup0" name="nickname" value="{{ nickname }}" readonly>
+                </div>
+                <div class="grid area">
+                <input type="hidden" id="formGroup411" name="address1" value="{{ address1 }}" readonly>
+                </div>
+                <div class="grid area">
+                <input type="hidden" id="formGroup40" name="birthday1" size="10" value="{{ birthday1 }}" readonly>
+                </div>
+                <div class="grid area">
+                <input type="hidden" id="formGroup41" name="age1" value="{{ age1 }}" readonly>
+                </div>
+
+                <!-- 以下、ファイルアップロード部分は元のコードのコメントアウトもそのまま残す -->
+                <div class="form-row field-photo4">
+                <div>
+                <label for="id_photo4" style="font-size:13px;">LCIQ診断:（必須）</label>
+                <p class="file-upload" style="font-size:13px;">
+                    現在: <a href="{{ photo4_d }}">{{ object.lciq_diagnosis }}</a>
+                    <span class="clearable-file-input">
+                    <input type="checkbox" name="photo4-clear" id="photo4-clear_id">
+                    <label for="photo4-clear_id" style="font-size:13px;">クリア</label>
+                    </span><br>
+                    変更:
+                    <input type="file" name="lciq_diagnosis" accept="image/*" id="id_photo4">
+                </p>
+                </div>
+                </div>
+
+                <div class="form-row field-face_photo">
+                <div>
+                <label for="id_face_photo" style="font-size:13px;">顔写真:（任意）</label>
+                <p class="file-upload" style="font-size:13px;">
+                    現在: <a href="{{ photo_d }}">{{ object.face_photo }}</a>
+                    <span class="clearable-file-input">
+                    <input type="checkbox" name="face_photo-clear" id="face_photo-clear_id">
+                    <label for="face_photo-clear_id" style="font-size:13px;">クリア</label>
+                    </span><br>
+                    変更:
+                    <input type="file" name="face_photo" accept="image/*" id="id_face_photo">
+                </p>
+                </div>
+                </div>
+
+                <div class="form-row field-photo1">
+                <div>
+                <label for="id_photo1" style="font-size:13px;">写真１:（任意）</label>
+                <p class="file-upload" style="font-size:13px;">
+                    現在: <a href="{{ photo1_d }}">{{ object.photo1 }}</a>
+                    <span class="clearable-file-input">
+                    <input type="checkbox" name="photo1-clear" id="photo1-clear_id">
+                    <label for="photo1-clear_id" style="font-size:13px;">クリア</label>
+                    </span><br>
+                    変更:
+                    <input type="file" name="photo1" accept="image/*" id="id_photo1">
+                </p>
+                </div>
+                </div>
+
+                <div class="form-row field-photo2">
+                <div>
+                <label for="id_photo2" style="font-size:13px;">写真２:（任意）</label>
+                <p class="file-upload" style="font-size:13px;">
+                    現在: <a href="{{ photo2_d }}">{{ object.photo2 }}</a>
+                    <span class="clearable-file-input">
+                    <input type="checkbox" name="photo2-clear" id="photo2-clear_id">
+                    <label for="photo2-clear_id" style="font-size:13px;">クリア</label>
+                    </span><br>
+                    変更:
+                    <input type="file" name="photo2" accept="image/*" id="id_photo2">
+                </p>
+                </div>
+                </div>
+
+                <div class="form-row field-photo3">
+                <div>
+                <label for="id_photo3" style="font-size:13px;">写真３:（任意）</label>
+                <p class="file-upload" style="font-size:13px;">
+                    現在: <a href="{{ photo3_d }}">{{ object.photo3 }}</a>
+                    <span class="clearable-file-input">
+                    <input type="checkbox" name="photo3-clear" id="photo3-clear_id">
+                    <label for="photo3-clear_id" style="font-size:13px;">クリア</label>
+                    </span><br>
+                    変更:
+                    <input type="file" name="photo3" accept="image/*" id="id_photo3">
+                </p>
+                </div>
+                </div>
+
+                {% if membership_type == 'オプション会員' %}
+                <div class="grid area">
+                <label for="formGroup590" class="title" style="font-size:13px;">恋愛や結婚にSEXは重要だ：（任意）</label>
+                <div class="text">
+                <select class="form-control form-control-sm" id="formGroup590" name="importance_sex" aria-describedby="groupHelp10">
+                    {% for g in sex_op1 %}
+                    {% if g.0 == object.importance_sex %}
+                        <option value="{{ g.0 }}" selected>{{ g.0 }}</option>
+                    {% else %}
+                        <option value="{{ g.0 }}">{{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </div>
+                </div>
+
+                <div class="grid area">
+                <label for="formGroup5901" class="title" style="font-size:13px;">手をつなぎたい方だ：（任意）</label>
+                <div class="text">
+                <select class="form-control form-control-sm" id="formGroup5901" name="holding_hands" aria-describedby="groupHelp10">
+                    {% for g in sex_op1 %}
+                    {% if g.0 == object.holding_hands %}
+                        <option value="{{ g.0 }}" selected>{{ g.0 }}</option>
+                    {% else %}
+                        <option value="{{ g.0 }}">{{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </div>
+                </div>
+
+                <div class="grid area">
+                <label for="formGroup5902" class="title" style="font-size:13px;">キスをしたい方だ：（任意）</label>
+                <div class="text">
+                <select class="form-control form-control-sm" id="formGroup5902" name="kiss" aria-describedby="groupHelp10">
+                    {% for g in sex_op1 %}
+                    {% if g.0 == object.kiss %}
+                        <option value="{{ g.0 }}" selected>{{ g.0 }}</option>
+                    {% else %}
+                        <option value="{{ g.0 }}">{{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </div>
+                </div>
+
+                <div class="grid area">
+                <label for="formGroup5903" class="title" style="font-size:13px;">性に対して積極的だ：（任意）</label>
+                <div class="text">
+                <select class="form-control form-control-sm" id="formGroup5903" name="sexual_desire" aria-describedby="groupHelp10">
+                    {% for g in sex_op1 %}
+                    {% if g.0 == object.sexual_desire %}
+                        <option value="{{ g.0 }}" selected>{{ g.0 }}</option>
+                    {% else %}
+                        <option value="{{ g.0 }}">{{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </div>
+                </div>
+
+                <div class="grid area">
+                <label for="formGroup5904" class="title" style="font-size:13px;">SEXは好きな方だ：（任意）</label>
+                <div class="text">
+                <select class="form-control form-control-sm" id="formGroup5904" name="sex_preference" aria-describedby="groupHelp10">
+                    {% for g in sex_op1 %}
+                    {% if g.0 == object.sex_preference %}
+                        <option value="{{ g.0 }}" selected>{{ g.0 }}</option>
+                    {% else %}
+                        <option value="{{ g.0 }}">{{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </div>
+                </div>
+
+                <div class="grid area">
+                <label for="formGroup5905" class="title" style="font-size:13px;">SEXの相性は重要だ：（任意）</label>
+                <div class="text">
+                <select class="form-control form-control-sm" id="formGroup5905" name="sex_compatibility" aria-describedby="groupHelp10">
+                    {% for g in sex_op1 %}
+                    {% if g.0 == object.sex_compatibility %}
+                        <option value="{{ g.0 }}" selected>{{ g.0 }}</option>
+                    {% else %}
+                        <option value="{{ g.0 }}">{{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </div>
+                </div>
+
+                <div class="grid area">
+                <label for="formGroup5906" class="title" style="font-size:13px;">出会った日にSEXはあり？：（任意）</label>
+                <div class="text">
+                <select class="form-control form-control-sm" id="formGroup5906" name="date_encounter_sex" aria-describedby="groupHelp10">
+                    {% for g in sex_op1 %}
+                    {% if g.0 == object.date_encounter_sex %}
+                        <option value="{{ g.0 }}" selected>{{ g.0 }}</option>
+                    {% else %}
+                        <option value="{{ g.0 }}">{{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </div>
+                </div>
+
+                <div class="grid area">
+                <label for="formGroup5907" class="title" style="font-size:13px;">何回目のデートならSEXはあり？：（任意）</label>
+                <div class="text">
+                <select class="form-control form-control-sm" id="formGroup5907" name="date_sex" aria-describedby="groupHelp10">
+                    {% for g in sex_op2 %}
+                    {% if g.0 == object.date_sex %}
+                        <option value="{{ g.0 }}" selected>{{ g.0 }}</option>
+                    {% else %}
+                        <option value="{{ g.0 }}">{{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </div>
+                </div>
+
+                <div class="grid area">
+                <label for="formGroup5908" class="title" style="font-size:13px;">一度に何回が理想？：（任意）</label>
+                <div class="text">
+                <select class="form-control form-control-sm" id="formGroup5908" name="number_sex" aria-describedby="groupHelp10">
+                    {% for g in sex_op2 %}
+                    {% if g.0 == object.number_sex %}
+                        <option value="{{ g.0 }}" selected>{{ g.0 }}</option>
+                    {% else %}
+                        <option value="{{ g.0 }}">{{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </div>
+                </div>
+
+                <div class="grid area">
+                <label for="formGroup5909" class="title" style="font-size:13px;">好みの性癖は？：</label>
+                <div class="text">
+                <input type="text" class="form-control form-control-sm" id="formGroup5909" name="proclivity" size="100"
+                    placeholder="例：）好みの性癖" value="{{ object.proclivity | checkNone }}">
+                </div>
+                </div>
+
+                {% endif %}
+
+
+                <!--                以下は、hiddenで送信-->
+                <div class="form-group">
+                <!--                <label for="formGroup0" style="font-size:13px;">ニックネーム：</label>-->
+                <input type="hidden" class="form-control form-control-sm" id="formGroup0" name="nickname" size="20" value={{ nickname }} readonly>
+                <!--                <small id="groupHelp10" class="form-text text-muted" style="color:red;font-size:12px;"><font size="2" color=black>プロフィール登録・変更で、ニックネームの変更はできません。<br>変更する場合は、会員登録・変更メニューで変更します。</font></small>-->
+                </div>
+
+                <!--                <div class="form-group">-->
+                <!--&lt;!&ndash;                    <label style="font-size:13px;">性別：</label><br>&ndash;&gt;-->
+                <!--                    {% if gender == True %}-->
+                <!--               <div class="form-check">-->
+                <!--                  　　<input class="form-check-input" type="radio" name="gender" id="exampleRadios1" value="True" checked disabled="disabled" style="display:none">-->
+                <!--                  <label class="form-check-label" for="exampleRadios1" style="font-size:13px;">-->
+                <!--&lt;!&ndash;                    男性&ndash;&gt;-->
+                <!--                  </label>-->
+                <!--                </div>-->
+                <!--                <div class="form-check">-->
+                <!--                  　　<input class="form-check-input" type="radio" name="gender" id="exampleRadios2" value="False" disabled="disabled" style="display:none">-->
+                <!--                  <label class="form-check-label" for="exampleRadios2" style="font-size:13px;">-->
+                <!--&lt;!&ndash;                    女性&ndash;&gt;-->
+                <!--                  </label>-->
+                <!--                </div>-->
+                <!--                    {% else %}-->
+                <!--               <div class="form-check">-->
+                <!--                  　　<input class="form-check-input" type="radio" name="gender" id="exampleRadios3" value="True" disabled="disabled" style="display:none">-->
+                <!--                  <label class="form-check-label" for="exampleRadios3" style="font-size:13px;">-->
+                <!--&lt;!&ndash;                    男性&ndash;&gt;-->
+                <!--                  </label>-->
+                <!--                </div>-->
+                <!--                <div class="form-check">-->
+                <!--                  　　<input class="form-check-input" type="radio" name="gender" id="exampleRadios4" value="False" checked disabled="disabled" style="display:none">-->
+                <!--                  <label class="form-check-label" for="exampleRadios4" style="font-size:13px;">-->
+                <!--&lt;!&ndash;                    女性&ndash;&gt;-->
+                <!--                  </label>-->
+                <!--                </div>-->
+                <!--                    {% endif %}-->
+                <!--                </div>-->
+
+                <!--                <div class="form-group">-->
+                <!--                <label for="formGroup1" style="font-size:13px;">性別：</label>-->
+                <!--                 {% if gender %}-->
+                <!--                <input type="text" class="form-control form-control-sm" id="formGroup1" name="gender" value='男性' readonly>-->
+                <!--&lt;!&ndash;                <input type="text" class="form-control form-control-sm" id="formGroup1" name="gender" value={{ gender }} readonly>&ndash;&gt;-->
+                <!--                {% else %}-->
+                <!--                <input type="text" class="form-control form-control-sm" id="formGroup1" name="gender" value='女性' readonly>-->
+                <!--                {% endif %}-->
+                <!--                </div>-->
+
+                <div class="form-group">
+                <!--                <label for="formGroup2" style="font-size:13px;">国籍：</label>-->
+                <!--                <input type="text" class="form-control form-control-sm" id="formGroup2" name="nationality" size="25" value={{ nationality }} readonly>-->
+                <input type="hidden" class="form-control form-control-sm" id="formGroup2" name="nationality" size="25" value={{ nationality }} readonly>
+                </div>
+
+                <div class="form-group">
+                <!--                <label for="formGroup411" style="font-size:13px;">都道府県：</label>-->
+                <!--                <input type="text" class="form-control form-control-sm" id="formGroup411" name="address1" value={{ address1 }} readonly>-->
+                <input type="hidden" class="form-control form-control-sm" id="formGroup411" name="address1" value={{ address1 }} readonly>
+                </div>
+
+                <div class="form-group">
+                <!--                <label for="formGroup40" style="font-size:13px;">生年月日：（例：2025-01-10）</label>-->
+                <!--                <input type="text" class="form-control form-control-sm" id="formGroup40" name="birthday1" size="10" value={{ birthday1 }} readonly>-->
+                <input type="hidden" class="form-control form-control-sm" id="formGroup40" name="birthday1" size="10" value={{ birthday1 }} readonly>
+                </div>
+
+                <div class="form-group">
+                <!--                <label for="formGroup41" style="font-size:13px;">年齢：（例：30）</label>-->
+                <!--                <input type="text" class="form-control form-control-sm" id="formGroup41" name="age1" value={{ age1 }} readonly>-->
+                <input type="hidden" class="form-control form-control-sm" id="formGroup41" name="age1" value={{ age1 }} readonly>
+                </div>
+
+
+                <div class="btnArea d-flex">
+                    <button type="submit">更新</button>
+                    <button>
+                        <a href="{% url 'live:ex_profile_detail' object.pk %}">戻る</a>
+                    </button>
+                </div>
+
+
+            </div><!-- form__wrap -->
+            
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

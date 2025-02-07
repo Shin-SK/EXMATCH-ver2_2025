@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Management EXMATCH{% endblock %}
+
+{% block contents %}
+<section class="form">
+    <div class="form__wrap">
+        <!-- エラーメッセージ表示 -->
+        {% if form.errors %}
+            <div class="errorMessage">
+                <ul>
+                    {% for field, errors in form.errors.items %}
+                        <li>{{ field }}: {{ errors|join:", " }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <div class="mainTitle">Management</div>
+        <div class="subTitle">管理者: {{ clientname }} 様</div>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="area">
+                <label for="name" class="title required">名前</label>
+                <input type="text" id="name" name="name" placeholder="管理者名を入力してください">
+            </div>
+
+            <div class="area">
+                <label for="email" class="title required">メールアドレス</label>
+                <input type="email" id="email" name="email" placeholder="example@example.com">
+            </div>
+
+            <div class="area">
+                <label for="file" class="title">ファイルアップロード</label>
+                <input type="file" id="file" name="file">
+            </div>
+
+            <div class="area btnArea">
+                <button type="submit" class="btn-link" data-color="blue">登録</button>
+                <input type="reset" value="リセット" class="back">
+            </div>
+        </form>
+
+        <div class="area text-center">
+            <a href="{{ home_url }}" class="btn-link">ホームに戻る</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

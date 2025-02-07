@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Management 編集 | LRally{% endblock %}
+
+{% block contents %}
+<section class="form">
+    <div class="form__wrap">
+        <div class="mainTitle">Management 編集</div>
+        <div class="subTitle">管理者: {{ clientname }} 様</div>
+
+        <hr>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="area">
+                {{ form.non_field_errors }}
+            </div>
+
+            {% for field in form %}
+            <div class="area">
+                <label for="{{ field.id_for_label }}" class="title">
+                    {{ field.label }}
+                </label>
+                {{ field }}
+                {% if field.errors %}
+                    <p class="caution">{{ field.errors }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <div class="area btnArea text-center">
+                <button type="submit" data-color="blue">更新</button>
+                <a href="{% url 'live:ex_management_detail' object.pk %}" class="btn-link" data-color="yellow">戻る</a>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

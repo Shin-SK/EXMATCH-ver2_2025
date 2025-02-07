@@ -1,0 +1,254 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block active_terms_member %}active{% endblock %}
+
+{% block title %}会員情報編集 | EXMatch{% endblock %}
+
+{% block contents %}
+<section class="form">
+  <div class="form__wrap">
+    <!-- エラーメッセージ表示 -->
+    {{ form.errors }}
+    <br>
+    <h3>会員情報編集</h3>
+
+    <form action="{% url 'live:ex_member_update' object.pk %}" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <!-- Hidden Field -->
+      <input type="hidden" name="group" value="サービス利用者">
+
+      <!-- 会員種別 -->
+      <div class="area">
+        <label class="title">会員種別：</label>
+        <input type="text" name="membership_type" value="{{ object.membership_type }}" readonly>
+        <small>※ 現在の会員種別です。（変更不可）</small>
+      </div>
+
+      {% if 'clientname' in member_json %}
+      <div class="area">
+        <label class="title">お名前：（必須）</label>
+        <input type="text" name="clientname" value="{{ clientname }}">
+      </div>
+      {% else %}
+      <div class="area">
+        <input type="hidden" name="clientname" value="hidden">
+      </div>
+      {% endif %}
+
+      <!-- ニックネーム -->
+      <div class="area">
+        <label class="title">ニックネーム：（必須）</label>
+        <input type="text" name="nickname" value="{{ object.nickname }}">
+        <small>例：ぼっち、taroumaru123、太郎丸<br>※ 任意のニックネームを入力してください。他者と重複しないかチェックします。</small>
+      </div>
+
+      <!-- 国籍 -->
+      <div class="area">
+        <label class="title">国籍：（必須）</label>
+        <select name="nationality">
+          {% for g in nationality_s %}
+            {% if g.0 == object.nationality %}
+              <option value="{{ g.0 }}" selected>{{ g.0 }}</option>
+            {% else %}
+              <option value="{{ g.0 }}">{{ g.0 }}</option>
+            {% endif %}
+          {% endfor %}
+        </select>
+        <small>※ ’その他’を選択した場合は、国籍を記入してください。</small>
+      </div>
+
+      <!-- 国籍（記入） -->
+      <div class="area">
+        <label class="title">国籍（記入）：</label>
+        <input type="text" name="nationality_fill_in" value="{{ object.nationality_fill_in|checkNone }}">
+      </div>
+
+      <!-- 性別 -->
+      <div class="area">
+        <label class="title">性別</label>
+        <div class="radio">
+            <div class="radio__wrap d-flex">
+            <input type="radio" id="radio_male" name="gender" value="True" {% if object.gender == True %}checked{% endif %}>
+                <label class="radio__wrap--label" for="radio_male">男性</label>
+            <input type="radio" id="radio_female" name="gender" value="False" {% if object.gender != True %}checked{% endif %}>
+                <label class="radio__wrap--label" for="radio_female">女性</label>
+            </div>
+        </div>
+      </div>
+
+      <!-- 生年月日 -->
+      <div class="area">
+        <label class="title">生年月日：（必須）（例：1990-01-10）</label>
+        <input type="text" name="birthday" value="{{ birthday }}">
+      </div>
+
+      <!-- 血液型 -->
+      <div class="area">
+        <label class="title">血液型：（必須）</label>
+        <select name="blood_type">
+          {% for g in blood_type_s %}
+            {% if g.0 == object.blood_type %}
+              <option value="{{ g.0 }}" selected>{{ g.0 }}</option>
+            {% else %}
+              <option value="{{ g.0 }}">{{ g.0 }}</option>
+            {% endif %}
+          {% endfor %}
+        </select>
+        <small>※ 血液型を選択してください。</small>
+      </div>
+
+      {% if 'postalcode' in member_json %}
+      <!--
+      <div class="form-group">
+        <label for="formGroup3" style="font-size:13px;">郵便番号：（例：1810002）</label>
+        <input type="text" class="form-control form-control-sm" id="formGroup3" aria-describedby="emailHelp" placeholder="1810002" name="postalcode" onKeyUp="AjaxZip3.zip2addr(this,'','address1','address2');">
+        <small id="emailHelp" class="form-text text-muted" style="color:red;font-size:12px;">※ 正確な郵便番号を入力してください。</small>
+      </div>
+      -->
+      <div class="area">
+        <label class="title">郵便番号：（必須）（例：1000014）</label>
+        <input type="text" id="formGroup6" name="postalcode" placeholder="1000014" value="{{ postalcode }}" onKeyUp="AjaxZip3.zip2addr(this,'','address1','address2');">
+        <small class="caution" id="emailHelp" style="color:red;">※ 郵便番号を入力すると住所が自動入力されます。</small>
+      </div>
+      {% else %}
+      <div class="area">
+        <input type="hidden" name="postalcode" value="1234567">
+      </div>
+      {% endif %}
+
+      <!-- 都道府県 -->
+      <div class="area">
+        <label class="title">都道府県：（必須）</label>
+        <select name="address1">
+          {% for g in prefectures %}
+            {% if g.0 == object.address1 %}
+              <option value="{{ g.0 }}" selected>{{ g.0 }}</option>
+            {% else %}
+              <option value="{{ g.0 }}">{{ g.0 }}</option>
+            {% endif %}
+          {% endfor %}
+        </select>
+        <small>※ 都道府県を選択してください。</small>
+      </div>
+
+      {% if 'address2' in member_json %}
+      <div class="area">
+        <label class="title">市区町村：（必須）</label>
+        <input type="text" name="address2" placeholder="三鷹市牟礼" value="{{ address2 }}">
+      </div>
+      {% else %}
+      <div class="area">
+        <input type="hidden" name="address2" value="hidden">
+      </div>
+      {% endif %}
+
+      {% if 'address3' in member_json %}
+      <div class="area">
+        <label class="title">番地：（必須）（例：9-5-7）</label>
+        <input type="text" name="address3" placeholder="９－５－７" value="{{ address3 }}">
+      </div>
+      {% else %}
+      <div class="area">
+        <input type="hidden" name="address3" value="hidden">
+      </div>
+      {% endif %}
+
+      {% if 'address4' in member_json %}
+      <div class="area">
+        <label class="title">マンション名等：（任意）（例：ミタカハイツC101）</label>
+        {% if object.address4 %}
+          <input type="text" name="address4" value="{{ object.address4 }}">
+        {% else %}
+          <input type="text" name="address4" placeholder="">
+        {% endif %}
+      </div>
+      {% endif %}
+
+      <!-- Email1 -->
+      <div class="area">
+        <label class="title">Email1：</label>
+        <input type="email" name="email1" value="{{ user.email }}" readonly>
+        <small>※ 会員登録時のメールアドレスです。（変更不可）</small>
+      </div>
+
+      <!-- Email2 -->
+      <div class="area">
+        <label class="title">Email2：（任意）（例：email@example.jp）</label>
+        {% if object.email2 %}
+          <input type="email" name="email2" value="{{ object.email2 }}">
+        {% else %}
+          <input type="email" name="email2" placeholder="">
+        {% endif %}
+        <small>※ 追加のメールアドレスがあれば登録してください。</small>
+      </div>
+
+      {% if 'phone' in member_json %}
+      <div class="area">
+        <label class="title">携帯電話：（必須）（例：09012341234）</label>
+        <input type="text" name="phone" placeholder="09065874598" value="{{ phone }}">
+      </div>
+      <br>
+      {% else %}
+      <div class="area">
+        <input type="hidden" name="phone" value="09012341234">
+      </div>
+      {% endif %}
+
+      {% if 'identification' in member_json %}
+      <div class="area">
+        <label class="title">身分証明書：（任意）</label>
+        <p class="file-upload" style="font-size:13px;">
+          現在: <a href="{{ face_photo_d }}">{{ object.identification }}</a>
+          <span class="clearable-file-input">
+            <input type="checkbox" name="identification-clear" id="face_photo-clear_id">
+            <label for="face_photo-clear_id">クリア</label>
+          </span><br>
+          変更:
+          <input type="file" name="identification" accept="image/*" id="id_face_photo">
+        </p>
+      </div>
+      {% endif %}
+
+      {% if 'proof_income' in member_json %}
+      <div class="area">
+        <label class="title">収入証明書：（任意）</label>
+        <p class="file-upload" style="font-size:13px;">
+          現在: <a href="{{ photo1_d }}">{{ object.proof_income }}</a>
+          <span class="clearable-file-input">
+            <input type="checkbox" name="proof_income-clear" id="photo1-clear_id">
+            <label for="photo1-clear_id">クリア</label>
+          </span><br>
+          変更:
+          <input type="file" name="proof_income" accept="image/*" id="id_photo1">
+        </p>
+      </div>
+      {% endif %}
+
+      {% if 'singleness_certificate' in member_json %}
+      <div class="area">
+        <label class="title">独身証明書：（任意）</label>
+        <p class="file-upload" style="font-size:13px;">
+          現在: <a href="{{ photo2_d }}">{{ object.singleness_certificate }}</a>
+          <span class="clearable-file-input">
+            <input type="checkbox" name="singleness_certificate-clear" id="photo2-clear_id">
+            <label for="photo2-clear_id">クリア</label>
+          </span><br>
+          変更:
+          <input type="file" name="singleness_certificate" accept="image/*" id="id_photo2">
+        </p>
+      </div>
+      {% endif %}
+
+      <!-- ボタンエリア -->
+      <div class="area btnArea d-flex">
+        <button type="submit">更新</button>
+        <button><a href="{% url 'live:ex_member_detail' object.pk %}">戻る</a></button>
+
+      </div>
+
+    </form>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block active_terms_member %}active{% endblock %}
+{% block title %}会員登録・変更 | EXMatch{% endblock %}
+
+{% block contents %}
+<section class="form ex ex-mrc">
+  <div class="form__wrap">
+    <div class="mainTitle">会員情報参照/登録/変更</div>
+
+    <!-- 会員情報表示エリア -->
+    
+    <div class="area">
+      <div class="subTitle">{{ nickname }}さんの会員種別は、以下の通りです。</div>
+      <div class="contents">
+        <div class="head--s">会員種別</div>
+        <div class="contents--inner">サンプル{{ membership_type }}</div>
+      </div>
+    </div>
+
+    <!-- 会員情報参照リンクエリア -->
+    <div class="area">
+        <button>
+            <a href="{% url 'live:member-profile-check' 9 %}">会員情報参照</a>
+        </button>
+    </div>
+
+    <!-- 会員種別変更オプションエリア -->
+    <div class="option area">
+        <!-- 会員種別フラグ ０：変更不可、１：変更可（無料会員、有料会員、オプション会員）-->
+        {% if membership_type_flag == 0 %}
+          {% if membership_type == '無料会員' %}
+            <div class="wrap">
+              <div class="title">有料会員またはオプション会員に変更可能です</div>
+              <div class="btnArea d-flex">
+                <a class="button" href="{% url 'live:ex_member_update' m_id %}">無料会員情報変更</a>
+                <a class="button" href="{% url 'live:ex_change_paid_membership' m_id %}">有料会員に変更</a>
+                <a class="button" href="{% url 'live:ex_change_optional_membership' m_id %}">オプション会員に変更</a>
+              </div>
+            </div>
+          {% elif membership_type == '有料会員' %}
+            <div class="wrap">
+              <div class="title">オプション会員に変更可能です</div>
+              <div class="btnArea d-flex">
+                <a class="button" href="{% url 'live:ex_member_update' m_id %}">有料会員情報変更</a>
+                <a class="button" href="{% url 'live:ex_change_optional_membership' m_id %}">オプション会員に変更</a>
+              </div>
+            </div>
+          {% else %}
+            <div class="wrap">
+              <div class="title">オプション会員情報変更</div>
+              <div class="btnArea d-flex">
+                <a class="button" href="{% url 'live:ex_member_update' m_id %}">オプション会員情報変更</a>
+              </div>
+            </div>
+          {% endif %}
+        {% else %}
+          {% if membership_type == '無料会員' %}
+            <div class="wrap">
+              <div class="title">有料会員またはオプション会員に変更可能です</div>
+              <div class="btnArea d-flex">
+                <a class="button" href="{% url 'live:ex_member_update' m_id %}">無料会員情報変更</a>
+                <a class="button" href="{% url 'live:ex_change_paid_membership' m_id %}">有料会員に変更</a>
+                <a class="button" href="{% url 'live:ex_change_optional_membership' m_id %}">オプション会員に変更</a>
+              </div>
+            </div>
+          {% elif membership_type == '有料会員' %}
+            <div class="wrap">
+              <div class="title">有料会員から無料会員またはオプション会員に変更可能です</div>
+              <div class="caution">変更すると、プロフィールなどの関連情報は削除されます。</div>
+              <div class="btnArea d-flex">
+                <a class="button" href="{% url 'live:ex_member_update' m_id %}">有料会員情報変更</a>
+                <a class="button" href="{% url 'live:ex_change_free_membership' m_id %}">無料会員に変更</a>
+                <a class="button" href="{% url 'live:ex_change_optional_membership' m_id %}">オプション会員に変更</a>
+              </div>
+            </div>
+          {% else %}
+            <div class="wrap">
+              <div class="title">オプション会員から無料会員または有料会員に変更可能です</div>
+              <div class="caution">※無料会員に変更すると、プロフィールなどの関連情報は削除されます</div>
+              <div class="btnArea d-flex">
+                <a class="button" href="{% url 'live:ex_member_update' m_id %}">オプション会員情報変更</a>
+                <a class="button" href="{% url 'live:ex_change_free_membership' m_id %}">無料会員に変更</a>
+                <a class="button" href="{% url 'live:ex_change_paid_membership' m_id %}">有料会員に変更</a>
+              </div>
+            </div>
+          {% endif %}
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

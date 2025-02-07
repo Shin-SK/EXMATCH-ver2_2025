@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}チェックニックネーム{% endblock %}
+
+{% block contents %}
+<section class="form ex ex-pdl">
+  <div class="form__wrap">
+    <div class="area">
+      <div class="name">{{ clientname }}ほげほげさん</div>
+    </div>
+    <div class="area">
+      <p>
+        プロフィールのニックネーム<span class="caution">ほげほげ{{ nickname }}</span> が他者と同じです。<br>
+        プロフィールを再度登録して、ニックネームを変更してください。
+      </p>
+    </div>
+    <div class="area btnArea">
+      <a class="button" href="{% url 'live:index' %}">ホーム</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

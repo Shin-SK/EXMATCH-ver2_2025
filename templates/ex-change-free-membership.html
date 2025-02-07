@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block active_terms_member %}active{% endblock %}
+
+{% block title %}無料会員に変更 | EXMatch{% endblock %}
+
+{% block contents %}
+<section class="form">
+    <div class="form__wrap">
+        <div class="mainTitle">無料会員に変更</div>
+        <div class="subTitle">{{ nickname }}さんの会員種別は、以下の会員種別に変更されます。</div>
+        <div class="contents area">
+            <div class="head--s">会員種別</div>
+            <div class="content--inner">{{ membership_type }}</div>
+        </div>
+
+        <hr>
+
+        <div class="btnArea text-center">
+            <a href="{% url 'live:ex_member_update' m_id %}" class="btn-link" data-color="yellow">
+                無料会員に変更
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

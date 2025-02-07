@@ -1,0 +1,304 @@
+@use "../global/global" as g;
+@use "../global/reset";
+
+.header{
+  &__index{
+      #navigation {
+          opacity: 1;
+          visibility: unset;
+      }
+      .nav{
+          &__wrap{
+              position: relative;
+              justify-content: center;
+              align-items: center;
+              .logo{
+                  position: absolute;
+                  left: 15px;
+                  top: 0;
+                  bottom: 0;
+                  margin: auto 0;
+                  height: fit-content;
+                  img{
+                      max-height: 30px;
+                  }
+              }
+              .menu{
+                  width: 100%;
+                  ul{
+                      @include flex();
+                      max-width: 500px;
+                      justify-content: space-around;
+                      width: 100%;
+                      li{
+                          a{
+                              opacity: 0.3; //current
+                              color: g.$mc;
+                              @include flex();
+                              flex-direction: column;
+                              gap: 4px;
+                              @include fs(10);
+                              transition: opacity 0.3s ease;
+                              &:hover{
+                                  opacity: 1;
+                              }
+                          }
+                      }
+                      .search{
+                          &::before{
+                              font: var(--fa-font-solid);
+                              content: '\f002';
+                              @include fs(25);
+                          }
+                      }
+                      .imadoko{
+                          &::before{
+                              font: var(--fa-font-solid);
+                              content: '\f3c5';
+                              @include fs(25);
+                          }
+                      }
+                      .apply{
+                          &::before{
+                              font: var(--fa-font-solid);
+                              content: '\f5ad';
+                              @include fs(25);
+                          }
+                      }
+                      .message{
+                          &::before{
+                              font: var(--fa-font-solid);
+                              content: '\f086';
+                              @include fs(25);
+                          }
+                      }
+                      .mypage{
+                          &::before{
+                              font: var(--fa-font-solid);
+                              content: '\f2bd';
+                              @include fs(25);
+                          }
+                      }
+                  }
+              }
+          }
+          &__sp{
+              justify-content: space-between;
+              align-items: center;
+              .logo{
+                  z-index: 99999;
+                  img{
+                      height: 35px;
+                  }
+              }
+          }//__sp
+          .nav-inner{
+              @include flex();
+              flex-direction: column;
+              justify-content: space-between;
+              height: 100%;
+              ul{
+                  width: 100%;
+                  padding-top: 60px;
+                  li{
+                      border-bottom: 1px g.$mc dotted;
+                      &:first-child{
+                          border-top: 1px g.$mc dotted;
+                      }
+                      a{
+                          position: relative;
+                          padding-left: 40px;
+                          color: g.$mc;
+                          &::before{
+                              position: absolute;
+                              left: 8px;
+                              top: 0;
+                              bottom: 0;
+                              margin: auto 0;
+                              height: fit-content;
+                          }
+                          &::after{
+                              font: var(--fa-font-solid);
+                              content: '\f105';
+                              @include fs(16);
+                              color: g.$mc;
+                          }
+                      }
+                      .search{
+                          &::before{
+                              font: var(--fa-font-solid);
+                              content: '\f002';
+                              @include fs(20);
+                          }
+                      }
+                      .imadoko{
+                          &::before{
+                              font: var(--fa-font-solid);
+                              content: '\f3c5';
+                              @include fs(20);
+                          }
+                      }
+                      .apply{
+                          &::before{
+                              font: var(--fa-font-solid);
+                              content: '\f5ad';
+                              @include fs(20);
+                          }
+                      }
+                      .message{
+                          &::before{
+                              font: var(--fa-font-solid);
+                              content: '\f086';
+                              @include fs(18);
+                          }
+                      }
+                      .mypage{
+                          &::before{
+                              font: var(--fa-font-solid);
+                              content: '\f2bd';
+                              @include fs(20);
+                          }
+                      }
+                  }
+              }
+              .login{
+                  padding: 8px 16px;
+                  border-radius: 100px;
+                  background-color: g.$pink;
+                  color: white;
+                  margin-bottom: 100px;
+                  width: 90%;
+                  span{
+                      @include flex();
+                      gap: 8px;
+                      color: white;
+                      &::before{
+                          font: var(--fa-font-solid);
+                          content: '\f090';
+                          color: white;
+                          @include fs(12);
+                      }
+                  }
+              }
+          }
+      }//nav
+
+  }
+  $headerHight:30px;
+  &__base{
+      height: $headerHight;
+      width: 100%;
+      .nav{
+        width: 100%;
+        height: fit-content;
+        padding: 8px;
+        background-color: white;
+        z-index: 99999;
+        border-bottom: 1px $mc solid;
+        &__wrap{
+            width: 100%;
+            @include flex();
+            justify-content: space-between;
+            .logo{
+                img{
+                    height: $headerHight;
+                }
+            }
+            .drawer-hamburger{
+              display: block;
+              padding: 10px;
+              width: 30px;
+              position: relative;
+              margin-top: -10px;
+              height: 30px;
+            }
+            .menu{
+                @include flex();
+                gap: 16px;
+                @include sp{
+                    display: none;
+                }
+            }
+        }
+      }
+  }
+}
+
+
+#navigation {
+    opacity: 0;
+    visibility: hidden; /* 見えなくするが、スペースを維持 */
+    transition: opacity 0.5s ease-in-out;
+  }
+  
+  #navigation.visible {
+    opacity: 1;
+    visibility: visible; /* 表示状態 */
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .drawer-hamburger-icon, .drawer-hamburger-icon:after, .drawer-hamburger-icon:before{
+    background-color: $mc;
+    height: 1px;
+  }
+
+  .drawer-hamburger{
+    top: unset;
+    width: 30px;
+    display: none;
+    @include sp{
+        display: block;
+    }
+  }
+  
+  .drawer-nav{
+  background-color: #fafafa;
+    ul{
+        .logo{
+            padding-left: 10px;
+            height: 80px;
+            @include flex();
+            justify-content: start;
+        }
+        li{
+            a{
+                padding-left: 16px;
+                padding-top: 16px;
+                padding-right: 8px;
+                padding-bottom: 16px;
+                display: block;
+                width: 100%;
+                @include flex();
+                justify-content: space-between;
+                &::after{
+                    content: '';
+                    width: 10px;
+                    height: 10px;
+                    display: inline-block;
+                    background-repeat: no-repeat;
+                }
+                &:hover{
+                    background-color: white;
+                    text-decoration: none;
+                    color: black;
+                }
+            }
+        }
+    }
+  }
+  
+  /* ナビの背景を前面に出す */
+  .drawer--right.drawer-open .drawer-nav{
+    width: 100%;
+  }
+  
+  /* アイコンの位置 */
+  .drawer--right.drawer-open .drawer-hamburger{
+    right:0;
+  }
+  
+  body{
+    line-height: normal;
+  }
+  
+

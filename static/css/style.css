@@ -1,0 +1,4623 @@
+@charset "UTF-8";
+/* 除算math.divを使うのに必要な記述 */
+@import url(https://use.typekit.net/lpz2crc.css);
+@import url(https://use.typekit.net/lpz2crc.css);
+@import url(https://use.typekit.net/lpz2crc.css);
+@import url(https://use.typekit.net/lpz2crc.css);
+@import url(https://use.typekit.net/lpz2crc.css);
+@import url(https://use.typekit.net/lpz2crc.css);
+@import url(https://use.typekit.net/lpz2crc.css);
+@import url(https://use.typekit.net/lpz2crc.css);
+@import url(https://use.typekit.net/lpz2crc.css);
+@import url(https://use.typekit.net/lpz2crc.css);
+@import url(https://use.typekit.net/lpz2crc.css);
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: clamp(1.4rem, 1.3346938776rem + 0.2040816327vw, 1.6rem);
+}
+body a {
+  color: #0f0f0f;
+}
+body a :hover {
+  transition: 0.5s;
+  -webkit-transition: 0.5s; /* Chrome、Safari用 */
+  -moz-transition: 0.5s; /* Firefox用 */
+  -o-transition: 0.5s; /* Opera用 */
+  opacity: 0.5;
+}
+body img {
+  max-width: 100%;
+  height: auto;
+}
+body .mincho {
+  font-family: "Times New Roman", "YuMincho", "Hiragino Mincho ProN", "Yu Mincho", "MS PMincho", serif;
+  font-size: clamp(3rem, 2.9346938776rem + 0.2040816327vw, 3.2rem);
+}
+body section {
+  margin-bottom: 40px;
+}
+
+/* 非表示状態 */
+.inactive {
+  display: none;
+  opacity: 0;
+}
+
+/* 表示状態 */
+.active {
+  display: block;
+  opacity: 1;
+}
+
+html {
+  /*IE(Internet Explorer)・Microsoft Edgeへの対応*/
+  -ms-overflow-style: none;
+  /*Firefoxへの対応*/
+  scrollbar-width: none;
+  /*Google Chrome、Safariへの対応*/
+}
+html::-webkit-scrollbar {
+  display: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  background-color: #004C71;
+  border: unset;
+  box-shadow: unset;
+  border-radius: 100px;
+  width: 100%;
+  transition: background-color 0.3s ease;
+  color: white;
+}
+button:hover {
+  background-color: #006ea4;
+}
+button a {
+  width: 100%;
+  color: white;
+  text-decoration: none;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+[data-color=blue] {
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+[data-color=blue]:hover {
+  background-color: #004C71 !important;
+  border: unset !important;
+  color: white !important;
+  opacity: 1;
+}
+[data-color=blue]:hover * {
+  color: inherit !important;
+}
+[data-color=blue]:hover::before, [data-color=blue]:hover::after {
+  color: inherit !important;
+}
+
+[data-color=pink] {
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+[data-color=pink]:hover {
+  background-color: #F07884 !important;
+  border: unset !important;
+  color: white !important;
+  opacity: 1;
+}
+[data-color=pink]:hover * {
+  color: inherit !important;
+}
+[data-color=pink]:hover::before, [data-color=pink]:hover::after {
+  color: inherit !important;
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-style: normal;
+  text-align: left;
+  zoom: 1;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+table {
+  border-collapse: collapse;
+  font-family: inherit;
+}
+
+h1, h2, h3, h4, h5 {
+  font-size: 100%;
+  font-weight: normal;
+  line-height: 1;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: 16px;
+}
+
+input[type=button], input[type=text], input[type=submit] {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+textarea {
+  resize: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+th, td {
+  border-collapse: collapse;
+}
+
+table th, table td {
+  white-space: nowrap;
+}
+
+ul, ol {
+  list-style-type: none;
+}
+
+img {
+  vertical-align: text-bottom;
+  vertical-align: -webkit-baseline-middle;
+  max-width: 100%;
+  height: auto;
+  width: auto;
+}
+
+/* 除算math.divを使うのに必要な記述 */
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: clamp(1.4rem, 1.3346938776rem + 0.2040816327vw, 1.6rem);
+}
+
+body a {
+  color: #0f0f0f;
+}
+
+body a :hover {
+  transition: 0.5s;
+  -webkit-transition: 0.5s; /* Chrome、Safari用 */
+  -moz-transition: 0.5s; /* Firefox用 */
+  -o-transition: 0.5s; /* Opera用 */
+  opacity: 0.5;
+}
+
+body img {
+  max-width: 100%;
+  height: auto;
+}
+
+body .mincho {
+  font-family: "Times New Roman", "YuMincho", "Hiragino Mincho ProN", "Yu Mincho", "MS PMincho", serif;
+  font-size: clamp(3rem, 2.9346938776rem + 0.2040816327vw, 3.2rem);
+}
+
+body section {
+  margin-bottom: 40px;
+}
+
+/* 非表示状態 */
+.inactive {
+  display: none;
+  opacity: 0;
+}
+
+/* 表示状態 */
+.active {
+  display: block;
+  opacity: 1;
+}
+
+html {
+  /*IE(Internet Explorer)・Microsoft Edgeへの対応*/
+  -ms-overflow-style: none;
+  /*Firefoxへの対応*/
+  scrollbar-width: none;
+  /*Google Chrome、Safariへの対応*/
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  background-color: #004C71;
+  border: unset;
+  box-shadow: unset;
+  border-radius: 100px;
+  width: 100%;
+  transition: background-color 0.3s ease;
+  color: white;
+}
+
+button:hover {
+  background-color: #006ea4;
+}
+
+button a {
+  width: 100%;
+  color: white;
+  text-decoration: none;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+[data-color=blue] {
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+[data-color=blue]:hover {
+  background-color: #004C71 !important;
+  border: unset !important;
+  color: white !important;
+  opacity: 1;
+}
+
+[data-color=blue]:hover * {
+  color: inherit !important;
+}
+
+[data-color=blue]:hover::before, [data-color=blue]:hover::after {
+  color: inherit !important;
+}
+
+[data-color=pink] {
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+[data-color=pink]:hover {
+  background-color: #F07884 !important;
+  border: unset !important;
+  color: white !important;
+  opacity: 1;
+}
+
+[data-color=pink]:hover * {
+  color: inherit !important;
+}
+
+[data-color=pink]:hover::before, [data-color=pink]:hover::after {
+  color: inherit !important;
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-style: normal;
+  text-align: left;
+  zoom: 1;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+table {
+  border-collapse: collapse;
+  font-family: inherit;
+}
+
+h1, h2, h3, h4, h5 {
+  font-size: 100%;
+  font-weight: normal;
+  line-height: 1;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: 16px;
+}
+
+input[type=button], input[type=text], input[type=submit] {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+textarea {
+  resize: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+th, td {
+  border-collapse: collapse;
+}
+
+table th, table td {
+  white-space: nowrap;
+}
+
+ul, ol {
+  list-style-type: none;
+}
+
+img {
+  vertical-align: text-bottom;
+  vertical-align: -webkit-baseline-middle;
+  max-width: 100%;
+  height: auto;
+  width: auto;
+}
+
+.header__index #navigation {
+  opacity: 1;
+  visibility: unset;
+}
+.header__index .nav__wrap {
+  position: relative;
+  justify-content: center;
+  align-items: center;
+}
+.header__index .nav__wrap .logo {
+  position: absolute;
+  left: 15px;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+.header__index .nav__wrap .logo img {
+  max-height: 30px;
+}
+.header__index .nav__wrap .menu {
+  width: 100%;
+}
+.header__index .nav__wrap .menu ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 500px;
+  justify-content: space-around;
+  width: 100%;
+}
+.header__index .nav__wrap .menu ul li a {
+  opacity: 0.3;
+  color: #004C71;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 4px;
+  font-size: clamp(1rem, 0.9346938776rem + 0.2040816327vw, 1.2rem);
+  transition: opacity 0.3s ease;
+}
+.header__index .nav__wrap .menu ul li a:hover {
+  opacity: 1;
+}
+.header__index .nav__wrap .menu ul .search::before {
+  font: var(--fa-font-solid);
+  content: "\f002";
+  font-size: clamp(2.5rem, 2.4346938776rem + 0.2040816327vw, 2.7rem);
+}
+.header__index .nav__wrap .menu ul .imadoko::before {
+  font: var(--fa-font-solid);
+  content: "\f3c5";
+  font-size: clamp(2.5rem, 2.4346938776rem + 0.2040816327vw, 2.7rem);
+}
+.header__index .nav__wrap .menu ul .apply::before {
+  font: var(--fa-font-solid);
+  content: "\f5ad";
+  font-size: clamp(2.5rem, 2.4346938776rem + 0.2040816327vw, 2.7rem);
+}
+.header__index .nav__wrap .menu ul .message::before {
+  font: var(--fa-font-solid);
+  content: "\f086";
+  font-size: clamp(2.5rem, 2.4346938776rem + 0.2040816327vw, 2.7rem);
+}
+.header__index .nav__wrap .menu ul .mypage::before {
+  font: var(--fa-font-solid);
+  content: "\f2bd";
+  font-size: clamp(2.5rem, 2.4346938776rem + 0.2040816327vw, 2.7rem);
+}
+.header__index .nav__sp {
+  justify-content: space-between;
+  align-items: center;
+}
+.header__index .nav__sp .logo {
+  z-index: 99999;
+}
+.header__index .nav__sp .logo img {
+  height: 35px;
+}
+.header__index .nav .nav-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+.header__index .nav .nav-inner ul {
+  width: 100%;
+  padding-top: 60px;
+}
+.header__index .nav .nav-inner ul li {
+  border-bottom: 1px #004C71 dotted;
+}
+.header__index .nav .nav-inner ul li:first-child {
+  border-top: 1px #004C71 dotted;
+}
+.header__index .nav .nav-inner ul li a {
+  position: relative;
+  padding-left: 40px;
+  color: #004C71;
+}
+.header__index .nav .nav-inner ul li a::before {
+  position: absolute;
+  left: 8px;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+.header__index .nav .nav-inner ul li a::after {
+  font: var(--fa-font-solid);
+  content: "\f105";
+  font-size: clamp(1.6rem, 1.5346938776rem + 0.2040816327vw, 1.8rem);
+  color: #004C71;
+}
+.header__index .nav .nav-inner ul li .search::before {
+  font: var(--fa-font-solid);
+  content: "\f002";
+  font-size: clamp(2rem, 1.9346938776rem + 0.2040816327vw, 2.2rem);
+}
+.header__index .nav .nav-inner ul li .imadoko::before {
+  font: var(--fa-font-solid);
+  content: "\f3c5";
+  font-size: clamp(2rem, 1.9346938776rem + 0.2040816327vw, 2.2rem);
+}
+.header__index .nav .nav-inner ul li .apply::before {
+  font: var(--fa-font-solid);
+  content: "\f5ad";
+  font-size: clamp(2rem, 1.9346938776rem + 0.2040816327vw, 2.2rem);
+}
+.header__index .nav .nav-inner ul li .message::before {
+  font: var(--fa-font-solid);
+  content: "\f086";
+  font-size: clamp(1.8rem, 1.7346938776rem + 0.2040816327vw, 2rem);
+}
+.header__index .nav .nav-inner ul li .mypage::before {
+  font: var(--fa-font-solid);
+  content: "\f2bd";
+  font-size: clamp(2rem, 1.9346938776rem + 0.2040816327vw, 2.2rem);
+}
+.header__index .nav .nav-inner .login {
+  padding: 8px 16px;
+  border-radius: 100px;
+  background-color: #F07884;
+  color: white;
+  margin-bottom: 100px;
+  width: 90%;
+}
+.header__index .nav .nav-inner .login span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  color: white;
+}
+.header__index .nav .nav-inner .login span::before {
+  font: var(--fa-font-solid);
+  content: "\f090";
+  color: white;
+  font-size: clamp(1.2rem, 1.1346938776rem + 0.2040816327vw, 1.4rem);
+}
+.header__base {
+  height: 30px;
+  width: 100%;
+}
+.header__base .nav {
+  width: 100%;
+  height: -moz-fit-content;
+  height: fit-content;
+  padding: 8px;
+  background-color: white;
+  z-index: 99999;
+  border-bottom: 1px #004C71 solid;
+}
+.header__base .nav__wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+}
+.header__base .nav__wrap .logo img {
+  height: 30px;
+}
+.header__base .nav__wrap .drawer-hamburger {
+  display: block;
+  padding: 10px;
+  width: 30px;
+  position: relative;
+  margin-top: -10px;
+  height: 30px;
+}
+.header__base .nav__wrap .menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+@media screen and (max-width: 768px) {
+  .header__base .nav__wrap .menu {
+    display: none;
+  }
+}
+
+#navigation {
+  opacity: 0;
+  visibility: hidden; /* 見えなくするが、スペースを維持 */
+  transition: opacity 0.5s ease-in-out;
+}
+
+#navigation.visible {
+  opacity: 1;
+  visibility: visible; /* 表示状態 */
+  transition: opacity 0.5s ease-in-out;
+}
+
+.drawer-hamburger-icon, .drawer-hamburger-icon:after, .drawer-hamburger-icon:before {
+  background-color: #004C71;
+  height: 1px;
+}
+
+.drawer-hamburger {
+  top: unset;
+  width: 30px;
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .drawer-hamburger {
+    display: block;
+  }
+}
+
+.drawer-nav {
+  background-color: #fafafa;
+}
+.drawer-nav ul .logo {
+  padding-left: 10px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: start;
+}
+.drawer-nav ul li a {
+  padding-left: 16px;
+  padding-top: 16px;
+  padding-right: 8px;
+  padding-bottom: 16px;
+  display: block;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+}
+.drawer-nav ul li a::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  background-repeat: no-repeat;
+}
+.drawer-nav ul li a:hover {
+  background-color: white;
+  text-decoration: none;
+  color: black;
+}
+
+/* ナビの背景を前面に出す */
+.drawer--right.drawer-open .drawer-nav {
+  width: 100%;
+}
+
+/* アイコンの位置 */
+.drawer--right.drawer-open .drawer-hamburger {
+  right: 0;
+}
+
+body {
+  line-height: normal;
+}
+
+/* 除算math.divを使うのに必要な記述 */
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: clamp(1.4rem, 1.3346938776rem + 0.2040816327vw, 1.6rem);
+}
+
+body a {
+  color: #0f0f0f;
+}
+
+body a :hover {
+  transition: 0.5s;
+  -webkit-transition: 0.5s; /* Chrome、Safari用 */
+  -moz-transition: 0.5s; /* Firefox用 */
+  -o-transition: 0.5s; /* Opera用 */
+  opacity: 0.5;
+}
+
+body img {
+  max-width: 100%;
+  height: auto;
+}
+
+body .mincho {
+  font-family: "Times New Roman", "YuMincho", "Hiragino Mincho ProN", "Yu Mincho", "MS PMincho", serif;
+  font-size: clamp(3rem, 2.9346938776rem + 0.2040816327vw, 3.2rem);
+}
+
+body section {
+  margin-bottom: 40px;
+}
+
+/* 非表示状態 */
+.inactive {
+  display: none;
+  opacity: 0;
+}
+
+/* 表示状態 */
+.active {
+  display: block;
+  opacity: 1;
+}
+
+html {
+  /*IE(Internet Explorer)・Microsoft Edgeへの対応*/
+  -ms-overflow-style: none;
+  /*Firefoxへの対応*/
+  scrollbar-width: none;
+  /*Google Chrome、Safariへの対応*/
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  background-color: #004C71;
+  border: unset;
+  box-shadow: unset;
+  border-radius: 100px;
+  width: 100%;
+  transition: background-color 0.3s ease;
+  color: white;
+}
+
+button:hover {
+  background-color: #006ea4;
+}
+
+button a {
+  width: 100%;
+  color: white;
+  text-decoration: none;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+[data-color=blue] {
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+[data-color=blue]:hover {
+  background-color: #004C71 !important;
+  border: unset !important;
+  color: white !important;
+  opacity: 1;
+}
+
+[data-color=blue]:hover * {
+  color: inherit !important;
+}
+
+[data-color=blue]:hover::before, [data-color=blue]:hover::after {
+  color: inherit !important;
+}
+
+[data-color=pink] {
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+[data-color=pink]:hover {
+  background-color: #F07884 !important;
+  border: unset !important;
+  color: white !important;
+  opacity: 1;
+}
+
+[data-color=pink]:hover * {
+  color: inherit !important;
+}
+
+[data-color=pink]:hover::before, [data-color=pink]:hover::after {
+  color: inherit !important;
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-style: normal;
+  text-align: left;
+  zoom: 1;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+table {
+  border-collapse: collapse;
+  font-family: inherit;
+}
+
+h1, h2, h3, h4, h5 {
+  font-size: 100%;
+  font-weight: normal;
+  line-height: 1;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: 16px;
+}
+
+input[type=button], input[type=text], input[type=submit] {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+textarea {
+  resize: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+th, td {
+  border-collapse: collapse;
+}
+
+table th, table td {
+  white-space: nowrap;
+}
+
+ul, ol {
+  list-style-type: none;
+}
+
+img {
+  vertical-align: text-bottom;
+  vertical-align: -webkit-baseline-middle;
+  max-width: 100%;
+  height: auto;
+  width: auto;
+}
+
+@media screen and (max-width: 768px) {
+  .footer__index {
+    padding-top: 40px;
+  }
+}
+.footer__index .contents {
+  background-color: #EAF2F4;
+}
+.footer__index__wrap {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 40px;
+  align-items: center;
+  padding-top: 40px;
+}
+@media screen and (max-width: 768px) {
+  .footer__index__wrap {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+.footer__index__wrap .logo img {
+  max-width: 200px;
+}
+@media screen and (max-width: 768px) {
+  .footer__index__wrap .logo img {
+    display: block;
+    margin: 0 auto;
+  }
+}
+.footer__index__wrap ul {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(4, auto);
+  gap: 4px;
+}
+@media screen and (max-width: 768px) {
+  .footer__index__wrap ul {
+    grid-auto-flow: row;
+    justify-items: center; /* 中央揃えを維持 */
+  }
+}
+.footer__index__wrap ul li a {
+  font-size: clamp(1.2rem, 1.1346938776rem + 0.2040816327vw, 1.4rem);
+}
+.footer__index .cr {
+  text-align: center;
+  padding: 40px 0px;
+}
+.footer__base {
+  width: 100%;
+  height: -moz-fit-content;
+  height: fit-content;
+  margin-top: 120px;
+}
+.footer__base .nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 80px;
+  padding: 8px;
+  background-color: white;
+  z-index: 99999;
+  box-shadow: 0px 0px 15px -5px #777777;
+}
+.footer__base .nav__wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+.footer__base .nav__wrap .menu {
+  width: 100%;
+  max-width: 500px;
+}
+.footer__base .nav__wrap .menu ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 500px;
+  justify-content: space-around;
+  width: 100%;
+}
+.footer__base .nav__wrap .menu ul li a {
+  opacity: 0.3;
+  color: #004C71;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 4px;
+  font-size: clamp(1rem, 0.9346938776rem + 0.2040816327vw, 1.2rem);
+  transition: opacity 0.3s ease;
+}
+.footer__base .nav__wrap .menu ul li a:hover {
+  opacity: 1;
+}
+.footer__base .nav__wrap .menu ul .search::before {
+  font: var(--fa-font-solid);
+  content: "\f002";
+  font-size: clamp(2.5rem, 2.4346938776rem + 0.2040816327vw, 2.7rem);
+}
+.footer__base .nav__wrap .menu ul .imadoko::before {
+  font: var(--fa-font-solid);
+  content: "\f3c5";
+  font-size: clamp(2.5rem, 2.4346938776rem + 0.2040816327vw, 2.7rem);
+}
+.footer__base .nav__wrap .menu ul .apply::before {
+  font: var(--fa-font-solid);
+  content: "\f5ad";
+  font-size: clamp(2.5rem, 2.4346938776rem + 0.2040816327vw, 2.7rem);
+}
+.footer__base .nav__wrap .menu ul .message::before {
+  font: var(--fa-font-solid);
+  content: "\f086";
+  font-size: clamp(2.5rem, 2.4346938776rem + 0.2040816327vw, 2.7rem);
+}
+.footer__base .nav__wrap .menu ul .mypage::before {
+  font: var(--fa-font-solid);
+  content: "\f2bd";
+  font-size: clamp(2.5rem, 2.4346938776rem + 0.2040816327vw, 2.7rem);
+}
+.footer__base .nav__sp {
+  justify-content: space-between;
+  align-items: center;
+}
+.footer__base .nav__sp .logo {
+  z-index: 99999;
+}
+.footer__base .nav__sp .logo img {
+  height: 35px;
+}
+.footer__base .nav .nav-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+.footer__base .nav .nav-inner ul {
+  width: 100%;
+  padding-top: 60px;
+}
+.footer__base .nav .nav-inner ul li {
+  border-bottom: 1px #004C71 dotted;
+}
+.footer__base .nav .nav-inner ul li:first-child {
+  border-top: 1px #004C71 dotted;
+}
+.footer__base .nav .nav-inner ul li a {
+  position: relative;
+  padding-left: 40px;
+  color: #004C71;
+}
+.footer__base .nav .nav-inner ul li a::before {
+  position: absolute;
+  left: 8px;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+.footer__base .nav .nav-inner ul li a::after {
+  font: var(--fa-font-solid);
+  content: "\f105";
+  font-size: clamp(1.6rem, 1.5346938776rem + 0.2040816327vw, 1.8rem);
+  color: #004C71;
+}
+.footer__base .nav .nav-inner ul li .search::before {
+  font: var(--fa-font-solid);
+  content: "\f002";
+  font-size: clamp(2rem, 1.9346938776rem + 0.2040816327vw, 2.2rem);
+}
+.footer__base .nav .nav-inner ul li .imadoko::before {
+  font: var(--fa-font-solid);
+  content: "\f3c5";
+  font-size: clamp(2rem, 1.9346938776rem + 0.2040816327vw, 2.2rem);
+}
+.footer__base .nav .nav-inner ul li .apply::before {
+  font: var(--fa-font-solid);
+  content: "\f5ad";
+  font-size: clamp(2rem, 1.9346938776rem + 0.2040816327vw, 2.2rem);
+}
+.footer__base .nav .nav-inner ul li .message::before {
+  font: var(--fa-font-solid);
+  content: "\f086";
+  font-size: clamp(1.8rem, 1.7346938776rem + 0.2040816327vw, 2rem);
+}
+.footer__base .nav .nav-inner ul li .mypage::before {
+  font: var(--fa-font-solid);
+  content: "\f2bd";
+  font-size: clamp(2rem, 1.9346938776rem + 0.2040816327vw, 2.2rem);
+}
+.footer__base .nav .nav-inner .login {
+  padding: 8px 16px;
+  border-radius: 100px;
+  background-color: #F07884;
+  color: white;
+  margin-bottom: 100px;
+  width: 90%;
+}
+.footer__base .nav .nav-inner .login span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  color: white;
+}
+.footer__base .nav .nav-inner .login span::before {
+  font: var(--fa-font-solid);
+  content: "\f090";
+  color: white;
+  font-size: clamp(1.2rem, 1.1346938776rem + 0.2040816327vw, 1.4rem);
+}
+
+/* 除算math.divを使うのに必要な記述 */
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: clamp(1.4rem, 1.3346938776rem + 0.2040816327vw, 1.6rem);
+}
+
+body a {
+  color: #0f0f0f;
+}
+
+body a :hover {
+  transition: 0.5s;
+  -webkit-transition: 0.5s; /* Chrome、Safari用 */
+  -moz-transition: 0.5s; /* Firefox用 */
+  -o-transition: 0.5s; /* Opera用 */
+  opacity: 0.5;
+}
+
+body img {
+  max-width: 100%;
+  height: auto;
+}
+
+body .mincho {
+  font-family: "Times New Roman", "YuMincho", "Hiragino Mincho ProN", "Yu Mincho", "MS PMincho", serif;
+  font-size: clamp(3rem, 2.9346938776rem + 0.2040816327vw, 3.2rem);
+}
+
+body section {
+  margin-bottom: 40px;
+}
+
+/* 非表示状態 */
+.inactive {
+  display: none;
+  opacity: 0;
+}
+
+/* 表示状態 */
+.active {
+  display: block;
+  opacity: 1;
+}
+
+html {
+  /*IE(Internet Explorer)・Microsoft Edgeへの対応*/
+  -ms-overflow-style: none;
+  /*Firefoxへの対応*/
+  scrollbar-width: none;
+  /*Google Chrome、Safariへの対応*/
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  background-color: #004C71;
+  border: unset;
+  box-shadow: unset;
+  border-radius: 100px;
+  width: 100%;
+  transition: background-color 0.3s ease;
+  color: white;
+}
+
+button:hover {
+  background-color: #006ea4;
+}
+
+button a {
+  width: 100%;
+  color: white;
+  text-decoration: none;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+[data-color=blue] {
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+[data-color=blue]:hover {
+  background-color: #004C71 !important;
+  border: unset !important;
+  color: white !important;
+  opacity: 1;
+}
+
+[data-color=blue]:hover * {
+  color: inherit !important;
+}
+
+[data-color=blue]:hover::before, [data-color=blue]:hover::after {
+  color: inherit !important;
+}
+
+[data-color=pink] {
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+[data-color=pink]:hover {
+  background-color: #F07884 !important;
+  border: unset !important;
+  color: white !important;
+  opacity: 1;
+}
+
+[data-color=pink]:hover * {
+  color: inherit !important;
+}
+
+[data-color=pink]:hover::before, [data-color=pink]:hover::after {
+  color: inherit !important;
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-style: normal;
+  text-align: left;
+  zoom: 1;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+table {
+  border-collapse: collapse;
+  font-family: inherit;
+}
+
+h1, h2, h3, h4, h5 {
+  font-size: 100%;
+  font-weight: normal;
+  line-height: 1;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: 16px;
+}
+
+input[type=button], input[type=text], input[type=submit] {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+textarea {
+  resize: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+th, td {
+  border-collapse: collapse;
+}
+
+table th, table td {
+  white-space: nowrap;
+}
+
+ul, ol {
+  list-style-type: none;
+}
+
+img {
+  vertical-align: text-bottom;
+  vertical-align: -webkit-baseline-middle;
+  max-width: 100%;
+  height: auto;
+  width: auto;
+}
+
+.index main .kv {
+  position: relative;
+}
+.index main .kv::before, .index main .kv::after {
+  content: "This Moment";
+  font-family: "mina", serif;
+  font-size: clamp(3rem, 2.9346938776rem + 0.2040816327vw, 3.2rem);
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #004C71;
+  z-index: 999;
+  padding: 0px 8px;
+}
+@media screen and (max-width: 768px) {
+  .index main .kv::before, .index main .kv::after {
+    font-size: clamp(2rem, 1.9346938776rem + 0.2040816327vw, 2.2rem);
+    color: white;
+  }
+}
+.index main .kv::after {
+  content: "This Time";
+  left: unset;
+  top: unset;
+  right: 0;
+  bottom: 0;
+}
+.index main .kv__line {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  /* 右上 */
+  /* 左下 */
+}
+.index main .kv__line .migi,
+.index main .kv__line .hidari {
+  /* 共通のスタイル */
+}
+.index main .kv__line .migi::before, .index main .kv__line .migi::after,
+.index main .kv__line .hidari::before,
+.index main .kv__line .hidari::after {
+  content: "";
+  position: absolute;
+}
+.index main .kv__line .migi::before {
+  width: 70vw;
+  height: 1px;
+  top: 20px;
+  right: 20px;
+  background-color: #004C71;
+  transform-origin: top right;
+}
+@media screen and (max-width: 768px) {
+  .index main .kv__line .migi::before {
+    width: 30vw;
+    background-color: white;
+  }
+}
+.index main .kv__line .migi::after {
+  height: 85vh;
+  width: 1px;
+  top: 20px;
+  right: 20px;
+  background-color: #004C71;
+  transform-origin: top right;
+}
+@media screen and (max-width: 768px) {
+  .index main .kv__line .migi::after {
+    background-color: white;
+  }
+}
+.index main .kv__line .hidari::before {
+  width: 70vw;
+  height: 1px;
+  bottom: 20px;
+  left: 20px;
+  background-color: #004C71; /* 線の色 */
+  transform-origin: bottom left;
+}
+@media screen and (max-width: 768px) {
+  .index main .kv__line .hidari::before {
+    width: 30vw;
+    background-color: white;
+  }
+}
+.index main .kv__line .hidari::after {
+  height: 85vh;
+  width: 1px;
+  bottom: 20px;
+  left: 20px;
+  background-color: #004C71; /* 線の色 */
+  transform-origin: bottom left;
+}
+@media screen and (max-width: 768px) {
+  .index main .kv__line .hidari::after {
+    background-color: white;
+  }
+}
+.index main .kv__wrap {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+@media screen and (max-width: 768px) {
+  .index main .kv__wrap {
+    flex-direction: column;
+    background-image: url(../img/kv.webp);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}
+.index main .kv__wrap > div {
+  width: 50%;
+}
+@media screen and (max-width: 768px) {
+  .index main .kv__wrap > div {
+    width: 100%;
+  }
+}
+.index main .kv__wrap .box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: #004C71;
+  z-index: 999;
+}
+@media screen and (max-width: 768px) {
+  .index main .kv__wrap .box {
+    padding: 24px;
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+}
+.index main .kv__wrap .box .t1 {
+  letter-spacing: 10px;
+  margin-bottom: 16px;
+}
+.index main .kv__wrap .box .logo {
+  margin-bottom: 16px;
+}
+.index main .kv__wrap .box .logo img {
+  max-width: 300px;
+  width: 100%;
+}
+@media screen and (max-width: 768px) {
+  .index main .kv__wrap .box .logo img {
+    max-width: 100%;
+  }
+}
+.index main .kv__wrap .box button {
+  width: 50%;
+  margin-bottom: 40px;
+}
+@media screen and (max-width: 768px) {
+  .index main .kv__wrap .box button {
+    width: 100%;
+  }
+}
+.index main .kv__wrap .box .maru {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+.index main .kv__wrap .box .maru > a {
+  border-radius: 100%;
+  border: 1px #004C71 solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  height: 100px;
+  width: 100px;
+  color: #004C71;
+  line-height: 100%;
+  font-size: clamp(1.2rem, 1.1346938776rem + 0.2040816327vw, 1.4rem);
+  gap: 8px;
+}
+.index main .kv__wrap .box .maru .oik::before {
+  font: var(--fa-font-solid);
+  content: "\f002";
+  color: #004C71;
+  font-size: clamp(3rem, 2.9346938776rem + 0.2040816327vw, 3.2rem);
+}
+.index main .kv__wrap .box .maru .idk {
+  border: 1px #F07884 solid;
+  color: #F07884;
+}
+.index main .kv__wrap .box .maru .idk::before {
+  font: var(--fa-font-solid);
+  content: "\f3c5";
+  color: #F07884;
+  font-size: clamp(3rem, 2.9346938776rem + 0.2040816327vw, 3.2rem);
+}
+.index main .kv__wrap .image {
+  height: 50vh;
+}
+@media screen and (max-width: 768px) {
+  .index main .kv__wrap .image {
+    display: none;
+  }
+}
+.index main .kv__wrap .image img {
+  width: 100%;
+  height: auto;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.index main .midashi {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.index main .midashi .h1 {
+  font-size: clamp(3.5rem, 3.4346938776rem + 0.2040816327vw, 3.7rem);
+  color: #004C71;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+@media screen and (max-width: 768px) {
+  .index main .midashi .h1 {
+    font-size: clamp(2rem, 1.9346938776rem + 0.2040816327vw, 2.2rem);
+  }
+}
+.index main .midashi p {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.index main .midashi .banner__wrap {
+  width: 70%;
+  margin: 0 auto;
+}
+@media screen and (max-width: 768px) {
+  .index main .midashi .banner__wrap {
+    width: 100%;
+  }
+}
+.index main .midashi .banner__wrap a {
+  display: block;
+  height: 80px;
+}
+.index main .midashi .banner__wrap a img {
+  height: 100%;
+  width: auto;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.index main .mainTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: clamp(3rem, 2.9346938776rem + 0.2040816327vw, 3.2rem);
+  font-weight: bold;
+  color: #004C71;
+  letter-spacing: 10px;
+}
+@media screen and (max-width: 768px) {
+  .index main .mainTitle {
+    font-size: clamp(2.5rem, 2.4346938776rem + 0.2040816327vw, 2.7rem);
+    letter-spacing: normal;
+    margin-bottom: 16px;
+  }
+}
+.index main .feature {
+  background-color: #EAF2F4;
+  background-image: radial-gradient(white 30%, transparent 30%);
+  background-size: 20px 20px;
+  position: relative;
+}
+.index main .feature::after {
+  content: "";
+  position: absolute;
+  border: 5px white solid;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  width: 95%;
+  height: 95%;
+}
+.index main .feature__wrap {
+  padding: 40px 0px;
+}
+.index main .feature__area {
+  z-index: 10;
+}
+.index main .feature__area .mainTitle {
+  gap: 24px;
+}
+.index main .feature__area .mainTitle::before, .index main .feature__area .mainTitle::after {
+  content: "";
+  background-image: url(../img/fuki1.svg);
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+.index main .feature__area .mainTitle::after {
+  transform: scaleX(-1);
+}
+.index main .feature__area .area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-around;
+  align-items: flex-start;
+  gap: 16px;
+  flex: 1;
+}
+@media screen and (max-width: 768px) {
+  .index main .feature__area .area {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+.index main .feature__area .area .box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.index main .feature__area .area .box .point {
+  font-size: clamp(2rem, 1.9346938776rem + 0.2040816327vw, 2.2rem);
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  justify-content: flex-start;
+  width: 100%;
+  margin-bottom: 8px;
+  line-height: 100%;
+}
+.index main .feature__area .area .box img {
+  aspect-ratio: 1/1;
+  max-height: 300px;
+}
+.index main .feature__area .area .box p {
+  max-width: 300px;
+}
+.index main .btn__area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+.index main .btn__area > button {
+  color: white;
+  padding: 8px;
+  font-size: clamp(2rem, 1.9346938776rem + 0.2040816327vw, 2.2rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.index main .btn__area .male {
+  border: 1px #004C71 solid;
+  color: #004C71;
+  background: white;
+}
+.index main .btn__area .male::before {
+  font: var(--fa-font-solid);
+  content: "\f183";
+  font-size: clamp(2rem, 1.9346938776rem + 0.2040816327vw, 2.2rem);
+  color: #004C71;
+}
+.index main .btn__area .female {
+  border: 1px #F07884 solid;
+  color: #F07884;
+  background: white;
+}
+.index main .btn__area .female::before {
+  font: var(--fa-font-solid);
+  content: "\f182";
+  font-size: clamp(2rem, 1.9346938776rem + 0.2040816327vw, 2.2rem);
+}
+.index main .btn__area .imadoko {
+  border-radius: 100%;
+  border: 1px #F07884 solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  height: 100px;
+  width: 100px;
+  color: #F07884;
+  line-height: 100%;
+  font-size: clamp(1.2rem, 1.1346938776rem + 0.2040816327vw, 1.4rem);
+  gap: 8px;
+  background-color: white;
+}
+.index main .btn__area .imadoko::before {
+  font: var(--fa-font-solid);
+  content: "\f3c5";
+  color: #F07884;
+  font-size: clamp(3rem, 2.9346938776rem + 0.2040816327vw, 3.2rem);
+}
+.index main .oaite .mainTitle::before {
+  font: var(--fa-font-solid);
+  content: "\f002";
+  color: #004C71;
+  font-size: clamp(4rem, 3.9346938776rem + 0.2040816327vw, 4.2rem);
+}
+.index main .oaite p {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.index main .oaite .oaite__wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  justify-content: flex-start;
+}
+.index main .oaite .oaite__wrap .box {
+  flex-shrink: 0;
+}
+.index main .oaite .oaite__wrap .box .image {
+  position: relative;
+  z-index: 0;
+}
+.index main .oaite .oaite__wrap .box .image img {
+  max-width: 250px;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  aspect-ratio: 1/1;
+}
+.index main .oaite .oaite__wrap .box .info {
+  position: absolute;
+  padding: 4px;
+  height: auto;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+.index main .oaite .oaite__wrap .box .info .name {
+  font-weight: bold;
+}
+.index main .oaite .oaite__wrap .box .info .name::after {
+  content: "/";
+  margin-left: 4px;
+  font-weight: normal;
+}
+.index main .oaite .oaite__wrap .box .info .lciq {
+  margin-left: 8px;
+  font-size: clamp(2rem, 1.9346938776rem + 0.2040816327vw, 2.2rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-items: baseline;
+}
+.index main .oaite .oaite__wrap .box .info .lciq::after {
+  content: "/LCIQ";
+  font-size: clamp(1.2rem, 1.1346938776rem + 0.2040816327vw, 1.4rem);
+  font-family: "Times New Roman", "YuMincho", "Hiragino Mincho ProN", "Yu Mincho", "MS PMincho", serif;
+  margin-left: 4px;
+}
+.index main .imadoko .mainTitle {
+  color: #F07884;
+}
+.index main .imadoko .mainTitle::before {
+  font: var(--fa-font-solid);
+  content: "\f3c5";
+  color: #F07884;
+  font-size: clamp(4rem, 3.9346938776rem + 0.2040816327vw, 4.2rem);
+}
+.index main .imadoko p {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.index main .imadoko iframe {
+  width: 100%;
+  aspect-ratio: 16/9;
+  height: auto;
+}
+@media screen and (max-width: 768px) {
+  .index main .imadoko iframe {
+    aspect-ratio: 1/1;
+  }
+}
+.index main .cv {
+  background-color: #EAF2F4;
+  background-image: radial-gradient(white 30%, transparent 30%);
+  background-size: 20px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 120px;
+  gap: 16px;
+  padding: 40px 0px;
+}
+.index main .cv__wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.index main .cv__wrap .catch {
+  text-align: center;
+  font-weight: bold;
+  color: #004C71;
+  margin-bottom: 16px;
+}
+.index main .cv__wrap button {
+  width: 50%;
+}
+@media screen and (max-width: 768px) {
+  .index main .cv__wrap button {
+    width: 100%;
+  }
+}
+.index main .cv__wrap button a {
+  font-weight: bold;
+}
+.index main .merit__wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 40px;
+  margin-top: 40px;
+}
+.index main .merit__wrap .box {
+  width: 100%;
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  gap: 40px;
+}
+@media screen and (max-width: 768px) {
+  .index main .merit__wrap .box {
+    grid-template-columns: 1fr;
+  }
+}
+.index main .merit__wrap .box:nth-child(2) .image {
+  order: 2;
+}
+@media screen and (max-width: 768px) {
+  .index main .merit__wrap .box:nth-child(2) .image {
+    order: 1;
+  }
+}
+.index main .merit__wrap .box:nth-child(2) .text {
+  order: 1;
+}
+@media screen and (max-width: 768px) {
+  .index main .merit__wrap .box:nth-child(2) .text {
+    order: 2;
+  }
+}
+.index main .merit__wrap .box .image img {
+  width: 100%;
+}
+.index main .merit__wrap .box .text .title {
+  font-weight: bold;
+  font-size: clamp(2rem, 1.9346938776rem + 0.2040816327vw, 2.2rem);
+}
+.index main .subtitle {
+  text-align: center;
+  margin-top: 24px;
+}
+@media screen and (max-width: 768px) {
+  .index main .subtitle {
+    margin-top: 8px;
+  }
+}
+.index main .subtitle span {
+  display: block;
+  font-size: clamp(1rem, 0.9346938776rem + 0.2040816327vw, 1.2rem);
+  text-align: center;
+}
+.index main .security__wrap {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+}
+@media screen and (max-width: 768px) {
+  .index main .security__wrap {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.index main .security__wrap .box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 8px;
+}
+.index main .security__wrap .box span {
+  font-size: clamp(1rem, 0.9346938776rem + 0.2040816327vw, 1.2rem);
+}
+.index main .faq__wrap {
+  margin-top: 40px;
+}
+.index main .faq__wrap .box {
+  margin-bottom: 16px;
+}
+.index main .faq__wrap .box .q {
+  padding: 0px 16px;
+  width: 100%;
+}
+.index main .faq__wrap .box .q .title {
+  color: #004C71;
+}
+.index main .faq__wrap .box .q .title::before {
+  content: "Q";
+  font-size: clamp(4rem, 3.9346938776rem + 0.2040816327vw, 4.2rem);
+  font-weight: bold;
+  margin-right: 8px;
+}
+.index main .faq__wrap .box .a {
+  background-color: #EAF2F4;
+  padding: 8px 16px;
+  width: 100%;
+}
+.index main .faq__wrap .box .a .title {
+  color: #F07884;
+}
+.index main .faq__wrap .box .a .title:hover {
+  cursor: pointer;
+}
+.index main .faq__wrap .box .a .title::before {
+  content: "A";
+  font-size: clamp(4rem, 3.9346938776rem + 0.2040816327vw, 4.2rem);
+  font-weight: bold;
+  margin-right: 8px;
+}
+.index main .faq__wrap .box .a .title::after {
+  font: var(--fa-font-solid);
+  content: "\f105";
+  color: #F07884;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+.index main .faq__wrap .box .a .title.active::after {
+  transform: rotate(90deg);
+}
+.index .banner.swiper {
+  width: 100%;
+  max-width: 1200px; /* 最大幅を設定（任意） */
+  margin: 0 auto;
+  overflow: hidden;
+}
+.index .banner .swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.index .banner .swiper-pagination {
+  position: relative;
+  margin-top: 24px;
+}
+.index .banner .swiper-slide img {
+  width: 100%;
+}
+.index .banner .swiper-slide-prev,
+.index .banner .swiper-slide-next {
+  transform: scale(0.9); /* 少し縮小 */
+  opacity: 0.5; /* 薄く表示 */
+}
+.index .banner .swiper-slide-active {
+  transform: scale(1); /* 通常サイズ */
+  opacity: 1; /* はっきり表示 */
+}
+.index .oaite__loop.swiper {
+  width: 100%;
+  overflow: hidden; /* スライダー外の要素を隠す */
+}
+.index .oaite__loop .swiper-slide {
+  width: auto; /* コンテンツの幅に合わせる */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.index .nav__wrap .logo {
+  height: auto;
+}
+.index .nav__wrap .logo img {
+  height: 40px;
+}
+.index .nav__wrap .menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+.index .nav__wrap .menu ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+.index .nav__wrap .menu .login {
+  padding: 8px 16px;
+  border-radius: 100px;
+  background-color: #F07884;
+  color: white;
+}
+.index .nav__wrap .menu .login span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  color: white;
+}
+.index .nav__wrap .menu .login span::before {
+  font: var(--fa-font-solid);
+  content: "\f090";
+  color: white;
+  font-size: clamp(1.2rem, 1.1346938776rem + 0.2040816327vw, 1.4rem);
+}
+.index .nav__sp {
+  justify-content: space-between;
+  align-items: center;
+}
+.index .nav__sp .logo {
+  z-index: 99999;
+}
+.index .nav__sp .logo img {
+  height: 35px;
+}
+.index .nav .nav-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+.index .nav .nav-inner ul {
+  width: 100%;
+  padding-top: 60px;
+}
+.index .nav .nav-inner ul li {
+  border-bottom: 1px #004C71 dotted;
+}
+.index .nav .nav-inner ul li:first-child {
+  border-top: 1px #004C71 dotted;
+}
+.index .nav .nav-inner ul li a::after {
+  font: var(--fa-font-solid);
+  content: "\f105";
+  font-size: clamp(1.6rem, 1.5346938776rem + 0.2040816327vw, 1.8rem);
+  color: #004C71;
+}
+.index .nav .nav-inner .login {
+  padding: 8px 16px;
+  border-radius: 100px;
+  background-color: #F07884;
+  color: white;
+  margin-bottom: 100px;
+  width: 90%;
+}
+.index .nav .nav-inner .login span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  color: white;
+}
+.index .nav .nav-inner .login span::before {
+  font: var(--fa-font-solid);
+  content: "\f090";
+  color: white;
+  font-size: clamp(1.2rem, 1.1346938776rem + 0.2040816327vw, 1.4rem);
+}
+.index .last {
+  background-color: #EAF2F4;
+  margin-bottom: 0;
+  margin-top: 300px;
+}
+@media screen and (max-width: 768px) {
+  .index .last {
+    margin-top: 120px;
+  }
+}
+.index .last .mockup {
+  position: relative;
+  background-color: #EAF2F4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.index .last .mockup::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #EAF2F4;
+  transform: skewY(-4deg);
+  transform-origin: top left;
+  z-index: 0;
+}
+.index .last .mockup img {
+  position: relative;
+  z-index: 1;
+  width: auto;
+  height: auto;
+  margin-top: -240px;
+}
+@media screen and (max-width: 768px) {
+  .index .last .mockup img {
+    margin-top: -80px;
+  }
+}
+.index .last .sns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-around;
+}
+.index .last .sns img {
+  max-height: 50px;
+}
+.index .header__wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.index .footer {
+  margin-top: 0;
+  background-color: #EAF2F4;
+  padding-top: 40px;
+}
+.index .footer__wrap {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 40px;
+  align-items: center;
+}
+@media screen and (max-width: 768px) {
+  .index .footer__wrap {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+.index .footer__wrap .logo img {
+  max-width: 200px;
+}
+@media screen and (max-width: 768px) {
+  .index .footer__wrap .logo img {
+    display: block;
+    margin: 0 auto;
+  }
+}
+.index .footer__wrap ul {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(4, auto);
+  gap: 4px;
+}
+@media screen and (max-width: 768px) {
+  .index .footer__wrap ul {
+    grid-auto-flow: row;
+    justify-items: center; /* 中央揃えを維持 */
+  }
+}
+.index .footer__wrap ul li a {
+  font-size: clamp(1.2rem, 1.1346938776rem + 0.2040816327vw, 1.4rem);
+}
+.index .footer .cr {
+  text-align: center;
+  padding: 40px 0px;
+}
+/* 除算math.divを使うのに必要な記述 */
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: clamp(1.4rem, 1.3346938776rem + 0.2040816327vw, 1.6rem);
+}
+
+body a {
+  color: #0f0f0f;
+}
+
+body a :hover {
+  transition: 0.5s;
+  -webkit-transition: 0.5s; /* Chrome、Safari用 */
+  -moz-transition: 0.5s; /* Firefox用 */
+  -o-transition: 0.5s; /* Opera用 */
+  opacity: 0.5;
+}
+
+body img {
+  max-width: 100%;
+  height: auto;
+}
+
+body .mincho {
+  font-family: "Times New Roman", "YuMincho", "Hiragino Mincho ProN", "Yu Mincho", "MS PMincho", serif;
+  font-size: clamp(3rem, 2.9346938776rem + 0.2040816327vw, 3.2rem);
+}
+
+body section {
+  margin-bottom: 40px;
+}
+
+/* 非表示状態 */
+.inactive {
+  display: none;
+  opacity: 0;
+}
+
+/* 表示状態 */
+.active {
+  display: block;
+  opacity: 1;
+}
+
+html {
+  /*IE(Internet Explorer)・Microsoft Edgeへの対応*/
+  -ms-overflow-style: none;
+  /*Firefoxへの対応*/
+  scrollbar-width: none;
+  /*Google Chrome、Safariへの対応*/
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  background-color: #004C71;
+  border: unset;
+  box-shadow: unset;
+  border-radius: 100px;
+  width: 100%;
+  transition: background-color 0.3s ease;
+  color: white;
+}
+
+button:hover {
+  background-color: #006ea4;
+}
+
+button a {
+  width: 100%;
+  color: white;
+  text-decoration: none;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+[data-color=blue] {
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+[data-color=blue]:hover {
+  background-color: #004C71 !important;
+  border: unset !important;
+  color: white !important;
+  opacity: 1;
+}
+
+[data-color=blue]:hover * {
+  color: inherit !important;
+}
+
+[data-color=blue]:hover::before, [data-color=blue]:hover::after {
+  color: inherit !important;
+}
+
+[data-color=pink] {
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+[data-color=pink]:hover {
+  background-color: #F07884 !important;
+  border: unset !important;
+  color: white !important;
+  opacity: 1;
+}
+
+[data-color=pink]:hover * {
+  color: inherit !important;
+}
+
+[data-color=pink]:hover::before, [data-color=pink]:hover::after {
+  color: inherit !important;
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-style: normal;
+  text-align: left;
+  zoom: 1;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+table {
+  border-collapse: collapse;
+  font-family: inherit;
+}
+
+h1, h2, h3, h4, h5 {
+  font-size: 100%;
+  font-weight: normal;
+  line-height: 1;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: 16px;
+}
+
+input[type=button], input[type=text], input[type=submit] {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+textarea {
+  resize: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+th, td {
+  border-collapse: collapse;
+}
+
+table th, table td {
+  white-space: nowrap;
+}
+
+ul, ol {
+  list-style-type: none;
+}
+
+img {
+  vertical-align: text-bottom;
+  vertical-align: -webkit-baseline-middle;
+  max-width: 100%;
+  height: auto;
+  width: auto;
+}
+
+.base .container {
+  max-width: 768px;
+}
+.base .current {
+  opacity: 1 !important;
+}
+.base .mainTitle {
+  font-size: clamp(4rem, 3.9346938776rem + 0.2040816327vw, 4.2rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  width: 100%;
+}
+@media screen and (max-width: 768px) {
+  .base .mainTitle {
+    font-size: clamp(3rem, 2.9346938776rem + 0.2040816327vw, 3.2rem);
+  }
+}
+.base .subTitle {
+  text-align: center;
+}
+.base.guest-user .profile img {
+  filter: blur(5px);
+}
+.base main {
+  padding-top: 50px;
+  min-height: 100vh;
+}
+@media screen and (max-width: 768px) {
+  .base main {
+    padding-top: 80px;
+  }
+}
+
+.price__wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 40px;
+  margin-top: 40px;
+  overflow-x: auto;
+  padding: 16px;
+}
+.price__wrap .box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 16px;
+  padding: 80px 16px;
+  box-shadow: 0px 0px 15px -10px #777777;
+  justify-content: flex-start;
+  min-width: 300px;
+}
+.price__wrap .box .numb {
+  font-size: clamp(6rem, 5.9346938776rem + 0.2040816327vw, 6.2rem);
+  font-weight: bold;
+  height: 100px;
+}
+.price__wrap .box .numb::before {
+  content: "¥";
+  font-size: clamp(3rem, 2.9346938776rem + 0.2040816327vw, 3.2rem);
+  margin-right: 8px;
+}
+.price__wrap .box .numb span {
+  display: block;
+  text-align: center;
+  font-size: clamp(1rem, 0.9346938776rem + 0.2040816327vw, 1.2rem);
+  width: 100%;
+  font-weight: normal;
+}
+.price__wrap .box .plan {
+  font-size: clamp(2.5rem, 2.4346938776rem + 0.2040816327vw, 2.7rem);
+  font-weight: bold;
+  text-align: center;
+}
+.price__wrap .box .plan span {
+  display: block;
+  text-align: center;
+  font-size: clamp(1rem, 0.9346938776rem + 0.2040816327vw, 1.2rem);
+}
+.price__wrap .box .disc {
+  text-align: center;
+  font-size: clamp(1.2rem, 1.1346938776rem + 0.2040816327vw, 1.4rem);
+}
+.price__wrap .box button {
+  background-color: #004C71;
+  transition: background-color 0.3s ease;
+}
+.price__wrap .box button:hover {
+  background-color: #006ea4;
+}
+.price__wrap .box button a {
+  color: white;
+  display: block;
+  font-weight: bold;
+  padding: 8px;
+  width: 100%;
+  text-align: center;
+}
+.price__wrap .box ul li {
+  font-size: clamp(1.2rem, 1.1346938776rem + 0.2040816327vw, 1.4rem);
+  margin-bottom: 4px;
+}
+.price__wrap .box ul li::before {
+  font: var(--fa-font-solid);
+  content: "\f00c";
+  color: #004C71;
+  margin-right: 4px;
+}
+.price__wrap .free button {
+  background-color: #80b567;
+}
+.price__wrap .free button:hover {
+  background-color: #9dc689;
+}
+.price__wrap .free ul li::before {
+  color: #80b567;
+}
+.price__wrap .advanced button {
+  background-color: #F07884;
+}
+.price__wrap .advanced button:hover {
+  background-color: #f5a6ae;
+}
+.price__wrap .advanced ul li::before {
+  color: #F07884;
+}
+
+.contents {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.contents--inner {
+  margin: auto;
+}
+
+.head--s {
+  background-color: #004C71;
+  padding: 4px 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  margin-right: 8px;
+}
+
+.mt-40 {
+  margin-top: 40px;
+}
+
+/* 除算math.divを使うのに必要な記述 */
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: clamp(1.4rem, 1.3346938776rem + 0.2040816327vw, 1.6rem);
+}
+
+body a {
+  color: #0f0f0f;
+}
+
+body a :hover {
+  transition: 0.5s;
+  -webkit-transition: 0.5s; /* Chrome、Safari用 */
+  -moz-transition: 0.5s; /* Firefox用 */
+  -o-transition: 0.5s; /* Opera用 */
+  opacity: 0.5;
+}
+
+body img {
+  max-width: 100%;
+  height: auto;
+}
+
+body .mincho {
+  font-family: "Times New Roman", "YuMincho", "Hiragino Mincho ProN", "Yu Mincho", "MS PMincho", serif;
+  font-size: clamp(3rem, 2.9346938776rem + 0.2040816327vw, 3.2rem);
+}
+
+body section {
+  margin-bottom: 40px;
+}
+
+/* 非表示状態 */
+.inactive {
+  display: none;
+  opacity: 0;
+}
+
+/* 表示状態 */
+.active {
+  display: block;
+  opacity: 1;
+}
+
+html {
+  /*IE(Internet Explorer)・Microsoft Edgeへの対応*/
+  -ms-overflow-style: none;
+  /*Firefoxへの対応*/
+  scrollbar-width: none;
+  /*Google Chrome、Safariへの対応*/
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  background-color: #004C71;
+  border: unset;
+  box-shadow: unset;
+  border-radius: 100px;
+  width: 100%;
+  transition: background-color 0.3s ease;
+  color: white;
+}
+
+button:hover {
+  background-color: #006ea4;
+}
+
+button a {
+  width: 100%;
+  color: white;
+  text-decoration: none;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+[data-color=blue] {
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+[data-color=blue]:hover {
+  background-color: #004C71 !important;
+  border: unset !important;
+  color: white !important;
+  opacity: 1;
+}
+
+[data-color=blue]:hover * {
+  color: inherit !important;
+}
+
+[data-color=blue]:hover::before, [data-color=blue]:hover::after {
+  color: inherit !important;
+}
+
+[data-color=pink] {
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+[data-color=pink]:hover {
+  background-color: #F07884 !important;
+  border: unset !important;
+  color: white !important;
+  opacity: 1;
+}
+
+[data-color=pink]:hover * {
+  color: inherit !important;
+}
+
+[data-color=pink]:hover::before, [data-color=pink]:hover::after {
+  color: inherit !important;
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-style: normal;
+  text-align: left;
+  zoom: 1;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+table {
+  border-collapse: collapse;
+  font-family: inherit;
+}
+
+h1, h2, h3, h4, h5 {
+  font-size: 100%;
+  font-weight: normal;
+  line-height: 1;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: 16px;
+}
+
+input[type=button], input[type=text], input[type=submit] {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+textarea {
+  resize: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+th, td {
+  border-collapse: collapse;
+}
+
+table th, table td {
+  white-space: nowrap;
+}
+
+ul, ol {
+  list-style-type: none;
+}
+
+img {
+  vertical-align: text-bottom;
+  vertical-align: -webkit-baseline-middle;
+  max-width: 100%;
+  height: auto;
+  width: auto;
+}
+
+.form__wrap .area {
+  margin-bottom: 24px;
+}
+.form__wrap .area label.title {
+  padding: 8px;
+  padding-left: 0;
+  font-weight: bold;
+  display: block;
+}
+.form__wrap .area label.required::after {
+  content: "*";
+  color: red;
+  margin-left: 4px;
+}
+.form__wrap .area input[type=text], .form__wrap .area input[type=email], .form__wrap .area input[type=number], .form__wrap .area input[type=password], .form__wrap .area input[type=tel], .form__wrap .area input[type=url] {
+  width: 100%;
+  border: unset;
+  background-color: #f2f2f2;
+  padding: 16px;
+  font-size: clamp(1.4rem, 1.3346938776rem + 0.2040816327vw, 1.6rem);
+}
+.form__wrap .area input::-moz-placeholder {
+  color: #999; /* プレースホルダーのテキストカラー */
+  font-size: clamp(1rem, 0.9346938776rem + 0.2040816327vw, 1.2rem);
+}
+.form__wrap .area input::placeholder {
+  color: #999; /* プレースホルダーのテキストカラー */
+  font-size: clamp(1rem, 0.9346938776rem + 0.2040816327vw, 1.2rem);
+}
+.form__wrap .area select {
+  border: none;
+  width: 100%;
+  background-color: #f8f8f8;
+  padding: 16px;
+  -moz-appearance: none;
+       appearance: none; /* デフォルトの矢印を非表示 */
+  -webkit-appearance: none; /* Safari用 */
+  background-image: url("../img/arrow.svg"); /* カスタム矢印画像 */
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+  padding-right: 30px; /* 矢印とテキストが重ならないよう余白を調整 */
+}
+.form__wrap .area select option:first-child {
+  color: #999;
+}
+.form__wrap .area textarea {
+  width: 100%;
+  width: 100%;
+  border: unset;
+  background-color: #f2f2f2;
+  padding: 16px;
+  font-size: clamp(1.6rem, 1.5346938776rem + 0.2040816327vw, 1.8rem);
+}
+.form__wrap .area textarea.large {
+  height: 300px;
+}
+.form__wrap .area textarea::-moz-placeholder {
+  color: #999; /* プレースホルダーのテキストカラー */
+  font-size: clamp(1rem, 0.9346938776rem + 0.2040816327vw, 1.2rem);
+}
+.form__wrap .area textarea::placeholder {
+  color: #999; /* プレースホルダーのテキストカラー */
+  font-size: clamp(1rem, 0.9346938776rem + 0.2040816327vw, 1.2rem);
+}
+.form__wrap .area .media__wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.form__wrap .area .media__wrap label {
+  background-color: orange;
+  padding: 8px 16px;
+  color: white;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form__wrap .area .media__wrap label:hover {
+  cursor: pointer;
+}
+.form__wrap .area .media__wrap button {
+  width: auto;
+  color: white;
+  background-color: gray;
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+.form__wrap .area .caution {
+  font-size: clamp(1rem, 0.9346938776rem + 0.2040816327vw, 1.2rem);
+  margin-top: 4px;
+}
+.form__wrap .radio {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+}
+.form__wrap .radio__wrap input[type=radio] {
+  display: none;
+}
+.form__wrap .radio__wrap--label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 16px;
+  cursor: pointer;
+  background-color: #f2f2f2;
+  border-radius: 8px;
+  transition: background-color 0.3s, color 0.3s;
+}
+.form__wrap .radio__wrap--label:hover {
+  background-color: #eaeaea;
+}
+.form__wrap .radio__wrap.d-flex {
+  justify-content: space-between;
+  gap: 16px;
+}
+.form__wrap .radio__wrap.d-flex label {
+  width: 100%;
+}
+.form__wrap .radio__wrap input[type=radio]:checked + .radio__wrap--label {
+  background-color: #004C71;
+  color: white;
+}
+
+.btnArea {
+  margin-top: 40px;
+}
+.btnArea.d-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+.btnArea button[type=submit] {
+  padding: 8px;
+  color: white;
+  font-weight: bold;
+  background-color: #004C71;
+  font-size: clamp(1.4rem, 1.3346938776rem + 0.2040816327vw, 1.6rem);
+  border-radius: 100px;
+}
+.btnArea button a {
+  font-weight: bold;
+}
+.btnArea .button {
+  padding: 8px;
+  border-radius: 100px;
+  background-color: #004C71;
+  text-align: center;
+  color: white;
+  width: 100%;
+  display: block;
+  transition: background-color 0.3s ease;
+}
+.btnArea .button:hover {
+  background-color: #006ea4;
+}
+.btnArea input[type=reset] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: unset;
+  border: unset;
+  border-bottom: 1px gray solid;
+  text-align: center;
+  font-size: clamp(1rem, 0.9346938776rem + 0.2040816327vw, 1.2rem);
+  margin: 0 auto;
+  margin-top: 8px;
+}
+.btnArea .back {
+  background-color: gray;
+}
+
+/* 除算math.divを使うのに必要な記述 */
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: clamp(1.4rem, 1.3346938776rem + 0.2040816327vw, 1.6rem);
+}
+
+body a {
+  color: #0f0f0f;
+}
+
+body a :hover {
+  transition: 0.5s;
+  -webkit-transition: 0.5s; /* Chrome、Safari用 */
+  -moz-transition: 0.5s; /* Firefox用 */
+  -o-transition: 0.5s; /* Opera用 */
+  opacity: 0.5;
+}
+
+body img {
+  max-width: 100%;
+  height: auto;
+}
+
+body .mincho {
+  font-family: "Times New Roman", "YuMincho", "Hiragino Mincho ProN", "Yu Mincho", "MS PMincho", serif;
+  font-size: clamp(3rem, 2.9346938776rem + 0.2040816327vw, 3.2rem);
+}
+
+body section {
+  margin-bottom: 40px;
+}
+
+/* 非表示状態 */
+.inactive {
+  display: none;
+  opacity: 0;
+}
+
+/* 表示状態 */
+.active {
+  display: block;
+  opacity: 1;
+}
+
+html {
+  /*IE(Internet Explorer)・Microsoft Edgeへの対応*/
+  -ms-overflow-style: none;
+  /*Firefoxへの対応*/
+  scrollbar-width: none;
+  /*Google Chrome、Safariへの対応*/
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  background-color: #004C71;
+  border: unset;
+  box-shadow: unset;
+  border-radius: 100px;
+  width: 100%;
+  transition: background-color 0.3s ease;
+  color: white;
+}
+
+button:hover {
+  background-color: #006ea4;
+}
+
+button a {
+  width: 100%;
+  color: white;
+  text-decoration: none;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+[data-color=blue] {
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+[data-color=blue]:hover {
+  background-color: #004C71 !important;
+  border: unset !important;
+  color: white !important;
+  opacity: 1;
+}
+
+[data-color=blue]:hover * {
+  color: inherit !important;
+}
+
+[data-color=blue]:hover::before, [data-color=blue]:hover::after {
+  color: inherit !important;
+}
+
+[data-color=pink] {
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+[data-color=pink]:hover {
+  background-color: #F07884 !important;
+  border: unset !important;
+  color: white !important;
+  opacity: 1;
+}
+
+[data-color=pink]:hover * {
+  color: inherit !important;
+}
+
+[data-color=pink]:hover::before, [data-color=pink]:hover::after {
+  color: inherit !important;
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-style: normal;
+  text-align: left;
+  zoom: 1;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+table {
+  border-collapse: collapse;
+  font-family: inherit;
+}
+
+h1, h2, h3, h4, h5 {
+  font-size: 100%;
+  font-weight: normal;
+  line-height: 1;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: 16px;
+}
+
+input[type=button], input[type=text], input[type=submit] {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+textarea {
+  resize: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+th, td {
+  border-collapse: collapse;
+}
+
+table th, table td {
+  white-space: nowrap;
+}
+
+ul, ol {
+  list-style-type: none;
+}
+
+img {
+  vertical-align: text-bottom;
+  vertical-align: -webkit-baseline-middle;
+  max-width: 100%;
+  height: auto;
+  width: auto;
+}
+
+.search main .advice ul li {
+  padding: 16px;
+  border-bottom: 1px dotted #004C71;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+  justify-content: flex-start;
+}
+.search main .advice ul li::before {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font: var(--fa-font-solid);
+  content: "?";
+  background-color: #004C71;
+  padding: 8px;
+  border-radius: 100%;
+  color: #004C71;
+  font-size: clamp(2rem, 1.9346938776rem + 0.2040816327vw, 2.2rem);
+  color: white;
+  aspect-ratio: 1/1;
+  width: 35px;
+  height: 35px;
+}
+.search main .advice ul li::after {
+  font: var(--fa-font-solid);
+  content: "\f105";
+}
+.search main .advice ul li a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  display: block;
+  font-weight: bold;
+  color: #004C71;
+}
+.search main .advice ul li a span {
+  display: block;
+  font-weight: normal;
+  font-size: clamp(1.2rem, 1.1346938776rem + 0.2040816327vw, 1.4rem);
+}
+.search main .advice ul li.task {
+  background-color: #004C71;
+  color: white;
+}
+.search main .advice ul li.task::before {
+  font: var(--fa-font-solid);
+  content: "\f304";
+  background-color: white;
+  padding: 8px;
+  border-radius: 100%;
+  color: #004C71;
+}
+.search main .advice ul li.task a {
+  color: white;
+}
+.search main .lciq {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #F6AB00;
+  padding: 16px;
+  border-radius: 100px;
+  color: white;
+  gap: 16px;
+}
+.search main .lciq .logo {
+  width: 150px;
+  height: auto;
+}
+.search main .lciq a {
+  color: white;
+}
+.search main .lciq a::after {
+  font: var(--fa-font-solid);
+  content: "\f105";
+  margin-left: 8px;
+}
+.search main .newface {
+  padding: 16px;
+  background-color: #EAF2F4;
+}
+.search main .newface .head {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.search main .newface .head .title {
+  font-size: clamp(2rem, 1.9346938776rem + 0.2040816327vw, 2.2rem);
+  font-weight: bold;
+}
+.search main .newface .head a {
+  font-size: clamp(1rem, 0.9346938776rem + 0.2040816327vw, 1.2rem);
+}
+.search main .newface .head a::after {
+  font: var(--fa-font-solid);
+  content: "\f105";
+  margin-left: 8px;
+}
+.search main .newface__wrap .box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: auto;
+}
+.search main .newface__wrap .box img {
+  width: 100px;
+  height: auto;
+  aspect-ratio: 1/1;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.search main .newface__wrap .box p {
+  font-size: clamp(1.2rem, 1.1346938776rem + 0.2040816327vw, 1.4rem);
+}
+.search main .feed__wrap .box {
+  box-shadow: 0px 0px 10px -5px #777777;
+  border-radius: 16px;
+  margin-bottom: 24px;
+}
+.search main .feed__wrap .box__wrap {
+  display: grid;
+  grid-template-columns: 4fr 6fr;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  padding-bottom: 0;
+}
+@media screen and (max-width: 768px) {
+  .search main .feed__wrap .box__wrap {
+    grid-template-columns: 1fr;
+  }
+}
+.search main .feed__wrap .box__wrap .image img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 10px;
+}
+.search main .feed__wrap .box__wrap .area__wrap {
+  display: grid;
+  grid-template-columns: 7fr 3fr;
+  align-items: center;
+  gap: 16px;
+}
+.search main .feed__wrap .box__wrap .area__wrap .left .name__area {
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 8px 0px;
+}
+.search main .feed__wrap .box__wrap .area__wrap .left .name__area .name::after {
+  content: "さん";
+  font-size: clamp(1rem, 0.9346938776rem + 0.2040816327vw, 1.2rem);
+}
+.search main .feed__wrap .box__wrap .area__wrap .left .name__area .age::after {
+  content: "歳";
+  font-size: clamp(1rem, 0.9346938776rem + 0.2040816327vw, 1.2rem);
+}
+.search main .feed__wrap .box__wrap .area__wrap .left .info__area {
+  display: grid;
+  grid-template-columns: 3fr 7fr;
+  font-weight: bold;
+}
+.search main .feed__wrap .box__wrap .area__wrap .left .info__area > div {
+  border-bottom: 1px #004C71 dotted;
+  padding: 4px 8px;
+}
+.search main .feed__wrap .box__wrap .area__wrap .left .info__area .title {
+  font-weight: normal;
+  font-size: clamp(1rem, 0.9346938776rem + 0.2040816327vw, 1.2rem);
+}
+.search main .feed__wrap .box__wrap .area__wrap .right .lciq-point {
+  background: unset;
+  color: #F6AB00;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: clamp(3rem, 2.9346938776rem + 0.2040816327vw, 3.2rem);
+  font-weight: bold;
+}
+.search main .feed__wrap .box__wrap .area__wrap .right .lciq-point::before {
+  content: "LCIQ";
+  font-size: clamp(1.2rem, 1.1346938776rem + 0.2040816327vw, 1.4rem);
+  font-family: "Times New Roman", "YuMincho", "Hiragino Mincho ProN", "Yu Mincho", "MS PMincho", serif;
+  color: black;
+  font-weight: normal;
+}
+.search main .feed__wrap .box__wrap .area p {
+  margin: 16px auto;
+  padding: 16px;
+  background-color: #EAF2F4;
+}
+.search main .feed__wrap .box .btn__area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  padding-top: 0;
+}
+.search main .feed__wrap .box .btn__area button {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  font-weight: bold;
+}
+.search main .feed__wrap .box .btn__area .like::before {
+  font: var(--fa-font-solid);
+  content: "\f004";
+  color: white;
+}
+.search main .feed__wrap .box .btn__area .message {
+  background-color: #F07884;
+}
+.search main .feed__wrap .box .btn__area .message::before {
+  font: var(--fa-font-solid);
+  content: "\f086";
+  color: white;
+}
+
+/* 除算math.divを使うのに必要な記述 */
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: clamp(1.4rem, 1.3346938776rem + 0.2040816327vw, 1.6rem);
+}
+
+body a {
+  color: #0f0f0f;
+}
+
+body a :hover {
+  transition: 0.5s;
+  -webkit-transition: 0.5s; /* Chrome、Safari用 */
+  -moz-transition: 0.5s; /* Firefox用 */
+  -o-transition: 0.5s; /* Opera用 */
+  opacity: 0.5;
+}
+
+body img {
+  max-width: 100%;
+  height: auto;
+}
+
+body .mincho {
+  font-family: "Times New Roman", "YuMincho", "Hiragino Mincho ProN", "Yu Mincho", "MS PMincho", serif;
+  font-size: clamp(3rem, 2.9346938776rem + 0.2040816327vw, 3.2rem);
+}
+
+body section {
+  margin-bottom: 40px;
+}
+
+/* 非表示状態 */
+.inactive {
+  display: none;
+  opacity: 0;
+}
+
+/* 表示状態 */
+.active {
+  display: block;
+  opacity: 1;
+}
+
+html {
+  /*IE(Internet Explorer)・Microsoft Edgeへの対応*/
+  -ms-overflow-style: none;
+  /*Firefoxへの対応*/
+  scrollbar-width: none;
+  /*Google Chrome、Safariへの対応*/
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  background-color: #004C71;
+  border: unset;
+  box-shadow: unset;
+  border-radius: 100px;
+  width: 100%;
+  transition: background-color 0.3s ease;
+  color: white;
+}
+
+button:hover {
+  background-color: #006ea4;
+}
+
+button a {
+  width: 100%;
+  color: white;
+  text-decoration: none;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+[data-color=blue] {
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+[data-color=blue]:hover {
+  background-color: #004C71 !important;
+  border: unset !important;
+  color: white !important;
+  opacity: 1;
+}
+
+[data-color=blue]:hover * {
+  color: inherit !important;
+}
+
+[data-color=blue]:hover::before, [data-color=blue]:hover::after {
+  color: inherit !important;
+}
+
+[data-color=pink] {
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+[data-color=pink]:hover {
+  background-color: #F07884 !important;
+  border: unset !important;
+  color: white !important;
+  opacity: 1;
+}
+
+[data-color=pink]:hover * {
+  color: inherit !important;
+}
+
+[data-color=pink]:hover::before, [data-color=pink]:hover::after {
+  color: inherit !important;
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-style: normal;
+  text-align: left;
+  zoom: 1;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+table {
+  border-collapse: collapse;
+  font-family: inherit;
+}
+
+h1, h2, h3, h4, h5 {
+  font-size: 100%;
+  font-weight: normal;
+  line-height: 1;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: 16px;
+}
+
+input[type=button], input[type=text], input[type=submit] {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+textarea {
+  resize: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+th, td {
+  border-collapse: collapse;
+}
+
+table th, table td {
+  white-space: nowrap;
+}
+
+ul, ol {
+  list-style-type: none;
+}
+
+img {
+  vertical-align: text-bottom;
+  vertical-align: -webkit-baseline-middle;
+  max-width: 100%;
+  height: auto;
+  width: auto;
+}
+
+.mypage main .mainTitle {
+  margin-bottom: 0;
+}
+.mypage main .profile {
+  display: grid;
+  grid-template-columns: 4fr 6fr;
+  gap: 40px;
+}
+@media screen and (max-width: 768px) {
+  .mypage main .profile {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+.mypage main .profile .image {
+  background-color: #EAF2F4;
+  padding: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+@media screen and (max-width: 768px) {
+  .mypage main .profile .image {
+    margin: 40px;
+  }
+}
+.mypage main .profile .image img {
+  width: 100%;
+  height: 100%;
+  color: white;
+}
+.mypage main .profile .text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-items: flex-start;
+  gap: 24px;
+  flex-direction: column;
+}
+.mypage main .profile .text .name {
+  font-weight: bold;
+  font-size: clamp(2rem, 1.9346938776rem + 0.2040816327vw, 2.2rem);
+}
+.mypage main .profile .text button {
+  color: white;
+}
+.mypage main .profile .text button a {
+  padding: 8px;
+}
+.mypage main .score {
+  background-color: #EAF2F4;
+}
+.mypage main .score__wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+@media screen and (max-width: 768px) {
+  .mypage main .score__wrap {
+    grid-template-areas: "lciq like" "prof prof"; /* 横長 */
+    grid-template-columns: 1fr 1fr; /* 上の2つを均等に */
+  }
+}
+.mypage main .score__wrap .box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  gap: 8px;
+  height: 200px;
+  padding: 16px;
+}
+.mypage main .score__wrap .box a.point {
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  font-size: clamp(1rem, 0.9346938776rem + 0.2040816327vw, 1.2rem);
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.mypage main .score__wrap .box a.point::after {
+  font: var(--fa-font-solid);
+  content: "\f105";
+  font-size: clamp(1rem, 0.9346938776rem + 0.2040816327vw, 1.2rem);
+  margin-left: 4px;
+}
+.mypage main .score__wrap .box a.point:hover {
+  transition: 0.5s;
+  -webkit-transition: 0.5s; /* Chrome、Safari用 */
+  -moz-transition: 0.5s; /* Firefox用 */
+  -o-transition: 0.5s; /* Opera用 */
+  opacity: 0.5;
+}
+.mypage main .score__wrap .box .title {
+  font-size: clamp(1.6rem, 1.5346938776rem + 0.2040816327vw, 1.8rem);
+  font-weight: normal;
+}
+.mypage main .score__wrap .box .numb {
+  font-size: clamp(4rem, 3.9346938776rem + 0.2040816327vw, 4.2rem);
+  font-weight: bold;
+}
+.mypage main .score__wrap .box button {
+  width: 70%;
+}
+@media screen and (max-width: 768px) {
+  .mypage main .score__wrap .box button {
+    width: 100%;
+  }
+}
+.mypage main .score__wrap .box button a {
+  padding: 4px;
+  font-size: clamp(1.2rem, 1.1346938776rem + 0.2040816327vw, 1.4rem);
+}
+.mypage main .score__wrap .box button.yellow {
+  background-color: #F6AB00;
+}
+.mypage main .score__wrap .box button.yellow:hover {
+  background-color: #ffbe2a;
+}
+.mypage main .score__wrap .lciq, .mypage main .score__wrap .like {
+  border-right: 1px white solid;
+}
+@media screen and (max-width: 768px) {
+  .mypage main .score__wrap .lciq, .mypage main .score__wrap .like {
+    border-right: unset;
+  }
+}
+@media screen and (max-width: 768px) {
+  .mypage main .score__wrap .lciq {
+    grid-area: lciq;
+    border-right: 1px white solid;
+  }
+}
+@media screen and (max-width: 768px) {
+  .mypage main .score__wrap .like {
+    grid-area: like;
+  }
+}
+.mypage main .score__wrap .like i {
+  color: #F07884;
+  margin-right: 4px;
+}
+@media screen and (max-width: 768px) {
+  .mypage main .score__wrap .prof {
+    border-top: 1px white solid;
+    grid-area: prof;
+  }
+}
+.mypage main .score__wrap .prof .numb {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-items: baseline;
+  gap: 4px;
+}
+.mypage main .score__wrap .prof .numb::after {
+  content: "/10";
+  font-size: clamp(1.6rem, 1.5346938776rem + 0.2040816327vw, 1.8rem);
+  font-weight: normal;
+}
+.mypage main .menu ul li {
+  border-bottom: 1px #004C71 dotted;
+}
+.mypage main .menu ul li a {
+  color: #004C71;
+  display: block;
+  padding: 16px;
+}
+.mypage main .menu ul li a i {
+  margin-right: 8px;
+}
+.mypage main .menu ul li a:hover {
+  transition: 0.5s;
+  -webkit-transition: 0.5s; /* Chrome、Safari用 */
+  -moz-transition: 0.5s; /* Firefox用 */
+  -o-transition: 0.5s; /* Opera用 */
+  opacity: 0.5;
+}
+
+/* 除算math.divを使うのに必要な記述 */
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: clamp(1.4rem, 1.3346938776rem + 0.2040816327vw, 1.6rem);
+}
+
+body a {
+  color: #0f0f0f;
+}
+
+body a :hover {
+  transition: 0.5s;
+  -webkit-transition: 0.5s; /* Chrome、Safari用 */
+  -moz-transition: 0.5s; /* Firefox用 */
+  -o-transition: 0.5s; /* Opera用 */
+  opacity: 0.5;
+}
+
+body img {
+  max-width: 100%;
+  height: auto;
+}
+
+body .mincho {
+  font-family: "Times New Roman", "YuMincho", "Hiragino Mincho ProN", "Yu Mincho", "MS PMincho", serif;
+  font-size: clamp(3rem, 2.9346938776rem + 0.2040816327vw, 3.2rem);
+}
+
+body section {
+  margin-bottom: 40px;
+}
+
+/* 非表示状態 */
+.inactive {
+  display: none;
+  opacity: 0;
+}
+
+/* 表示状態 */
+.active {
+  display: block;
+  opacity: 1;
+}
+
+html {
+  /*IE(Internet Explorer)・Microsoft Edgeへの対応*/
+  -ms-overflow-style: none;
+  /*Firefoxへの対応*/
+  scrollbar-width: none;
+  /*Google Chrome、Safariへの対応*/
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  background-color: #004C71;
+  border: unset;
+  box-shadow: unset;
+  border-radius: 100px;
+  width: 100%;
+  transition: background-color 0.3s ease;
+  color: white;
+}
+
+button:hover {
+  background-color: #006ea4;
+}
+
+button a {
+  width: 100%;
+  color: white;
+  text-decoration: none;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+[data-color=blue] {
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+[data-color=blue]:hover {
+  background-color: #004C71 !important;
+  border: unset !important;
+  color: white !important;
+  opacity: 1;
+}
+
+[data-color=blue]:hover * {
+  color: inherit !important;
+}
+
+[data-color=blue]:hover::before, [data-color=blue]:hover::after {
+  color: inherit !important;
+}
+
+[data-color=pink] {
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+[data-color=pink]:hover {
+  background-color: #F07884 !important;
+  border: unset !important;
+  color: white !important;
+  opacity: 1;
+}
+
+[data-color=pink]:hover * {
+  color: inherit !important;
+}
+
+[data-color=pink]:hover::before, [data-color=pink]:hover::after {
+  color: inherit !important;
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-style: normal;
+  text-align: left;
+  zoom: 1;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+table {
+  border-collapse: collapse;
+  font-family: inherit;
+}
+
+h1, h2, h3, h4, h5 {
+  font-size: 100%;
+  font-weight: normal;
+  line-height: 1;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: 16px;
+}
+
+input[type=button], input[type=text], input[type=submit] {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+textarea {
+  resize: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+th, td {
+  border-collapse: collapse;
+}
+
+table th, table td {
+  white-space: nowrap;
+}
+
+ul, ol {
+  list-style-type: none;
+}
+
+img {
+  vertical-align: text-bottom;
+  vertical-align: -webkit-baseline-middle;
+  max-width: 100%;
+  height: auto;
+  width: auto;
+}
+
+.registration .mainTitle {
+  margin-top: 40px;
+  margin-bottom: 16px;
+}
+.registration .subtitle {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.registration .pr {
+  margin-bottom: 40px;
+}
+.registration .pr__area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.registration .pr__area img {
+  width: 100%;
+  max-width: 500px;
+}
+.registration button a {
+  font-size: clamp(2rem, 1.9346938776rem + 0.2040816327vw, 2.2rem);
+  font-weight: bold;
+}
+
+/* 除算math.divを使うのに必要な記述 */
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: clamp(1.4rem, 1.3346938776rem + 0.2040816327vw, 1.6rem);
+}
+
+body a {
+  color: #0f0f0f;
+}
+
+body a :hover {
+  transition: 0.5s;
+  -webkit-transition: 0.5s; /* Chrome、Safari用 */
+  -moz-transition: 0.5s; /* Firefox用 */
+  -o-transition: 0.5s; /* Opera用 */
+  opacity: 0.5;
+}
+
+body img {
+  max-width: 100%;
+  height: auto;
+}
+
+body .mincho {
+  font-family: "Times New Roman", "YuMincho", "Hiragino Mincho ProN", "Yu Mincho", "MS PMincho", serif;
+  font-size: clamp(3rem, 2.9346938776rem + 0.2040816327vw, 3.2rem);
+}
+
+body section {
+  margin-bottom: 40px;
+}
+
+/* 非表示状態 */
+.inactive {
+  display: none;
+  opacity: 0;
+}
+
+/* 表示状態 */
+.active {
+  display: block;
+  opacity: 1;
+}
+
+html {
+  /*IE(Internet Explorer)・Microsoft Edgeへの対応*/
+  -ms-overflow-style: none;
+  /*Firefoxへの対応*/
+  scrollbar-width: none;
+  /*Google Chrome、Safariへの対応*/
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  background-color: #004C71;
+  border: unset;
+  box-shadow: unset;
+  border-radius: 100px;
+  width: 100%;
+  transition: background-color 0.3s ease;
+  color: white;
+}
+
+button:hover {
+  background-color: #006ea4;
+}
+
+button a {
+  width: 100%;
+  color: white;
+  text-decoration: none;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+[data-color=blue] {
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+[data-color=blue]:hover {
+  background-color: #004C71 !important;
+  border: unset !important;
+  color: white !important;
+  opacity: 1;
+}
+
+[data-color=blue]:hover * {
+  color: inherit !important;
+}
+
+[data-color=blue]:hover::before, [data-color=blue]:hover::after {
+  color: inherit !important;
+}
+
+[data-color=pink] {
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+[data-color=pink]:hover {
+  background-color: #F07884 !important;
+  border: unset !important;
+  color: white !important;
+  opacity: 1;
+}
+
+[data-color=pink]:hover * {
+  color: inherit !important;
+}
+
+[data-color=pink]:hover::before, [data-color=pink]:hover::after {
+  color: inherit !important;
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-style: normal;
+  text-align: left;
+  zoom: 1;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+table {
+  border-collapse: collapse;
+  font-family: inherit;
+}
+
+h1, h2, h3, h4, h5 {
+  font-size: 100%;
+  font-weight: normal;
+  line-height: 1;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: 16px;
+}
+
+input[type=button], input[type=text], input[type=submit] {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+textarea {
+  resize: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+th, td {
+  border-collapse: collapse;
+}
+
+table th, table td {
+  white-space: nowrap;
+}
+
+ul, ol {
+  list-style-type: none;
+}
+
+img {
+  vertical-align: text-bottom;
+  vertical-align: -webkit-baseline-middle;
+  max-width: 100%;
+  height: auto;
+  width: auto;
+}
+
+.edit__head {
+  margin-bottom: 16px;
+}
+.edit__head .errorMessage {
+  color: 0;
+  font-weight: bold;
+}
+.edit__head .mainTitle {
+  margin-bottom: 16px;
+}
+.edit__head .name {
+  font-weight: bold;
+  font-size: clamp(2rem, 1.9346938776rem + 0.2040816327vw, 2.2rem);
+  text-align: center;
+}
+
+/* 除算math.divを使うのに必要な記述 */
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: clamp(1.4rem, 1.3346938776rem + 0.2040816327vw, 1.6rem);
+}
+
+body a {
+  color: #0f0f0f;
+}
+
+body a :hover {
+  transition: 0.5s;
+  -webkit-transition: 0.5s; /* Chrome、Safari用 */
+  -moz-transition: 0.5s; /* Firefox用 */
+  -o-transition: 0.5s; /* Opera用 */
+  opacity: 0.5;
+}
+
+body img {
+  max-width: 100%;
+  height: auto;
+}
+
+body .mincho {
+  font-family: "Times New Roman", "YuMincho", "Hiragino Mincho ProN", "Yu Mincho", "MS PMincho", serif;
+  font-size: clamp(3rem, 2.9346938776rem + 0.2040816327vw, 3.2rem);
+}
+
+body section {
+  margin-bottom: 40px;
+}
+
+/* 非表示状態 */
+.inactive {
+  display: none;
+  opacity: 0;
+}
+
+/* 表示状態 */
+.active {
+  display: block;
+  opacity: 1;
+}
+
+html {
+  /*IE(Internet Explorer)・Microsoft Edgeへの対応*/
+  -ms-overflow-style: none;
+  /*Firefoxへの対応*/
+  scrollbar-width: none;
+  /*Google Chrome、Safariへの対応*/
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  background-color: #004C71;
+  border: unset;
+  box-shadow: unset;
+  border-radius: 100px;
+  width: 100%;
+  transition: background-color 0.3s ease;
+  color: white;
+}
+
+button:hover {
+  background-color: #006ea4;
+}
+
+button a {
+  width: 100%;
+  color: white;
+  text-decoration: none;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+[data-color=blue] {
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+[data-color=blue]:hover {
+  background-color: #004C71 !important;
+  border: unset !important;
+  color: white !important;
+  opacity: 1;
+}
+
+[data-color=blue]:hover * {
+  color: inherit !important;
+}
+
+[data-color=blue]:hover::before, [data-color=blue]:hover::after {
+  color: inherit !important;
+}
+
+[data-color=pink] {
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+[data-color=pink]:hover {
+  background-color: #F07884 !important;
+  border: unset !important;
+  color: white !important;
+  opacity: 1;
+}
+
+[data-color=pink]:hover * {
+  color: inherit !important;
+}
+
+[data-color=pink]:hover::before, [data-color=pink]:hover::after {
+  color: inherit !important;
+}
+
+.ex.ex-mrc .contents {
+  gap: 16px;
+}
+.ex.ex-mrc .contents .head--s {
+  margin: unset;
+}
+.ex.ex-mrc .contents .contents--inner {
+  margin: unset;
+}
+.ex.ex-mrc .option {
+  margin-top: 40px;
+}
+.ex.ex-mrc .option .wrap .title {
+  text-align: center;
+}
+.ex.ex-mrc .option .wrap .caution {
+  text-align: center;
+  font-weight: bold;
+}
+.ex.ex-pdl .name {
+  font-size: clamp(1.8rem, 1.7346938776rem + 0.2040816327vw, 2rem);
+  font-weight: bold;
+}
+.ex.ex-pdl .area p span.caution {
+  font-size: clamp(1.6rem, 1.5346938776rem + 0.2040816327vw, 1.8rem);
+  color: #F07884;
+}
+.ex.ex-pdm {
+  margin-bottom: 200px;
+  /* 以下、もともとのCSSはそのまま残します */
+  /* 「閉じる」ボタンのフローティング */
+  /* 写真、音声、動画入力 */
+  /* 各入力グループのラベル用 */
+  /* textbox */
+}
+.ex.ex-pdm #button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 30px;
+  background-color: #eee;
+  border: solid #ccc 1px;
+  cursor: pointer;
+}
+.ex.ex-pdm #overlay {
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  display: none;
+  background: rgba(0, 0, 0, 0.6);
+}
+.ex.ex-pdm .cv-spinner {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ex.ex-pdm .spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px #ddd solid;
+  border-top: 4px #2e93e6 solid;
+  border-radius: 50%;
+  animation: sp-anime 0.8s infinite linear;
+}
+@keyframes sp-anime {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.ex.ex-pdm .is-hide {
+  display: none;
+}
+.ex.ex-pdm #footerFloatingMenu_search {
+  display: block;
+  width: 90%;
+  position: fixed;
+  left: auto;
+  bottom: 70px;
+  z-index: 9999;
+  text-align: center;
+  padding: 0 auto;
+  margin: auto;
+}
+.ex.ex-pdm #footerFloatingMenu_search img {
+  max-width: 100%;
+}
+.ex.ex-pdm #photo > input,
+.ex.ex-pdm #audio > input,
+.ex.ex-pdm #video > input {
+  display: none;
+}
+.ex.ex-pdm #photo > img,
+.ex.ex-pdm #audio > img,
+.ex.ex-pdm #video > img {
+  cursor: pointer;
+}
+.ex.ex-pdm #photo_label,
+.ex.ex-pdm #audio_label,
+.ex.ex-pdm #video_label {
+  margin: 0 0 7px;
+}
+.ex.ex-pdm .textbox {
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+.ex.ex-pdm .form__wrap #footerFloatingMenu_search {
+  all: unset;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 16px 0px;
+  height: 160px;
+}
+.ex.ex-pdm .form__wrap .btnArea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0 auto;
+}
+.ex.ex-pdm .form__wrap .btnArea button {
+  padding: 8px;
+}
+.ex.ex-pdm .form__wrap .btnArea input {
+  all: unset;
+  border-bottom: 1px black solid;
+}
+.ex.ex-pdm .grid .box {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  padding: 8px;
+}
+.ex.ex-pdm .grid .box:nth-child(odd) {
+  background-color: whitesmoke;
+}
+.ex.ex-pdm .grid .box .head {
+  font-weight: bold;
+}
+.ex.ex-pdt .radio-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  margin: -4px 0px;
+}
+.ex.ex-pdt .area {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  padding: 24px 8px;
+  margin-bottom: unset;
+  align-items: center;
+}
+.ex.ex-pdt .area:nth-child(odd) {
+  background-color: whitesmoke;
+}
+.ex.ex-pdt .area .title {
+  font-weight: bold;
+}
+.ex.ex-pdt .subtext {
+  text-align: center;
+}
+.ex.ex-src {
+  /* モーダル表示 */
+  /*【CSS】<button>要素の枠線と背景色を消す */
+  /* リセットボタンの外枠を削除 */
+  /* 「検索」、「リセット」、「全リセット」ボタンのフローティング */
+}
+.ex.ex-src button {
+  cursor: pointer;
+}
+.ex.ex-src #button_r {
+  border: none;
+  background: transparent;
+}
+.ex.ex-src #button_s {
+  border: none;
+  background: transparent;
+}
+.ex.ex-src #overlay {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9;
+  background-color: rgba(0, 0, 0, 0.65);
+}
+.ex.ex-src #modal {
+  display: none;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: 99;
+  transform: translate(-50%, -50%);
+  max-width: 70vw;
+  max-height: 70vh;
+  box-sizing: border-box;
+  padding: 32px;
+  border-radius: 8px;
+  background-color: #fff;
+}
+.ex.ex-src .active {
+  display: block !important;
+}
+.ex.ex-src #footerFloatingMenu_search {
+  display: block;
+  width: 100%;
+  position: fixed;
+  left: 0px;
+  bottom: 70px;
+  z-index: 9999;
+  text-align: center;
+  padding: 0 auto;
+}
+.ex.ex-src #footerFloatingMenu_search img {
+  max-width: 99%;
+}
+.ex.ex-src #footerFloatingMenu_search {
+  margin: auto;
+}
+.ex.ex-src .float-container {
+  display: flex;
+}
+.ex.ex-src .item1 {
+  float: left;
+  width: 33.3333%;
+}
+.ex.ex-src .item2 {
+  float: left;
+  width: 33.3333%;
+}
+.ex.ex-src .item3 {
+  float: left;
+  width: 33.3333%;
+}
+.ex.ex-prs .grid {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  align-items: center;
+}
+.ex.ex-prs .grid .head {
+  font-weight: bold;
+}
+.ex.ex-prs .click .block1 {
+  text-align: center;
+}
+.ex.ex-prs .click .block1 span {
+  font-weight: bold;
+}
+.ex.ex-prs .click .block2 {
+  text-align: center;
+}
+.ex.ex-prs .search-form {
+  margin-top: 40px;
+}
+.ex.ex-prs .search-form .grid {
+  margin-bottom: 16px;
+}
+.ex.ex-prs .search-form .title-area {
+  margin-bottom: 40px;
+}
+.ex.ex-prs .search-form .title-area .title {
+  padding: 8px;
+  width: 100%;
+  text-align: center;
+  color: #004C71;
+  font-weight: bold;
+  border: 1px #004C71 solid;
+  margin-bottom: 24px;
+}
+.ex.ex-prs .search-form .title-area .text .comment {
+  text-align: center;
+}
+.ex.ex-prs .search-form .title-area .text .caution {
+  font-size: clamp(1rem, 0.9346938776rem + 0.2040816327vw, 1.2rem);
+}
+.ex.ex-prs .search-result {
+  width: 100%;
+  height: auto;
+  background-color: #f1faff;
+  padding: 40px 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  flex-direction: column;
+  margin-bottom: 40px;
+}
+.ex.ex-prs .search-result .head {
+  font-weight: bold;
+  text-align: center;
+  padding: 4px 8px;
+  background-color: white;
+  color: #004C71;
+  margin-bottom: 8px;
+  width: 150px;
+}
+.ex.ex-prs .search-result .box .head {
+  font-weight: bold;
+  text-align: center;
+}
+.ex.ex-prs .search-result .box .text {
+  text-align: center;
+}
+.ex.ex-prs .search-result .result .result--inner {
+  text-align: center;
+}
+.ex.ex-prs .search-result .result .result--inner span {
+  font-weight: bold;
+  display: block;
+  text-align: center;
+}
+.ex.ex-prs .btnArea button {
+  padding: 8px;
+  background-color: #004C71;
+  font-weight: bold;
+}
+.ex.ex-upd .example {
+  font-size: clamp(1.2rem, 1.1346938776rem + 0.2040816327vw, 1.4rem);
+  margin-top: 8px;
+}
+.ex.ex-stm .wrap {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 40px;
+}/*# sourceMappingURL=style.css.map */

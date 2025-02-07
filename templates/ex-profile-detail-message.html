@@ -1,0 +1,456 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load none_filter %}
+
+{% block active_terms_member %}active{% endblock %}
+
+{% block title %}メッセージ送信 | GPS-Live-Match{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block contents %}
+<section class="form ex ex-pdm">
+  <div class="form__wrap">
+    <div class="container">
+      <div class="my-div-style w-100">
+        {# エラーメッセージ（そのまま） #}
+        {% if form.photo.errors %}
+          <ul class="alert alert-danger list-unstyled">
+            {% for error in form.photo.errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        {% if form.audio_file.errors %}
+          <ul class="alert alert-danger list-unstyled">
+            {% for error in form.audio_file.errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        {% if form.video_file.errors %}
+          <ul class="alert alert-danger list-unstyled">
+            {% for error in form.video_file.errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        <div class="mainTitle">メッセージ送信</div>
+        <!-- <p>{{ nickname }} さん</p> -->
+        <div class="subTitle">{{ p_nickname }} さん へメッセージ送信</div>
+
+        <form class="mt-40" action="{% url 'live:profile_detail_message' object.pk %}" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+
+          <!-- メッセージ入力 -->
+          <div class="area">
+            <label for="formGroup20" class="title">メッセージ(必須) (～400文字)</label>
+            <textarea id="formGroup20" name="mes" rows="2" cols="100%" placeholder=""></textarea>
+            <p id="groupHelp20" class="caution">
+              <span class="textarea">例）はじめまして、プロフィール見て頂きありがとうございます！、、、、</span>
+            </p>
+          </div>
+
+          <!-- 写真入力 -->
+          <div class="area">
+            <div>
+              <p id="photo_label" class="caution">
+                <span class="textarea">写真(任意)</span>
+              </p>
+              <label id="photo" for="file_upload">
+                <img src="{% static 'img/m_photo.jpg' %}" width="30" alt="photo">
+                <input type="file" id="file" name="photo" onchange="$('#fake_text_box').val($(this).val())">
+                <input type="text" id="file_upload" name="photo" value="ファイル選択" onClick="$('#file').click();">
+              </label>
+            </div>
+            <div>
+              <input type="text" id="fake_text_box" value="" name="photo" readonly onClick="$('#file').click();">
+            </div>
+            <!--
+            <!--&lt;!&ndash;                    男性&ndash;&gt;-->
+            <!--                  </label>-->
+            <!--                </div>-->
+            <!--                <div class="form-check">-->
+            <!--                  　　<input class="form-check-input" type="radio" name="gender" id="exampleRadios4" value="False" checked disabled="disabled" style="visibility:hidden">-->
+            <!--                  <label class="form-check-label" for="exampleRadios4" style="font-size:13px;">-->
+            <!--&lt;!&ndash;                    女性&ndash;&gt;-->
+            <!--                  </label>-->
+            <!--                </div>-->
+            <!--                    {# {% endif %} #}-->
+            <!--                </div>-->
+            <!--                <div class="form-group">-->
+            <!--                <label for="formGroup1" style="font-size:13px;"><strong>性別</strong></label>-->
+            <!--                  {# {% if gender %} #}
+            <!--                <input type="text" class="form-control form-control-sm" id="formGroup1" name="gender" value='男性' readonly>-->
+            <!--                 {# {% else %} #}
+            <!--                <input type="text" class="form-control form-control-sm" id="formGroup1" name="gender" value='女性' readonly>-->
+            <!--                 {# {% endif %} #}
+            <!--                </div>-->
+          </div>
+
+          <!-- 音声入力 -->
+          <div class="area">
+            <div>
+              <p id="audio_label" class="caution">
+                <span class="textarea">音声(任意)</span>
+              </p>
+              <label id="audio" for="file_upload_audio">
+                <img src="{% static 'img/m_audio.jpg' %}" width="30" alt="audio">
+                <input type="file" id="file_audio" name="audio_file" onchange="$('#fake_text_box_audio').val($(this).val())">
+                <input type="text" id="file_upload_audio" name="audio_file" value="ファイル選択" onClick="$('#file_audio').click();">
+              </label>
+            </div>
+            <div>
+              <input type="text" id="fake_text_box_audio" value="" name="audio_file" readonly onClick="$('#file_audio').click();">
+            </div>
+          </div>
+
+          <!-- 動画入力 -->
+          <div class="area">
+            <div>
+              <p id="video_label" class="caution">
+                <span class="textarea">動画(任意)</span>
+              </p>
+              <label id="video" for="file_upload_video">
+                <img src="{% static 'img/m_video.jpg' %}" width="30" alt="video">
+                <input type="file" id="file_video" name="video_file" onchange="$('#fake_text_box_video').val($(this).val())">
+                <input type="text" id="file_upload_video" name="video_file" value="ファイル選択" onClick="$('#file_video').click();">
+              </label>
+            </div>
+            <div>
+              <input type="text" id="fake_text_box_video" value="" name="video_file" readonly onClick="$('#file_video').click();">
+            </div>
+          </div>
+
+
+            <!-- フローティングメニュー -->
+            <div class="area" id="footerFloatingMenu_search">
+                <div class="btnArea container">
+                    <button id="button_submit" type="submit">メッセージ送信</button>
+                    <input type="button" onclick="CloseWindow();" value="閉じる" />
+                    <div id="overlay">
+                    <div class="cv-spinner">
+                    <span class="spinner"></span>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+        <hr>
+
+        <h6>{{ p_nickname }} さん のプロフィール</h6>
+        <br>
+
+        <div class="grid">
+            <div class="box">
+              <div class="head">1）ニックネーム</div>
+              <div class="text">{{ object.nickname | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">2）国籍</div>
+              <div class="text">{{ object.nationality | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">3）自己ピーアール</div>
+              <div class="text">{{ object.article | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">4）今何している！</div>
+              <div class="text">{{ object.what_doing_now | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">5）趣味・興味</div>
+              <div class="text">{{ object.keyword | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">6）こだわり</div>
+              <div class="text">{{ object.commitment | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">7）嗜好品</div>
+              <div class="text">{{ object.luxury_items | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">8）誕生(月 日)</div>
+              <div class="text">{{ object.birthday | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">9）出身地</div>
+              <div class="text">{{ object.birthplace | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">10）都道府県</div>
+              <div class="text">{{ object.address1 | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">11）出没エリア</div>
+              <div class="text">{{ object.haunting_area | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">12）資格</div>
+              <div class="text">{{ object.qualification | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">13）言語</div>
+              <div class="text">{{ object.language | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">14）学歴</div>
+              <div class="text">{{ object.education | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">15）最終学歴</div>
+              <div class="text">{{ object.final_education | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">16）セクシュアリティ</div>
+              <div class="text">{{ object.sexuality | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">17）血液型</div>
+              <div class="text">{{ object.blood_type | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">18）年齢</div>
+              <div class="text">{{ object.age | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">19）ルックス</div>
+              <div class="text">{{ object.looks | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">20）お酒</div>
+              <div class="text">{{ object.osake | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">21）性格</div>
+              <div class="text">{{ object.personality | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">22）身長</div>
+              <div class="text">{{ object.height | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">23）体重</div>
+              <div class="text">{{ object.body_weight | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">24）体型</div>
+              <div class="text">
+                {% if object.serviceclient_id.gender %}
+                  {{ object.body_shape_man | checkNone }}
+                {% else %}
+                  {{ object.body_shape_woman | checkNone }}
+                {% endif %}
+              </div>
+            </div>
+            <div class="box">
+              <div class="head">25）結婚歴</div>
+              <div class="text">{{ object.marriage_history | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">26）子どもの有無</div>
+              <div class="text">{{ object.children | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">27）同居人</div>
+              <div class="text">{{ object.housemate | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">28）タバコ</div>
+              <div class="text">{{ object.tobacco | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">29）ギャンブル</div>
+              <div class="text">{{ object.gambling | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">30）ギャンブル（記入）</div>
+              <div class="text">{{ object.gambling_fill_in | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">31）職業</div>
+              <div class="text">{{ object.occupation | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">32）職種</div>
+              <div class="text">{{ object.job_title | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">33）運転免許証</div>
+              <div class="text">{{ object.drivers_license | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">34）年収</div>
+              <div class="text">{{ object.annual_income | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">35）祖父</div>
+              <div class="text">{{ object.grandfather | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">36）祖母</div>
+              <div class="text">{{ object.grandmother | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">37）父</div>
+              <div class="text">{{ object.father | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">38）母</div>
+              <div class="text">{{ object.mother | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">39）兄</div>
+              <div class="text">{{ object.older_brother | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">40）弟</div>
+              <div class="text">{{ object.younger_brother | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">41）姉</div>
+              <div class="text">{{ object.older_sister | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">42）妹</div>
+              <div class="text">{{ object.younger_sister | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">43）身分証明書</div>
+              <div class="text">{{ object.identification | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">44）収入証明書</div>
+              <div class="text">{{ object.proof_income | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">45）独身証明書</div>
+              <div class="text">{{ object.singleness_certificate | checkNone }}</div>
+            </div>
+            <div class="box">
+              <div class="head">46）会員認定</div>
+              <div class="text">{{ object.membership_certification | checkNone }}</div>
+            </div>
+          
+            {% if p_membership_type == 'オプション会員' %}
+              <div class="box">
+                <div class="head">o-1）恋愛や結婚にSEXは重要だ</div>
+                <div class="text">{{ object.importance_sex | checkNone }}</div>
+              </div>
+              <div class="box">
+                <div class="head">o-2）手をつなぎたい方だ</div>
+                <div class="text">{{ object.holding_hands | checkNone }}</div>
+              </div>
+              <div class="box">
+                <div class="head">o-3）キスをしたい方だ</div>
+                <div class="text">{{ object.kiss | checkNone }}</div>
+              </div>
+              <div class="box">
+                <div class="head">o-4）性に対して積極的だ</div>
+                <div class="text">{{ object.sexual_desire | checkNone }}</div>
+              </div>
+              <div class="box">
+                <div class="head">o-5）SEXは好きな方だ</div>
+                <div class="text">{{ object.sex_preference | checkNone }}</div>
+              </div>
+              <div class="box">
+                <div class="head">o-6）SEXの相性は重要だ</div>
+                <div class="text">{{ object.sex_compatibility | checkNone }}</div>
+              </div>
+              <div class="box">
+                <div class="head">o-7）出会った日にSEXはあり？</div>
+                <div class="text">{{ object.date_encounter_sex | checkNone }}</div>
+              </div>
+              <div class="box">
+                <div class="head">o-8）何回目のデートならSEXはあり？</div>
+                <div class="text">{{ object.date_sex | checkNone }}</div>
+              </div>
+              <div class="box">
+                <div class="head">o-9）一度に何回が理想？</div>
+                <div class="text">{{ object.number_sex | checkNone }}</div>
+              </div>
+              <div class="box">
+                <div class="head">o-10）好みの性癖は？</div>
+                <div class="text">{{ object.proclivity | checkNone }}</div>
+              </div>
+            {% endif %}
+          </div>
+          
+
+        {% if object.lciq_diagnosis %}
+          <div class="area">
+            <p>LCIQ診断（画像）</p>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <!-- 拡大画像ポップアップ表示 -->
+            <a href="{{ object.lciq_diagnosis.url }}" data-lightbox="group">
+              <img src="{{ object.lciq_diagnosis.url }}" class="img-fluid img-thumbnail" width="90%">
+            </a>
+          </div>
+          <hr>
+        {% endif %}
+
+        {% if object.face_photo %}
+          <div class="area">
+            <p>顔写真</p>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <!-- 拡大画像ポップアップ表示 -->
+            <a href="{{ object.face_photo.url }}" data-lightbox="group">
+              <img src="{{ object.face_photo.url }}" class="img-fluid img-thumbnail" width="90%">
+            </a>
+          </div>
+          <hr>
+        {% endif %}
+
+        {% if object.photo1 %}
+          <div class="area">
+            <p>写真１</p>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <!-- 拡大画像ポップアップ表示 -->
+            <a href="{{ object.photo1.url }}" data-lightbox="group">
+              <img src="{{ object.photo1.url }}" class="img-fluid img-thumbnail" width="90%">
+            </a>
+          </div>
+          <hr>
+        {% endif %}
+
+        {% if object.photo2 %}
+          <div class="area">
+            <p>写真２</p>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <!-- 拡大画像ポップアップ表示 -->
+            <a href="{{ object.photo2.url }}" data-lightbox="group">
+              <img src="{{ object.photo2.url }}" class="img-fluid img-thumbnail" width="90%">
+            </a>
+          </div>
+          <hr>
+        {% endif %}
+
+        {% if object.photo3 %}
+          <div class="area">
+            <p>写真３</p>
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <!-- 拡大画像ポップアップ表示 -->
+            <a href="{{ object.photo3.url }}" data-lightbox="group">
+              <img src="{{ object.photo3.url }}" class="img-fluid img-thumbnail" width="90%">
+            </a>
+          </div>
+          <hr>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

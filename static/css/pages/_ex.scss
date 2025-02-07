@@ -1,0 +1,382 @@
+@use "../global/global";
+
+.ex{
+    &.ex-mrc{
+        .contents{
+            gap: 16px;
+            .head--s{
+                margin: unset;
+            }
+            .contents--inner{
+                margin: unset;
+            }
+        }
+        .option{
+            margin-top: 40px;
+            .wrap{
+                .title{
+                    text-align: center;
+                }
+                .caution{
+                    text-align: center;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+    &.ex-pdl{
+        .name{
+            @include fs(18);
+            font-weight: bold;
+        }
+        .area{
+            p{
+                span.caution{
+                    @include fs(16);
+                    color: $pink;
+                }
+            }
+        }
+    }
+    &.ex-pdm{ //謎のcssは動作チェックするまでとっておく
+        margin-bottom: 200px;
+
+                /* 以下、もともとのCSSはそのまま残します */
+        #button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 30px;
+            background-color: #eee;
+            border: solid #ccc 1px;
+            cursor: pointer;
+        }
+        
+        #overlay {
+            position: fixed;
+            top: 0;
+            z-index: 100;
+            width: 100%;
+            height: 100%;
+            display: none;
+            background: rgba(0, 0, 0, 0.6);
+        }
+        
+        .cv-spinner {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px #ddd solid;
+            border-top: 4px #2e93e6 solid;
+            border-radius: 50%;
+            animation: sp-anime 0.8s infinite linear;
+        }
+        
+        @keyframes sp-anime {
+            100% {
+            transform: rotate(360deg);
+            }
+        }
+        
+        .is-hide {
+            display: none;
+        }
+        
+        /* 「閉じる」ボタンのフローティング */
+        #footerFloatingMenu_search {
+            display: block;
+            width: 90%;
+            position: fixed;
+            left: auto;
+            bottom: 70px;
+            z-index: 9999;
+            text-align: center;
+            padding: 0 auto;
+            margin: auto;
+        
+            img {
+            max-width: 100%;
+            }
+        }
+        
+        /* 写真、音声、動画入力 */
+        #photo,
+        #audio,
+        #video {
+            > input {
+            display: none;
+            }
+            > img {
+            cursor: pointer;
+            }
+        }
+        /* 各入力グループのラベル用 */
+        #photo_label,
+        #audio_label,
+        #video_label {
+            margin: 0 0 7px;
+        }
+
+        /* textbox */
+        .textbox {
+            outline: none;
+            border: none;
+            cursor: pointer;
+        }
+        //謎のcssここまで
+        .form__wrap{
+            #footerFloatingMenu_search{
+                all: unset;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                margin: auto;
+                width: 100%;
+                background-color: rgba($color: white, $alpha: 0.8);
+                padding: 16px 0px;
+                height: $footerHgith + 80px;
+            }
+            .btnArea{
+                @include flex();
+                flex-direction: column;
+                gap: 8px;
+                margin: 0 auto;
+                button{
+                    padding: 8px;
+                }
+                input{
+                    all: unset;
+                    border-bottom: 1px black solid;
+                }
+            }
+        }
+        .grid{
+            .box{
+                display: grid;
+                grid-template-columns: 200px 1fr;
+                padding: 8px;
+                &:nth-child(odd){
+                    background-color: $lightgray;
+                }
+                .head{
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+    &.ex-pdt{
+        .radio-area{
+            @include flex();
+            justify-content: flex-start;
+            gap: 16px;
+            margin: -4px 0px;
+        }
+        .area{
+            display: grid;
+            grid-template-columns: 110px 1fr;
+            padding: 24px 8px;
+            margin-bottom: unset;
+            align-items: center;
+            &:nth-child(odd){
+                background-color: $lightgray;
+            }
+            .title{
+                font-weight: bold;
+            }
+        }
+        .subtext{
+            text-align: center;
+        }
+    }
+    &.ex-src{
+        /* モーダル表示 */
+        button {
+            cursor: pointer;
+        }
+        /*【CSS】<button>要素の枠線と背景色を消す */
+        /* リセットボタンの外枠を削除 */
+        #button_r {
+            border: none;
+            background: transparent;
+        }
+        #button_s {
+            border: none;
+            background: transparent;
+        }
+        #overlay {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 9;
+            background-color: rgba(0, 0, 0, .65);
+        }
+        #modal {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            z-index: 99;
+            transform: translate(-50%, -50%);
+            max-width: 70vw;
+            max-height: 70vh;
+            box-sizing: border-box;
+            padding: 32px;
+            border-radius: 8px;
+            background-color: #fff;
+        }
+        .active {
+            display: block !important;
+        }
+        /* 「検索」、「リセット」、「全リセット」ボタンのフローティング */
+        #footerFloatingMenu_search {
+            display: block;
+            width: 100%;
+            position: fixed;
+            left: 0px;
+            bottom: 70px;
+            z-index: 9999;
+            text-align: center;
+            padding: 0 auto;
+        }
+
+        #footerFloatingMenu_search img {
+            max-width: 99%;
+        }
+
+        #footerFloatingMenu_search {
+            margin: auto;
+        }
+
+        .float-container {
+        display: flex;
+        }
+
+        .item1 {
+        float: left;
+        width: 33.3333%
+        }
+        .item2 {
+        float: left;
+        width: 33.3333%
+        }
+        .item3 {
+        float: left;
+        width: 33.3333%
+        }
+    }
+    &.ex-prs{
+        .grid{
+            display: grid;
+            grid-template-columns: 130px 1fr;
+            align-items: center;
+            .head{
+                font-weight: bold;
+            }
+        }
+        .click{
+            .block1{
+                text-align: center;
+                span{
+                    font-weight: bold;
+                }
+            }
+            .block2{
+                text-align: center;
+            }
+        }
+        .search-form{
+            margin-top: 40px;
+            .grid{
+                margin-bottom: 16px;
+            }
+            .title-area{
+                margin-bottom: 40px;
+                .title{
+                    padding: 8px;
+                    width: 100%;
+                    text-align: center;
+                    color: $mc;
+                    font-weight: bold;
+                    border: 1px $mc solid;
+                    margin-bottom: 24px;
+                }
+                .text{
+                    .comment{
+                        text-align: center;
+                    }
+                    .caution{
+                        @include fs(10);
+                    }
+                }
+            }
+        }
+        .search-result{
+            width: 100%;
+            height: auto;
+            background-color: lighten($color: $mc, $amount: 75%);
+            padding: 40px 16px;
+            @include flex();
+            gap: 40px;
+            flex-direction: column;
+            margin-bottom: 40px;
+            .head{
+                font-weight: bold;
+                text-align: center;
+                padding: 4px 8px;
+                background-color: white;
+                color: $mc;
+                margin-bottom: 8px;
+                width: 150px;
+            }
+            .box{
+                .head{
+                    font-weight: bold;
+                    text-align: center;
+                }
+                .text{
+                    text-align: center;
+                }
+            }
+            .result{
+                .result--inner{
+                    text-align: center;
+                    span{
+                        font-weight: bold;
+                        display: block;
+                        text-align: center;
+                    }
+                }
+            }
+        }//search-result
+        .btnArea{
+            button{
+                padding: 8px;
+                background-color: $mc;
+                font-weight: bold;
+            }
+        }
+    }//ex-prs
+    &.ex-upd{
+        .example{
+            @include fs(12);
+            margin-top: 8px;
+        }
+    }
+    &.ex-stm{
+        .wrap{
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+        }
+    }
+}
+
