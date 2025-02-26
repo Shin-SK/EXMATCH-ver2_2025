@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}チェックニックネーム{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block contents %}
+<div class="container">
+    <div class="my-div-style w-100">
+        <h6>{{ clientname }} さん</h6>
+
+        <div class="row my-row-style1">
+            <p>プロフィールの<font color="red">ニックネーム（{{ nickname }}）</font>が他者と同じです。<br>
+            プロフィールを再度登録して、ニックネームを変更してください。</p>
+        </div>
+            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>
+    </div>
+</div>
+
+{% endblock %}
+
+

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}チェックカード{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block contents %}
+<div class="container">
+    <div class="my-div-style w-100">
+        {{ nickname }} さん<br><br>
+        <div class="row my-row-style1">
+            <p>ご利用ポイントが、<font color="red"> {{ point_purchase_threshold }} </font>ポイント以下になりました。<br><br>
+            ご利用を継続するには、「クレジットカード」または「デビットカード」の登録が必要です。<br>
+                カード登録してからご利用ください。<br>
+                カード登録は「カード管理＞カード登録」メニューの<a href="{% url 'live:s_payment' %}">こちら</a>から登録できます。</p>
+        </div>
+            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>
+    </div>
+</div>
+
+{% endblock %}
+
+

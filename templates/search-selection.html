@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block active_terms_service %}active{% endblock %}
+{% block active_terms_service_logout %}active{% endblock %}
+
+{% block title %}検索選択 | GPS-Live-Match{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block contents %}
+<div class="container" style="margin: 0px 0px 130px 0px;">
+    <div class="my-div-style w-100">
+            <h5>いまココぼっちへようこそ！</h5>
+
+        <div class="row my-row-style1">
+
+        <div class="table-responsive">
+            <table align="center" cellpadding="15">
+                <tr>
+                    <td>
+                        <a href="{% url 'live:currentlocation' %}"><img src="{% static 'img/search_b1.jpg' %}" width="90%" alt=""></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="{% url 'live:gps_point_subtraction' %}"><img src="{% static 'img/search_b2.jpg' %}" width="90%" alt=""></a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+
+
+        </div>
+<!--            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>-->
+
+    </div>
+</div>
+
+{% endblock %}
+
+

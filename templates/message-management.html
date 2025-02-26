@@ -1,0 +1,493 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block active_terms_service %}active{% endblock %}
+{% block active_terms_service_logout %}active{% endblock %}
+
+{% block title %}メッセージ管理 | GPS-Live-Match{% endblock %}
+
+{% block head %}
+
+<style>
+.t_f{
+    font-size: 11pt;
+}
+</style>
+
+
+
+<style>
+/* チャットCSS */
+/*以下、背景色など*/
+
+.line-bc {
+  padding: 2px 5px;
+//  padding: 20px 10px;
+  max-width: 450px;
+  margin: 0px auto;
+//  margin: 15px auto;
+  text-align: right;
+  font-size: 14px;
+//  background: white;
+  background: #7da4cd;
+}
+
+/*以下、左側のコメント*/
+.balloon6 {
+  width: 100%;
+  margin: 10px 0;
+  overflow: hidden;
+}
+
+.balloon6 .faceicon {
+  float: left;
+  margin-right: -100px;
+//  margin-right: -50px;
+  width: 60px;
+//  width: 40px;
+}
+
+.balloon6 .faceicon img{
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+
+.balloon6 .chatting {
+  width: 100%;
+  text-align: left;
+}
+
+.says {
+  display: inline-block;
+  position: relative;
+  margin: 13px 0 0 70px;
+//  margin: 3px 0 0 70px;
+//  margin: 0 0 0 70px;
+  padding: 10px;
+  max-width: 170px; // 相手のコメント欄の幅
+//  max-width: 197px; // 相手のコメント欄の幅
+//  max-width: 250px;
+  border-radius: 12px;
+  background: #edf1ee;
+}
+
+.says:after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 3px;
+  left: -19px;
+  border: 8px solid transparent;
+  border-right: 18px solid #edf1ee;
+//  border-right: 18px solid #30e852;
+  -webkit-transform: rotate(35deg);
+  transform: rotate(35deg);
+}
+
+.says p {
+  margin: 0;
+  padding: 0;
+
+}
+
+.chatting:after {
+  content: "";
+  display: block;
+  clear: both
+  }
+
+
+.says {
+  float: left;
+  }
+
+
+.pcommentdate {
+  float: left;
+  }
+
+
+.pcommentdate p {
+  position: relative;
+  top: 12px;
+  left: 0px;
+  margin: 3px 10px 0 5px;
+
+  }
+
+
+/*以下、③右側のコメント*/
+
+.mycommenttop:after {
+  content: "";
+  display: block;
+  clear: both
+  }
+
+.mycomment  {
+  float: right;
+  }
+
+.mycomment p {
+  display: inline-block;
+  position: relative;
+//  margin: 10px 5px 0px 25px;
+  margin: 25px 10px 10px 0;
+//  margin: 5px 10px 0 0;
+  padding: 8px;
+  max-width: 170px; // 自分のコメント欄の幅
+//  max-width: 197px; // 自分のコメント欄の幅
+//  max-width: 250px;
+  border-radius: 12px;
+  background: #30e852;
+//  background: #edf1ee;
+  font-size: 15px:
+}
+
+.mycomment p:after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  right: -19px;
+  border: 8px solid transparent;
+  border-left: 18px solid #edf1ee;
+  border-left: 18px solid #30e852;
+  -webkit-transform: rotate(-35deg);
+  transform: rotate(-35deg);
+}
+
+.mycommentdate {
+  float: right;
+  margin:0px 0px 0 10px;
+  }
+
+.mycommentdate p {
+  position: relative;
+  top: 25px;
+  left: -5px;
+  }
+
+.faceicon {
+  float: right;
+  margin-right: -0px;
+//  margin-right: -50px;
+  width: 60px;
+//  width: 40px;
+  margin:10px 0px 10px 0px;
+}
+
+.faceicon img{
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+
+
+
+</style>
+
+
+
+{% endblock %}
+
+{% block contents %}
+<div class="container">
+    <div class="my-div-style w-100">
+            <h5>メッセージ管理</h5><br>
+                <p>{{ nickname }} さん</p>
+
+        <div class="row my-row-style1">
+
+            <div class="table-responsive">
+            <table class="table table-bordered table-striped table-sm">
+                <tr>
+                    <td>
+                        <!--            受信会話表示エリア-->
+                        <p><b>受信メッセージ</b></p><br>
+                        <div id="div_message_in"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <!--            送信会話表示エリア-->
+                        <br>
+                        <p><b>送信メッセージ</b></p><br>
+                        <div id="div_message_out"></div>
+                    </td>
+                </tr>
+            </table>
+            </div>
+
+        </div>
+<!--            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>-->
+    </div>
+</div>
+
+
+<script>
+
+    const g_elementDivMessage = document.getElementById( "div_message_in" );
+
+    //Messageから受信メッセージ情報取得
+    var json = "{{ in_dic }}";  //Messageからメッセージ情報取得 json形式のストリングデータ（{"133": {"key": 133, "f_nick": "\u6b21\u90ce", "t_nick": "\u3060\u3044\u3054", "mes": "\u4eca\u65e5\u306f8\u670828\u65e5", "c_date": "2022/08/28 06:20"}, 、、、}）
+
+    // 文字変換 {&quot;だいご&quot;:→{"だいご":
+    json = json.split('&quot;').join('"') // 「&quot;」を「"」に変換
+
+<!--    json = JSON.stringify(json);-->
+
+
+    // JavaScript のオブジェクトを生成
+    json = json.replace(/[\u0000-\u001F]+/g, ""); // 「u0000」から「u001F」までの制御文字を取り除く
+
+    const obj = JSON.parse(json);  //JavaScript のオブジェクトを生成
+
+
+
+    // ループでメッセージ表示
+    for(var key in obj) {
+      if(obj.hasOwnProperty(key)) {
+
+        var val = obj[key];
+
+        console.log(val);
+        console.log(val.key);
+        console.log(val.nick);
+        console.log(val.mes);
+        console.log(val.c_date);
+        console.log(val.f_photo);
+
+        }
+
+        else {
+                ;
+            }
+
+
+            // 拡散されたメッセージをメッセージリストに追加
+            var div_line_bc = document.createElement('div'); // <div class="line-bc">   <!--①LINE会話全体を囲う-->
+            div_line_bc.classList.add('line-bc');
+            g_elementDivMessage.prepend(div_line_bc); //
+            // g_elementDivChatScreen.appendChild(div_line_bc); //
+
+            var div_balloon6 = document.createElement('div'); // <div class="balloon6">   <!--②左コメント始-->
+            div_balloon6.classList.add('balloon6');
+            div_line_bc.appendChild(div_balloon6); //
+
+            var div_faceicon = document.createElement('div'); // <div class="faceicon">
+            div_faceicon.classList.add('faceicon');
+            div_balloon6.appendChild(div_faceicon);
+
+            if(val.f_photo != 'n') {
+            // 顔画像がある場合
+            // タグの生成
+            var icon = document.createElement('img');
+            // 属性の追加
+            //icon.src = "/media/profile/abata_KGNoDvb.jpg";
+            icon.src = String(val.f_photo);
+            //icon.src = "{{ p_photo.url }}";
+            // icon.src = "{% static 'img/agent.jpg' %}";
+            icon.alt = "HOME";
+            icon.width = 60;
+            icon.height = "auto";
+            // タグを表示
+            div_faceicon.appendChild(icon);
+
+            }
+
+            else {
+
+            // 顔画像が無い場合
+            // タグの生成
+            var icon = document.createElement('img');
+            // 属性の追加
+            // icon.src = "{{ p_photo.url }}";
+            icon.src = "{% static 'img/happy-face.jpg' %}";
+            icon.alt = "HOME";
+            icon.width = 60;
+            icon.height = "auto";
+            // タグを表示
+            div_faceicon.appendChild(icon);
+
+            }
+
+            var div_chatting = document.createElement('div'); // <div class="chatting">
+            div_chatting.classList.add('chatting');
+            div_balloon6.appendChild(div_chatting);
+
+            var div_says = document.createElement('div'); // <div class="says">
+            div_says.classList.add('says');
+            div_chatting.appendChild(div_says);
+
+
+            var p_t = document.createElement('p'); // <p>こんにちは、今日はお元気ですか？</p>
+            var a = document.createElement('a');
+//            a.target = '_blank';
+            a.href = "{{ live_message_chat_url }}" + val.key + '/' + "in" + '/';
+//            a.href = "{{ live_message_chat_url }}" + val.key + '/' + "{{ out_in }}" + '/';
+            a.innerText = val.nick;
+            div_says.appendChild(p_t)
+            p_t.appendChild(a)
+
+            // タグの生成
+            var p_t = document.createElement('p'); // <p>こんにちは、今日はお元気ですか？</p>
+            // テキストを追加する
+            p_t.textContent = val.mes;
+            // p_t.textContent = strMessage;
+            div_says.appendChild(p_t);
+
+
+            var div_pcommentdate = document.createElement('div'); // <div class="pcommentdate">
+            div_pcommentdate.classList.add('pcommentdate');
+            div_chatting.appendChild(div_pcommentdate);
+
+            // タグの生成
+            var p_s_d = document.createElement('p'); // <p>12:30</p>
+            // テキストを追加する
+            p_s_d.textContent = val.c_date;
+            let str = p_s_d.textContent
+            p_s_d.innerHTML = str.fontsize(1);
+            div_pcommentdate.appendChild(p_s_d);
+};
+
+</script>
+
+<script>
+
+    const g_elementDivMessageOut = document.getElementById( "div_message_out" );
+
+    //Messageから送信メッセージ情報取得
+    var json_out = "{{ out_dic }}";  //Messageからメッセージ情報取得 json形式のストリングデータ（{"133": {"key": 133, "f_nick": "\u6b21\u90ce", "t_nick": "\u3060\u3044\u3054", "mes": "\u4eca\u65e5\u306f8\u670828\u65e5", "c_date": "2022/08/28 06:20"}, 、、、}）
+
+    // 文字変換 {&quot;だいご&quot;:→{"だいご":
+    json_out = json_out.split('&quot;').join('"') // 「&quot;」を「"」に変換
+
+<!--    json = JSON.stringify(json);-->
+
+
+    // JavaScript のオブジェクトを生成
+    json_out = json_out.replace(/[\u0000-\u001F]+/g, ""); // 「u0000」から「u001F」までの制御文字を取り除く
+
+    const obj_out = JSON.parse(json_out);  //JavaScript のオブジェクトを生成
+
+
+
+    // ループでメッセージ表示
+    for(var key in obj_out) {
+      if(obj_out.hasOwnProperty(key)) {
+
+        var val = obj_out[key];
+
+        console.log(val);
+        console.log(val.key);
+        console.log(val.nick);
+        console.log(val.mes);
+        console.log(val.c_date);
+        console.log(val.f_photo);
+        console.log(val.m_photo);
+
+        }
+
+        else {
+                ;
+            }
+
+
+            // 拡散されたメッセージをメッセージリストに追加
+            var div_line_bc = document.createElement('div'); // <div class="line-bc">   <!--①LINE会話全体を囲う-->
+            div_line_bc.classList.add('line-bc');
+            g_elementDivMessageOut.prepend(div_line_bc); //
+            // g_elementDivChatScreen.appendChild(div_line_bc); //
+
+            var div_balloon6 = document.createElement('div'); // <div class="balloon6">   <!--②左コメント始-->
+            div_balloon6.classList.add('balloon6');
+            div_line_bc.appendChild(div_balloon6); //
+
+            var div_faceicon = document.createElement('div'); // <div class="faceicon">
+            div_faceicon.classList.add('faceicon');
+            div_balloon6.appendChild(div_faceicon);
+
+            if(val.m_photo != 'n') {
+            // 顔画像がある場合
+            // タグの生成
+            var icon = document.createElement('img');
+            // 属性の追加
+            //icon.src = "/media/profile/abata_KGNoDvb.jpg";
+            icon.src = String(val.m_photo);
+            // icon.src = String(val.f_photo);
+            //icon.src = "{{ p_photo.url }}";
+            // icon.src = "{% static 'img/agent.jpg' %}";
+            icon.alt = "HOME";
+            icon.width = 60;
+            icon.height = "auto";
+            // タグを表示
+            div_faceicon.appendChild(icon);
+
+            }
+
+            else {
+
+            // 顔画像が無い場合
+            // タグの生成
+            var icon = document.createElement('img');
+            // 属性の追加
+            // icon.src = "{{ p_photo.url }}";
+            icon.src = "{% static 'img/happy-face.jpg' %}";
+            icon.alt = "HOME";
+            icon.width = 60;
+            icon.height = "auto";
+            // タグを表示
+            div_faceicon.appendChild(icon);
+
+            }
+
+            var div_chatting = document.createElement('div'); // <div class="chatting">
+            div_chatting.classList.add('chatting');
+            div_balloon6.appendChild(div_chatting);
+
+            var div_says = document.createElement('div'); // <div class="says">
+            div_says.classList.add('says');
+            div_chatting.appendChild(div_says);
+
+            var p_t = document.createElement('p'); // <p>こんにちは、今日はお元気ですか？</p>
+            var a = document.createElement('a');
+//            a.target = '_blank';
+            a.href = "{{ live_message_chat_url }}" + val.key + '/' + "out" + '/';
+//            a.href = "{{ live_message_chat_url }}" + val.key + '/' + "{{ out_in }}" + '/';
+            a.innerText = val.nick;
+            div_says.appendChild(p_t)
+            p_t.appendChild(a)
+
+            // タグの生成
+            var p_t = document.createElement('p'); // <p>こんにちは、今日はお元気ですか？</p>
+            // テキストを追加する
+            p_t.textContent = val.mes;
+            // p_t.textContent = strMessage;
+            div_says.appendChild(p_t);
+
+            var div_pcommentdate = document.createElement('div'); // <div class="pcommentdate">
+            div_pcommentdate.classList.add('pcommentdate');
+            div_chatting.appendChild(div_pcommentdate);
+
+            // タグの生成
+            var p_s_d = document.createElement('p'); // <p>12:30</p>
+            // テキストを追加する
+            p_s_d.textContent = val.c_date;
+            let str = p_s_d.textContent
+            p_s_d.innerHTML = str.fontsize(1);
+            div_pcommentdate.appendChild(p_s_d);
+
+
+};
+
+</script>
+
+
+{% endblock %}
+
+

@@ -1,0 +1,1095 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block active_terms_search %}active{% endblock %}
+
+{% block title %}プロフィール検索 | GPS-Live-Match{% endblock %}
+
+{% block head %}
+
+
+<!--    https://gokansoichiro.com/blog/javascript-modal/-->
+<!--    以下の<script>３つはモーダルウィンドウ表示のために必要-->
+<!--    以下のjqueryは、basev1.html側にjqueryがあるためコメントアウトした。20210618-->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script></div>-->
+<!--<script src="{% static 'js/jquery.layerBoard.js' %}"></script>-->
+<!--<script src="{% static 'js/jquery.cookie.js' %}"></script>-->
+
+
+    <script>
+/* モーダルウィンドウ */
+        $(document).ready(function() {
+            $("#open").on("click", function(e) {
+                e.preventDefault();
+                $("#overlay, #modal").addClass("active");
+
+                $("#close, #overlay").on("click", function() {
+                    $("#overlay, #modal").removeClass("active");
+                    return false;
+                });
+            });
+        });
+    </script>
+
+
+    <style>
+    /* モーダル表示 */
+    button {
+        cursor: pointer;
+    }
+    #overlay {
+        display: none;
+        position: fixed;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 9;
+        background-color: rgba(0, 0, 0, .65);
+    }
+    #modal {
+        display: none;
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        z-index: 99;
+        transform: translate(-50%, -50%);
+        max-width: 70vw;
+        max-height: 70vh;
+        box-sizing: border-box;
+        padding: 32px;
+        border-radius: 8px;
+        background-color: #fff;
+    }
+    .active {
+        display: block !important;
+    }
+</style>
+
+<!--    検索条件とページネーションの検索件数のhtml要素を無効にする。検索条件は「全員検索」、検索件数は「５」件となる。-->
+    {% if nick_name != system_nickname %}
+        <style>
+        .visibility {
+            display: none;
+        }
+        </style>
+    {% endif %}
+
+
+<style>
+/* <ul>内の文字サイズ指定 */
+ul.f_s { font-size: 14px; }
+</style>
+
+<style>
+/*【CSS】<button>要素の枠線と背景色を消す */
+/* リセットボタンの外枠を削除 */
+#button_r {
+  border: none;
+  background: transparent;
+}
+
+/* 検索ボタンの外枠を削除 */
+#button_s {
+  border: none;
+  background: transparent;
+}
+</style>
+
+
+<!--https://toretama.jp/click-big-image-floaty.html-->
+<!--拡大画像ポップアップ表示-->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/css/lightbox.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/js/lightbox.min.js" type="text/javascript"></script>
+
+    <style>
+    /* 「検索」、「リセット」、「全リセット」ボタンのフローティング */
+    #footerFloatingMenu_search {
+        display: block;
+        width: 100%;
+        position: fixed;
+        left: 0px;
+        bottom: 70px;
+        z-index: 9999;
+        text-align: center;
+        padding: 0 auto;
+    }
+
+    #footerFloatingMenu_search img {
+        max-width: 99%;
+    }
+
+    #footerFloatingMenu_search {
+        margin: auto;
+    }
+
+    </style>
+
+    <style>
+    .float-container {
+      display: flex;
+    }
+
+    .item1 {
+    float: left;
+    width: 33.3333%
+    }
+    .item2 {
+    float: left;
+    width: 33.3333%
+    }
+     .item3 {
+    float: left;
+    width: 33.3333%
+    }
+
+    </style>
+
+
+
+{% endblock %}
+
+
+{% block contents %}
+<div class="container">
+    <div class="my-div-style w-100">
+    <h5>プロフィール検索</h5>
+    <p>{{ name }} さん</p>
+        <div class="row my-row-style1">
+
+        {{ q_word }}
+
+<!--                        {% if f %}-->
+<!--                        <p>あなたに「いいね！」したお友達が<font color="red"><b>{{ num }}人</b></font>います！<br>-->
+<!--                            今すぐクリック → <a href="{% url 'live:member-profile-check' 69 %}"><img class="" src="{% static 'img/hownice.jpg' %}" width="25" height=auto title="いいね！管理" alt="いいね！管理"></a></p>-->
+<!--&lt;!&ndash;                        今すぐクリック → <a href="{% url 'live:member-profile-check' 69 %}"><img class="image_size_s" src="{% static 'img/hownice.jpg' %}" title="いいね！管理" alt="いいね！管理"></a>&ndash;&gt;-->
+<!--                        {% endif %}-->
+
+            <div class="table-responsive">
+            <table class="table table-sm">
+                <tr>
+                    <td>
+<!--                        モーダルウィンドウを一時停止 Start-->
+                        {% if f %}
+                        <p>あなたに「いいね！」したお友達が<font color="red"><b>{{ num }}人</b></font>います！<br>
+                            今すぐクリック → <a href="{% url 'live:member-profile-check' 69 %}"><img class="" src="{% static 'img/hownice.jpg' %}" width="25" height=auto title="いいね！管理" alt="いいね！管理"></a></p>
+                        {% endif %}
+                        </td>
+                    </tr>
+                </table>
+                </div>
+
+<!--                        モーダルウィンドウを一時停止 End-->
+
+
+<!--          モーダルウィンドウStart-->
+<!--            {% if f %}-->
+<!--        <p>いいね！-->
+<!--        <button type="button" class="btn btn-outline-info ml-2 mt-3 mb-3 btn-sm" id="open">OPEN!</button></p>-->
+<!--        <div id="modal">-->
+<!--            <p> 「いいね！」があります！</p>-->
+<!--              <p style="white-space:pre-wrap; word-wrap:break-word; text-align:left">{{ info }}</p>-->
+<!--            <div>-->
+<!--                <button type="button" class="btn btn-outline-info ml-2 mt-3 mb-3 btn-sm" id="close">CLOSE</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div id="overlay"></div>-->
+<!--            {% endif %}-->
+<!--          モーダルウィンドウEnd-->
+
+<!--            <br>-->
+
+<!--                <P>検索条件：{{ search_word }}<br>-->
+    {% if search_word_hi %}
+    <P><strong>検索条件：</strong>{{ search_word_hi }}<br><br>
+        {% endif %}
+
+        {% if cnt != 0 %}
+        <strong>検索結果：</strong><font color="red"> {{ cnt }} 件</font>検索されました。</P>
+            {% endif %}
+
+            <div class="table-responsive">
+<!--                {% if cnt != 0 %}-->
+<!--                <p><h6>【検索結果】</h6></p>-->
+<!--                {% endif %}-->
+            <table class="table table-bordered table-hover table-striped table-sm">
+            <tbody>
+                {% for item in object_list %}
+                {% if item.serviceclient_id.gender %}
+
+            <thead class="table-active">
+                <tr align="center">
+                  <th scope="col">検索結果</th>
+                </tr>
+            </thead>
+                {% else %}
+            <thead>
+                <tr align="center">
+                  <th scope="col" bgcolor="#FFC0CB "><font color="#c71585 ">検索結果</font></th>
+                </tr>
+            </thead>
+                {% endif %}
+
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>ニックネーム：</b></font></small><br>
+                    {{ item.nickname }}</td>
+            </tr>
+                {% if item.face_photo %}
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>写真：</b></font></small><br>
+                    <div class="col-sm-6 col-md-3" style="margin: 0px 0px 10px 5px; ">
+                        <!--拡大画像ポップアップ表示-->
+                        <a href="{{ item.face_photo.url }}" data-lightbox="group"><img src="{{ item.face_photo.url }}" class="img-fluid img-thumbnail" width="90%"></a>
+<!--                <img src="{{ item.face_photo.url }}" class="img-fluid img-thumbnail" width="100%" height="auto"/>-->
+                    </div>
+<!--                <img src="{{ item.face_photo.url }}" class="img-fluid img-thumbnail" width="150" height="auto"/>-->
+                </td>
+<!--                <td>-->
+<!--                    <div class="col-sm-6 col-md-3" style="margin: 0px 10px 10px 0px; ">-->
+<!--                    <small class="form-text text-muted"><font size="2" color=royalblue>写真：</font></small><br>-->
+<!--                <img src="{{ item.face_photo.url }}" class="img-fluid img-thumbnail" width="50%" height="auto"/>-->
+<!--                    </div>-->
+<!--                </td>-->
+            </tr>
+                {% endif %}
+                {% if item.what_doing_now %}
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>今何している！：</b></font></small><br>
+                    {{ item.what_doing_now | linebreaksbr | urlize }}<br>（{{ item.updated_at }}）</td>
+            </tr>
+                {% endif %}
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>自己ピーアール：</b></font></small><br>
+                    {{ item.article  | linebreaksbr | urlize }}</td>
+            </tr>
+                {% if item.keyword %}
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>趣味・興味：</b></font></small><br>
+                    {{ item.keyword  | linebreaksbr | urlize }}</td>
+            </tr>
+                {% endif %}
+                {% for h_item in hownices %}
+                {% if item.serviceclient_id == h_item.serviceclient_id and sc_id == h_item.partner_id and h_item.like_flag == 1 %}
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>いいね！：</b></font></small><br>
+                    ＜ {{ h_item.my_nickname }} ＞さんから ＜ {{ h_item.partner_nickname }} ＞さんへ！
+                </td>
+            </tr>
+                {% endif %}
+                {% endfor %}
+
+                {% for l_f_l_item in like_flag_lst %}
+                {% if item.serviceclient_id == l_f_l_item.0 %}
+                {% if l_f_l_item.1 == 1 %}
+
+
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>プロフィール詳細：</b></font></small><br>
+<!--                    # class="btn btn-success btn-sm message" 内の'message'は、動的にidを生成するためのクラス名-->
+                    <a class="btn btn-success btn-sm message" title="{% url 'live:profile_detail_message' item.pk %}" onclick="getId(this);"><font color="white">メッセージ送信</font></a>
+<!--                    <a class="btn btn-success btn-sm" href="{% url 'live:profile_detail_message' item.pk %}" target="_blank" rel="noopener">メッセージ送信</a>-->
+                    <a class="btn btn-primary btn-sm message" title="{% url 'live:profile_how_nice' item.pk 2 %}" onclick="getId(this);"><font color="white">いいね！</font></a>
+<!--                    <a class="btn btn-primary btn-sm" href="{% url 'live:profile_how_nice' item.pk 2 %}" target="_blank" rel="noopener">いいね！</a>-->
+                    <a class="btn btn-warning btn-sm message" title="{% url 'live:profile_how_nice' item.pk 3 %}" onclick="getId(this);"><font color="white">保留</font></a>
+<!--                    <a class="btn btn-warning btn-sm" href="{% url 'live:profile_how_nice' item.pk 3 %}" target="_blank" rel="noopener">保留</a></td>-->
+                </td>
+            </tr>
+                {% else %}
+
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>プロフィール詳細：</b></font></small><br>
+<!--                    # class="btn btn-success btn-sm message" 内の'message'は、動的にidを生成するためのクラス名-->
+                    <a class="btn btn-success btn-sm message" title="{% url 'live:profile_detail_message' item.pk %}" onclick="getId(this);"><font color="white">メッセージ送信</font></a>
+<!--                    <a class="btn btn-success btn-sm" href="{% url 'live:profile_detail_message' item.pk %}" target="_blank" rel="noopener">メッセージ送信</a>-->
+                    <a class="btn btn-primary btn-sm message" title="{% url 'live:profile_how_nice' item.pk 1 %}" onclick="getId(this);"><font color="white">いいね！</font></a>
+<!--                    <a class="btn btn-primary btn-sm" href="{% url 'live:profile_how_nice' item.pk 1 %}" target="_blank" rel="noopener">いいね！</a>-->
+                </td>
+            </tr>
+
+                {% endif %}
+                {% endif %}
+
+
+                {% endfor %}
+                <tr>
+                    <td>
+                <div style="margin-top : 15px">
+                </div>
+                    </td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+
+            </table>
+            </div>
+
+            <div class="table-responsive">
+
+            <table>
+                <tr>
+                    <td>
+        {% if object_list.has_other_pages %}
+        <nav class="d-flex justify-content-center">
+         <ul class="pagination">
+           {% if object_list.has_previous %}
+           <li class="page-item">
+
+        {% if nick_name == system_nickname %}
+<!--             <a class="page-link" href="?page={{ object_list.previous_page_number }}{% if request.GET.search_conditions %}&search_conditions={{ request.GET.search_conditions }}{% endif %}{% if request.GET.number_searches %}&number_searches={{ request.GET.number_searches }}{% endif %}{% if request.GET.what_doing_now %}&what_doing_now={{ request.GET.what_doing_now }}{% endif %}{% if request.GET.article %}&article={{ request.GET.article }}{% endif %}{% if request.GET.keyword %}&keyword={{ request.GET.keyword }}{% endif %}{% if request.GET.nickname %}&nickname={{ request.GET.nickname }}{% endif %}{% if request.GET.height %}&height={{ request.GET.height }}{% endif %}{% if request.GET.body_weight %}&body_weight={{ request.GET.body_weight }}{% endif %}{% if request.GET.body_shape_man %}&body_shape_man={{ request.GET.body_shape_man }}{% endif %}{% if request.GET.body_shape_woman %}&body_shape_woman={{ request.GET.body_shape_woman }}{% endif %}{% if request.GET.marriage_history %}&marriage_history={{ request.GET.marriage_history }}{% endif %}{% if request.GET.children %}&children={{ request.GET.children }}{% endif %}{% if request.GET.tobacco %}&tobacco={{ request.GET.tobacco }}{% endif %}{% if request.GET.education %}&education={{ request.GET.education }}{% endif %}{% if request.GET.occupation %}&occupation={{ request.GET.occupation }}{% endif %}{% if request.GET.drivers_license %}&drivers_license={{ request.GET.drivers_license }}{% endif %}{% if request.GET.annual_income %}&annual_income={{ request.GET.annual_income }}{% endif %}" tabindex="-1">Previous</a>-->
+<!--             <a class="page-link" href="?page={{ object_list.previous_page_number }}{% if request.GET.search_conditions %}&search_conditions={{ request.GET.search_conditions }}{% endif %}{% if request.GET.number_searches %}&number_searches={{ request.GET.number_searches }}{% endif %}{% if request.GET.what_doing_now %}&what_doing_now={{ request.GET.what_doing_now }}{% endif %}{% if request.GET.article %}&article={{ request.GET.article }}{% endif %}{% if request.GET.keyword %}&keyword={{ request.GET.keyword }}{% endif %}{% if request.GET.nickname %}&nickname={{ request.GET.nickname }}{% endif %}{% if request.GET.height %}&height={{ request.GET.height }}{% endif %}{% if request.GET.body_weight %}&body_weight={{ request.GET.body_weight }}{% endif %}{% if request.GET.body_shape_man %}&body_shape_man={{ request.GET.body_shape_man }}{% endif %}{% if request.GET.body_shape_woman %}&body_shape_woman={{ request.GET.body_shape_woman }}{% endif %}{% if request.GET.marriage_history %}&marriage_history={{ request.GET.marriage_history }}{% endif %}{% if request.GET.children %}&children={{ request.GET.children }}{% endif %}{% if request.GET.tobacco %}&tobacco={{ request.GET.tobacco }}{% endif %}{% if request.GET.education %}&education={{ request.GET.education }}{% endif %}{% if request.GET.occupation %}&occupation={{ request.GET.occupation }}{% endif %}{% if request.GET.drivers_license %}&drivers_license={{ request.GET.drivers_license }}{% endif %}{% if request.GET.annual_income %}&annual_income={{ request.GET.annual_income }}{% endif %}" tabindex="-1">Previous</a>-->
+               <a class="page-link" href="?page={{ object_list.previous_page_number }}{% if request.GET.search_conditions %}&search_conditions={{ request.GET.search_conditions }}{% endif %}{% if request.GET.number_searches %}&number_searches={{ request.GET.number_searches }}{% endif %}{% if request.GET.what_doing_now %}&what_doing_now={{ request.GET.what_doing_now }}{% endif %}{% if request.GET.article %}&article={{ request.GET.article }}{% endif %}{% if request.GET.keyword %}&keyword={{ request.GET.keyword }}{% endif %}{% if request.GET.commitment %}&commitment={{ request.GET.commitment }}{% endif %}{% if request.GET.luxury_items %}&luxury_items={{ request.GET.luxury_items }}{% endif %}{% if request.GET.birthday %}&birthday={{ request.GET.birthday }}{% endif %}{% if request.GET.birthplace %}&birthplace={{ request.GET.birthplace }}{% endif %}{% if request.GET.haunting_area %}&haunting_area={{ request.GET.haunting_area }}{% endif %}{% if request.GET.qualification %}&qualification={{ request.GET.qualification }}{% endif %}{% if request.GET.language %}&language={{ request.GET.language }}{% endif %}{% if request.GET.postalcode %}&postalcode={{ request.GET.postalcode }}{% endif %}{% if request.GET.address1 %}&address1={{ request.GET.address1 }}{% endif %}{% if request.GET.address2 %}&address2={{ request.GET.address2 }}{% endif %}{% if request.GET.nickname %}&nickname={{ request.GET.nickname }}{% endif %}{% if request.GET.sexuality %}&sexuality={{ request.GET.sexuality }}{% endif %}{% if request.GET.blood_type %}&blood_type={{ request.GET.blood_type }}{% endif %}{% if request.GET.age %}&age={{ request.GET.age }}{% endif %}{% if request.GET.looks %}&looks={{ request.GET.looks }}{% endif %}{% if request.GET.osake %}&osake={{ request.GET.osake }}{% endif %}{% if request.GET.personality %}&personality={{ request.GET.personality }}{% endif %}{% if request.GET.housemate %}&housemate={{ request.GET.housemate }}{% endif %}{% if request.GET.height %}&height={{ request.GET.height }}{% endif %}{% if request.GET.body_weight %}&body_weight={{ request.GET.body_weight }}{% endif %}{% if request.GET.body_shape_man %}&body_shape_man={{ request.GET.body_shape_man }}{% endif %}{% if request.GET.body_shape_woman %}&body_shape_woman={{ request.GET.body_shape_woman }}{% endif %}{% if request.GET.marriage_history %}&marriage_history={{ request.GET.marriage_history }}{% endif %}{% if request.GET.children %}&children={{ request.GET.children }}{% endif %}{% if request.GET.tobacco %}&tobacco={{ request.GET.tobacco }}{% endif %}{% if request.GET.education %}&education={{ request.GET.education }}{% endif %}{% if request.GET.occupation %}&occupation={{ request.GET.occupation }}{% endif %}{% if request.GET.drivers_license %}&drivers_license={{ request.GET.drivers_license }}{% endif %}{% if request.GET.annual_income %}&annual_income={{ request.GET.annual_income }}{% endif %}" tabindex="-1">Previous</a>
+        {% else %}
+<!--             <a class="page-link" href="?page={{ object_list.previous_page_number }}{% if request.GET.search_conditions %}&search_conditions={{ request.GET.search_conditions }}{% endif %}{% if request.GET.number_searches %}&number_searches={{ request.GET.number_searches }}{% endif %}{% if request.GET.nickname %}&nickname={{ request.GET.nickname }}{% endif %}" tabindex="-1">Previous</a>-->
+<!--             <a class="page-link" href="?page={{ object_list.previous_page_number }}{% if request.GET.search_conditions %}&search_conditions={{ request.GET.search_conditions }}{% endif %}{% if request.GET.number_searches %}&number_searches={{ request.GET.number_searches }}{% endif %}{% if request.GET.nickname %}&nickname={{ request.GET.nickname }}{% endif %}" tabindex="-1">Previous</a>-->
+               <a class="page-link" href="?page={{ object_list.previous_page_number }}{% if request.GET.search_conditions %}&search_conditions={{ request.GET.search_conditions }}{% endif %}{% if request.GET.number_searches %}&number_searches={{ request.GET.number_searches }}{% endif %}{% if request.GET.what_doing_now %}&what_doing_now={{ request.GET.what_doing_now }}{% endif %}{% if request.GET.article %}&article={{ request.GET.article }}{% endif %}{% if request.GET.keyword %}&keyword={{ request.GET.keyword }}{% endif %}{% if request.GET.commitment %}&commitment={{ request.GET.commitment }}{% endif %}{% if request.GET.luxury_items %}&luxury_items={{ request.GET.luxury_items }}{% endif %}{% if request.GET.birthday %}&birthday={{ request.GET.birthday }}{% endif %}{% if request.GET.birthplace %}&birthplace={{ request.GET.birthplace }}{% endif %}{% if request.GET.haunting_area %}&haunting_area={{ request.GET.haunting_area }}{% endif %}{% if request.GET.qualification %}&qualification={{ request.GET.qualification }}{% endif %}{% if request.GET.language %}&language={{ request.GET.language }}{% endif %}{% if request.GET.postalcode %}&postalcode={{ request.GET.postalcode }}{% endif %}{% if request.GET.address1 %}&address1={{ request.GET.address1 }}{% endif %}{% if request.GET.address2 %}&address2={{ request.GET.address2 }}{% endif %}{% if request.GET.nickname %}&nickname={{ request.GET.nickname }}{% endif %}{% if request.GET.sexuality %}&sexuality={{ request.GET.sexuality }}{% endif %}{% if request.GET.blood_type %}&blood_type={{ request.GET.blood_type }}{% endif %}{% if request.GET.age %}&age={{ request.GET.age }}{% endif %}{% if request.GET.looks %}&looks={{ request.GET.looks }}{% endif %}{% if request.GET.osake %}&osake={{ request.GET.osake }}{% endif %}{% if request.GET.personality %}&personality={{ request.GET.personality }}{% endif %}{% if request.GET.housemate %}&housemate={{ request.GET.housemate }}{% endif %}{% if request.GET.height %}&height={{ request.GET.height }}{% endif %}{% if request.GET.body_weight %}&body_weight={{ request.GET.body_weight }}{% endif %}{% if request.GET.body_shape_man %}&body_shape_man={{ request.GET.body_shape_man }}{% endif %}{% if request.GET.body_shape_woman %}&body_shape_woman={{ request.GET.body_shape_woman }}{% endif %}{% if request.GET.marriage_history %}&marriage_history={{ request.GET.marriage_history }}{% endif %}{% if request.GET.children %}&children={{ request.GET.children }}{% endif %}{% if request.GET.tobacco %}&tobacco={{ request.GET.tobacco }}{% endif %}{% if request.GET.education %}&education={{ request.GET.education }}{% endif %}{% if request.GET.occupation %}&occupation={{ request.GET.occupation }}{% endif %}{% if request.GET.drivers_license %}&drivers_license={{ request.GET.drivers_license }}{% endif %}{% if request.GET.annual_income %}&annual_income={{ request.GET.annual_income }}{% endif %}" tabindex="-1">Previous</a>
+        {% endif %}
+           </li>
+           {% else %}
+           <li class="page-item disabled"><a class="page-link" href="#!">Previous</a></li>
+           {% endif %}
+           {% for num in object_list.paginator.page_range %}
+           {% if object_list.number == num %}
+           <li class="page-item active">
+             <a class="page-link" href="#!">{{ num }}<span class="sr-only">(current)</span></a>
+           </li>
+           {% else %}
+           <li class="page-item">
+        {% if nick_name == system_nickname %}
+               <a class="page-link" href="?page={{ num }}{% if request.GET.search_conditions %}&search_conditions={{ request.GET.search_conditions }}{% endif %}{% if request.GET.number_searches %}&number_searches={{ request.GET.number_searches }}{% endif %}{% if request.GET.what_doing_now %}&what_doing_now={{ request.GET.what_doing_now }}{% endif %}{% if request.GET.article %}&article={{ request.GET.article }}{% endif %}{% if request.GET.keyword %}&keyword={{ request.GET.keyword }}{% endif %}{% if request.GET.commitment %}&commitment={{ request.GET.commitment }}{% endif %}{% if request.GET.luxury_items %}&luxury_items={{ request.GET.luxury_items }}{% endif %}{% if request.GET.birthday %}&birthday={{ request.GET.birthday }}{% endif %}{% if request.GET.birthplace %}&birthplace={{ request.GET.birthplace }}{% endif %}{% if request.GET.haunting_area %}&haunting_area={{ request.GET.haunting_area }}{% endif %}{% if request.GET.qualification %}&qualification={{ request.GET.qualification }}{% endif %}{% if request.GET.language %}&language={{ request.GET.language }}{% endif %}{% if request.GET.postalcode %}&postalcode={{ request.GET.postalcode }}{% endif %}{% if request.GET.address1 %}&address1={{ request.GET.address1 }}{% endif %}{% if request.GET.address2 %}&address2={{ request.GET.address2 }}{% endif %}{% if request.GET.nickname %}&nickname={{ request.GET.nickname }}{% endif %}{% if request.GET.sexuality %}&sexuality={{ request.GET.sexuality }}{% endif %}{% if request.GET.blood_type %}&blood_type={{ request.GET.blood_type }}{% endif %}{% if request.GET.age %}&age={{ request.GET.age }}{% endif %}{% if request.GET.looks %}&looks={{ request.GET.looks }}{% endif %}{% if request.GET.osake %}&osake={{ request.GET.osake }}{% endif %}{% if request.GET.personality %}&personality={{ request.GET.personality }}{% endif %}{% if request.GET.housemate %}&housemate={{ request.GET.housemate }}{% endif %}{% if request.GET.height %}&height={{ request.GET.height }}{% endif %}{% if request.GET.body_weight %}&body_weight={{ request.GET.body_weight }}{% endif %}{% if request.GET.body_shape_man %}&body_shape_man={{ request.GET.body_shape_man }}{% endif %}{% if request.GET.body_shape_woman %}&body_shape_woman={{ request.GET.body_shape_woman }}{% endif %}{% if request.GET.marriage_history %}&marriage_history={{ request.GET.marriage_history }}{% endif %}{% if request.GET.children %}&children={{ request.GET.children }}{% endif %}{% if request.GET.tobacco %}&tobacco={{ request.GET.tobacco }}{% endif %}{% if request.GET.education %}&education={{ request.GET.education }}{% endif %}{% if request.GET.occupation %}&occupation={{ request.GET.occupation }}{% endif %}{% if request.GET.drivers_license %}&drivers_license={{ request.GET.drivers_license }}{% endif %}{% if request.GET.annual_income %}&annual_income={{ request.GET.annual_income }}{% endif %}">{{ num }}</a></li>
+
+        {% else %}
+<!--             <a class="page-link" href="?page={{ num }}{% if request.GET.search_conditions %}&search_conditions={{ request.GET.search_conditions }}{% endif %}{% if request.GET.number_searches %}&number_searches={{ request.GET.number_searches }}{% endif %}{% if request.GET.nickname %}&nickname={{ request.GET.nickname }}{% endif %}">{{ num }}</a></li>-->
+             <a class="page-link" href="?page={{ num }}{% if request.GET.search_conditions %}&search_conditions={{ request.GET.search_conditions }}{% endif %}{% if request.GET.number_searches %}&number_searches={{ request.GET.number_searches }}{% endif %}{% if request.GET.nickname %}&nickname={{ request.GET.nickname }}{% endif %}">{{ num }}</a></li>
+        {% endif %}
+           {% endif %}
+           {% endfor %}
+           {% if object_list.has_next %}
+           <li class="page-item">
+        {% if nick_name == system_nickname %}
+<!--             <a class="page-link" href="?page={{ object_list.next_page_number }}{% if request.GET.search_conditions %}&search_conditions={{ request.GET.search_conditions }}{% endif %}{% if request.GET.number_searches %}&number_searches={{ request.GET.number_searches }}{% endif %}{% if request.GET.what_doing_now %}&what_doing_now={{ request.GET.what_doing_now }}{% endif %}{% if request.GET.article %}&article={{ request.GET.article }}{% endif %}{% if request.GET.keyword %}&keyword={{ request.GET.keyword }}{% endif %}{% if request.GET.nickname %}&nickname={{ request.GET.nickname }}{% endif %}{% if request.GET.height %}&height={{ request.GET.height }}{% endif %}{% if request.GET.body_weight %}&body_weight={{ request.GET.body_weight }}{% endif %}{% if request.GET.body_shape_man %}&body_shape_man={{ request.GET.body_shape_man }}{% endif %}{% if request.GET.body_shape_woman %}&body_shape_woman={{ request.GET.body_shape_woman }}{% endif %}{% if request.GET.marriage_history %}&marriage_history={{ request.GET.marriage_history }}{% endif %}{% if request.GET.children %}&children={{ request.GET.children }}{% endif %}{% if request.GET.tobacco %}&tobacco={{ request.GET.tobacco }}{% endif %}{% if request.GET.education %}&education={{ request.GET.education }}{% endif %}{% if request.GET.occupation %}&occupation={{ request.GET.occupation }}{% endif %}{% if request.GET.drivers_license %}&drivers_license={{ request.GET.drivers_license }}{% endif %}{% if request.GET.annual_income %}&annual_income={{ request.GET.annual_income }}{% endif %}">Next</a>-->
+<!--             <a class="page-link" href="?page={{ object_list.next_page_number }}{% if request.GET.search_conditions %}&search_conditions={{ request.GET.search_conditions }}{% endif %}{% if request.GET.number_searches %}&number_searches={{ request.GET.number_searches }}{% endif %}{% if request.GET.what_doing_now %}&what_doing_now={{ request.GET.what_doing_now }}{% endif %}{% if request.GET.article %}&article={{ request.GET.article }}{% endif %}{% if request.GET.keyword %}&keyword={{ request.GET.keyword }}{% endif %}{% if request.GET.nickname %}&nickname={{ request.GET.nickname }}{% endif %}{% if request.GET.height %}&height={{ request.GET.height }}{% endif %}{% if request.GET.body_weight %}&body_weight={{ request.GET.body_weight }}{% endif %}{% if request.GET.body_shape_man %}&body_shape_man={{ request.GET.body_shape_man }}{% endif %}{% if request.GET.body_shape_woman %}&body_shape_woman={{ request.GET.body_shape_woman }}{% endif %}{% if request.GET.marriage_history %}&marriage_history={{ request.GET.marriage_history }}{% endif %}{% if request.GET.children %}&children={{ request.GET.children }}{% endif %}{% if request.GET.tobacco %}&tobacco={{ request.GET.tobacco }}{% endif %}{% if request.GET.education %}&education={{ request.GET.education }}{% endif %}{% if request.GET.occupation %}&occupation={{ request.GET.occupation }}{% endif %}{% if request.GET.drivers_license %}&drivers_license={{ request.GET.drivers_license }}{% endif %}{% if request.GET.annual_income %}&annual_income={{ request.GET.annual_income }}{% endif %}">Next</a>-->
+
+               <a class="page-link" href="?page={{ object_list.next_page_number }}{% if request.GET.search_conditions %}&search_conditions={{ request.GET.search_conditions }}{% endif %}{% if request.GET.number_searches %}&number_searches={{ request.GET.number_searches }}{% endif %}{% if request.GET.what_doing_now %}&what_doing_now={{ request.GET.what_doing_now }}{% endif %}{% if request.GET.article %}&article={{ request.GET.article }}{% endif %}{% if request.GET.keyword %}&keyword={{ request.GET.keyword }}{% endif %}{% if request.GET.commitment %}&commitment={{ request.GET.commitment }}{% endif %}{% if request.GET.luxury_items %}&luxury_items={{ request.GET.luxury_items }}{% endif %}{% if request.GET.birthday %}&birthday={{ request.GET.birthday }}{% endif %}{% if request.GET.birthplace %}&birthplace={{ request.GET.birthplace }}{% endif %}{% if request.GET.haunting_area %}&haunting_area={{ request.GET.haunting_area }}{% endif %}{% if request.GET.qualification %}&qualification={{ request.GET.qualification }}{% endif %}{% if request.GET.language %}&language={{ request.GET.language }}{% endif %}{% if request.GET.postalcode %}&postalcode={{ request.GET.postalcode }}{% endif %}{% if request.GET.address1 %}&address1={{ request.GET.address1 }}{% endif %}{% if request.GET.address2 %}&address2={{ request.GET.address2 }}{% endif %}{% if request.GET.nickname %}&nickname={{ request.GET.nickname }}{% endif %}{% if request.GET.sexuality %}&sexuality={{ request.GET.sexuality }}{% endif %}{% if request.GET.blood_type %}&blood_type={{ request.GET.blood_type }}{% endif %}{% if request.GET.age %}&age={{ request.GET.age }}{% endif %}{% if request.GET.looks %}&looks={{ request.GET.looks }}{% endif %}{% if request.GET.osake %}&osake={{ request.GET.osake }}{% endif %}{% if request.GET.personality %}&personality={{ request.GET.personality }}{% endif %}{% if request.GET.housemate %}&housemate={{ request.GET.housemate }}{% endif %}{% if request.GET.height %}&height={{ request.GET.height }}{% endif %}{% if request.GET.body_weight %}&body_weight={{ request.GET.body_weight }}{% endif %}{% if request.GET.body_shape_man %}&body_shape_man={{ request.GET.body_shape_man }}{% endif %}{% if request.GET.body_shape_woman %}&body_shape_woman={{ request.GET.body_shape_woman }}{% endif %}{% if request.GET.marriage_history %}&marriage_history={{ request.GET.marriage_history }}{% endif %}{% if request.GET.children %}&children={{ request.GET.children }}{% endif %}{% if request.GET.tobacco %}&tobacco={{ request.GET.tobacco }}{% endif %}{% if request.GET.education %}&education={{ request.GET.education }}{% endif %}{% if request.GET.occupation %}&occupation={{ request.GET.occupation }}{% endif %}{% if request.GET.drivers_license %}&drivers_license={{ request.GET.drivers_license }}{% endif %}{% if request.GET.annual_income %}&annual_income={{ request.GET.annual_income }}{% endif %}">Next</a>
+
+        {% else %}
+<!--             <a class="page-link" href="?page={{ object_list.next_page_number }}{% if request.GET.search_conditions %}&search_conditions={{ request.GET.search_conditions }}{% endif %}{% if request.GET.number_searches %}&number_searches={{ request.GET.number_searches }}{% endif %}{% if request.GET.nickname %}&nickname={{ request.GET.nickname }}{% endif %}">Next</a>-->
+             <a class="page-link" href="?page={{ object_list.next_page_number }}{% if request.GET.search_conditions %}&search_conditions={{ request.GET.search_conditions }}{% endif %}{% if request.GET.number_searches %}&number_searches={{ request.GET.number_searches }}{% endif %}{% if request.GET.nickname %}&nickname={{ request.GET.nickname }}{% endif %}">Next</a>
+        {% endif %}
+           </li>
+           {% else %}
+           <li class="page-item disabled"><a class="page-link" href="#!">Next</a></li>
+           {% endif %}
+         </ul>
+        </nav>
+        {% endif %}
+                        </td>
+                </tr>
+            </table>
+            </div>
+
+
+            <!-- 検索フォーム -->
+
+<!--        <div class="table-responsive">-->
+                        <div style="margin-top : 10px">
+                            <p><h6>【検索条件】</h6></p>
+                            </div>
+
+            <form class="form-inline my-2" method="GET" action="{% url 'live:profile_search' nick_name %}">
+
+                {% csrf_token %}
+
+                <div class="visibility">
+
+
+                <div class="row my-row-style1">
+
+                            <table class="table table-borderless">
+                                <tr>
+                                    <td>
+
+                <div class="form-group">
+                <label for="formGroup0" style="font-size:13px;">検索条件：</label>
+                <select class="form-control form-control-sm"  id="formGroup0"  aria-describedby="groupHelp2" name="search_conditions">
+                    {% for g in s_search_conditions %}
+                    {% if g.0 == request.GET.search_conditions %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                <small id="groupHelp2" class="form-text text-muted">　※ 検索条件を選択してください。</small>
+                </div>
+                                    </td>
+                                    </tr>
+                                <tr>
+                                    <td>
+                <div class="form-group">
+                <label for="formGroup1" style="font-size:13px;">検索件数：</label>
+                <select class="form-control form-control-sm"  id="formGroup1"  aria-describedby="groupHelp3" name="number_searches">
+                    {% for g in s_number_searches %}
+                    {% if g.0 == request.GET.number_searches %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                <small id="groupHelp3" class="form-text text-muted">　※ 検索件数を選択してください。</small>
+                </div>
+                                        </td>
+                                    </tr>
+                                <tr>
+                                    <td>
+                                        <ul class="f_s">
+                                            <li>自己ピーアール、今何している！、趣味・興味、こだわり、嗜好品、誕生(月 日)、出身地、出没エリア、資格、言語は、OR条件で検索</li>
+                                            <li>その他はAND条件で検索します。</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+
+                {% if search_word_hi %}
+                <P><strong>検索条件：</strong>{{ search_word_hi }}<br><br>
+                {% else %}
+                <P><strong>検索条件：</strong>指定なし<br><br>
+                {% endif %}
+                <strong>検索結果：</strong><font color="red"> {{ cnt }} 件</font>検索されました。</P>
+                            </td>
+                        </tr>
+                                </table>
+                    </div>
+                    </div>
+
+                <br><br><br>
+
+
+                <div class="table-responsive" style="margin: 0px auto 130px auto; ">
+
+        <table class="table table-bordered table-hover table-striped table-sm">
+            <tbody>
+                {% if not gender %}
+            <thead class="table-active">
+                <tr align="center">
+                  <th scope="col" >検索条件</th>
+                </tr>
+            </thead>
+                {% else %}
+            <thead>
+                <tr align="center">
+                  <th scope="col" bgcolor="#FFC0CB "><font color="#c71585 ">検索条件</font></th>
+                </tr>
+            </thead>
+                {% endif %}
+                        <tr>
+                <td>
+
+                    {% if request.GET.nickname is None %}
+                    {% if nick_name == system_nickname %}
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>1）ニックネーム</b></font></small>
+                <input type="text" class="form-control form-control-sm" name="nickname" size="20" placeholder="" value={{ request.GET.nickname }}>
+                    <small class="form-text text-muted"><font size="2" color=black>例）ミッキー</font></small>
+                    {% else %}
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>1）ニックネーム</b></font></small>
+                <input type="text" class="form-control form-control-sm" name="nickname" size="20" placeholder="" value={{ nick_name }}>
+                    <small class="form-text text-muted"><font size="2" color=black>例）ミッキー</font></small>
+                    {% endif %}
+                    {% else %}
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>1）ニックネーム</b></font></small>
+                <input type="text" class="form-control form-control-sm" name="nickname" size="20" placeholder="" value={{ request.GET.nickname }}>
+                    <small class="form-text text-muted"><font size="2" color=black>例）ミッキー</font></small>
+                    {% endif %}
+                </td>
+            </tr>
+
+    {% if nick_name == system_nickname %}
+
+            <tr>
+                <td>
+                    {% if request.GET.article is None %}
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>2）自己ピーアール：（～15文字）</b></font></small>
+                    <textarea class="form-control" name="article" rows="1" cols=100% placeholder="" value={{ request.GET.article }}>{{ request.GET.article }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）長野県出身　独身　優しい</font></small>
+                    {% else %}
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>2）自己ピーアール：（～15文字）</b></font></small>
+                    <textarea class="form-control" name="article" rows="1" cols=100% placeholder="" value={{ request.GET.article }}>{{ request.GET.article }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）長野県出身　独身　優しい</font></small>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    {% if request.GET.what_doing_now is None %}
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>3）今何している！：（～15文字）</b></font></small>
+                    <textarea class="form-control" name="what_doing_now" rows="1" cols=100% placeholder="" value={{ request.GET.what_doing_now }}>{{ request.GET.what_doing_now }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）一人飲み　日本酒</font></small>
+                    {% else %}
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>3）今何している！：（～15文字）</b></font></small>
+                    <textarea class="form-control" name="what_doing_now" rows="1" cols=100% placeholder="" value={{ request.GET.what_doing_now }}>{{ request.GET.what_doing_now }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）一人飲み　日本酒</font></small>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    {% if request.GET.keyword is None %}
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>4）趣味・興味：（～15文字）</b></font></small>
+                    <textarea class="form-control" name="keyword" rows="1" cols=100% placeholder="" value={{ request.GET.keyword }}>{{ request.GET.keyword }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）ゴルフ　映画　食べること</font></small>
+                    {% else %}
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>4）趣味・興味：（～15文字）</b></font></small>
+                    <textarea class="form-control" name="keyword" rows="1" cols=100% placeholder="" value={{ request.GET.keyword }}>{{ request.GET.keyword }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）ゴルフ　映画　食べること</font></small>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    {% if request.GET.commitment is None %}
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>5）こだわり：（～15文字）</b></font></small>
+                    <textarea class="form-control" name="commitment" rows="1" cols=100% placeholder="" value={{ request.GET.commitment }}>{{ request.GET.commitment }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）国産ウイスキー　国産車</font></small>
+                    {% else %}
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>5）こだわり：（～15文字）</b></font></small>
+                    <textarea class="form-control" name="commitment" rows="1" cols=100% placeholder="" value={{ request.GET.commitment }}>{{ request.GET.commitment }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）国産ウイスキー　国産車</font></small>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    {% if request.GET.luxury_items is None %}
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>6）嗜好品：（～15文字）</b></font></small>
+                    <textarea class="form-control" name="luxury_items" rows="1" cols=100% placeholder="" value={{ request.GET.luxury_items }}>{{ request.GET.luxury_items }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）お酒　コーヒー</font></small>
+                    {% else %}
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>6）嗜好品：（～15文字）</b></font></small>
+                    <textarea class="form-control" name="luxury_items" rows="1" cols=100% placeholder="" value={{ request.GET.luxury_items }}>{{ request.GET.luxury_items }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）お酒　コーヒー</font></small>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    {% if request.GET.birthday is None %}
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>7）誕生(月 日)：（4文字）</b></font></small>
+                    <textarea class="form-control" name="birthday" rows="1" cols=100% placeholder="" value={{ request.GET.birthday }}>{{ request.GET.birthday }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）0418、1005、1120</font></small>
+                    {% else %}
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>7）誕生(月 日)：（4文字）</b></font></small>
+                    <textarea class="form-control" name="birthday" rows="1" cols=100% placeholder="" value={{ request.GET.birthday }}>{{ request.GET.birthday }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）0418、1005、1120</font></small>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    {% if request.GET.birthplace is None %}
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>8）出身地：（～15文字）</b></font></small>
+                    <textarea class="form-control" name="birthplace" rows="1" cols=100% placeholder="" value={{ request.GET.birthplace }}>{{ request.GET.birthplace }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）東京都　市町村名　学校名70期</font></small>
+                    {% else %}
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>8）出身地：（～15文字）</b></font></small>
+                    <textarea class="form-control" name="birthplace" rows="1" cols=100% placeholder="" value={{ request.GET.birthplace }}>{{ request.GET.birthplace }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）東京都　市町村名　学校名70期</font></small>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    {% if request.GET.haunting_area is None %}
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>9）出没エリア：（～15文字）</b></font></small>
+                    <textarea class="form-control" name="haunting_area" rows="1" cols=100% placeholder="" value={{ request.GET.haunting_area }}>{{ request.GET.haunting_area }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）吉祥寺ハモニカ横丁　中野　渋谷</font></small>
+                    {% else %}
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>9）出没エリア：（～15文字）</b></font></small>
+                    <textarea class="form-control" name="haunting_area" rows="1" cols=100% placeholder="" value={{ request.GET.haunting_area }}>{{ request.GET.haunting_area }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）吉祥寺ハモニカ横丁　中野　渋谷</font></small>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    {% if request.GET.qualification is None %}
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>10）資格：（～15文字）</b></font></small>
+                    <textarea class="form-control" name="qualification" rows="1" cols=100% placeholder="" value={{ request.GET.qualification }}>{{ request.GET.qualification }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）教育職員免許状</font></small>
+                    {% else %}
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>10）資格：（～15文字）</b></font></small>
+                    <textarea class="form-control" name="qualification" rows="1" cols=100% placeholder="" value={{ request.GET.qualification }}>{{ request.GET.qualification }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）教育職員免許状</font></small>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    {% if request.GET.language is None %}
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>11）言語：（～15文字）</b></font></small>
+                    <textarea class="form-control" name="language" rows="1" cols=100% placeholder="" value={{ request.GET.language }}>{{ request.GET.language }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）日本語　英語</font></small>
+                    {% else %}
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>11）言語：（～15文字）</b></font></small>
+                    <textarea class="form-control" name="language" rows="1" cols=100% placeholder="" value={{ request.GET.language }}>{{ request.GET.language }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）日本語　英語</font></small>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    {% if request.GET.postalcode is None %}
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>12）郵便番号：（7文字）</b></font></small>
+                    <textarea class="form-control" name="postalcode" rows="1" cols=100% placeholder="" value={{ request.GET.postalcode }}>{{ request.GET.postalcode }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）1810002</font></small>
+                    {% else %}
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>12）郵便番号：（7文字）</b></font></small>
+                    <textarea class="form-control" name="postalcode" rows="1" cols=100% placeholder="" value={{ request.GET.postalcode }}>{{ request.GET.postalcode }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）1810002</font></small>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    {% if request.GET.address1 is None %}
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>13）都道府県：（～10文字）</b></font></small>
+                    <textarea class="form-control" name="address1" rows="1" cols=100% placeholder="" value={{ request.GET.address1 }}>{{ request.GET.address1 }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）東京都　埼玉県</font></small>
+                    {% else %}
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>13）都道府県：（～10文字）</b></font></small>
+                    <textarea class="form-control" name="address1" rows="1" cols=100% placeholder="" value={{ request.GET.address1 }}>{{ request.GET.address1 }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）東京都　埼玉県</font></small>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    {% if request.GET.address2 is None %}
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>14）市区名：（～30文字）</b></font></small>
+                    <textarea class="form-control" name="address2" rows="1" cols=100% placeholder="" value={{ request.GET.address2 }}>{{ request.GET.address2 }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）武蔵野市</font></small>
+                    {% else %}
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>14）市区町村：（～30文字）</b></font></small>
+                    <textarea class="form-control" name="address2" rows="1" cols=100% placeholder="" value={{ request.GET.address2 }}>{{ request.GET.address2 }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）武蔵野市</font></small>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>15）セクシュアリティ：</b></font></small>
+                <select class="form-control form-control-sm" name="sexuality">
+                    {% for g in s_sexuality %}
+                    {% if g.0 == request.GET.sexuality %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>16）血液型：</b></font></small>
+                <select class="form-control form-control-sm" name="blood_type">
+                    {% for g in s_blood_type %}
+                    {% if g.0 == request.GET.blood_type %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>17）年齢：</b></font></small>
+                <select class="form-control form-control-sm" name="age">
+                    {% for g in s_age %}
+                    {% if g.0 == request.GET.age %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>18）ルックス：</b></font></small>
+                <select class="form-control form-control-sm" name="looks">
+                    {% for g in s_looks %}
+                    {% if g.0 == request.GET.looks %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>19）お酒：</b></font></small>
+                <select class="form-control form-control-sm" name="osake">
+                    {% for g in s_osake %}
+                    {% if g.0 == request.GET.osake %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>20）性格：</b></font></small>
+                <select class="form-control form-control-sm" name="personality">
+                    {% for g in s_personality %}
+                    {% if g.0 == request.GET.personality %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>21）身長：</b></font></small>
+                <select class="form-control form-control-sm" name="height">
+                    {% for g in s_height %}
+                    {% if g.0 == request.GET.height %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>22）体重：</b></font></small>
+                <select class="form-control form-control-sm" name="body_weight">
+                    {% for g in s_weight %}
+                    {% if g.0 == request.GET.body_weight %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+               </td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>23）男性体型：</b></font></small>
+                <select class="form-control form-control-sm" name="body_shape_man">
+                    {% for g in s_body_shape_man %}
+                    {% if g.0 == request.GET.body_shape_man %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>24）女性体型：</b></font></small>
+                <select class="form-control form-control-sm" name="body_shape_woman">
+                    {% for g in s_body_shape_woman %}
+                    {% if g.0 == request.GET.body_shape_woman %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>25）結婚歴：</b></font></small>
+                <select class="form-control form-control-sm" name="marriage_history">
+                    {% for g in s_m_history %}
+                    {% if g.0 == request.GET.marriage_history %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>26）子供有無：</b></font></small>
+                <select class="form-control form-control-sm" name="children">
+                    {% for g in s_children %}
+                    {% if g.0 == request.GET.children %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>27）同居人：</b></font></small>
+                <select class="form-control form-control-sm" name="housemate">
+                    {% for g in s_housemate %}
+                    {% if g.0 == request.GET.housemate %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>28）タバコ：</b></font></small>
+                <select class="form-control form-control-sm" name="tobacco">
+                    {% for g in s_tobacco %}
+                    {% if g.0 == request.GET.tobacco %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>29）学歴：</b></font></small>
+                <select class="form-control form-control-sm" name="education">
+                    {% for g in s_education %}
+                    {% if g.0 == request.GET.education %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>30）お仕事：</b></font></small>
+                <select class="form-control form-control-sm" name="occupation">
+                    {% for g in s_occupation %}
+                    {% if g.0 == request.GET.occupation %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>31）運転免許証：</b></font></small>
+                <select class="form-control form-control-sm" name="drivers_license">
+                    {% for g in s_d_license %}
+                    {% if g.0 == request.GET.drivers_license %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>32）年収：</b></font></small>
+                <select class="form-control form-control-sm" name="annual_income">
+                    {% for g in s_income %}
+                    {% if g.0 == request.GET.annual_income %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+                </div>
+
+
+<!--flaoting menu-->
+    <div id="footerFloatingMenu_search">
+        <div class="table-responsive-sm">
+        <table class="table table-borderless">
+            <tr style="opacity: 1;background-color:white;">
+                <td>
+                    <button id=button_s type="submit"><img src="{% static 'img/s-search.jpg' %}" height="35" alt="検索"></button>
+                </td>
+                <td>
+                    <button id=button_r type="reset"><img src="{% static 'img/s-reset.jpg' %}" height="35" alt="リセット"></button>
+                </td>
+                <td>
+                    <a href="{% url 'live:profile_search' nick_name %}"><img class="" src="{% static 'img/s-allreset-v0.jpg' %}" height="35" alt="全リセット"></a>
+                </td>
+            </tr>
+        </table>
+        </div>
+        </div>
+
+
+<!--&lt;!&ndash;flaoting menu&ndash;&gt;-->
+<!--    <div id="footerFloatingMenu_search">-->
+<!--        <div class="float-container" style="opacity: 1;background-color:white;">-->
+<!--          <div class="item1"><button id=button_s type="submit"><img src="{% static 'img/ss-search.jpg' %}" height="35" alt="検索"></button></div>-->
+<!--          <div class="item2"><button id=button_r type="reset"><img src="{% static 'img/ss-reset.jpg' %}" height="35" alt="リセット"></button></div>-->
+<!--          <div class="item3"><a href="{% url 'live:profile_search' nick_name %}"><img class="" src="{% static 'img/ss-allreset.jpg' %}" height="35" alt="全リセット"></a></div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+            </form>
+        </div>
+        </div>
+        </div>
+
+    {% else %}
+
+            </tbody>
+        </table>
+                </div>
+
+             <button type="submit" value="search" class="btn btn-primary ml-2 mt-3 mb-3">検索</button>
+<!--                <input class="btn btn-danger ml-2 mt-3 mb-3" type="reset" value="リセット">-->
+<!--                <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:profile_search' nick_name %}">検索条件全リセット</a>-->
+
+            </form>
+        </div>
+        </div>
+        </div>
+
+    {% endif %}
+
+
+
+
+<script>
+
+    // 複数の要素に動的なidをつける
+    // # class="btn btn-success btn-sm message" 内の'message'は、動的にidを生成するためのクラス名-->
+
+    var moji = "messageID"
+    var tmp = document.getElementsByClassName("message") ; // クラス：messageを含む要素をtmpリストに格納
+
+    for(var i=0;i<=tmp.length-1;i++){
+        //要素にid追加（messageID0～）
+        tmp[i].setAttribute("id",moji+i);
+        }
+
+</script>
+
+<script>
+// メッセージ送信、いいね！、保留のボタン押下で新ウインドウが開く
+
+function getId(ele){
+    var id_value = ele.id; // eleのプロパティとしてidを取得
+//    console.log('メッセージ' + id_value); //「messageID0～」
+
+  let newWindow; // 変数newWindowを宣言
+  var url_ad = document.getElementById( id_value ).title;// urlアドレス取得
+
+  let openBtn = document.getElementById( id_value ); // 開くボタンのidを取得
+
+  openBtn.addEventListener('click', () => { // 開くボタンをクリックしたときのイベント
+    newWindow = open(url_ad); // ページを開く
+  });
+
+    }
+
+</script>
+
+<!--<script>-->
+<!--const element = document.getElementById('messageID0');-->
+<!--console.log(element.id);-->
+<!--</script>-->
+
+
+<!--<script>-->
+<!--    //複数の要素に動的なidをつける-->
+<!--    var moji = "how_niceID"-->
+<!--    var tmp = document.getElementsByClassName("how_nice") ;-->
+
+<!--    for(var i=0;i<=tmp.length-1;i++){-->
+<!--        //id追加-->
+<!--        tmp[i].setAttribute("id",moji+i);-->
+
+<!--  let newWindow; // 変数newWindowを宣言-->
+<!--  var url_ad = document.getElementById( moji+i ).title;-->
+
+<!--  let openBtn = document.getElementById( moji+i ); // 開くボタンのidを取得-->
+
+<!--  openBtn.addEventListener('click', () => { // 開くボタンをクリックしたときのイベント-->
+<!--    newWindow = open(url_ad); // ページを開く-->
+<!--  });-->
+
+<!--    }-->
+
+<!--&lt;!&ndash;  let newWindow; // 変数newWindowを宣言&ndash;&gt;-->
+<!--&lt;!&ndash;  var url_ad = document.getElementById( 'openBtn' ).title;&ndash;&gt;-->
+
+<!--&lt;!&ndash;  let openBtn = document.getElementById('openBtn'); // 開くボタンのidを取得&ndash;&gt;-->
+
+<!--&lt;!&ndash;  openBtn.addEventListener('click', () => { // 開くボタンをクリックしたときのイベント&ndash;&gt;-->
+<!--&lt;!&ndash;    newWindow = open(url_ad); // ページを開く&ndash;&gt;-->
+<!--&lt;!&ndash;  });&ndash;&gt;-->
+
+<!--</script>-->
+
+{% endblock %}
+
+
+

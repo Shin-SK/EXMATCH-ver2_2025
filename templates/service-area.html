@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block active_terms_service %}active{% endblock %}
+{% block active_terms_service_logout %}active{% endblock %}
+
+{% block title %}サービスエリア | GPS-Live-Match{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block contents %}
+
+<!--                課金体系フラグ １：定額課金（EXMATCH） ０：従量課金（LIVEMATCH）-->
+{% if m_b_f == 0 %}
+{% if mes_m == '' %}
+
+<div class="container">
+    <div class="my-div-style w-100">
+            <h6>{{ trade_name }} 「サービスエリア」</h6><br>
+        <div class="row my-row-style1">
+            <ul>
+              <li>三鷹駅、吉祥寺駅、西荻窪駅、荻窪駅、阿佐ヶ谷駅、高円寺駅、中野駅周辺を対象にサービス開始しています。</li>
+              <li>並行して、フランチャイズ全国展開開始、加盟店募集中！</li>
+              <li>{{ trade_name }} ブログ運用スタッフ募集中！</li>
+            </ul>
+        </div>
+        <div class="row my-row-style1">
+                        <div class="table-responsive">
+            <table class="table table-hover">
+                <tr>
+                    <td>
+
+                <strong>三鷹駅周辺のサービスエリア</strong><br>
+                井口、井の頭、大沢、上連雀、北野、下連雀、新川、深大寺、中原、野崎、牟礼<br><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                <strong>吉祥寺駅周辺のサービスエリア</strong><br>
+                吉祥寺本町、吉祥寺東町、吉祥寺南町、吉祥寺北町、御殿山、境、桜堤、関前、中町、西久保、緑町、八幡町<br><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                <strong>西荻窪駅周辺のサービスエリア</strong><br>
+                西荻北一丁目～五丁目、西荻南一丁目～四丁目<br><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                <strong>荻窪駅周辺のサービスエリア</strong><br>
+                荻窪一丁目～五丁目<br><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                <strong>阿佐ヶ谷駅周辺のサービスエリア</strong><br>
+                阿佐谷北一丁目～六丁目、阿佐谷南一丁目～三丁目<br><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                <strong>高円寺駅周辺のサービスエリア</strong><br>
+                高円寺北一丁目～四丁目、高円寺南一丁目～五丁目<br><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                <strong>中野駅周辺のサービスエリア</strong><br>
+                南台、弥生町、本町、中央、東中野、中野、新井、沼袋、松が丘、江原町、江古田、丸山、野方、大和町、上高田、若宮、白鷺、鷺宮、上鷺宮<br><br>
+                    </td>
+                </tr>
+            </table>
+            </div>
+
+
+        </div>
+<!--            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>-->
+    </div>
+</div>
+
+{% else %}
+<p>{{ mes_m }}</p>
+{% endif %}
+
+{% else %}
+
+<div class="container">
+    <div class="my-div-style w-100">
+        <h5>サービスエリア</h5><br>
+
+        <div class="row my-row-style1">
+            {% if mes_m == '' %}
+
+            <p>EXMATCHのサービスエリアを記述</p>
+
+            {% else %}
+            <p>{{ mes_m }}</p>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+{% endblock %}
+
+

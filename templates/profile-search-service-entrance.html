@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block active_terms_member %}active{% endblock %}
+
+{% block title %}プロフィール検索サービス | GPS-Live-Match{% endblock %}
+
+{% block head %}
+<style>
+ul.f_s { font-size: 14px; }
+</style>
+{% endblock %}
+
+{% block contents %}
+<div class="container">
+    <div class="my-div-style w-100">
+        <h5>プロフィール検索サービス</h5>
+        {% if nickname %}
+        <p>{{ nickname }} さん</p>
+        {% endif %}
+
+<!--        クレジットカード登録済み？-->
+        {% if customer %}
+        <ul class="f_s">
+            <li>「プロフィール検索サービス」は、検索条件を設定することであなたに代わって自動でプロフィール検索します。</li>
+            <li>条件にマッチした会員が検索された場合は、メールにて「ニックネーム」をご連絡いたします。</li>
+            <li>現在進行中の「プロフィール検索サービス」の設定状況＆検索結果です。</li>
+        </ul>
+
+        <div class="row my-row-style1">
+
+            <div class="table-responsive">
+
+            <table class="table table-hover">
+              <thead class="table-active">
+                <tr align="center">
+                  <th scope="col">設定状況＆検索結果</th>
+<!--                  <th scope="col">内容</th>-->
+<!--                  <th scope="col">備考</th>-->
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+<!--                  <td>稼働状況：</td>-->
+                  <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>稼働状況：</b></font></small><br>
+                      {{ pause_flag }}</td>
+<!--                  <td>検索サービスの稼働状況です。</td>-->
+                </tr>
+
+                {% if pause_flag == '稼働中' %}
+
+                <tr>
+<!--                  <td>検索条件：</td>-->
+                  <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>検索条件：</b></font></small><br>
+                      {{ search_conditions }}</td>
+<!--                  <td>設定した検索条件です。</td>-->
+                </tr>
+                <tr>
+<!--                  <td>検索会員：</td>-->
+                  <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>検索会員：</b></font></small><br>
+                      {{ search_member }}</td>
+<!--                  <td>検索対象会員です。（例：女性会員）</td>-->
+                </tr>
+                <tr>
+<!--                  <td>週間メール回数：</td>-->
+                  <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>週間メール回数：</b></font></small><br>
+                      {{ number_emails_week }}</td>
+<!--                  <td>検索結果を送信する回数です。（例：2回／週）</td>-->
+                </tr>
+                <tr>
+<!--                  <td>累積検索結果：</td>-->
+                  <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>累積検索結果：</b></font></small><br>
+                      {% if search_results %}
+                      <table>
+                      {% for item in search_results %}
+                          {% if item.1 == 0 %}
+                          <tr>
+                              <td><a href="{% url 'live:profile_search' item.0 %}">{{ item.0 }}</a></td>
+                          {% else %}
+                              <td><a href="{% url 'live:profile_search' item.0 %}">{{ item.0 }}</a></td>
+                          {% if columns == item.1 %}
+                          </tr>
+                          {% endif %}
+                          {% endif %}
+                      {% endfor %}
+                          </table>
+                      {% else %}
+                      無し
+                      {% endif %}
+                  </td>
+<!--                  <td>累積検索結果です。（ニックネーム）</td>-->
+                </tr>
+                <tr>
+<!--                  <td>累積紹介会員数：</td>-->
+                  <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>累積紹介会員数：</b></font></small><br>
+                      {{ search_results_num }} 名</td>
+<!--                  <td>紹介した累積会員数です。</td>-->
+                </tr>
+
+              {% endif %}
+
+              </tbody>
+            </table>
+            </div>
+        </div>
+        {% if pause_flag == '休止中' %}
+        <ul class="f_s">
+            <li>「検索サービス」を開始するには、「新規登録」ボタンをクリックして検索条件を登録してください。</li>
+        </ul>
+            <a class="btn btn-primary ml-2 mt-3 mb-3" href="{% url 'live:profile_search_service' %}">新規登録</a>
+<!--            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>-->
+        {% else %}
+
+        {% if pause_flag == '稼働中' %}
+        <ul class="f_s">
+            <li>「検索条件」を更新するには、「更新」ボタンをクリックして検索条件を更新してください。</li>
+            <li>「検索サービス」を休止するには、「休止」ボタンをクリックして検索サービスを休止してください。</li>
+            <li>「休止」すると本日までに紹介した累積紹介会員数 × {{ referral_fee }}円 ＋ 基本料（{{ subscription_fee }}円）が課金（最大：{{ fee }}円以下）されます。</li>
+            <li>「再開」する場合は、新規登録してください。</li>
+        </ul>
+            <a class="btn btn-warning ml-2 mt-3 mb-3" href="{% url 'live:profile_search_service' %}">更新</a>
+            <a class="btn btn-danger ml-2 mt-3 mb-3" href="{% url 'live:profile_search_service_suspended' %}">休止</a>
+<!--            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>-->
+        {% endif %}
+
+        {% endif %}
+
+
+        {% else %}
+        <p>クレジットカードは未登録です。<br>
+            登録してから「検索サービス」をご利用ください。<br>
+        カード登録は「カード登録」メニューで登録できます。</p>
+<!--        <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>-->
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock %}
+
+

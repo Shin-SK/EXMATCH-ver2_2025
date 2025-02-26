@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block active_terms_service %}active{% endblock %}
+{% block active_terms_service_logout %}active{% endblock %}
+
+{% block title %}いいね！管理 | GPS-Live-Match{% endblock %}
+
+{% block head %}
+<style>
+.t_f{
+    font-size: 11pt;
+}
+</style>
+{% endblock %}
+
+{% block contents %}
+<div class="container">
+    <div class="my-div-style w-100">
+            <h5>いいね！管理</h5><br>
+                <p>{{ nickname }} さん</p>
+
+        <div class="row my-row-style1">
+
+            <h6>「いいね！」されているお相手</h6>
+            <div class="table-responsive" style="margin: 0px auto 30px auto;">
+            <p>いいねされた：<font color="red">{{ received_message_cnt }}</font> 人</p><br>
+
+            <table class="table table-hover table-bordered table-sm t_f">
+                {% if gender %}
+            <thead class="table-active">
+                <tr  width="90%" align="center">
+                  <th scope="col">いいねされた</th>
+                </tr>
+            </thead>
+                {% else %}
+            <thead>
+                <tr  width="90%" align="center">
+                  <th scope="col" bgcolor="#FFC0CB "><font color="#c71585 ">いいねされた</font></th>
+                </tr>
+            </thead>
+                {% endif %}
+            <tbody>
+                {% for item in received_list %}
+                <tr>
+                    <td width="90%">
+                        　<a href="{% url 'live:profile_display' item.0 'in' %}">{{ item.1 }}</a> さん 　<font size="2">{{ item.2|date:"Y/m/j H:i" }}</font><br>
+                    {% if item.4 %}
+                        <div class="col-sm-6 col-md-3" style="margin: 0px 10px 10px 0px; ">
+                            <img src="{{ item.4.url }}" width="25%" height="auto"/>
+                        </div>
+                    　{{ item.3 | truncatechars:20}}
+                    {% else %}
+                    　{{ item.3 | truncatechars:20}}
+                    {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>
+                <p>「いいね！」されているお相手はおりません。</p>
+                    </td>
+                {% endfor %}
+            </tbody>
+            </table>
+            </div>
+
+            <hr>
+
+            <h6>「いいね！」しているお相手</h6><br>
+            <div class="table-responsive">
+            <p>いいねした：<font color="red">{{ outgoing_message_cnt }}</font> 人</p><br>
+            <table class="table table-hover table-bordered table-sm t_f">
+                {% if gender %}
+
+            <thead class="table-active">
+                <tr  width="90%" align="center">
+                  <th scope="col">いいねした</th>
+                </tr>
+            </thead>
+                {% else %}
+            <thead>
+                <tr  width="90%" align="center">
+                  <th scope="col" bgcolor="#FFC0CB "><font color="#c71585 ">いいねした</font></th>
+                </tr>
+            </thead>
+                {% endif %}
+                <tbody>
+
+                {% for item in pq_list %}
+                <tr>
+                    <td width="90%">
+                        　<a href="{% url 'live:profile_display' item.0 'out' %}">{{ item.1 }}</a> さん 　<font size="2">{{ item.2|date:"Y/m/j H:i" }}</font><br>
+                        {% if item.4 %}
+                        <div class="col-sm-6 col-md-3" style="margin: 0px 10px 10px 0px; ">
+                            <img src="{{ item.4.url }}" width="25%" height="auto"/>
+                        </div>
+                        　{{ item.3 | truncatechars:20}}
+                        {% else %}
+                        　{{ item.3 | truncatechars:20}}
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>
+                <p>「いいね！」しているお相手はおりません。</p>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+

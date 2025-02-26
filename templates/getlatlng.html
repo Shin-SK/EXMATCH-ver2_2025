@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}今何してる！ | GPS-Live-Match{% endblock %}
+
+{% block head %}
+
+ <style>
+ul.f_s { font-size: 14px; }
+</style>
+
+{% endblock %}
+
+{% block contents %}
+
+<div class="container">
+    <div class="my-div-style w-100">
+
+        <h5>今何してる！</h5>
+        <p>{{ nickname }} さん</p>
+
+        <div  class="row my-row-style1" style="margin: 30px 0px 10px 0px; ">
+            <UL class="f_s">
+                <LI>近くのお友達に、あなたの近況をお知らせしよう！（300文字以内）</LI>
+                <LI>近くのお友達が見つかりやすくなります。</LI>
+                <LI>個人情報（電話番号、メールアドレスなど）は入力出来ません。</LI>
+                <LI>詳しくは、<a href="{% url 'live:terms_service' %}" target="_blank" rel="noopener">コチラ</a></LI>
+                <LI>入力しましたら、「次へ」ボタンをクリックしてください。</LI>
+            </UL>
+        </div>
+
+
+<!-- エラーメッセージ表示 -->
+            <p>{{form.errors}}</p>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="table-responsive">
+            <table class="table table-borderless">
+                <tr>
+                    <td>
+                        {% bootstrap_form form%}
+                    </td>
+                </tr>
+            </table>
+            </div>
+            <button class="btn btn-primary" type="submit">次へ</button><br>
+        </form>
+
+        <div class="table-responsive" style="margin: 40px 0px 20px 0px; ">
+            <h6>参考：他のお友達の「今何してる！」</h6>
+
+
+        <table class="table table-borderless">
+                <tr>
+                    <td>
+                        <UL class="f_s" style="list-style: none;">
+                            <LI>■ 今、ログイン中会員の「今何してる！」の抜粋です。参考にしてください！</LI>
+                            <LI>{{ sentence| truncatechars:100  }}</LI>
+                        </UL>
+<!--                        　{{ sentence| truncatechars:100  }}-->
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <UL class="f_s" style="list-style: none;">
+                            <LI>■ 「今何してる！」で使用されている「単語」の使用頻度ランキングです。</LI>
+                            <LI>{{ j_dic_noun }}</LI>
+                        </UL>
+<!--                        　{{ j_dic_noun }}-->
+                        </td>
+                    </tr>
+                <tr>
+                    <td>
+                        <UL class="f_s" style="list-style: none;">
+                            <LI>■ 「今何してる！」で使用されている「動詞」の使用頻度ランキングです。</LI>
+                            <LI>{{ j_dic_v }}</LI>
+                        </UL>
+<!--                        　{{ j_dic_v }}-->
+                    </td>
+                </tr>
+            </table>
+        </div>
+<!--        <a class="btn btn-success mt-5 ml-2 mb-3" href="{% url 'live:index' %}">ホーム</a>-->
+        </div>
+    </div>
+
+{% endblock %}

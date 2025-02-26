@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block active_terms_service %}active{% endblock %}
+{% block active_terms_service_logout %}active{% endblock %}
+
+{% block title %}プロフィール検索サービスフロー | GPS-Live-Match{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block contents %}
+<div class="container">
+    <div class="my-div-style w-100">
+            <h5>{{ trade_name }} 利用フロー</h5><br>
+        <div class="row my-row-style1">
+            <div class="table-responsive">
+            <table class="table table-hover">
+                <tr>
+                    <td>
+            <ul>
+            <li><a href="{% url 'live:business_flow' %}">事前処理フロー</a></li><br>
+            <li><a href="{% url 'live:business_flow_main' %}">メイン処理フロー</a></li><br>
+            <li><a href="{% url 'live:business_flow_card' %}">カード関連処理フロー</a></li><br>
+            <li><h6>プロフィール検索サービスフロー</h6></li><br>
+            </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <P>※ 「プロフィール検索サービス」は、サブスクリプション方式でサービスいたします。<br>
+                            検索条件を設定することであなたに代わって自動でプロフィール検索します。
+条件にマッチした会員が検索された場合は、メールにて「ニックネーム」をご連絡いたします。
+</P>
+            <ol>
+                <li>検索サービス登録<font color="red">（任意）</font> <br>「検索サービス」を開始するには、「新規登録」ボタンをクリックして検索条件を登録してください。<br>サブスクリプション利用料は、毎月20日が締日で、請求日は次の日付{{ billing_date_candidate }}のいずれかとなります。</li><br>
+                <li>検索条件設定<br>「検索会員」は（男女会員、女性会員、男性会員）から選択します。<br>
+                    「週間メール回数」は（1回/週、2回/週、3回/週、1回/月、不要）から選択します。<br>
+                    「検索条件」は（自己ピーアール、身長、子どもの有無、学歴など）を入力して検索条件を設定します。<br>一度登録すると毎月継続して自動で会員検索をします。</li><br>
+                <li>検索結果をメール送信<br>検索条件に合致した会員のニックネームをメールにてお知らせいたします。</li><br>
+                <li>検索条件変更？<br>「検索条件」はいつでも変更することができます。</li><br>
+                <li>休止？<br>このサブスクリプションをいつでも「休止」することができます。<br> 「休止」すると休止日までに紹介した累積紹介会員数 × {{ subscription_referral_fee }}円 ＋ 基本料（{{ basic_subscription_fee }}円）が課金（最大：{{ maximum_fee }}円以下）されます。</li><br>
+                <li>再開？<br>「休止」してもいつでも「再開」することができます。</li><br>
+            </ol>
+                    </td>
+                </tr>
+            </table>
+            </div>
+        <div class="p-3">
+          <img class="img-fluid" src="{% static 'img/subscription-flow.jpg' %}" width="100%" height="auto" alt="プロフィール検索サービスフロー"/>
+        </div>
+
+        </div>
+<!--            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>-->
+    </div>
+</div>
+
+{% endblock %}
+
+

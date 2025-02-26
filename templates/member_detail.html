@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block active_terms_member %}active{% endblock %}
+
+
+{% block title %}会員情報詳細 | GPS-Live-Match{% endblock %}
+
+
+{% block contents %}
+
+<div class="container">
+    <div class="my-div-style w-100">
+
+        <h5>会員情報</h5><br>
+
+<!--        <div class="row my-row-style1">-->
+<!--            <div>-->
+<!--                <strong>ユーザー種別：</strong><br>{{ object.group }}-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <hr>-->
+
+<!--        <div class="row my-row-style1">-->
+<!--            <div>-->
+<!--                <strong>お名前：</strong><br>{{ object.clientname }}-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <hr>-->
+
+        <div class="row my-row-style1">
+            <div>
+                <strong>性別：</strong><br>
+                {% if object.gender == False %}
+                女性
+                {% else %}
+                男性
+                {% endif %}
+            </div>
+        </div>
+
+        <hr>
+
+<!--        <div class="row my-row-style1">-->
+<!--            <div>-->
+<!--                <strong>生年月日：</strong><br>{{ birthday }}-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <hr>-->
+
+        <div class="row my-row-style1">
+            <div>
+                <strong>郵便番号：</strong><br>{{ object.postalcode }}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row my-row-style1">
+            <div>
+                <strong>都道府県：</strong><br>{{ object.address1 }}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row my-row-style1">
+            <div>
+                <strong>市区町村：</strong><br> {{ object.address2 }}
+            </div>
+        </div>
+
+        <hr>
+
+<!--        <div class="row my-row-style1">-->
+<!--            <div>-->
+<!--                <strong>番地：</strong><br>{{ object.address3 }}-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <hr>-->
+
+<!--        {% if object.address4 != None %}-->
+<!--        <div class="row my-row-style1">-->
+<!--            <div>-->
+<!--                <strong>マンション名等：</strong><br>{{ object.address4 }}-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <hr>-->
+<!--        {% endif %}-->
+
+<!--        <div class="row my-row-style1">-->
+<!--            <div>-->
+<!--                <strong>Eメール１：</strong><br>{{ object.email1 }}-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <hr>-->
+
+<!--        {% if object.email2 != None %}-->
+<!--        <div class="row my-row-style1">-->
+<!--            <div>-->
+<!--                <strong>Eメール２：</strong><br>{{ object.email2 }}-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <hr>-->
+<!--        {% endif %}-->
+
+<!--        <div class="row my-row-style1">-->
+<!--            <div>-->
+<!--                <strong>携帯電話：</strong><br>{{ object.phone }}-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <hr>-->
+
+        {% if grouptype == 'サービス利用者' %}
+<!--        サービス利用者会員登録付与ポイント-->
+<!--        <div class="row my-row-style1">-->
+<!--            <div>-->
+<!--                <strong>ポイント残高：</strong><br>{{ object.point }}-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <hr>-->
+            <a class="btn btn-warning mt-5 mb-3" href="{% url 'live:member_update' object.pk %}">編集</a>
+            <a class="btn btn-success mt-5 ml-2 mb-3" href="{% url 'live:my_page' %}">OK</a><br><br>
+<!--            <a class="btn btn-success mt-5 ml-2 mb-3" href="{% url 'live:index' %}">ホーム</a><br><br>-->
+        {% else %}
+<!--            <a class="btn btn-success mt-5 ml-2 mb-3" href="{% url 'live:index' %}">ホーム</a><br><br> provider:p_index-->
+            <a class="btn btn-success mt-5 ml-2 mb-3" href="{% url 'live:index' %}">ホーム</a><br><br>
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

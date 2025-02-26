@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block active_terms_member %}active{% endblock %}
+
+{% block title %}今何している！ | GPS-Live-Match{% endblock %}
+
+{% block head %}
+
+ <style>
+ul.f_s { font-size: 14px; }
+</style>
+
+{% endblock %}
+
+
+
+{% block contents %}
+
+<div class="container">
+    <div class="my-div-style w-100">
+
+        <h5>今何している！</h5><br>
+        <ul class="f_s">
+            <li>今、あなたが何をしているかお友達に知らせよう！</li>
+            <li>内容を変更する場合は、「編集」ボタンをクリックしてください。</li>
+        </ul>
+        <br>
+
+        {% if object.what_doing_now %}
+
+        <div class="row my-row-style1">
+            <div>
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered">
+                    <tr>
+                        <td>
+                            {{ object.what_doing_now | linebreaksbr | urlize  }}
+                        </td>
+                    </tr>
+                </table>
+                </div>
+            </div>
+        </div>
+        <br>
+
+<!--            <a class="btn btn-warning ml-2 mt-3 mb-3" href="{% url 'live:getlatlng' object.pk %}">編集</a>-->
+        <a type="button" class="btn btn-primary" href="{% url 'live:getlatlng' object.pk %}" role="button">編集</a><br><br><br><hr>
+        <p>GPS検索</p>
+        <a type="button" class="btn btn-success" href="{% url 'live:checkprofilesearchlogin' %}" role="button">検索：条件を絞りこむ</a><br><br>
+        <a type="button" class="btn btn-info" href="{% url 'live:member-profile-check' 5 %}" role="button">検索：近くの全お友達</a><br>
+<!--        <a type="button" class="btn btn-secondary btn-sm btn-block" href="{% url 'live:getlatlng' object.pk %}" role="button">今何している！ 編集</a><br>-->
+<!--        <a type="button" class="btn btn-success btn-sm btn-block" href="{% url 'live:checkprofilesearchlogin' %}" role="button">検索条件を指定してログイン会員検索</a><br>-->
+<!--        <a type="button" class="btn btn-info btn-sm btn-block" href="{% url 'live:member-profile-check' 5 %}" role="button">全ログイン会員の検索</a><br>-->
+<!--            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:live' %}">GPS-Live検索</a>-->
+<!--            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:liveselection' %}">ONプロフ検索</a>-->
+        {% else %}
+
+        <div class="row my-row-style1">
+            <ul class="f_s">
+                <li><font color="red">「今何している！」が未入力です。</font></li>
+                <li>近くのお友達に、あなたの近況をお知らせしよう！（300文字以内）</li>
+                <li>近くのお友達が見つかりやすくなります。</li>
+                <LI>個人情報は入力できません、詳しくは、<a href="{% url 'live:terms_service' %}" target="_blank" rel="noopener">コチラ</a></LI>
+                <li><font color="red">「編集」</font>ボタンをクリックして、入力してください。</li>
+            </ul>
+
+        </div>
+            <a class="btn btn-warning ml-2 mt-3 mb-3" href="{% url 'live:getlatlng' object.pk %}">編集</a>
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

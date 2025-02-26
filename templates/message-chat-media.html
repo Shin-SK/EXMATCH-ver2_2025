@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block active_terms_service %}active{% endblock %}
+{% block active_terms_service_logout %}active{% endblock %}
+
+{% block title %}メッセージ | GPS-Live-Match{% endblock %}
+
+{% block head %}
+
+    <style>
+    /* 「閉じる」ボタンのフローティング */
+    #footerFloatingMenu_search {
+        display: block;
+        width: 90%;
+        position: fixed;
+        left: auto;
+        bottom: 70px;
+        z-index: 9999;
+        text-align: center;
+        padding: 0 auto;
+    }
+
+    #footerFloatingMenu_search img {
+        max-width: 100%;
+    }
+
+    #footerFloatingMenu_search {
+        margin: auto;
+    }
+
+    </style>
+
+<!--https://toretama.jp/click-big-image-floaty.html-->
+<!--拡大画像ポップアップ表示-->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/css/lightbox.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/js/lightbox.min.js" type="text/javascript"></script>
+
+{% endblock %}
+
+{% block contents %}
+<div class="container">
+    <div class="my-div-style w-100">
+                <p id="n_name">{{ nickname }} さん</p>
+
+        <div class="row my-row-style1">
+
+            <div class="table-responsive">
+            <table class="table table-hover">
+
+                <tr>
+                    <td>
+                        {% if out_in == 'in' %}
+                            {% if f_nickname == nickname %}
+                            {{ t_nickname }} さん に以下のメッセージを送信しました！
+                            {% else %}
+                            {{ f_nickname }} さん に以下のメッセージを送信しました！
+                            {% endif %}
+                        {% else %}
+                            {% if f_nickname == nickname %}
+                            {{ t_nickname }} さん から以下のメッセージが届いています！
+                            {% else %}
+                            {{ f_nickname }} さん から以下のメッセージが届いています！
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                    </tr>
+                <tr>
+                    <td>
+                        {{ m_query.mes }}<br>
+                        <font size="2">{{ m_query.created_at|date:"Y/m/j H:i" }}</font>                    </td>
+                </tr>
+                {% if m_query.photo %}
+                <tr>
+                    <td>
+                        <p><a href="{{ m_query.photo.url }}" download="{{ m_query.photo.url }}"><font size="2">写真ダウンロード</font></a></p><br>
+                        <div class="col-sm-6 col-md-3" style="margin: 0px 10px 10px 0px; ">
+                            <!--拡大画像ポップアップ表示-->
+                            <a href="{{ m_query.photo.url }}" data-lightbox="group"><img src="{{ m_query.photo.url }}" class="img-fluid img-thumbnail" width="60%"></a>
+<!--                            <img src="{{ m_query.photo.url }}" width="30%" height="auto"/>-->
+                        </div>
+                    </td>
+
+                </tr>
+                {% endif %}
+                {% if m_query.audio_file %}
+                <tr>
+                    <td>
+                        <p><a href="{{ m_query.audio_file.url }}" download="{{ m_query.audio_file.url }}"><font size="2">音声ダウンロード</font></a></p><br>
+                        <audio controls>
+                          <source src="{{ m_query.audio_file.url }}" type="audio/wav">
+                          <source src="{{ m_query.audio_file.url }}" type="audio/mp3">
+                          <source src="{{ m_query.audio_file.url }}" type="audio/acc">
+                          あなたのブラウザーは <code>audio</code> 要素に対応していません。
+                        </audio>
+                    </td>
+                </tr>
+                {% endif %}
+                {% if m_query.video_file %}
+                <tr>
+                    <td>
+                        <p><a href="{{ m_query.video_file.url }}" download="{{ m_query.video_file.url }}"><font size="2">動画ダウンロード</font></a></p><br>
+                        <video controls muted autoplay playinline loop controls width="300">
+                            <source src="{{ m_query.video_file.url }}" type="video/mp4">
+                            <source src="{{ m_query.video_file.url }}" type="video/m4a">
+                            <source src="{{ m_query.video_file.url }}" type="video/avi">
+                            <source src="{{ m_query.video_file.url }}" type="video/mov">
+                            <source src="{{ m_query.video_file.url }}" type="video/wmv">
+                            <source src="{{ m_query.video_file.url }}" type="video/flv">
+                            申し訳ありませんが、お使いのブラウザは埋め込み動画をサポートしていません。
+                        </video>
+                    </td>
+                </tr>
+                {% endif %}
+            </table>
+            </div>
+
+            </div>
+        </div>
+
+<!--flaoting menu start-->
+    <div id="footerFloatingMenu_search">
+        <div class="table-responsive-sm">
+        <table class="table table-borderless table-sm">
+            <tr style="opacity: 1;background-color:white;">
+                <td>
+                    <input class="btn btn-success ml-2 mt-3 mb-3 btn-sm" type="button" onclick="CloseWindow();" value="閉じる" />
+                </td>
+            </tr>
+        </table>
+        </div>
+        </div>
+<!--flaoting menu end-->
+
+    </div>
+
+  <script type="text/javascript">
+    function CloseWindow() {
+      window.close();
+    }
+  </script>
+
+{% endblock %}
+
+

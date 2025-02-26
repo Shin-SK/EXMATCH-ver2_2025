@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}live検索 | Live-Match{% endblock %}
+
+
+{% block head %}
+
+  <!-- Custom styles for this template -->
+<link href="{% static 'css/clean-blog.min.css' %} rel="stylesheet">
+
+
+{% endblock %}
+
+
+{% block contents %}
+
+<div class="container">
+    <div class="my-div-style w-100">
+            <h5>live検索</h5>
+            <div class="post-preview">
+                <P>※ 現在、ログイン中の会員様の現在位置です。<br>
+                ※ 個人情報保護のため、実際の位置は、半径{{ radius }}ｍの円内のランダムな位置を自動で設定しています。<br>
+                ※ 男性は緑、女性はピンクのマーカー表示です。</p>
+
+                <p>ニックネーム：{{ nickname }} さん<br>
+                </p>
+            </div>
+
+        <div class="row my-row-style1">
+
+
+<div id="gmap" style="height:400px;width:600px"></div> <!-- 地図を表示する領域 -->
+
+<script>
+
+
+function initMap() {
+  var target = document.getElementById('gmap');
+
+  //マップを生成して表示
+  var map = new google.maps.Map(document.getElementById('gmap'), {
+  //吉祥寺駅の緯度経度
+    center: {lat: 35.70341777725161, lng: 139.5797336679452},
+    zoom: 11
+  });
+
+  //情報ウィンドウのインスタンスの生成
+  var infoWindow = new google.maps.InfoWindow;
+
+  //ブラウザが Geolocation に対応しているかを判定
+  //対応していない場合の処理
+  if(!navigator.geolocation){
+    //情報ウィンドウの位置をマップの中心位置に指定
+    infoWindow.setPosition(map.getCenter());
+    //情報ウィンドウのコンテンツを設定
+    infoWindow.setContent('Geolocation に対応していません。');
+    //情報ウィンドウを表示
+    infoWindow.open(map);
+  }
+
+
+  //ブラウザが対応している場合、position にユーザーの位置情報が入る
+  navigator.geolocation.getCurrentPosition(function(position) {
+    //position から緯度経度（ユーザーの位置）のオブジェクトを作成し変数に代入
+    var pos = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude
+    };
+
+
+  //ログイン中の全会員平均位置情報
+    var pos_avg = {
+      lat: parseFloat({{ avg_lat }}),  //緯度平均値 10進数による小数点変換
+      lng: parseFloat({{ avg_lng }})  //経度平均値
+    };
+
+
+    //情報ウィンドウに現在位置を指定
+<!--    infoWindow.setPosition(pos_avg);-->
+
+    //情報ウィンドウのコンテンツを設定
+<!--    infoWindow.setContent('現在位置を取得しました。');-->
+
+    //情報ウィンドウを表示
+<!--    infoWindow.open(map);-->
+
+    //マップの中心位置を指定
+    map.setCenter(pos_avg);
+
+    //CurrentLocationから会員位置情報取得
+    var json = "{{ live_dic }}";  //CurrentLocationから会員位置情報取得 json形式のストリングデータ（{ニックネーム：[性別,緯度,経度],.....}）
+<!--    console.log(json);-->
+
+    // 文字変換 {&quot;だいご&quot;:→{"だいご":
+    json = json.split('&quot;').join('"') // 「&quot;」を「"」に変換
+
+<!--    json = JSON.stringify(json);-->
+
+<!--    console.log(json);-->
+<!--    console.log(typeof(json));-->
+
+    // JavaScript のオブジェクトを生成
+    const obj = JSON.parse(json);  //JavaScript のオブジェクトを生成
+
+
+
+    // ループで会員の位置にマーカー表示
+    for(var key in obj) {
+      if(obj.hasOwnProperty(key)) {
+
+        var val = obj[key];
+
+<!--        console.log("key=", key, ", value=", val);-->
+<!--        console.log("key=", key, ", value=", val.lat);-->
+<!--        console.log("key=", key, ", value=", val.lng);-->
+<!--        console.log(typeof(val.lng));-->
+
+    // 会員の緯度経度取得
+      var position_m = {lat: parseFloat(val.lat), lng: parseFloat(val.lng)};
+
+      if(val.gender) {
+      // 男性は緑、女性はピンクのマーカー設定
+      icon_val = "https://maps.google.com/mapfiles/ms/micons/green-dot.png";
+      }
+      else {
+      icon_val = "https://maps.google.com/mapfiles/ms/micons/pink-dot.png";
+      }
+
+
+    //マーカーの表示 ピンクは女性、緑は男性
+      var marker = new google.maps.Marker({
+      position: position_m,
+      map: map,
+      title: key + " さんの現在地です！",
+      animation: google.maps.Animation.DROP,
+      icon: icon_val
+    });
+
+
+
+      }
+    }
+
+
+
+  }, function() {  //位置情報の取得をユーザーがブロックした場合のコールバック
+    //情報ウィンドウの位置をマップの中心位置に指定
+    infoWindow.setPosition(map.getCenter());
+    //情報ウィンドウのコンテンツを設定
+    infoWindow.setContent('Error: Geolocation が無効です。');
+    //情報ウィンドウを表示
+    infoWindow.open(map);
+  });
+
+}
+
+
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key={{ googleapikey }}&callback=initMap" async defer></script>
+                <!-- YOUR_API_KEYの部分は取得した APIキーで置き換えます -->
+
+            </div>
+            <br>
+                            <button id="button_id" type="button" class="btn btn-success ml-2 mt-3 mb-3">ＯＫ</button>
+
+        </div>
+</div>
+
+{% endblock %}

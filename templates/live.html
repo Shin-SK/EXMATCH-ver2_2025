@@ -1,0 +1,527 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block active_terms_search %}active{% endblock %}
+
+{% block title %}GPS-Live全検索 | GPS-Live-Match{% endblock %}
+
+
+{% block head %}
+
+  <!-- Custom styles for this template -->
+<!--<link href="{% static 'css/clean-blog.min.css' %}" rel="stylesheet">-->
+<style>
+
+#boxB:after{
+content:"";
+display:block;
+clear:both;
+
+}
+
+#boxB{
+float:left;
+width: 100%
+}
+
+
+#boxB {
+    display: none; /* 初期状態非表示 */
+}
+
+</style>
+
+<style>
+ul.f_s { font-size: 14px; }
+</style>
+
+<style>
+
+/*currentlocationマーカーをアニメーション（ドロップダウン上から下へ1秒）で表示する*/
+.bounce {
+	/*animation: bounce 1s ease-in-out infinite;*/
+	animation: bounce 1s ease-in-out;
+}
+@keyframes bounce {
+	0% {
+		transform: translateY( -150px );
+	}
+	100% {
+		transform: translateY( 0px );
+	}
+}
+</style>
+
+
+<!--https://toretama.jp/click-big-image-floaty.html-->
+<!--拡大画像ポップアップ表示-->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/css/lightbox.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/js/lightbox.min.js" type="text/javascript"></script>
+
+
+
+
+{% endblock %}
+
+
+{% block contents %}
+
+<!--&lt;!&ndash; YOUR_API_KEYの部分は取得した APIキーで置き換えます &ndash;&gt;-->
+<!--<script src="https://maps.googleapis.com/maps/api/js?key={{ googleapikey }}&callback=initMap" async defer></script>-->
+
+
+<div class="container">
+    <div class="my-div-style w-100">
+            <h5>GPS-Live全検索</h5><br>
+        <p>{{ nickname }} さん<br><br>
+            <strong>検索結果：</strong><font color="red"> {{ cnt }} 件</font></P>
+        <ul class="f_s">
+            <Li>マーカーをクリックするとプロフィールが確認できます！</Li>
+        </ul>
+
+        <div class="row my-row-style1">
+            <div class="table-responsive">
+                <table>
+                    <tr>
+                        <td>
+                            <div id="gmap" style="height:400px;width:600px">
+
+                            </div> <!-- 地図を表示する領域 -->
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+            <div class="post-preview" style="margin-top:30px">
+                <ul class="f_s">
+
+                    <li>
+                        現在、ログイン中の会員さんの現在位置です。
+                    </li>
+                    <li>
+                        個人情報保護のため、実際の位置の半径{{ radius }}ｍの円内のランダムな位置を自動で設定しています。
+                    </li>
+                    <li>
+                        男性は緑、女性はピンクのマーカー表示です。
+                    </li>
+                    <li>
+                        位置情報取得の「許可」の設定方法は、<a href="{% url 'live:location_permission' %}" target="_blank" rel="noopener">こちら</a>を参照
+                    </li>
+                </ul>
+
+            </div>
+
+            <div id="boxB" style="margin-top:30px">
+
+                <p><font color="red">現在、位置情報取得が許可されていません。</font><br>
+                    従って、他のメンバーを地図上で検索することができません。<br>
+                    リアルタイムにお相手を検索する場合は、位置情報取得の「許可」をお勧めします。<br>
+                    位置情報取得の「許可」の設定方法は、<a href="{% url 'live:location_permission' %}" target="_blank" rel="noopener">こちら</a>を参照<br>
+                    </p>
+
+            </div>
+
+<!--            # -----Profile表示------->
+        <div class="row my-row-style1">
+<!--            <div style="margin-top:50px">-->
+
+            <p><strong>検索結果：</strong><font color="red"> {{ cnt }} 件</font></p><br>
+
+
+            <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped table-sm">
+            <tbody>
+                {% for item in object_list %}
+                {% if item.serviceclient_id.gender %}
+
+            <thead class="table-active">
+                <tr align="center">
+<!--                  <th scope="col" >項目</th>-->
+                  <th scope="col" >検索結果</th>
+                </tr>
+            </thead>
+                {% else %}
+            <thead>
+                <tr align="center">
+<!--                  <th scope="col" bgcolor="#FFC0CB "><font color="#c71585 ">項目</font></th>-->
+                  <th scope="col" bgcolor="#FFC0CB "><font color="#c71585 ">検索結果</font></th>
+                </tr>
+            </thead>
+                {% endif %}
+
+            <tr>
+<!--                <td>ニックネーム：</td>-->
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>ニックネーム：</b></font></small><br>
+                    {{ item.nickname }}</td>
+            </tr>
+                {% if item.face_photo %}
+            <tr>
+<!--                <td>写真：</td>-->
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>写真：</b></font></small><br>
+                    <div class="col-sm-6 col-md-3" style="margin: 0px 0px 10px 5px; ">
+                        <!--拡大画像ポップアップ表示-->
+                        <a href="{{ item.face_photo.url }}" data-lightbox="group"><img src="{{ item.face_photo.url }}" class="img-fluid img-thumbnail" width="90%"></a>
+<!--                <img src="{{ item.face_photo.url }}" class="img-fluid img-thumbnail" width="100%" height="auto"/>-->
+                    </div>
+                </td>
+            </tr>
+                {% endif %}
+                {% if item.what_doing_now %}
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>今何している！：</b></font></small><br>
+<!--                    <font color="#c71585 "><strong>今何している！</strong></font></td>-->
+                {{ item.what_doing_now | linebreaksbr | urlize }}<br>（{{ item.updated_at }}）</td>
+            </tr>
+                {% endif %}
+            <tr>
+<!--                <td>自己ピーアール：</td>-->
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>自己ピーアール：</b></font></small><br>
+                    {{ item.article  | linebreaksbr | urlize }}</td>
+            </tr>
+                {% if item.keyword %}
+            <tr>
+<!--                <td>趣味・興味：</td>-->
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>趣味・興味：</b></font></small><br>
+                    {{ item.keyword  | linebreaksbr | urlize }}</td>
+            </tr>
+                {% endif %}
+                {% for h_item in hownices %}
+                {% if item.serviceclient_id == h_item.serviceclient_id and sc_id == h_item.partner_id and h_item.like_flag == 1 %}
+            <tr>
+<!--                <td><font color="#c71585 "><strong>いいね！</strong></font></td>-->
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>いいね！：</b></font></small><br>
+                    ＜ {{ h_item.my_nickname }} ＞さんから ＜ {{ h_item.partner_nickname }} ＞さんへ！
+                </td>
+            </tr>
+                {% endif %}
+                {% endfor %}
+
+                {% for l_f_l_item in like_flag_lst %}
+                {% if item.serviceclient_id == l_f_l_item.0 %}
+                {% if l_f_l_item.1 == 1 %}
+
+
+<!--                {% for h_item in hownices %}-->
+<!--                {% if item.serviceclient_id == h_item.serviceclient_id and sc_id == h_item.partner_id and h_item.like_flag == 1 %}-->
+            <tr>
+<!--                <td>プロフィール詳細：</td>-->
+<!--                <td><a class="btn btn-outline-primary btn-sm" href="{% url 'live:profile_detail_view' item.pk %}" target="_blank" rel="noopener">詳細</a>  <a class="btn btn-outline-success btn-sm" href="{% url 'live:profile_how_nice' item.pk 2 %}" target="_blank" rel="noopener">いいね！</a> <a class="btn btn-outline-success btn-sm" href="{% url 'live:profile_how_nice' item.pk 3 %}" target="_blank" rel="noopener">保留</a></td>-->
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>プロフィール詳細：</b></font></small><br>
+<!--                    <a class="btn btn-outline-primary btn-sm" href="{% url 'live:profile_detail_message' item.pk %}" target="_blank" rel="noopener">詳細</a>-->
+<!--                    <a class="btn btn-outline-success btn-sm" href="{% url 'live:profile_how_nice' item.pk 2 %}" target="_blank" rel="noopener">いいね！</a>-->
+<!--                    <a class="btn btn-outline-success btn-sm" href="{% url 'live:profile_how_nice' item.pk 3 %}" target="_blank" rel="noopener">保留</a>-->
+                    <a class="btn btn-success btn-sm" href="{% url 'live:profile_detail_message' item.pk %}" target="_blank" rel="noopener">メッセージ送信</a>
+                    <a class="btn btn-primary btn-sm" href="{% url 'live:profile_how_nice' item.pk 2 %}" target="_blank" rel="noopener">いいね！</a>
+                    <a class="btn btn-warning btn-sm" href="{% url 'live:profile_how_nice' item.pk 3 %}" target="_blank" rel="noopener">保留</a></td>
+                </td>
+            </tr>
+<!--                {% endif %}-->
+<!--                {% endfor %}-->
+                {% else %}
+
+            <tr>
+<!--                <td>プロフィール詳細：{{ h_item.serviceclient_id }} {{ h_item.partner_id }} {{ h_item.like_flag }}</td>-->
+<!--                <td><a class="btn btn-outline-primary btn-sm" href="{% url 'live:profile_detail_view' item.pk %}" target="_blank" rel="noopener">詳細</a>  <a class="btn btn-outline-success btn-sm" href="{% url 'live:profile_how_nice' item.pk 1 %}" target="_blank" rel="noopener">いいね！</a></td>-->
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>プロフィール詳細：</b></font></small><br>
+<!--                    <a class="btn btn-outline-primary btn-sm" href="{% url 'live:profile_detail_message' item.pk %}" target="_blank" rel="noopener">詳細</a>-->
+<!--                    <a class="btn btn-outline-success btn-sm" href="{% url 'live:profile_how_nice' item.pk 1 %}" target="_blank" rel="noopener">いいね！</a>-->
+                    <a class="btn btn-success btn-sm" href="{% url 'live:profile_detail_message' item.pk %}" target="_blank" rel="noopener">メッセージ送信</a>
+                    <a class="btn btn-primary btn-sm" href="{% url 'live:profile_how_nice' item.pk 1 %}" target="_blank" rel="noopener">いいね！</a>
+                </td>
+            </tr>
+
+                {% endif %}
+                {% endif %}
+
+
+                {% endfor %}
+
+                {% endfor %}
+
+            </tbody>
+
+            </table>
+            </div>
+<!--            </div>-->
+<!--        </div>-->
+
+        {% if object_list.has_other_pages %}
+        <nav class="d-flex justify-content-center">
+         <ul class="pagination">
+           {% if object_list.has_previous %}
+           <li class="page-item">
+
+        {% if nick_name == system_nickname %}
+<!--             <a class="page-link" href="?page={{ object_list.previous_page_number }}{% if request.GET.search_conditions %}&search_conditions={{ request.GET.search_conditions }}{% endif %}{% if request.GET.number_searches %}&number_searches={{ request.GET.number_searches }}{% endif %}{% if request.GET.what_doing_now %}&what_doing_now={{ request.GET.what_doing_now }}{% endif %}{% if request.GET.article %}&article={{ request.GET.article }}{% endif %}{% if request.GET.keyword %}&keyword={{ request.GET.keyword }}{% endif %}{% if request.GET.nickname %}&nickname={{ request.GET.nickname }}{% endif %}{% if request.GET.height %}&height={{ request.GET.height }}{% endif %}{% if request.GET.body_weight %}&body_weight={{ request.GET.body_weight }}{% endif %}{% if request.GET.body_shape_man %}&body_shape_man={{ request.GET.body_shape_man }}{% endif %}{% if request.GET.body_shape_woman %}&body_shape_woman={{ request.GET.body_shape_woman }}{% endif %}{% if request.GET.marriage_history %}&marriage_history={{ request.GET.marriage_history }}{% endif %}{% if request.GET.children %}&children={{ request.GET.children }}{% endif %}{% if request.GET.tobacco %}&tobacco={{ request.GET.tobacco }}{% endif %}{% if request.GET.education %}&education={{ request.GET.education }}{% endif %}{% if request.GET.occupation %}&occupation={{ request.GET.occupation }}{% endif %}{% if request.GET.drivers_license %}&drivers_license={{ request.GET.drivers_license }}{% endif %}{% if request.GET.annual_income %}&annual_income={{ request.GET.annual_income }}{% endif %}" tabindex="-1">Previous</a>-->
+               <a class="page-link" href="?page={{ object_list.previous_page_number }}{% if request.GET.search_conditions %}&search_conditions={{ request.GET.search_conditions }}{% endif %}{% if request.GET.number_searches %}&number_searches={{ request.GET.number_searches }}{% endif %}{% if request.GET.what_doing_now %}&what_doing_now={{ request.GET.what_doing_now }}{% endif %}{% if request.GET.article %}&article={{ request.GET.article }}{% endif %}{% if request.GET.keyword %}&keyword={{ request.GET.keyword }}{% endif %}{% if request.GET.commitment %}&commitment={{ request.GET.commitment }}{% endif %}{% if request.GET.luxury_items %}&luxury_items={{ request.GET.luxury_items }}{% endif %}{% if request.GET.birthday %}&birthday={{ request.GET.birthday }}{% endif %}{% if request.GET.birthplace %}&birthplace={{ request.GET.birthplace }}{% endif %}{% if request.GET.haunting_area %}&haunting_area={{ request.GET.haunting_area }}{% endif %}{% if request.GET.qualification %}&qualification={{ request.GET.qualification }}{% endif %}{% if request.GET.language %}&language={{ request.GET.language }}{% endif %}{% if request.GET.postalcode %}&postalcode={{ request.GET.postalcode }}{% endif %}{% if request.GET.address1 %}&address1={{ request.GET.address1 }}{% endif %}{% if request.GET.address2 %}&address2={{ request.GET.address2 }}{% endif %}{% if request.GET.nickname %}&nickname={{ request.GET.nickname }}{% endif %}{% if request.GET.sexuality %}&sexuality={{ request.GET.sexuality }}{% endif %}{% if request.GET.blood_type %}&blood_type={{ request.GET.blood_type }}{% endif %}{% if request.GET.age %}&age={{ request.GET.age }}{% endif %}{% if request.GET.looks %}&looks={{ request.GET.looks }}{% endif %}{% if request.GET.osake %}&osake={{ request.GET.osake }}{% endif %}{% if request.GET.personality %}&personality={{ request.GET.personality }}{% endif %}{% if request.GET.housemate %}&housemate={{ request.GET.housemate }}{% endif %}{% if request.GET.height %}&height={{ request.GET.height }}{% endif %}{% if request.GET.body_weight %}&body_weight={{ request.GET.body_weight }}{% endif %}{% if request.GET.body_shape_man %}&body_shape_man={{ request.GET.body_shape_man }}{% endif %}{% if request.GET.body_shape_woman %}&body_shape_woman={{ request.GET.body_shape_woman }}{% endif %}{% if request.GET.marriage_history %}&marriage_history={{ request.GET.marriage_history }}{% endif %}{% if request.GET.children %}&children={{ request.GET.children }}{% endif %}{% if request.GET.tobacco %}&tobacco={{ request.GET.tobacco }}{% endif %}{% if request.GET.education %}&education={{ request.GET.education }}{% endif %}{% if request.GET.occupation %}&occupation={{ request.GET.occupation }}{% endif %}{% if request.GET.drivers_license %}&drivers_license={{ request.GET.drivers_license }}{% endif %}{% if request.GET.annual_income %}&annual_income={{ request.GET.annual_income }}{% endif %}" tabindex="-1">Previous</a>
+        {% else %}
+<!--             <a class="page-link" href="?page={{ object_list.previous_page_number }}{% if request.GET.search_conditions %}&search_conditions={{ request.GET.search_conditions }}{% endif %}{% if request.GET.number_searches %}&number_searches={{ request.GET.number_searches }}{% endif %}{% if request.GET.nickname %}&nickname={{ request.GET.nickname }}{% endif %}" tabindex="-1">Previous</a>-->
+               <a class="page-link" href="?page={{ object_list.previous_page_number }}{% if request.GET.search_conditions %}&search_conditions={{ request.GET.search_conditions }}{% endif %}{% if request.GET.number_searches %}&number_searches={{ request.GET.number_searches }}{% endif %}{% if request.GET.what_doing_now %}&what_doing_now={{ request.GET.what_doing_now }}{% endif %}{% if request.GET.article %}&article={{ request.GET.article }}{% endif %}{% if request.GET.keyword %}&keyword={{ request.GET.keyword }}{% endif %}{% if request.GET.commitment %}&commitment={{ request.GET.commitment }}{% endif %}{% if request.GET.luxury_items %}&luxury_items={{ request.GET.luxury_items }}{% endif %}{% if request.GET.birthday %}&birthday={{ request.GET.birthday }}{% endif %}{% if request.GET.birthplace %}&birthplace={{ request.GET.birthplace }}{% endif %}{% if request.GET.haunting_area %}&haunting_area={{ request.GET.haunting_area }}{% endif %}{% if request.GET.qualification %}&qualification={{ request.GET.qualification }}{% endif %}{% if request.GET.language %}&language={{ request.GET.language }}{% endif %}{% if request.GET.postalcode %}&postalcode={{ request.GET.postalcode }}{% endif %}{% if request.GET.address1 %}&address1={{ request.GET.address1 }}{% endif %}{% if request.GET.address2 %}&address2={{ request.GET.address2 }}{% endif %}{% if request.GET.nickname %}&nickname={{ request.GET.nickname }}{% endif %}{% if request.GET.sexuality %}&sexuality={{ request.GET.sexuality }}{% endif %}{% if request.GET.blood_type %}&blood_type={{ request.GET.blood_type }}{% endif %}{% if request.GET.age %}&age={{ request.GET.age }}{% endif %}{% if request.GET.looks %}&looks={{ request.GET.looks }}{% endif %}{% if request.GET.osake %}&osake={{ request.GET.osake }}{% endif %}{% if request.GET.personality %}&personality={{ request.GET.personality }}{% endif %}{% if request.GET.housemate %}&housemate={{ request.GET.housemate }}{% endif %}{% if request.GET.height %}&height={{ request.GET.height }}{% endif %}{% if request.GET.body_weight %}&body_weight={{ request.GET.body_weight }}{% endif %}{% if request.GET.body_shape_man %}&body_shape_man={{ request.GET.body_shape_man }}{% endif %}{% if request.GET.body_shape_woman %}&body_shape_woman={{ request.GET.body_shape_woman }}{% endif %}{% if request.GET.marriage_history %}&marriage_history={{ request.GET.marriage_history }}{% endif %}{% if request.GET.children %}&children={{ request.GET.children }}{% endif %}{% if request.GET.tobacco %}&tobacco={{ request.GET.tobacco }}{% endif %}{% if request.GET.education %}&education={{ request.GET.education }}{% endif %}{% if request.GET.occupation %}&occupation={{ request.GET.occupation }}{% endif %}{% if request.GET.drivers_license %}&drivers_license={{ request.GET.drivers_license }}{% endif %}{% if request.GET.annual_income %}&annual_income={{ request.GET.annual_income }}{% endif %}" tabindex="-1">Previous</a>
+        {% endif %}
+           </li>
+           {% else %}
+           <li class="page-item disabled"><a class="page-link" href="#!">Previous</a></li>
+           {% endif %}
+           {% for num in object_list.paginator.page_range %}
+           {% if object_list.number == num %}
+           <li class="page-item active">
+             <a class="page-link" href="#!">{{ num }}<span class="sr-only">(current)</span></a>
+           </li>
+           {% else %}
+           <li class="page-item">
+        {% if nick_name == system_nickname %}
+<!--             <a class="page-link" href="?page={{ num }}{% if request.GET.search_conditions %}&search_conditions={{ request.GET.search_conditions }}{% endif %}{% if request.GET.number_searches %}&number_searches={{ request.GET.number_searches }}{% endif %}{% if request.GET.what_doing_now %}&what_doing_now={{ request.GET.what_doing_now }}{% endif %}{% if request.GET.article %}&article={{ request.GET.article }}{% endif %}{% if request.GET.keyword %}&keyword={{ request.GET.keyword }}{% endif %}{% if request.GET.nickname %}&nickname={{ request.GET.nickname }}{% endif %}{% if request.GET.height %}&height={{ request.GET.height }}{% endif %}{% if request.GET.body_weight %}&body_weight={{ request.GET.body_weight }}{% endif %}{% if request.GET.body_shape_man %}&body_shape_man={{ request.GET.body_shape_man }}{% endif %}{% if request.GET.body_shape_woman %}&body_shape_woman={{ request.GET.body_shape_woman }}{% endif %}{% if request.GET.marriage_history %}&marriage_history={{ request.GET.marriage_history }}{% endif %}{% if request.GET.children %}&children={{ request.GET.children }}{% endif %}{% if request.GET.tobacco %}&tobacco={{ request.GET.tobacco }}{% endif %}{% if request.GET.education %}&education={{ request.GET.education }}{% endif %}{% if request.GET.occupation %}&occupation={{ request.GET.occupation }}{% endif %}{% if request.GET.drivers_license %}&drivers_license={{ request.GET.drivers_license }}{% endif %}{% if request.GET.annual_income %}&annual_income={{ request.GET.annual_income }}{% endif %}">{{ num }}</a></li>-->
+               <a class="page-link" href="?page={{ num }}{% if request.GET.search_conditions %}&search_conditions={{ request.GET.search_conditions }}{% endif %}{% if request.GET.number_searches %}&number_searches={{ request.GET.number_searches }}{% endif %}{% if request.GET.what_doing_now %}&what_doing_now={{ request.GET.what_doing_now }}{% endif %}{% if request.GET.article %}&article={{ request.GET.article }}{% endif %}{% if request.GET.keyword %}&keyword={{ request.GET.keyword }}{% endif %}{% if request.GET.commitment %}&commitment={{ request.GET.commitment }}{% endif %}{% if request.GET.luxury_items %}&luxury_items={{ request.GET.luxury_items }}{% endif %}{% if request.GET.birthday %}&birthday={{ request.GET.birthday }}{% endif %}{% if request.GET.birthplace %}&birthplace={{ request.GET.birthplace }}{% endif %}{% if request.GET.haunting_area %}&haunting_area={{ request.GET.haunting_area }}{% endif %}{% if request.GET.qualification %}&qualification={{ request.GET.qualification }}{% endif %}{% if request.GET.language %}&language={{ request.GET.language }}{% endif %}{% if request.GET.postalcode %}&postalcode={{ request.GET.postalcode }}{% endif %}{% if request.GET.address1 %}&address1={{ request.GET.address1 }}{% endif %}{% if request.GET.address2 %}&address2={{ request.GET.address2 }}{% endif %}{% if request.GET.nickname %}&nickname={{ request.GET.nickname }}{% endif %}{% if request.GET.sexuality %}&sexuality={{ request.GET.sexuality }}{% endif %}{% if request.GET.blood_type %}&blood_type={{ request.GET.blood_type }}{% endif %}{% if request.GET.age %}&age={{ request.GET.age }}{% endif %}{% if request.GET.looks %}&looks={{ request.GET.looks }}{% endif %}{% if request.GET.osake %}&osake={{ request.GET.osake }}{% endif %}{% if request.GET.personality %}&personality={{ request.GET.personality }}{% endif %}{% if request.GET.housemate %}&housemate={{ request.GET.housemate }}{% endif %}{% if request.GET.height %}&height={{ request.GET.height }}{% endif %}{% if request.GET.body_weight %}&body_weight={{ request.GET.body_weight }}{% endif %}{% if request.GET.body_shape_man %}&body_shape_man={{ request.GET.body_shape_man }}{% endif %}{% if request.GET.body_shape_woman %}&body_shape_woman={{ request.GET.body_shape_woman }}{% endif %}{% if request.GET.marriage_history %}&marriage_history={{ request.GET.marriage_history }}{% endif %}{% if request.GET.children %}&children={{ request.GET.children }}{% endif %}{% if request.GET.tobacco %}&tobacco={{ request.GET.tobacco }}{% endif %}{% if request.GET.education %}&education={{ request.GET.education }}{% endif %}{% if request.GET.occupation %}&occupation={{ request.GET.occupation }}{% endif %}{% if request.GET.drivers_license %}&drivers_license={{ request.GET.drivers_license }}{% endif %}{% if request.GET.annual_income %}&annual_income={{ request.GET.annual_income }}{% endif %}">{{ num }}</a></li>
+        {% else %}
+<!--             <a class="page-link" href="?page={{ num }}{% if request.GET.search_conditions %}&search_conditions={{ request.GET.search_conditions }}{% endif %}{% if request.GET.number_searches %}&number_searches={{ request.GET.number_searches }}{% endif %}{% if request.GET.nickname %}&nickname={{ request.GET.nickname }}{% endif %}">{{ num }}</a></li>-->
+             <a class="page-link" href="?page={{ num }}{% if request.GET.search_conditions %}&search_conditions={{ request.GET.search_conditions }}{% endif %}{% if request.GET.number_searches %}&number_searches={{ request.GET.number_searches }}{% endif %}{% if request.GET.nickname %}&nickname={{ request.GET.nickname }}{% endif %}">{{ num }}</a></li>
+
+        {% endif %}
+           {% endif %}
+           {% endfor %}
+           {% if object_list.has_next %}
+           <li class="page-item">
+        {% if nick_name == system_nickname %}
+<!--             <a class="page-link" href="?page={{ object_list.next_page_number }}{% if request.GET.search_conditions %}&search_conditions={{ request.GET.search_conditions }}{% endif %}{% if request.GET.number_searches %}&number_searches={{ request.GET.number_searches }}{% endif %}{% if request.GET.what_doing_now %}&what_doing_now={{ request.GET.what_doing_now }}{% endif %}{% if request.GET.article %}&article={{ request.GET.article }}{% endif %}{% if request.GET.keyword %}&keyword={{ request.GET.keyword }}{% endif %}{% if request.GET.nickname %}&nickname={{ request.GET.nickname }}{% endif %}{% if request.GET.height %}&height={{ request.GET.height }}{% endif %}{% if request.GET.body_weight %}&body_weight={{ request.GET.body_weight }}{% endif %}{% if request.GET.body_shape_man %}&body_shape_man={{ request.GET.body_shape_man }}{% endif %}{% if request.GET.body_shape_woman %}&body_shape_woman={{ request.GET.body_shape_woman }}{% endif %}{% if request.GET.marriage_history %}&marriage_history={{ request.GET.marriage_history }}{% endif %}{% if request.GET.children %}&children={{ request.GET.children }}{% endif %}{% if request.GET.tobacco %}&tobacco={{ request.GET.tobacco }}{% endif %}{% if request.GET.education %}&education={{ request.GET.education }}{% endif %}{% if request.GET.occupation %}&occupation={{ request.GET.occupation }}{% endif %}{% if request.GET.drivers_license %}&drivers_license={{ request.GET.drivers_license }}{% endif %}{% if request.GET.annual_income %}&annual_income={{ request.GET.annual_income }}{% endif %}">Next</a>-->
+               <a class="page-link" href="?page={{ object_list.next_page_number }}{% if request.GET.search_conditions %}&search_conditions={{ request.GET.search_conditions }}{% endif %}{% if request.GET.number_searches %}&number_searches={{ request.GET.number_searches }}{% endif %}{% if request.GET.what_doing_now %}&what_doing_now={{ request.GET.what_doing_now }}{% endif %}{% if request.GET.article %}&article={{ request.GET.article }}{% endif %}{% if request.GET.keyword %}&keyword={{ request.GET.keyword }}{% endif %}{% if request.GET.commitment %}&commitment={{ request.GET.commitment }}{% endif %}{% if request.GET.luxury_items %}&luxury_items={{ request.GET.luxury_items }}{% endif %}{% if request.GET.birthday %}&birthday={{ request.GET.birthday }}{% endif %}{% if request.GET.birthplace %}&birthplace={{ request.GET.birthplace }}{% endif %}{% if request.GET.haunting_area %}&haunting_area={{ request.GET.haunting_area }}{% endif %}{% if request.GET.qualification %}&qualification={{ request.GET.qualification }}{% endif %}{% if request.GET.language %}&language={{ request.GET.language }}{% endif %}{% if request.GET.postalcode %}&postalcode={{ request.GET.postalcode }}{% endif %}{% if request.GET.address1 %}&address1={{ request.GET.address1 }}{% endif %}{% if request.GET.address2 %}&address2={{ request.GET.address2 }}{% endif %}{% if request.GET.nickname %}&nickname={{ request.GET.nickname }}{% endif %}{% if request.GET.sexuality %}&sexuality={{ request.GET.sexuality }}{% endif %}{% if request.GET.blood_type %}&blood_type={{ request.GET.blood_type }}{% endif %}{% if request.GET.age %}&age={{ request.GET.age }}{% endif %}{% if request.GET.looks %}&looks={{ request.GET.looks }}{% endif %}{% if request.GET.osake %}&osake={{ request.GET.osake }}{% endif %}{% if request.GET.personality %}&personality={{ request.GET.personality }}{% endif %}{% if request.GET.housemate %}&housemate={{ request.GET.housemate }}{% endif %}{% if request.GET.height %}&height={{ request.GET.height }}{% endif %}{% if request.GET.body_weight %}&body_weight={{ request.GET.body_weight }}{% endif %}{% if request.GET.body_shape_man %}&body_shape_man={{ request.GET.body_shape_man }}{% endif %}{% if request.GET.body_shape_woman %}&body_shape_woman={{ request.GET.body_shape_woman }}{% endif %}{% if request.GET.marriage_history %}&marriage_history={{ request.GET.marriage_history }}{% endif %}{% if request.GET.children %}&children={{ request.GET.children }}{% endif %}{% if request.GET.tobacco %}&tobacco={{ request.GET.tobacco }}{% endif %}{% if request.GET.education %}&education={{ request.GET.education }}{% endif %}{% if request.GET.occupation %}&occupation={{ request.GET.occupation }}{% endif %}{% if request.GET.drivers_license %}&drivers_license={{ request.GET.drivers_license }}{% endif %}{% if request.GET.annual_income %}&annual_income={{ request.GET.annual_income }}{% endif %}">Next</a>
+        {% else %}
+<!--             <a class="page-link" href="?page={{ object_list.next_page_number }}{% if request.GET.search_conditions %}&search_conditions={{ request.GET.search_conditions }}{% endif %}{% if request.GET.number_searches %}&number_searches={{ request.GET.number_searches }}{% endif %}{% if request.GET.nickname %}&nickname={{ request.GET.nickname }}{% endif %}">Next</a>-->
+             <a class="page-link" href="?page={{ object_list.next_page_number }}{% if request.GET.search_conditions %}&search_conditions={{ request.GET.search_conditions }}{% endif %}{% if request.GET.number_searches %}&number_searches={{ request.GET.number_searches }}{% endif %}{% if request.GET.nickname %}&nickname={{ request.GET.nickname }}{% endif %}">Next</a>
+        {% endif %}
+           </li>
+           {% else %}
+           <li class="page-item disabled"><a class="page-link" href="#!">Next</a></li>
+           {% endif %}
+         </ul>
+        </nav>
+        {% endif %}
+        </div>
+
+            </div>
+<!--        <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>-->
+
+            </div>
+
+
+<!-- YOUR_API_KEYの部分は取得した APIキーで置き換えます -->
+<!--<script src="https://maps.googleapis.com/maps/api/js?key={{ googleapikey }}&callback=initMap" async defer></script>-->
+
+<script>
+  (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+    key: "{{ googleapikey }}",
+    v: "weekly",
+    // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
+    // Add other bootstrap parameters as needed, using camel case.
+  });
+</script>
+
+<script>
+
+
+async function initMap() {
+
+    //参考URL：https://yuuki1413.hatenablog.com/entry/2017/07/25/155501
+    //参考URL：https://www.nanchatte.com/map/showDifferentInfoWindowOnEachMarker.html
+
+  const g_elementDivBoxB = document.getElementById( "boxB" );
+
+
+  var target = document.getElementById('gmap');
+
+  currentInfoWindow = null;  //最後に開いた情報ウィンドウを記憶
+
+  // Request needed libraries.
+  //@ts-ignore
+  const { Map } = await google.maps.importLibrary("maps");
+  const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+
+
+
+  //マップを生成して表示
+  var map = new google.maps.Map(document.getElementById('gmap'), {
+  //吉祥寺駅の緯度経度
+    center: {lat: 35.70341777725161, lng: 139.5797336679452},
+    zoom: 11,
+    mapId: "{{ map_ID }}"  //マップID  live match　地図
+  });
+
+  //情報ウィンドウのインスタンスの生成
+  var infoWindow = new google.maps.InfoWindow;
+
+  //ブラウザが Geolocation に対応しているかを判定
+  //対応していない場合の処理
+  if(!navigator.geolocation){
+    //情報ウィンドウの位置をマップの中心位置に指定
+    infoWindow.setPosition(map.getCenter());
+    //情報ウィンドウのコンテンツを設定
+    infoWindow.setContent('Geolocation に対応していません。');
+    //情報ウィンドウを表示
+    infoWindow.open(map);
+
+    // 画面の切り替え------------new-----
+    g_elementDivBoxB.style.display = "flex";  // boxB画面の表示
+
+  }
+
+
+  //ブラウザが対応している場合、position にユーザーの位置情報が入る
+  navigator.geolocation.getCurrentPosition(function(position) {
+    //position から緯度経度（ユーザーの位置）のオブジェクトを作成し変数に代入
+    var pos = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude
+    };
+
+
+  //ログイン中の全会員平均位置情報
+    var pos_avg = {
+      lat: parseFloat({{ avg_lat }}),  //緯度平均値 10進数による小数点変換
+      lng: parseFloat({{ avg_lng }})  //経度平均値
+    };
+
+
+    //情報ウィンドウに現在位置を指定
+<!--    infoWindow.setPosition(pos_avg);-->
+
+    //情報ウィンドウのコンテンツを設定
+<!--    infoWindow.setContent('現在位置を取得しました。');-->
+
+    //情報ウィンドウを表示
+<!--    infoWindow.open(map);-->
+
+    //マップの中心位置を指定
+    map.setCenter(pos_avg);
+
+    //CurrentLocationから会員位置情報取得
+    var json = "{{ live_dic }}";  //CurrentLocationから会員位置情報取得 json形式のストリングデータ（{ニックネーム：[性別,緯度,経度],.....}）
+
+    // 文字変換 {&quot;だいご&quot;:→{"だいご":
+    json = json.split('&quot;').join('"') // 「&quot;」を「"」に変換
+
+<!--    json = JSON.stringify(json);-->
+
+
+    // JavaScript のオブジェクトを生成
+    const obj = JSON.parse(json);  //JavaScript のオブジェクトを生成
+
+
+
+    // ループで会員の位置にマーカー表示
+    for(var key in obj) {
+      if(obj.hasOwnProperty(key)) {
+
+        var val = obj[key];
+
+        console.log("key=", key, ", value=", val);
+        console.log("key=", key, ", value=", val.lat);
+        console.log("key=", key, ", value=", val.lng);
+        console.log(typeof(val.lng));
+
+    // 会員の緯度経度取得
+      var position_m = {lat: parseFloat(val.lat), lng: parseFloat(val.lng)};
+
+      if(val.gender) {
+      // 男性は緑、女性はピンクのマーカー設定
+      icon_val = "https://maps.google.com/mapfiles/ms/micons/green-dot.png";
+      }
+      else {
+      icon_val = "https://maps.google.com/mapfiles/ms/micons/pink-dot.png";
+      }
+
+      const img = document.createElement('img');
+      img.src = icon_val;
+
+
+
+    //マーカーの表示 ピンクは女性、緑は男性
+<!--      var marker = new google.maps.Marker({-->
+<!--      position: position_m,-->
+<!--      map: map,-->
+<!--      title: key + " さんの現在地です！",-->
+<!--      animation: google.maps.Animation.DROP,-->
+<!--      icon: icon_val-->
+<!--    });-->
+
+
+      var marker = new AdvancedMarkerElement({
+      position: position_m,
+      map: map,
+      title: key + " さんの現在地です！",
+<!--      animation: google.maps.Animation.DROP,-->
+      content: img,
+      gmpClickable: true,
+    });
+
+    // アニメーション用セレクタを追加
+    marker.content.classList.add( 'bounce' );
+
+    var content = '<div id="map_info"><p align="center" id="venue">プロフィール</p><p align="center"><a id="url" href="{{ live_match_url }}' + key + '/" target="_blank">' + key + ' さん</a></p></div>';
+
+
+    attachMessage(marker, content);
+
+      }
+    }
+
+
+
+  }, function() {  //位置情報の取得をユーザーがブロックした場合のコールバック
+    //情報ウィンドウの位置をマップの中心位置に指定
+    infoWindow.setPosition(map.getCenter());
+    //情報ウィンドウのコンテンツを設定
+    infoWindow.setContent('位置情報の取得を許可してください！');
+    //情報ウィンドウを表示
+    infoWindow.open(map);
+
+    // 画面の切り替え------------new-----
+    g_elementDivBoxB.style.display = "flex";  // boxB画面の表示
+
+  });
+
+
+  function attachMessage(marker, msg) {
+    google.maps.event.addListener(marker, 'click', function(event) {
+
+    //別のwindowを表示させるとき現在のwindowを閉じる
+        if(currentInfoWindow != null){
+            currentInfoWindow.close();
+        }
+      //新しいwindowをオープン
+      var infoWindow = new google.maps.InfoWindow({
+        content: msg
+      })
+<!--      infoWindow.open(marker.getMap(), marker);  //旧メソッド-->
+      infoWindow.open(marker.map, marker);  //新メッソド
+
+      //最後に開いた情報ウィンドウを記憶
+      currentInfoWindow = infoWindow;
+    });
+  }
+
+
+<!--  function attachMessage(marker, msg) {-->
+<!--    google.maps.event.addListener(marker, 'click', function(event) {-->
+<!--      new google.maps.InfoWindow({-->
+<!--        content: msg-->
+<!--      }).open(marker.getMap(), marker);-->
+<!--    });-->
+<!--  }-->
+
+
+}
+
+initMap();
+
+</script>
+
+
+{% endblock %}

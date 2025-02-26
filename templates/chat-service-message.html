@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block active_terms_search %}active{% endblock %}
+
+{% block title %}チャット連絡登録 | GPS-Live-Match{% endblock %}
+
+{% block contents %}
+
+
+<div class="container">
+    <div class="my-div-style w-100">
+        {{form.errors}}
+        <h4>チャット連絡登録</h4>
+        <p>{{ nickname }} さん のチャット連絡をご登録してください。</p>
+
+        <div  class="row my-row-style1" style="margin: 30px 0px 10px 0px; ">
+
+<!--        <table class="table">-->
+        <div class="table-responsive" style="margin: 30px 0px 10px 0px; ">
+            <p>いいね！ : {{ ch_query.my_nickname }} さん > {{ ch_query.partner_nickname }} さん</p>
+        <p>現在の連絡:</p>
+
+        <table class="table table-bordered table-hover table-striped table-sm">
+            <tbody>
+                {% if p_gender %}
+            <thead class="table-active">
+                <tr>
+                  <th scope="col">項目</th>
+                  <th scope="col">予約日</th>
+                </tr>
+            </thead>
+                {% else %}
+            <thead>
+                <tr>
+                  <th width="50%" scope="col" bgcolor="#FFC0CB "><font color="#c71585 ">項目</font></th>
+                  <th width="50%" scope="col" bgcolor="#FFC0CB "><font color="#c71585 ">内容</font></th>
+                </tr>
+            </thead>
+                {% endif %}
+            <tr>
+                <td>連絡（{{ ch_query.my_nickname }}）：</td>
+                <td>
+                    {% if ch_query.message_a %}
+                    {{ message_a }}<br>
+                    {% else %}
+                    連絡：未登録<br>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>　</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>連絡（{{ ch_query.partner_nickname }}）：</td>
+                <td>
+                    {% if ch_query.message_b %}
+                    {{ message_b }}<br>
+                    {% else %}
+                    連絡：未登録<br>
+                    {% endif %}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+
+
+
+            <!-- 検索フォーム -->
+<!--        <table class="table">-->
+        <div class="table-responsive">
+            <p>※ チャット連絡入力して、「登録」ボタンで登録してください。<br>
+            ※ 何時でも変更できます。<br>
+            ※ 登録後、「戻る」ボタンで、チャット管理画面へ戻ってください。</p>
+
+
+            {{ form.errors }}
+
+            <form class="form-inline my-2" method="GET" action="{% url 'live:chat_service_message' p_id flg %}">
+                {% csrf_token %}
+        <table class="table table-bordered table-hover table-striped table-sm">
+            <tbody>
+                {% if p_gender %}
+            <thead class="table-active">
+                <tr>
+                  <th scope="col">項目</th>
+                  <th scope="col">内容</th>
+                </tr>
+            </thead>
+                {% else %}
+            <thead class="table-active">
+                <tr>
+                  <th width="50%" scope="col" bgcolor="#FFC0CB "><font color="white">項目</font></th>
+                  <th width="50%"scope="col" bgcolor="#FFC0CB "><font color="white">内容</font></th>
+                </tr>
+            </thead>
+                {% endif %}
+            <tr>
+                <td>連絡（{{ nickname }}）：<br>30文字以内</td>
+                <td>
+                    {% if request.GET.message_a is None %}
+                    <textarea class="form-control" name="message_a" cols="40" rows="1" value={{ request.GET.message_a }}>{{ request.GET.message_a }}</textarea>
+                    {% else %}
+                    <textarea class="form-control" name="message_a" cols="40" rows="1" value={{ request.GET.message_a }}>{{ request.GET.message_a }}</textarea>
+                    {% endif %}
+                </td>
+
+            </tr>
+
+            </tbody>
+        </table>
+                </div>
+            <button type="submit" value="search" class="btn btn-primary ml-2 mt-3 mb-3">登録</button>
+            </form>
+        </div>
+        {% if flg == 'service' %}
+        <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:chat_service' %}">戻る</a>
+        {% else %}
+        <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:chat_entry' ch_query.id 'out' %}">戻る</a>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock %}

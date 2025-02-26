@@ -1,0 +1,624 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load none_filter %}
+
+{% block active_terms_member %}active{% endblock %}
+
+{% block title %}メッセージ送信 | GPS-Live-Match{% endblock %}
+
+{% block head %}
+
+
+<style>
+
+#button{ // このCSSは、利用していない
+  display:block;
+  margin:20px auto;
+  padding:10px 30px;
+  background-color:#eee;
+  border:solid #ccc 1px;
+  cursor: pointer;
+}
+#overlay{
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  height:100%;
+  display: none;
+  background: rgba(0,0,0,0.6);
+}
+.cv-spinner {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px #ddd solid;
+  border-top: 4px #2e93e6 solid;
+  border-radius: 50%;
+  animation: sp-anime 0.8s infinite linear;
+}
+@keyframes sp-anime {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.is-hide{
+  display:none;
+}
+</style>
+
+<!--https://toretama.jp/click-big-image-floaty.html-->
+<!--拡大画像ポップアップ表示-->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/css/lightbox.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/js/lightbox.min.js" type="text/javascript"></script>
+
+    <style>
+    /* 「閉じる」ボタンのフローティング */
+    #footerFloatingMenu_search {
+        display: block;
+        width: 90%;
+        position: fixed;
+        left: auto;
+        bottom: 70px;
+        z-index: 9999;
+        text-align: center;
+        padding: 0 auto;
+    }
+
+    #footerFloatingMenu_search img {
+        max-width: 100%;
+    }
+
+    #footerFloatingMenu_search {
+        margin: auto;
+    }
+
+    </style>
+
+<style>
+
+<!--/* 写真入力 */-->
+<!--#photo {-->
+<!--/* label { */-->
+<!--/* color: #AAAAAA */ /* ラベルテキストの色を指定する */-->
+<!--color: white; /* ラベルテキストの色を指定する */-->
+<!--/* color: black; */ /* ラベルテキストの色を指定する */-->
+<!--font-size: 11px; /* ラベルテキストのサイズを指定する */-->
+<!--/* background-color: darkturquoise; *//* ラベルの背景色を指定する */-->
+<!--background-color: lightseagreen;/* ラベルの背景色を指定する */-->
+<!--// background-color: darkgray;/* ラベルの背景色を指定する */-->
+<!--/* background-color: #006DD9; */ /* ラベルの背景色を指定する */-->
+<!--padding: 6px; /* ラベルとテキスト間の余白を指定する */-->
+<!--border-radius: 10px; /* ラベルボックスの角丸を指定する */-->
+<!--cursor:pointer; /* マウスカーソルの形を指定する */-->
+<!--}-->
+
+
+
+#photo > input{
+display:none; /* アップロードボタンのスタイルを無効にする */
+}
+
+#photo > img{
+cursor: pointer;
+}
+
+div{
+margin:7px; /* ボタンとテキストボックス間の余白を指定する */
+}
+
+#photo_label {
+margin:0 0 7px;
+}
+
+
+
+
+<!--/* 音声入力 */-->
+<!--#audio {-->
+<!--/* label { */-->
+<!--/* color: #AAAAAA */ /* ラベルテキストの色を指定する */-->
+<!--color: white; /* ラベルテキストの色を指定する */-->
+<!--font-size: 11px; /* ラベルテキストのサイズを指定する */-->
+<!--background-color: lightseagreen;/* ラベルの背景色を指定する */-->
+<!--/* background-color: darkgray; */ /* ラベルの背景色を指定する */-->
+<!--/* background-color: #006DD9; */ /* ラベルの背景色を指定する */-->
+<!--padding: 6px; /* ラベルとテキスト間の余白を指定する */-->
+<!--border-radius: 10px; /* ラベルボックスの角丸を指定する */-->
+<!--cursor:pointer; /* マウスカーソルの形を指定する */-->
+<!--}-->
+
+
+#audio > input{
+display:none; /* アップロードボタンのスタイルを無効にする */
+}
+
+#audio > img{
+cursor: pointer;
+}
+
+div{
+margin:7px; /* ボタンとテキストボックス間の余白を指定する */
+}
+
+#audio_label {
+margin:0 0 7px;
+}
+
+
+
+<!--/* 動画入力 */-->
+<!--#video {-->
+<!--/* label { */-->
+<!--/* color: #AAAAAA */ /* ラベルテキストの色を指定する */-->
+<!--color: white; /* ラベルテキストの色を指定する */-->
+<!--font-size: 11px; /* ラベルテキストのサイズを指定する */-->
+<!--background-color: lightseagreen;/* ラベルの背景色を指定する */-->
+<!--/* background-color: darkgray; */ /* ラベルの背景色を指定する */-->
+<!--/* background-color: #006DD9; */ /* ラベルの背景色を指定する */-->
+<!--padding: 6px; /* ラベルとテキスト間の余白を指定する */-->
+<!--border-radius: 10px; /* ラベルボックスの角丸を指定する */-->
+<!--cursor:pointer; /* マウスカーソルの形を指定する */-->
+<!--}-->
+
+
+#video > input{
+display:none; /* アップロードボタンのスタイルを無効にする */
+}
+
+#video > img{
+cursor: pointer;
+}
+
+div{
+margin:7px; /* ボタンとテキストボックス間の余白を指定する */
+}
+
+#video_label {
+margin:0 0 7px;
+}
+
+
+</style>
+
+<style>
+ li { font-size: 13; } */
+</style>
+
+<style>
+.textbox{
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+</style>
+
+{% endblock %}
+
+{% block contents %}
+
+<div class="container" style="margin: 0px auto 150px auto;">
+    <div class="my-div-style w-100">
+
+<!--        validatorsのエラーメッセージを表示-->
+<!--        写真-->
+        {% if form.photo.errors %}
+        <ul class="alert alert-danger list-unstyled">
+            {% for error in form.photo.errors %}
+            <li>{{ error }}</li>
+        </ul>
+        {% endfor %}
+        {% endif %}
+
+<!--        音声-->
+        {% if form.audio_file.errors %}
+        <ul class="alert alert-danger list-unstyled">
+            {% for error in form.audio_file.errors %}
+            <li>{{ error }}</li>
+        </ul>
+        {% endfor %}
+        {% endif %}
+
+<!--        動画-->
+        {% if form.video_file.errors %}
+        <ul class="alert alert-danger list-unstyled">
+            {% for error in form.video_file.errors %}
+            <li>{{ error }}</li>
+        </ul>
+        {% endfor %}
+        {% endif %}
+
+
+        <h5>メッセージ送信</h5><br>
+        <p>{{ nickname }} さん</p>
+        <p> {{ p_nickname }} さん へメッセージ送信</p>
+
+<!--        <Ul>-->
+<!--            <li>お相手にメッセージ（文言、写真、音声、動画）を送信できます。</li>-->
+<!--            <li>メッセージ送信後は、「閉じる」ボタンで画面を閉じてください。</li>-->
+
+<!--        </Ul>-->
+
+<!--        <P>-->
+<!--        写真、音声、動画は、以下の仕様を推奨します。<br>-->
+<!--        推奨写真：ファイル形式：(jpg、png、jpeg)　写真容量：約720kB　サイズ：約600×400ピクセル<br>-->
+<!--        推奨音声：ファイル形式：(wav、mp3、acc)　音声再生時間：約2分以内<br>-->
+<!--        推奨動画：ファイル形式：(mp4、m4a、avi、mov、wmv、flv)　動画再生時間：約1分以内<br><br>-->
+<!--        メッセージ送信は有料です。利用料は、<a href="{% url 'live:price_list' %}" target="_blank" rel="noopener">こちら</a>の「メッセージ送信添付ファイル（任意」を参照してください。<br>-->
+<!--        </p>-->
+
+<!--        <hr>-->
+<!--                <input class="btn btn-success ml-2 mt-3 mb-3" type="button" onclick="CloseWindow();" value="閉じる" />-->
+<!--        <button type="button" onclick="history.back()">前のページへ戻る</button>-->
+
+
+            <form action="{% url 'live:profile_detail_message' object.pk %}" method="post" enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="formGroup20" style="font-size:14px;"><strong>メッセージ：</strong>(必須) (～400文字)</label><br>
+                    <textarea class="form-control" id="formGroup20" name="mes" rows="2" cols=100% placeholder=""></textarea>
+<!--                <small id="groupHelp20" class="form-text text-muted">※ 自己ピーアールを入力してください。（500文字）</small>-->
+                    <small id="groupHelp20" class="form-text text-muted"><font size="2" color=black>例：）はじめまして、プロフィール見て頂きありがとうございます！、、、、</font></small>
+                </div>
+                <div class="form-group">
+                <div>
+                    <small id="photo_label"class="form-text text-muted"><font size="2" color=black><strong>写真：</strong>(任意)</font></small>
+                    <label id="photo" for="file_upload"><img class="" src="{% static 'img/m_photo.jpg' %}" width="30" height=auto title="photo" alt="photo">
+                        <input type="file" id="file" name="photo" onchange="$('#fake_text_box').val($(this).val())">
+                        <input type="text" id="file_upload" name="photo" value="ファイル選択" onClick="$('#file').click();">
+                    </label>
+                </div>
+                <div>
+                    <input class="form-control form-control-sm textbox" type="text" id="fake_text_box" value="" name="photo" readonly onClick="$('#file').click();">
+                </div>
+
+<!--                    <label for="formGroup290" style="font-size:14px;"><strong>写真：</strong>(任意)-->
+<!--                        <input type="file" class="form-control-file" id="formGroup290" name="photo">-->
+<!--                    </label>-->
+<!--                    <small class="form-text text-muted"><font size="2" color=black>注意： 拡張子(.jpg　.png　.jpeg) の写真を選択してください。</font></small>-->
+                </div>
+
+                <div class="form-group">
+                <div>
+                    <small id="audio_label"class="form-text text-muted"><font size="2" color=black><strong>音声：</strong>(任意)</font></small>
+                    <label id="audio" for="file_upload_audio"><img class="" src="{% static 'img/m_audio.jpg' %}" width="30" height=auto title="audio" alt="audio">
+                        <input type="file" id="file_audio" name="audio_file" onchange="$('#fake_text_box_audio').val($(this).val())">
+                        <input type="text" id="file_upload_audio" name="audio_file" value="ファイル選択" onClick="$('#file_audio').click();">
+                    </label>
+                </div>
+                <div>
+                    <input class="form-control form-control-sm textbox" type="text" id="fake_text_box_audio" value="" name="audio_file" readonly onClick="$('#file_audio').click();">
+                </div>
+
+<!--                <div class="form-group">-->
+<!--                <label for="formGroup300" style="font-size:14px;"><strong>音声：</strong>(任意)</label>-->
+<!--                <input type="file" class="form-control-file" id="formGroup300" name="audio_file">-->
+<!--&lt;!&ndash;                    <small class="form-text text-muted"><font size="2" color=black>注意： 拡張子(.wav　.mp3　.acc) の音声を選択してください。</font></small>&ndash;&gt;-->
+<!--                </div>-->
+                </div>
+
+                <div class="form-group">
+                <div>
+                    <small id="video_label"class="form-text text-muted"><font size="2" color=black><strong>動画：</strong>(任意)</font></small>
+                    <label id="video" for="file_upload_video"><img class="" src="{% static 'img/m_video.jpg' %}" width="30" height=auto title="video" alt="video">
+                        <input type="file" id="file_video" name="video_file" onchange="$('#fake_text_box_video').val($(this).val())">
+                        <input type="text" id="file_upload_video" name="video_file" value="ファイル選択" onClick="$('#file_video').click();">
+                    </label>
+                </div>
+                <div>
+                    <input class="form-control form-control-sm textbox" type="text" id="fake_text_box_video" value="" name="video_file" readonly onClick="$('#file_video').click();">
+                </div>
+
+<!--                <div class="form-group">-->
+<!--                    <label for="formGroup310" style="font-size:14px;"><strong>動画：</strong>(任意)</label>-->
+<!--                <input type="file" class="form-control-file" id="formGroup310" name="video_file">-->
+<!--&lt;!&ndash;                    <small class="form-text text-muted"><font size="2" color=black>注意： 拡張子(.mp4　.m4a　.avi　.mov　.wmv　.flv)の動画を選択してください。.MOV .movの動画は、.mp4に変換します。処理時間が多少長くなることがあります。</font></small>&ndash;&gt;-->
+<!--                </div>-->
+                </div>
+
+
+
+
+<!--flaoting menu start-->
+    <div id="footerFloatingMenu_search">
+        <div class="table-responsive-sm">
+<!--        <table class="table table-borderless">-->
+        <table class="table table-borderless table-sm">
+            <tr style="opacity: 1;background-color:white;">
+                <td>
+<!--                画面上にくるくる（スピナー）表示-->
+                <button id="button_submit" class="btn btn-primary ml-2 mt-3 mb-3 btn-sm" type="submit">メッセージ送信</button>
+
+                <div id="overlay">
+                  <div class="cv-spinner">
+                    <span class="spinner"></span>
+                  </div>
+                </div>
+<!--                画面上にくるくる（スピナー）表示-->
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input class="btn btn-success ml-2 mt-3 mb-3 btn-sm" type="button" onclick="CloseWindow();" value="閉じる" />
+                </td>
+            </tr>
+        </table>
+        </div>
+        </div>
+<!--flaoting menu end-->
+
+<!--                <input class="btn btn-danger ml-2 mt-3 mb-3"type="reset" value="リセット">-->
+<!--                <input class="btn btn-success ml-2 mt-3 mb-3" type="button" onclick="CloseWindow();" value="閉じる" />-->
+
+            </form>
+
+        <p><font size="2">メッセージ送信には、ポイントが必要です。詳しくは、<a href="{% url 'live:price_list' %}" target="_blank" rel="noopener"> コチラ</a></font></p><br>
+
+        <hr>
+
+
+        <h6>{{ p_nickname }} さん のプロフィール</h6><br>
+
+<!--        <Ul>-->
+<!--            <li>見終わりましたら、「閉じる」ボタンで画面を閉じてください。</li>-->
+<!--&lt;!&ndash;            <li>お相手にメッセージ（文言、写真、音声、動画）を送信できます。</li>&ndash;&gt;-->
+<!--        </Ul>-->
+
+<!--        <input class="btn btn-success ml-2 mt-3 mb-3" type="button" onclick="CloseWindow();" value="閉じる" />-->
+
+<!--        <table class="table">-->
+        <div class="table-responsive">
+        <table class="table table-bordered table-hover table-striped table-sm">
+            <tbody>
+                {% if p_gender %}
+            <thead class="table-active">
+                <tr align="center">
+                  <th scope="col" >プロフィール</th>
+                </tr>
+            </thead>
+                {% else %}
+            <thead>
+                <tr align="center">
+                  <th scope="col" bgcolor="#FFC0CB "><font color="#c71585 ">プロフィール</font></th>
+                </tr>
+            </thead>
+                {% endif %}
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>1）ニックネーム：</b></font></small><br>
+                    {{ object.nickname }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>2）自己ピーアール：</b></font></small><br>
+                    {{ object.article | checkNone }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>3）今何している！：</b></font></small><br>
+                    {{ object.what_doing_now | checkNone }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>4）趣味・興味：</b></font></small><br>
+                    {{ object.keyword | checkNone }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>5）こだわり：</b></font></small><br>
+                    {{ object.commitment | checkNone}}</td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>6）嗜好品：</b></font></small><br>
+                    {{ object.luxury_items | checkNone }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>7）誕生(月 日)：</b></font></small><br>
+                    {{ object.birthday | checkNone }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>8）出身地：</b></font></small><br>
+                    {{ object.birthplace | checkNone }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>9）出没エリア：</b></font></small><br>
+                    {{ object.haunting_area | checkNone }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>10）資格：</b></font></small><br>
+                    {{ object.qualification | checkNone }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>11）言語：</b></font></small><br>
+                    {{ object.language | checkNone }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>12）体型：</b></font></small><br>
+                    {% if object.serviceclient_id.gender %}
+                {{ object.body_shape_man | checkNone }}
+                {% else %}
+                {{ object.body_shape_woman | checkNone }}
+                {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>13）セクシュアリティ：</b></font></small><br>
+                    {{ object.sexuality | checkNone }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>14）血液型：</b></font></small><br>
+                    {{ object.blood_type | checkNone }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>15）年齢：</b></font></small><br>
+                    {{ object.age | checkNone }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>16）ルックス：</b></font></small><br>
+                    {{ object.looks | checkNone }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>17）お酒：</b></font></small><br>
+                    {{ object.osake | checkNone }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>18）性格：</b></font></small><br>
+                    {{ object.personality | checkNone }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>19）身長：</b></font></small><br>
+                    {{ object.height | checkNone }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>20）体重：</b></font></small><br>
+                    {{ object.body_weight | checkNone }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>21）結婚歴：</b></font></small><br>
+                    {{ object.marriage_history | checkNone }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>22）子どもの有無：</b></font></small><br>
+                    {{ object.children | checkNone }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>23）同居人：</b></font></small><br>
+                    {{ object.housemate | checkNone }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>24）タバコ：</b></font></small><br>
+                    {{ object.tobacco | checkNone }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>25）学歴：</b></font></small><br>
+                    {{ object.education | checkNone }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>26）職業：</b></font></small><br>
+                    {{ object.occupation | checkNone }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>27）運転免許証：</b></font></small><br>
+                    {{ object.drivers_license | checkNone }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>28）年収：</b></font></small><br>
+                    {{ object.annual_income | checkNone }}</td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+
+        {% if object.face_photo %}
+        <div class="row my-row-style1">
+                <strong>顔写真：</strong>
+        </div>
+        <div class="col-sm-6 col-md-3" style="margin: 0px 10px 10px 0px; ">
+            <!--拡大画像ポップアップ表示-->
+            <a href="{{ object.face_photo.url }}" data-lightbox="group"><img src="{{ object.face_photo.url }}" class="img-fluid img-thumbnail" width="90%"></a>
+<!--                <img src="{{ object.face_photo.url }}" width="100%" height="auto"/>-->
+        </div>
+        <hr>
+        {% endif %}
+
+        {% if object.photo1 %}
+        <div class="row my-row-style1">
+                <strong>写真１：</strong>
+        </div>
+        <div class="col-sm-6 col-md-3" style="margin: 0px 10px 10px 0px; ">
+            <!--拡大画像ポップアップ表示-->
+            <a href="{{ object.photo1.url }}" data-lightbox="group"><img src="{{ object.photo1.url }}" class="img-fluid img-thumbnail" width="90%"></a>
+<!--                <img src="{{ object.photo1.url }}" width="100%" height="auto"/>-->
+        </div>
+        <hr>
+        {% endif %}
+
+        {% if object.photo2 %}
+        <div class="row my-row-style1">
+                <strong>写真２：</strong>
+        </div>
+        <div class="col-sm-6 col-md-3" style="margin: 0px 10px 10px 0px; ">
+            <!--拡大画像ポップアップ表示-->
+            <a href="{{ object.photo2.url }}" data-lightbox="group"><img src="{{ object.photo2.url }}" class="img-fluid img-thumbnail" width="90%"></a>
+        </div>
+        <hr>
+        {% endif %}
+
+        {% if object.photo3 %}
+        <div class="row my-row-style1">
+                <strong>写真３：</strong>
+        </div>
+        <div class="col-sm-6 col-md-3" style="margin: 0px 10px 10px 0px; ">
+            <!--拡大画像ポップアップ表示-->
+            <a href="{{ object.photo3.url }}" data-lightbox="group"><img src="{{ object.photo3.url }}" class="img-fluid img-thumbnail" width="90%"></a>
+        </div>
+        <hr>
+        {% endif %}
+
+    </div>
+</div>
+
+<script>
+// スピナー
+jQuery(function($){
+  $(document).ajaxSend(function() {
+    $("#overlay").fadeIn(300);　
+  });
+
+  $('#button_submit').click(function(){
+    $.ajax({
+      type: 'GET',
+      success: function(data){
+        console.log(data);
+      }
+    }).done(function() {
+      setTimeout(function(){
+        $("#overlay").fadeOut(1300);
+      },500);
+    });
+  });
+});
+
+</script>
+
+  <script type="text/javascript">
+    function CloseWindow() {
+      window.close();
+    }
+  </script>
+
+
+
+{% endblock %}

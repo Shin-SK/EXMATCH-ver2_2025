@@ -1,0 +1,223 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block active_terms_service %}active{% endblock %}
+{% block active_terms_service_logout %}active{% endblock %}
+
+{% block title %}マイページ | GPS-Live-Match{% endblock %}
+
+{% block head %}
+
+<style>
+.image_size_m{
+width: 50px;
+height: auto;
+}
+
+</style>
+
+
+
+<style>
+/* マッチング */
+.matching {
+  display: inline-block;
+  text-align:end;
+  line-height: 10px;
+}
+
+.hownice {
+  display: inline-block;
+  text-align:end;
+  line-height: 10px;
+}
+
+.message-new {
+  display: inline-block;
+  text-align:end;
+  line-height: 10px;
+}
+
+.chat {
+  display: inline-block;
+  text-align:end;
+  line-height: 10px;
+}
+
+
+</style>
+
+<!--<style>-->
+<!--.example1 {/*親div*/-->
+<!--  position: relative;/*相対配置*/-->
+<!--  }-->
+
+<!--.example1 p {-->
+<!--  position: absolute;/*絶対配置*/-->
+<!--  color: red;/*文字は白に*/-->
+<!--  top: 0;-->
+<!--  left: 180;-->
+<!--  }-->
+
+<!--.example1 img {-->
+<!--  width: 10%;-->
+<!--  }-->
+<!--</style>-->
+
+
+{% endblock %}
+
+{% block contents %}
+<div class="container">
+    <div class="my-div-style w-100">
+        <h5>マイページ</h5><br>
+        {% if nickname %}
+        <p>{{ nickname }} さん</p>
+        {% endif %}
+
+        <div class="row my-row-style1">
+            {% if mes_m == '' %}
+            <div class="table-responsive">
+                <table class="table table-borderless table-sm">
+                    <tbody>
+                    <tr align="center">
+                        <td>
+                            {% if ch_query_count %}
+                            <a class="matching" style="text-decoration: none;" href="{% url 'live:member-profile-check' 70 %}"><img class="image_size_m" src="{% static 'img/matching.jpg' %}" title="マッチング管理" alt="マッチング管理"><font color="red" size="3"><b>  {{ ch_query_count }}</b></font></a><br>
+                            {% else %}
+                            <a class="matching" style="text-decoration: none;" href="{% url 'live:member-profile-check' 70 %}"><img class="image_size_m" src="{% static 'img/matching.jpg' %}" title="マッチング管理" alt="マッチング管理"><font color="red" size="3"><b></b></font></a><br>
+                            {% endif %}
+                            <small class="form-text text-muted"><font size="2" color=black>マッチング</font></small>
+                        </td>
+                        <td>
+                            {% if hownice_received_message_cnt %}
+                            <a class="hownice" style="text-decoration: none;" href="{% url 'live:member-profile-check' 69 %}"><img class="image_size_m" src="{% static 'img/hownice.jpg' %}" title="いいね！管理" alt="いいね！管理"><font color="red" size="3"><b>  {{ hownice_received_message_cnt }}</b></font></a><br>
+                            {% else %}
+                            <a href="{% url 'live:member-profile-check' 69 %}"><img class="image_size_m" src="{% static 'img/hownice.jpg' %}" title="いいね！管理" alt="いいね！管理"></a><br>
+                            {% endif %}
+                            <small class="form-text text-muted"><font size="2" color=black>いいね！</font></small>
+                        </td>
+                        <td>
+                            {% if ch_query_count %}
+                            <a class="chat" style="text-decoration: none;" href="{% url 'live:member-profile-check' 27 %}"><img class="image_size_m" src="{% static 'img/chat.jpg' %}" title="チャット管理" alt="チャット管理"><font color="red" size="3"><b>  {{ ch_query_count }}</b></font></a><br>
+                            {% else %}
+                            <a href="{% url 'live:member-profile-check' 27 %}"><img class="image_size_m" src="{% static 'img/chat.jpg' %}" title="チャット管理" alt="チャット管理"></a><br>
+                            {% endif %}
+                            <small class="form-text text-muted"><font size="2" color=black>チャット</font></small>
+                        </td>
+                    </tr>
+                    <tr align="center">
+                        <td align="center">
+                            {% if received_message_cnt %}
+                            <a class="message-new" style="text-decoration: none;" href="{% url 'live:member-profile-check' 68 %}"><img class="image_size_m" src="{% static 'img/message-new.jpg' %}" title="メッセージ管理" alt="メッセージ管理"><font color="red" size="3"><b>  {{ received_message_cnt }}</b></font></a><br>
+                            {% else %}
+                            <a href="{% url 'live:member-profile-check' 68 %}"><img class="image_size_m" src="{% static 'img/message-new.jpg' %}" title="メッセージ管理" alt="メッセージ管理"></a><br>
+                            {% endif %}
+                            <small class="form-text text-muted"><font size="2" color=black>メッセージ</font></small>
+                        </td>
+                        <td>
+                            <a href="{% url 'live:member-profile-check' 73 %}"><img  class="image_size_m" src="{% static 'img/point.jpg' %}" title="ポイント管理" alt="ポイント"></a><br>
+                            <small class="form-text text-muted"><font size="2" color=black>ポイント</font></small>
+                        </td>
+                        <td>
+                            <a href="{% url 'live:member-profile-check' 72 %}"><img class="image_size_m" src="{% static 'img/what_doing.jpg' %}" title="今何してる！管理" alt="今何してる！"></a><br>
+                            <small class="form-text text-muted"><font size="2" color=black>今何してる！</font></small>
+                        </td>
+                    </tr>
+                    <tr align="center">
+                        <!--課金体系フラグ ０：従量課金（LIVEMATCH）-->
+                        {% if m_b_f == 0 %}
+                        <td>
+                            <a href="{% url 'live:member-profile-check' 76 %}"><img class="image_size_m" src="{% static 'img/premium_member.jpg' %}" title="プレミアムぼっち会員管理" alt="プレミアムぼっち会員管理"></a><br>
+                            <small class="form-text text-muted"><font size="2" color=black>プレミアムぼっち会員</font></small>
+                        </td>
+                        {% endif %}
+
+                        <td>
+                            <a href="{% url 'live:member-profile-check' 74 %}"><img class="image_size_m" src="{% static 'img/campaign.jpg' %}" title="キャンペーン情報" alt="キャンペーン"></a><br>
+                            <small class="form-text text-muted"><font size="2" color=black>キャンペーン</font></small>
+                        </td>
+
+                        <!--課金体系フラグ ０：従量課金（LIVEMATCH）-->
+                        {% if m_b_f == 0 %}
+                        <td>
+                            <a href="{% url 'live:member-profile-check' 64 %}"><img class="image_size_m" src="{% static 'img/search_service.jpg' %}" title="検索サービス・サブスク管理" alt="検索サービス"></a><br>
+                            <small class="form-text text-muted"><font size="2" color=black>検索登録サービス</font></small>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    <tr align="center">
+                        <!--課金体系フラグ ０：従量課金（LIVEMATCH）-->
+                        {% if m_b_f == 0 %}
+                        <td>
+                            <a href="{% url 'live:member-profile-check' 9 %}"><img class="image_size_m" src="{% static 'img/member.jpg' %}" title="会員情報管理" alt="会員情報"></a><br>
+                            <small class="form-text text-muted"><font size="2" color=black>会員情報</font></small>
+                        </td>
+                        {% else %}
+                        <td>
+                            <a href="{% url 'live:member-profile-check' 86 %}"><img class="image_size_m" src="{% static 'img/member.jpg' %}" title="会員情報管理" alt="会員情報"></a><br>
+                            <small class="form-text text-muted"><font size="2" color=black>会員情報参照/登録/変更</font></small>
+                        </td>
+                        {% endif %}
+
+                        <td align="center">
+                            <a href="{% url 'live:member-profile-check' 19 %}"><img class="image_size_m" src="{% static 'img/profile.jpg' %}" title="プロフィール管理" alt="プロフィール管理"></a><br>
+                            <small class="form-text text-muted"><font size="2" color=black>プロフィール</font></small>
+                        </td>
+                        <!--課金体系フラグ ０：従量課金（LIVEMATCH）-->
+                        {% if m_b_f == 0 %}
+                        <td>
+                            <a href="{% url 'live:inquiry' %}"><img class="image_size_m" src="{% static 'img/inquiries.jpg' %}" title="お問合せ" alt="お問合せ"></a><br>
+                            <small class="form-text text-muted"><font size="2" color=black>お問合せ</font></small>
+                        </td>
+                        {% else %}
+                        <td>
+                            <a href="{% url 'live:ex_inquiry' %}"><img class="image_size_m" src="{% static 'img/inquiries.jpg' %}" title="お問合せ" alt="お問合せ"></a><br>
+                            <small class="form-text text-muted"><font size="2" color=black>お問合せ</font></small>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    <tr align="center">
+                        <td>
+                            <a href="{% url 'live:event' %}"><img class="image_size_m" src="{% static 'img/notice.jpg' %}" title="お知らせ" alt="お知らせ"></a><br>
+                            <small class="form-text text-muted"><font size="2" color=black>お知らせ</font></small>
+                        </td>
+                        <td>
+                            <a href="{% url 'live:service' %}"><img class="image_size_m" src="{% static 'img/service.jpg' %}" title="サービス内容" alt="サービス内容"></a><br>
+                            <small class="form-text text-muted"><font size="2" color=black>サービス内容</font></small>
+                        </td>
+                        <td align="center">
+                            <a href="{% url 'live:member-profile-check' 71 %}"><img class="image_size_m" src="{% static 'img/card.jpg' %}" title="クレジットカード管理" alt="クレジットカード管理"></a><br>
+                            <small class="form-text text-muted"><font size="2" color=black>クレジットカード</font></small>
+                        </td>
+                    </tr>
+                    <tr align="center">
+                        <td>
+                            <a href="{% url 'live:terms_service' %}"><img class="image_size_m" src="{% static 'img/terms.jpg' %}" title="利用規約" alt="利用規約"></a><br>
+                            <small class="form-text text-muted"><font size="2" color=black>利用規約</font></small>
+                        </td>
+                        <td>
+                            <a href="{% url 'live:currentlocation_delete' %}"><img class="image_size_m" src="{% static 'img/logout.jpg' %}" title="ログアウト" alt="ログアウト"></a><br>
+                            <small class="form-text text-muted"><font size="2" color=black>ログアウト</font></small>
+                        </td>
+                        <td>
+                            <a href="{% url 'live:member-profile-check' 75 %}"><img class="image_size_m" src="{% static 'img/withdrawal-new.jpg' %}" title="退会" alt="退会"></a><br>
+                            <small class="form-text text-muted"><font size="2" color=black>退会</font></small>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <p>{{ mes_m }}</p>
+            {% endif %}
+
+        </div>
+        <!--        <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>-->
+    </div>
+</div>
+
+
+{% endblock %}
+
+

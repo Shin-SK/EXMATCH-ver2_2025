@@ -1,0 +1,189 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block active_terms_member %}active{% endblock %}
+
+{% block title %}会員情報登録 | GPS-Live-Match{% endblock %}
+
+
+{% block contents %}
+
+<div class="container">
+    <div class="my-div-style w-100">
+<!-- エラーメッセージ表示 -->
+<!--            {{form.errors}}-->
+            <h4>会員情報登録</h4>
+        <P>初回のみ、「性別」、「郵便番号」を登録してください。後から変更できます。</P>
+
+        <p id="div0"></p>
+
+        <div class="row my-row-style1">
+
+            <form action="{% url 'live:line_create_user' %}" method="post">
+
+                {% csrf_token %}
+
+                <div class="table-responsive">
+                    <table class="table table-borderless">
+                        <tr>
+                            <td>
+
+                    <div class="form-group">
+                        <label style="font-size:15px;"><strong>性別：</strong></label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gender" id="exampleRadios1" value="True" checked>
+                            <label class="form-check-label" for="exampleRadios1" style="font-size:13px;">
+                                男性
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gender" id="exampleRadios2" value="False">
+                            <label class="form-check-label" for="exampleRadios2" style="font-size:13px;">
+                                女性
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_zip_code" style="font-size:15px;"><strong>郵便番号：</strong>（例：1810002）</label>
+
+                        <input type="text" class="form-control form-control-sm" maxlength="7" id="id_zip_code" aria-describedby="emailHelp" placeholder="" name="postalcode">
+
+                        <small id="emailHelp" class="form-text text-muted" style="color:red;font-size:12px;">※ 郵便番号を入力して「住所取得」をクリックしてください。</small>
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" class="form-control form-control-sm" id="id_address1" placeholder="" name="address1" size="25" readonly>
+                    </div>
+                                <p id="ad1"></p>
+                    <div class="form-group">
+                        <input type="hidden" class="form-control form-control-sm" id="id_address2" placeholder="" name="address2" size="25" readonly>
+                    </div>
+                                <p id="ad2"></p>
+
+                    <div class="form-group">
+                        <input type="hidden" class="form-control form-control-sm" id="id_address3" placeholder="" name="address3" size="25" readonly>
+                    </div>
+
+                                <button id="search-button" class="btn btn-info ml-2 mt-3 mb-3" type="button">住所取得</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                <p id="conf">住所がよろしければ「登録」してください。</p>
+                <button id="search" class="btn btn-primary ml-2 mt-3 mb-3" type="submit">登録</button>
+
+                </form>
+            </div>
+<!--        <input class="btn btn-danger ml-2 mt-3 mb-3" type="reset" value="リセット">-->
+
+        <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>
+        </div>
+    </div>
+
+<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+
+<script>
+        //「登録」ボタン、「conf」の非表示
+        const search = document.getElementById( "search" );
+        search.style.display = "none";  // Form画面の非表示
+        const conf = document.getElementById( "conf" );
+        conf.style.display = "none";  // Form画面の非表示
+</script>
+
+<!--郵便番号→住所変換-->
+<script type="text/javascript">
+    $(document).on('click', '#search-button', function(event){
+
+        const google_key = '{{ google_key }}';  // '' が必要
+
+        var ad1= document.getElementById("ad1");
+        var ad2= document.getElementById("ad2");
+
+        const conf = document.getElementById( "conf" );
+        const search = document.getElementById( "search" );
+        conf.style.display = "none";  // Form画面の非表示
+        search.style.display = "none";  // Form画面の非表示
+
+    address = $('#id_zip_code').val(),
+    al = address.length
+
+    if (address.length < 7) {
+// <!--        alert('正しい郵便番号7桁を入力してください');-->
+            var doc0= document.getElementById("div0");
+            doc0.style.color = "red";
+            doc0.innerHTML= "正しい郵便番号7桁を入力してください";
+            ad1.innerHTML= "";
+            ad2.innerHTML= "";
+            conf.style.display = "none";  // Form画面の非表示
+            search.style.display = "none";  // Form画面の非表示
+
+        return false;
+        }else{
+            var doc0= document.getElementById("div0");
+            doc0.innerHTML= "";
+
+            }
+
+
+        $.ajax({
+            url: 'https://maps.googleapis.com/maps/api/geocode/json',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                key: google_key,
+                address: $('#id_zip_code').val(),
+                language: 'ja'
+            }
+        }).done(function(data) {
+            if (data.status == "OK") {
+                var components = data.results[0].address_components;
+                if (components.length < 5) {
+// <!--                    alert('正しい郵便番号を入力してください');-->
+                    var doc0= document.getElementById("div0");
+                    doc0.innerHTML= "正しい郵便番号を入力してください";
+                    ad1.innerHTML= "";
+                    ad2.innerHTML= "";
+                    conf.style.display = "none";  // Form画面の非表示
+                    search.style.display = "none";  // Form画面の非表示
+
+                    return false;
+                }
+                if (components.length == 5) {
+// <!--                alert('正しい郵便番号です');-->
+                conf.style.display = "flex";  // boxB画面の表示
+                search.style.display = "flex";  // boxB画面の表示
+                    $('#id_address1').val(components[3].long_name);
+                    ad1.innerHTML= components[3].long_name;
+                    $('#id_address2').val(components[2].long_name + ' ' + components[1].long_name);
+                    $('#id_address3').val(components[2].long_name);
+                    ad2.innerHTML= components[2].long_name + ' ' + components[1].long_name;
+                } else if (components.length == 6) {
+                conf.style.display = "flex";  // boxB画面の表示
+                search.style.display = "flex";  // boxB画面の表示
+                    $('#id_address1').val(components[4].long_name);
+                    ad1.innerHTML= components[4].long_name;
+                    $('#id_address2').val(components[3].long_name + ' ' + components[2].long_name);
+                    $('#id_address3').val(components[3].long_name);
+                    ad2.innerHTML= components[3].long_name + ' ' + components[2].long_name;
+                }
+            }else{
+// <!--            alert('郵便番号が間違っています！住所が見つかりません。');-->
+            var doc0= document.getElementById("div0");
+            doc0.style.color = "red";
+            doc0.innerHTML= "郵便番号が間違っています！住所が見つかりません。";
+            ad1.innerHTML= "";
+            ad2.innerHTML= "";
+            conf.style.display = "none";  // Form画面の非表示
+            search.style.display = "none";  // Form画面の非表示
+
+            return false;
+            }
+
+
+        });
+    });
+
+
+</script>
+
+{% endblock %}

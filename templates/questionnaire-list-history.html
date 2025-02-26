@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block active_terms_campaign %}active{% endblock %}
+
+{% block title %}アンケート履歴リスト | GPS-Live-Match{% endblock %}
+
+
+{% block head %}
+
+<style>
+ul.f_s { font-size: 14px; }
+</style>
+
+  <!-- Custom styles for this template -->
+<!--<link href="{% static 'css/clean-blog.min.css' %}" rel="stylesheet">-->
+
+{% endblock %}
+
+{% block contents %}
+
+
+  <!-- Main Content -->
+<div class="container">
+    <div class="my-div-style w-100">
+        <h5>アンケート履歴</h5><br>
+        <p>{{ nickname }} さん</p>
+        <div class="row my-row-style1">
+            <div class="col-lg-8 col-md-10">
+<!--            <div class="col-lg-8 col-md-10 mx-auto">-->
+                {% if tf %}
+                <h6>最近のアンケートキャンペーン情報</h6><br>
+
+                <ul class="f_s" style="list-style: none;">
+                    <li>キャンペーン名：{{ title }}</li>
+                    <li>開始日：{{ s_date }}</li>
+                    <li>終了日：{{ e_date }}</li>
+                    <li>付与ポイント：{{ grant_point }}</li>
+                </ul>
+<!--                <P>-->
+<!--                    キャンペーン名：{{ title }}<br>-->
+<!--                    開始日：{{ s_date }}<br>-->
+<!--                    終了日：{{ e_date }}<br>-->
+<!--                    付与ポイント：{{ grant_point }}<br>-->
+<!--                </P>-->
+                <hr>
+                {% endif %}
+
+                {% for item in object_list %}
+
+                    <div class="post-preview">
+                        <P><strong>アンケート質問１の回答：</strong>
+                        <a href="{% url 'live:questionnaire_detail_history' item.pk %}">
+                            <strong>{{ item.answer1 }}</strong>
+                        </a>
+                        </P>
+                        <p class="post-meta"><strong>登録日：</strong>{{ item.created_at }}</p>
+                    </div>
+                <hr>
+                {% empty %}
+                <p>コンテンツがありません。</p>
+                {% endfor %}
+                <!-- ページネーション処理 -->
+                {% if is_paginated %}
+                    <ul class="pagination">
+                        <!-- 前ページへのリンク -->
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+
+                        <!-- ページ数表示 -->
+                        {% for page_num in page_obj.paginator.page_range %}
+                            {% if page_obj.number == page_num %}
+                                <li class="page-item active"><a class="page-link" href="#">{{ page_num }}</a></li>
+                            {% else %}
+                                <li class="page-item"><a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+
+                        <!-- 次ページへのリンク -->
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+<!--            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>-->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+

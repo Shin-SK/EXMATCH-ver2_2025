@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block active_card %}active{% endblock %}
+
+{% block title %}デフォルトカード | GPS-Live-Match{% endblock %}
+
+
+{% block contents %}
+
+<div class="container" xmlns:margin-bottom="http://www.w3.org/1999/xhtml">
+    <div class="my-div-style w-100">
+
+        <h3>デフォルトカード</h3>
+        {% if nickname %}
+        <p>{{ nickname }} さん</p>
+        {% endif %}
+        <br>
+        <P>下記のカードを「デフォルトカード」に設定しました。</P>
+
+
+        <div class="row my-row-style1">
+            <div>
+                カードブランド： {{ card }}<br>
+                カードナンバー下4桁： {{ last }}
+            </div>
+        </div>
+        <br>
+
+            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>
+    </div>
+
+</div>
+
+{% endblock %}

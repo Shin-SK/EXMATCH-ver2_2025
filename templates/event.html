@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block active_terms_member %}active{% endblock %}
+
+{% block title %}お知らせ | GPS-Live-Match{% endblock %}
+
+{% block head %}
+
+  <!-- Custom styles for this template -->
+<!--<link href="{% static 'css/clean-blog.min.css' %} rel="stylesheet">-->
+
+{% endblock %}
+
+{% block contents %}
+
+  <!-- Main Content -->
+<div class="container">
+    <div class="my-div-style w-100">
+            <h5>お知らせ</h5><br>
+
+        <div class="row my-row-style1">
+                <h7>{{ nickname }} さん</h7><br><br>
+        </div>
+
+        {% for item in object_list %}
+
+        <div class="row my-row-style1">
+                <strong>イベントタイトル：</strong>
+        </div>
+        <div class="row my-row-style1">
+                {{ item.title }}
+        </div>
+        <hr>
+
+        <div class="row my-row-style1">
+                <strong>イベント内容：</strong>
+        </div>
+        <div class="row my-row-style1">
+                {{ item.letter_body }}
+        </div>
+        <hr>
+
+            {% if item.photo %}
+        <div class="row my-row-style1">
+                <strong>写真：</strong>
+        </div>
+        <div class="col-sm-6 col-md-3" style="margin: 0px 10px 10px 0px; ">
+                <img src="{{ item.photo.url }}" width="100%" height="auto"/>
+        </div>
+        <hr>
+            {% endif %}
+        <div class="row my-row-style1">
+                <strong>開始日：</strong>
+        </div>
+        <div class="row my-row-style1">
+                {{ item.s_date }}
+        </div>
+        <hr>
+
+        <div class="row my-row-style1">
+                <strong>終了日：</strong>
+        </div>
+        <div class="row my-row-style1">
+                {{ item.e_date }}
+        </div>
+        <hr>
+
+<!--        <div class="row my-row-style1">-->
+<!--                <strong>登録日時：</strong>-->
+<!--        </div>-->
+<!--        <div class="row my-row-style1">-->
+<!--                {{ item.created_at }}-->
+<!--        </div>-->
+<!--        <hr>-->
+<!--                <hr>-->
+                {% empty %}
+                <p>コンテンツがありません。</p>
+                {% endfor %}
+                <!-- ページネーション処理 -->
+                {% if is_paginated %}
+                    <ul class="pagination">
+                        <!-- 前ページへのリンク -->
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+
+                        <!-- ページ数表示 -->
+                        {% for page_num in page_obj.paginator.page_range %}
+                            {% if page_obj.number == page_num %}
+                                <li class="page-item active"><a class="page-link" href="#">{{ page_num }}</a></li>
+                            {% else %}
+                                <li class="page-item"><a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+
+                        <!-- 次ページへのリンク -->
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+                <br>
+<!--            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a><br><br>-->
+            </div>
+        </div>
+{% endblock %}
+
+

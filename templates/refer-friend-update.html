@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}友達紹介情報編集 | GPS-Live-Match{% endblock %}
+
+
+
+{% block contents %}
+
+<div class="container">
+    <div class="my-div-style w-100">
+            <h5>友達紹介編集</h5>
+            <p>会員氏名：{{ clientname }}  さん<br><br>
+            友達紹介内容を編集してください。
+            </p>
+
+        <div class="row my-row-style1">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <table class="table">
+                    {% bootstrap_form form%}
+
+                </table>
+                <button class="btn btn-primary" type="submit">更新</button>
+                <a class="btn btn-success ml-2" href="{% url 'live:refer_friend_detail' object.pk rf_pk %}">戻る</a>
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

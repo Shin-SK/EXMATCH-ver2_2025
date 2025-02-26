@@ -1,0 +1,12 @@
+# ディレクトリを無視
+_static-full/
+_templates-full/
+.vscode/
+master/
+
+# ファイルを無視
+db.sqlite3
+directory_structure.txt
+manage.py
+
+.mp4

@@ -1,0 +1,235 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block active_terms_member %}active{% endblock %}
+
+{% block title %}プロフィール詳細 | GPS-Live-Match{% endblock %}
+
+{% block head %}
+<!--    <style>-->
+<!--    body {-->
+<!--    font-family:"ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;-->
+<!--    color:#630;-->
+<!--    line-height:25px;-->
+<!--    font-size:0.95em;-->
+<!--    }-->
+
+<!--    </style>-->
+
+
+{% endblock %}
+
+{% block contents %}
+
+<div class="container" xmlns:margin-bottom="http://www.w3.org/1999/xhtml">
+    <div class="my-div-style w-100">
+
+        <h3>プロフィール内容</h3><br>
+
+        <p>{{ object.nickname }} さん のプロフィールです。<br>
+        修正する場合は、「編集」ボタンをクリックしてください。</p>
+
+        <hr>
+
+<!--        <table class="table">-->
+        <div class="table-responsive">
+        <table class="table table-bordered table-hover table-striped" style="font-size: 11pt;" >
+<!--        <table class="table table-bordered table-hover table-striped"" >-->
+            <tbody>
+                {% if p_gender %}
+            <thead class="thead-dark">
+                <tr>
+                  <th scope="col" >#</th>
+                  <th scope="col" >項目</th>
+                  <th scope="col" >内容</th>
+                </tr>
+            </thead>
+                {% else %}
+            <thead>
+                <tr>
+                  <th scope="col" bgcolor="#FFC0CB "><font color="#c71585 ">#</font></th>
+                  <th scope="col" bgcolor="#FFC0CB "><font color="#c71585 ">項目</font></th>
+                  <th scope="col" bgcolor="#FFC0CB "><font color="#c71585 ">内容</font></th>
+                </tr>
+            </thead>
+                {% endif %}
+            <tr><th scope="row">1</th>
+                <td>ニックネーム：</td>
+                <td>{{ object.nickname }}</td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>自己ピーアール：</td>
+                <td>{{ object.article }}</td>
+            </tr>
+<!--            <tr>-->
+<!--                <th scope="row">2</th>-->
+<!--                <td>今何している！：</td>-->
+<!--                <td>{{ object.what_doing_now }}</td>-->
+<!--            </tr>-->
+            <tr>
+                <th scope="row">3</th>
+                <td>趣味・興味：</td>
+                <td>{{ object.keyword }}</td>
+            </tr>
+            <tr>
+                <th scope="row">4</th>
+                <td>こだわり：</td>
+                <td>{{ object.commitment }}</td>
+            </tr>
+            <tr>
+                <th scope="row">5</th>
+                <td>嗜好品：</td>
+                <td>{{ object.luxury_items }}</td>
+            </tr>
+            <tr>
+                <th scope="row">6</th>
+                <td>誕生(月 日)：</td>
+                <td>{{ object.birthday }}</td>
+            </tr>
+            <tr>
+                <th scope="row">7</th>
+                <td>出身地：</td>
+                <td>{{ object.birthplace }}</td>
+            </tr>
+            <tr>
+                <th scope="row">8</th>
+                <td>出没エリア：</td>
+                <td>{{ object.haunting_area }}</td>
+            </tr>
+            <tr>
+                <th scope="row">9</th>
+                <td>資格：</td>
+                <td>{{ object.qualification }}</td>
+            </tr>
+            <tr>
+                <th scope="row">10</th>
+                <td>言語：</td>
+                <td>{{ object.language }}</td>
+            </tr>
+            <tr><th scope="row">11</th>
+                <td>体型：</td>
+                <td>{% if object.serviceclient_id.gender %}
+                {{ object.body_shape_man }}
+                {% else %}
+                {{ object.body_shape_woman }}
+                {% endif %}
+                </td>
+            </tr>
+            <tr><th scope="row">12</th>
+                <td>セクシュアリティ：</td>
+                <td>{{ object.sexuality }}</td>
+            </tr>
+            <tr><th scope="row">13</th>
+                <td>血液型：</td>
+                <td>{{ object.blood_type }}</td>
+            </tr>
+            <tr><th scope="row">14</th>
+                <td>年齢：</td>
+                <td>{{ object.age }}</td>
+            </tr>
+            <tr><th scope="row">15</th>
+                <td>ルックス：</td>
+                <td>{{ object.looks }}</td>
+            </tr>
+            <tr><th scope="row">16</th>
+                <td>お酒：</td>
+                <td>{{ object.osake }}</td>
+            </tr>
+            <tr><th scope="row">17</th>
+                <td>性格：</td>
+                <td>{{ object.personality }}</td>
+            </tr>
+            <tr><th scope="row">18</th>
+                <td>身長：</td>
+                <td>{{ object.height }}</td>
+            </tr>
+            <tr><th scope="row">19</th>
+                <td>体重：</td>
+                <td>{{ object.body_weight }}</td>
+            </tr>
+            <tr><th scope="row">20</th>
+                <td>結婚歴：</td>
+                <td>{{ object.marriage_history }}</td>
+            </tr>
+            <tr><th scope="row">21</th>
+                <td>子供有無：</td><td>{{ object.children }}</td>
+            </tr>
+            <tr><th scope="row">22</th>
+                <td>同居人：</td><td>{{ object.housemate }}</td>
+            </tr>
+            <tr><th scope="row">23</th>
+                <td>タバコ：</td>
+                <td>{{ object.tobacco }}</td>
+            </tr>
+            <tr><th scope="row">24</th>
+                <td>学歴：</td>
+                <td>{{ object.education }}</td>
+            </tr>
+            <tr><th scope="row">25</th>
+                <td>お仕事：</td>
+                <td>{{ object.occupation }}</td>
+            </tr>
+            <tr><th scope="row">26</th>
+                <td>運転免許証：</td>
+                <td>{{ object.drivers_license }}</td>
+            </tr>
+
+            <tr><th scope="row">27</th>
+                <td>年収：</td>
+                <td>{{ object.annual_income }}</td>
+            </tr>
+
+            </tbody>
+        </table>
+        </div>
+
+        {% if object.face_photo %}
+        <div class="row my-row-style1">
+                <strong>顔写真：</strong>
+        </div>
+        <div class="col-sm-6 col-md-3" style="margin: 0px 10px 10px 0px; ">
+                <img src="{{ object.face_photo.url }}" width="100%" height="auto"/>
+        </div>
+        <hr>
+        {% endif %}
+
+        {% if object.photo1 %}
+        <div class="row my-row-style1">
+                <strong>写真１：</strong>
+        </div>
+        <div class="col-sm-6 col-md-3" style="margin: 0px 10px 10px 0px; ">
+                <img src="{{ object.photo1.url }}" width="100%" height="auto"/>
+        </div>
+        <hr>
+        {% endif %}
+
+        {% if object.photo2 %}
+        <div class="row my-row-style1">
+                <strong>写真２：</strong>
+        </div>
+        <div class="col-sm-6 col-md-3" style="margin: 0px 10px 10px 0px; ">
+                <img src="{{ object.photo2.url }}" width="100%" height="auto"/>
+        </div>
+        <hr>
+        {% endif %}
+
+        {% if object.photo3 %}
+        <div class="row my-row-style1">
+                <strong>写真３：</strong>
+        </div>
+        <div class="col-sm-6 col-md-3" style="margin: 0px 10px 10px 0px; ">
+                <img src="{{ object.photo3.url }}" width="100%" height="auto"/>
+        </div>
+        <hr>
+        {% endif %}
+
+            <a class="btn btn-warning mt-5 mb-3" href="{% url 'live:profile_update' object.pk %}">編集</a>
+            <a class="btn btn-success mt-5 ml-2 mb-3" href="{% url 'live:index' %}">ホーム</a><br><br>
+
+    </div>
+
+</div>
+
+{% endblock %}

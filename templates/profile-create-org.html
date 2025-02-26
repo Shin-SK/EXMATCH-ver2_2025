@@ -1,0 +1,218 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block active_terms_member %}active{% endblock %}
+
+{% block title %}プロフィール登録 | GPS-Live-Match{% endblock %}
+
+
+{% block contents %}
+
+<div class="container">
+    <div class="my-div-style w-100">
+<!-- エラーメッセージ表示 -->
+            {{form.errors}}
+            <br>
+            <h4>プロフィール登録</h4>
+        <br>
+        <p>ニックネーム、自己ピーアール以外は全て任意入力です。<br>
+        できるだけ多くの項目を入力してください！</p>
+        <div class="row my-row-style1">
+            <form action="{% url 'live:profile_create' %}" method="post" enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+                <div class="form-group">
+                <label for="formGroup100" style="font-size:13px;">ニックネーム：（必須）</label>
+                <input type="text" class="form-control form-control-sm" id="formGroup100" aria-describedby="nicknameHelp" placeholder="例：）ぼっち、 taroumaru123、 太郎丸 " name="nickname" size="20">
+                <small id="nicknameHelp" class="form-text text-muted" style="color:red;font-size:12px;">※ 20文字以内の任意のニックネームを入力してください。<br>※ 他者と重複しないニックネームかをチェックします。</small>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="profile" style="font-size:13px;">自己ピーアール：（必須）</label><br>
+                    <textarea class="form-control" id="profile" name="article" rows="5" cols=100% placeholder="例：）
+はじめまして、プロフィール見て頂きありがとうございます！
+長野県出身、今は都内に住んでいます。
+
+仕事はIT会社でプログラムエンジニアをしています。
+大変な仕事ですが、やりがいがあるので仕事はとても楽しいです。
+
+性格は、優しい、おおらか、落ち着いていると周りから言われる事が多く、
+どちらかというとアウトドア派で、休日はサイクリングをしたり、ゴルフ、ドライブをしてすごしています。
+
+あと、美味しい料理やお酒が大好きなので、都内のおいしいお店を探索中です！
+ぜひ一緒にお酒やご飯を食べられたらいいなぁと。
+
+よろしくお願いします！">
+</textarea>
+                <small id="groupHelp0" class="form-text text-muted">※ 自己ピーアールを入力してください。（500文字以内）</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="keyword" style="font-size:13px;">趣味・興味：（任意）</label><br>
+                    <textarea class="form-control" id="keyword" name="keyword" rows="5" cols=100% placeholder="ご自分をピーアールするキーワードを入力してください。お相手から検索され易くなります。
+カンマ区切り（、）で入力してください。
+例：）
+ゴルフ、ドライブ、サイクリング、長野県、独身、アウトドア派、プログラムエンジニア、優しい"></textarea>
+                <small id="groupHelp1" class="form-text text-muted">※ 趣味・興味を入力してください。（全角カンマ区切りで300文字以内）</small>
+                </div>
+
+
+                <div class="form-group">
+                <label for="formGroup0" style="font-size:13px;">身長：（任意）</label>
+                <select class="form-control form-control-sm" id="formGroup0" name="height" aria-describedby="groupHelp2">
+                    <option value="-----" selected>-----</option>
+                    {% for g in height %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endfor %}
+                </select>
+                <small id="groupHelp2" class="form-text text-muted">※ 身長を選択してください。</small>
+                </div>
+
+                <div class="form-group">
+                <label for="formGroup1" style="font-size:13px;">体重：（任意）</label>
+                <select class="form-control form-control-sm" id="formGroup1" name="body_weight" aria-describedby="groupHelp3">
+                    <option value="-----" selected>-----</option>
+                    {% for g in weight %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endfor %}
+                </select>
+                <small id="groupHel3" class="form-text text-muted">※ 体重を選択してください。</small>
+                </div>
+
+                {% if gender %}
+<!--                男性-->
+                <div class="form-group">
+                <label for="formGroup2" style="font-size:13px;">体型：（任意）</label>
+                <select class="form-control form-control-sm" id="formGroup2" name="body_shape_man" aria-describedby="groupHelp4">
+                    <option value="-----" selected>-----</option>
+                    {% for g in body_shape %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endfor %}
+                </select>
+                <small id="groupHel4" class="form-text text-muted">※ 体型を選択してください。</small>
+                </div>
+                {% else %}
+<!--                女性-->
+                <div class="form-group">
+                <label for="formGroup3" style="font-size:13px;">体型：（任意）</label>
+                <select class="form-control form-control-sm" id="formGroup3" name="body_shape_woman" aria-describedby="groupHelp5">
+                    <option value="-----" selected>-----</option>
+                    {% for g in body_shape %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endfor %}
+                </select>
+                <small id="groupHel5" class="form-text text-muted">※ 体型を選択してください。</small>
+                </div>
+                {% endif %}
+
+
+                <div class="form-group">
+                <label for="formGroup4" style="font-size:13px;">結婚歴：（任意）</label>
+                <select class="form-control form-control-sm" id="formGroup4" name="marriage_history" aria-describedby="groupHelp6">
+                    <option value="-----" selected>-----</option>
+                    {% for g in m_history %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endfor %}
+                </select>
+                <small id="groupHel6" class="form-text text-muted">※ 結婚歴を選択してください。</small>
+                </div>
+
+                <div class="form-group">
+                <label for="formGroup5" style="font-size:13px;">子どもの有無：（任意）</label>
+                <select class="form-control form-control-sm" id="formGroup5" name="children" aria-describedby="groupHelp7">
+                    <option value="-----" selected>-----</option>
+                    {% for g in children %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endfor %}
+                </select>
+                <small id="groupHel7" class="form-text text-muted">※ 子どもの有無を選択してください。</small>
+                </div>
+
+                <div class="form-group">
+                <label for="formGroup6" style="font-size:13px;">タバコ：（任意）</label>
+                <select class="form-control form-control-sm" id="formGroup6" name="tobacco" aria-describedby="groupHelp8">
+                    <option value="-----" selected>-----</option>
+                    {% for g in tobacco %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endfor %}
+                </select>
+                <small id="groupHel8" class="form-text text-muted">※ タバコの有無を選択してください。</small>
+                </div>
+
+                <div class="form-group">
+                <label for="formGroup7" style="font-size:13px;">学歴：（任意）</label>
+                <select class="form-control form-control-sm" id="formGroup7" name="education" aria-describedby="groupHelp9">
+                    <option value="-----" selected>-----</option>
+                    {% for g in education %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endfor %}
+                </select>
+                <small id="groupHel9" class="form-text text-muted">※ 学歴を選択してください。</small>
+                </div>
+
+                <div class="form-group">
+                <label for="formGroup8" style="font-size:13px;">職業：（任意）</label>
+                <select class="form-control form-control-sm" id="formGroup8" name="occupation" aria-describedby="groupHelp10">
+                    <option value="-----" selected>-----</option>
+                    {% for g in occupation %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endfor %}
+                </select>
+                <small id="groupHel10" class="form-text text-muted">※ 職業を選択してください。</small>
+                </div>
+
+                <div class="form-group">
+                <label for="formGroup9" style="font-size:13px;">運転免許証：（任意）</label>
+                <select class="form-control form-control-sm" id="formGroup9" name="drivers_license" aria-describedby="groupHelp11">
+                    <option value="-----" selected>-----</option>
+                    {% for g in d_license %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endfor %}
+                </select>
+                <small id="groupHel11" class="form-text text-muted">※ 普通運転免許証の有無を選択してください。</small>
+                </div>
+
+                <div class="form-group">
+                <label for="formGroup10" style="font-size:13px;">年収：（任意）</label>
+                <select class="form-control form-control-sm" id="formGroup10" name="annual_income" aria-describedby="groupHelp12">
+                    <option value="-----" selected>-----</option>
+                    {% for g in income %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endfor %}
+                </select>
+                <small id="groupHel12" class="form-text text-muted">※ 年収を選択してください。</small>
+                </div>
+
+                <div class="form-group">
+                <label for="formGroup11" style="font-size:13px;">顔写真：（任意）</label>
+                <input type="file" class="form-control-file" id="formGroup11" name="face_photo">
+                <small id="groupHel13" class="form-text text-muted">※ できるだけ入力してください。</small>
+                </div>
+
+                <div class="form-group">
+                <label for="formGroup12" style="font-size:13px;">写真１：（任意）</label>
+                <input type="file" class="form-control-file" id="formGroup12" name="photo1">
+                </div>
+
+                <div class="form-group">
+                <label for="formGroup13" style="font-size:13px;">写真２：（任意）</label>
+                <input type="file" class="form-control-file" id="formGroup13" name="photo2">
+                </div>
+
+                <div class="form-group">
+                <label for="formGroup14" style="font-size:13px;">写真３：（任意）</label>
+                <input type="file" class="form-control-file" id="formGroup14" name="photo3">
+                </div>
+
+                <button class="btn btn-primary ml-2 mt-3 mb-3" type="submit">登録</button>
+                <input class="btn btn-danger ml-2 mt-3 mb-3"type="reset" value="リセット">
+            </form>
+
+        </div>
+            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>
+    </div>
+</div>
+
+{% endblock %}

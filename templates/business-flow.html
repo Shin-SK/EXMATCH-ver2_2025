@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block active_terms_service %}active{% endblock %}
+{% block active_terms_service_logout %}active{% endblock %}
+
+{% block title %}利用フロー | GPS-Live-Match{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block contents %}
+
+<!--                課金体系フラグ １：定額課金（EXMATCH） ０：従量課金（LIVEMATCH）-->
+{% if m_b_f == 0 %}
+{% if mes_m == '' %}
+
+<div class="container">
+    <div class="my-div-style w-100">
+        <h5>{{ trade_name }} 「利用フロー」</h5><br>
+        <div class="row my-row-style1">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <tr>
+                        <td>
+                            <ul>
+                                <li><h6>事前処理フロー</h6></li><br>
+                                <li><a href="{% url 'live:business_flow_main' %}">メイン処理フロー</a></li><br>
+                                <li><a href="{% url 'live:business_flow_card' %}">カード関連処理フロー</a></li><br>
+                                <li><a href="{% url 'live:business_flow_subscription' %}">プロフィール検索サービスフロー</a></li><br>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <ol>
+                                <li>会員登録<font color="red">（必須）</font> <br>初回のみ会員登録します。<br>「LINEログイン」または「ぼっち無料会員登録」で会員登録できます。<br>会員登録された方には「会員登録ポイント（{{ member_registration_points }} ポイント）」を付与いたします。<br>「ぼっち無料会員登録」の場合は、メールアドレスを確認するための確認メールを「<a href="{{ live_match_url }}">{{ trade_name }}</a>」から送信します。メール内のURLをクリックして本登録します。<br>迷惑メール設定されている方は、itbiz.jpドメインからの受信ができるように設定してください。</li><br>
+                                <li>プロフィール登録<font color="red">（必須）</font><br>初回のみプロフィール登録します。<br>多くのキーワードを入力することにより、より多くのお友達とマッチングする事ができます。<br>プロフィールはいつでも修正可能です。「プロフィール管理」メニューから編集してください。</li><br>
+                                <li>カード登録<font color="red">（必須）</font><br>当サイトのご利用には、クレジットカードもしくはデビットカードの登録が必須となります。複数のカードを登録する事も可能です。<br>また当サイトでは、<a href="https://squareup.com/jp/ja">Square</a>カード決済サービスを利用しており、お客様の登録カード情報は一切保有いたしておりません。<br>Squareではカードのご利用時、データは独自のスキームにより暗号化され、決済処理されます。そのため、ご入力いただいたデータが端末やサイト内に保存される事はありません。</br>利用料金は、後払い方式で、各月の{{ card_payment_date }}日のいずれかの日がカード決済日となります。</li><br>
+                                <li>ポイント購入<font color="red">（任意）</font><br>当サイトでは、「ポイント」で運用します。1ポイントは{{ unit_price }}円です。<br>ご利用に合わせて「ポイント購入」メニューより、随時購入できます。</li><br>
+                            </ol>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="p-3">
+                <img class="img-fluid" src="{% static 'img/pre-processing-flow.jpg' %}" width="100%" height="auto" alt="事前処理フロー"/>
+            </div>
+
+        </div>
+        <!--            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>-->
+    </div>
+</div>
+
+{% else %}
+<p>{{ mes_m }}</p>
+{% endif %}
+
+{% else %}
+
+<div class="container">
+    <div class="my-div-style w-100">
+        <h5>利用フロー</h5><br>
+
+        <div class="row my-row-style1">
+            {% if mes_m == '' %}
+
+            <p>EXMATCHの利用フローを記述</p>
+
+            {% else %}
+            <p>{{ mes_m }}</p>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+{% endblock %}
+
+

@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block active_terms_service %}active{% endblock %}
+{% block active_terms_service_logout %}active{% endblock %}
+
+{% block title %}会社概要 | GPS-Live-Match{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block contents %}
+<div class="container">
+    <div class="my-div-style w-100">
+        <h6>会社概要/特定商取引法に基づく表記</h6><br>
+        <div class="row my-row-style1">
+            {% if mes_m == '' %}
+            <!--            課金体系フラグ １：定額課金（EXMATCH） ０：従量課金（LIVEMATCH）-->
+            {% if m_b_f == 1 %}
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <tr>
+                        <td>
+                            <ol>
+                                <Li>名称・及びURL</Li><br>
+                                EXMATCH (<a href="https://exmatch.jp/" target="_blank">https://exmatch.jp/</a>)<br><br>
+
+                                <Li>連絡先</Li><br>
+                                メールアドレス：<a href="mailto:info@itbiz.jp">info@itbiz.jp</a><br>
+                                電話：050-5469-6461<br><br>
+                                <Li>営業時間</Li><br>
+                                24時間営業（年中無休）<br><br>
+                                <Li>事業者名</Li><br>
+                                株式会社エクスマリー (<a href="https://exmarry.co.jp/" target="_blank">https://exmarry.co.jp/</a>)<br><br>
+                                <!--                        株式会社エクスマリー<br><br>-->
+                                <Li>運営責任者</Li><br>
+                                棚村健司<br><br>
+                                <Li>所在地</Li><br>
+                                東京都千代田区九段南1-5-6りそな九段ビル5F<br><br>
+                                <Li>役務の内容</Li><br>
+                                <ol>
+                                    <li>インターネットを利用した各種情報提供サービス</li><br>
+                                    <li>Ｗｅｂサイトの企画、制作、販売、運営及び管理</li><br>
+                                    <li>ＥＣ（電子商取引）サイトの企画、制作、販売、運営及び管理</li><br>
+                                    <li>各種アプリケーションソフトの企画、制作、販売、運営及び管理</li><br>
+                                    <li>コンピュータシステムの企画、開発、販売及び保守に関する業務</li><br>
+                                    <li>プログラミング教育企画、授業及びその運営並びに管理</li><br>
+                                    <li>自転車のパンク修理のインターネットによる受付及びその事業の運営並びに管理</li><br>
+                                    <li>ゲームソフトの企画、開発、販売及びその事業の運営並びに管理</li><br>
+                                    <li>ロボット開発、販売及びその事業の運営並びに管理</li><br>
+                                    <li>労働者派遣事業</li><br>
+                                    <li>前各号に附帯又は関連する一切の事業</li><br>
+                                </ol>
+                                <Li>商品代金以外の必要料金</Li><br>
+                                なし<br><br>
+                                <Li>サイトポリシー</Li><br>
+                                当社既定の プライバシーポリシー<br><br>
+                                <Li>役務の対価</Li><br>
+                                料金<br>
+                                ※一部サービスや商品でポイントが必要な場合もございます。<br><br>
+                                支払方法、役務の提供時期</Li><br>
+                                ＜ポイント＞<br>
+                                カード決済後、1時間以内<br>
+                                ※本サービスを利用した際に、ISP（インターネットプロバイダ）又は携帯電話会社より請求される回線利用料金もしくはパケット料金については、会員様の自己負担とさせていただきます。<br>
+                                ＜上記以外の商品＞<br>
+                                商品購入時にポイントが消費されます。<br><br>
+                                <Li>返金／返品</Li><br>
+                                ＜ポイント＞<br>
+                                当社は既に支払われた料金や購入されたポイントに対して返金業務は行っておりません。又、サービスの性質上、返品依頼も受け付けておりません。<br>
+                                ＜上記以外の商品＞<br>
+                                不良品のみ交換を受け付けます。<br>
+                                引取交換を行いますので、商品到着より7日以内にメール又はお電話にてご連絡ください。<br><br>
+                                <Li>利用規約</Li><br>
+                                当社既定 利用規約 に準拠<br><br>
+                                <Li>インターネット異性紹介事業届出</Li><br>
+                                登録番号：渋谷22-063086<br><br>
+                                <!--                        <Li>第二種電気通信事業者届出</Li><br>-->
+                                <!--                        届出番号ｘｘｘｘｘ<br><br>-->
+                                <!--                        <Li>商標登録</Li><br>-->
+                                <!--                        『イマココぼっち』商標登録 第ｘｘｘｘｘ号<br><br>-->
+                            </ol>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            {% else %}
+            <!--            課金体系フラグ ０：従量課金（LIVEMATCH）-->
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <tr>
+                        <td>
+                            <ol>
+                                <li>{{ trade_name }} は、個人事業形態でサービスを提供いたします。</li>
+                                <li>業種：インターネット異性紹介事業（登録番号：三鷹22-004381）、インターネット集客事業</li>
+                                <li>個人事業主：<br>原田静男</li>
+                                <li>住所：<br>1250035 東京都葛飾区南水元1-30-5-501</li>
+                                <li>電話：<br>080-5477-9697</li>
+                                <li>Email：<br>info@itbiz.jp</li>
+                                <li>{{ trade_name }} ホームページ：<br><a href="{{ live_match_url }}">{{ live_match_url }}</a></li>
+                                <li>{{ trade_name }} ブログホームページ：<br><a href="{{ live_match_blog_url }}">{{ live_match_blog_url }}</a></li>
+                            </ol>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            {% endif %}
+
+            {% else %}
+            <p>{{ mes_m }}</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+

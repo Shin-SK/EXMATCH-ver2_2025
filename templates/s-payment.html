@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block active_card %}active{% endblock %}
+
+{% block title %}カード登録 | GPS-Live-Match{% endblock %}
+
+{% block head %}
+
+    <!-- My style -->
+<!--    <link rel="stylesheet" type="text/css" href="{% static 'css/sq-style.css' %}">-->
+<!--    <link rel="stylesheet" type="text/css" href="{% static 'css/app.css' %}">-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sq-payment.css' %}">
+
+<!--       1: References the Square payment library to initalize the SDK -->
+    {% if enviroment == 'sandbox' %}
+      <script src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
+    {% else %}
+      <script src="https://web.squarecdn.com/v1/square.js"></script>
+    {% endif %}
+
+{% endblock %}
+
+{% block contents %}
+<div class="container">
+    <div class="my-div-style w-100">
+        <h6>カード登録</h6>
+        {% if nickname %}
+        <p>{{ nickname }} さん</p>
+        {% endif %}
+
+        <div class="row my-row-style1">
+
+  <form id="payment-form">
+    <div id="card-container"></div>
+<!--    <button id="card-button" type="button">カード登録</button>-->
+    <button id="card-button" type="button" class="btn btn-Info btn-lg btn-block">カード登録</button>
+  </form>
+
+        </div>
+        <div id="edit_area"></div>
+<!--        <a class="btn btn-success mt-5 ml-2 mb-3" href="{% url 'live:index' %}">ホーム</a><br><br>-->
+
+    </div>
+</div>
+
+
+  <!-- Configure the Web Payments SDK and Card payment method -->
+  <script type="text/javascript">
+    async function main() {
+      const payments = Square.payments('{{ application_id }}', '{{ location_id }}');
+      const card = await payments.card();
+      await card.attach('#card-container');
+
+      async function eventHandler(event) {
+        event.preventDefault();
+
+        try {
+          const result = await card.tokenize();
+          if (result.status === 'OK') {
+            console.log(`Payment token is ${result.token}`);
+            // tokenを表示
+            document.getElementById('edit_area').textContent = result.token ;
+            // location.href = 'http://localhost:8000/';
+            // 'http://localhost:8000/s-tokenget/'へトークン情報と共に遷移
+            location.href = "{{ tokenget_href }}" + result.token + "/";
+
+          }
+        } catch (e) {
+          console.error(e);
+        }
+      };
+
+      const cardButton = document.getElementById('card-button');
+      cardButton.addEventListener('click', eventHandler);
+
+    }
+
+    main();
+
+  </script>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}カード管理 | GPS-Live-Match{% endblock %}
+
+{% block active_terms_service %}active{% endblock %}
+{% block head %}
+
+ <style>
+ul.f_s { font-size: 14px; }
+</style>
+
+{% endblock %}
+
+{% block contents %}
+
+<div class="container">
+    <div class="my-div-style w-100">
+
+        <h6>カード管理</h6>
+        <p>{{ nickname }} さん</p>
+        <div class="row my-row-style1">
+
+        <div class="table-responsive">
+
+        <table class="table table-bordered table-hover table-striped">
+            <tbody>
+            <thead class="#808080">
+                <tr align="center">
+<!--                    <th scope="col" bgcolor="#808080"><font color="white">#</font></th>-->
+<!--                  <th scope="col" bgcolor="#808080"><font color="white">項目</font></th>-->
+                  <th scope="col" bgcolor="#808080"><font color="white">カード管理</font></th>
+                </tr>
+            </thead>
+            <tr>
+<!--                <th scope="row">1</th>-->
+                <td>
+                    <a href="{% url 'live:member-profile-check' 32 %}">カード登録</a><br><br>
+                    <ul class="f_s"><li>クレジットカード、デビットカードを登録します。</li></ul>
+                </td>
+<!--                <td>-->
+<!--                    クレジットカード、デビットカードを登録します。-->
+<!--                </td>-->
+            </tr>
+            <tr>
+<!--                <th scope="row">2</th>-->
+                <td><a href="{% url 'live:member-profile-check' 36 %}">カード一覧</a><br><br>
+                    <ul class="f_s"><li>登録したカードの一覧を参照できます。</li></ul>
+                </td>
+<!--                <td>-->
+<!--                    登録したカードの一覧を参照できます。-->
+<!--                </td>-->
+            </tr>
+            <tr>
+<!--                <th scope="row">3</th>-->
+                <td><a href="{% url 'live:member-profile-check' 37 %}">デフォルトカード</a><br><br>
+                    <ul class="f_s"><li>デフォルトカードとは、支払時に自動選定されて、支払に使われるカードです。</li></ul>
+                </td>
+<!--                <td>-->
+<!--                    デフォルトカードとは、支払時に自動選定されて、支払に使われるカードです。-->
+<!--                </td>-->
+            </tr>
+            <tr>
+<!--                <th scope="row">4</th>-->
+                <td><a href="{% url 'live:member-profile-check' 39 %}">カード削除</a><br><br>
+                    <ul class="f_s"><li>登録したカードを削除できます。</li></ul>
+                </td>
+<!--                <td>-->
+<!--                    登録したカードを削除できます。-->
+<!--                </td>-->
+            </tr>
+
+            </tbody>
+        </table>
+        </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+

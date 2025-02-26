@@ -1,0 +1,1121 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block active_terms_service %}active{% endblock %}
+{% block active_terms_service_logout %}active{% endblock %}
+
+{% block title %}送信メッセージ | GPS-Live-Match{% endblock %}
+
+{% block head %}
+
+<!--https://toretama.jp/click-big-image-floaty.html-->
+<!--拡大画像ポップアップ表示-->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/css/lightbox.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/js/lightbox.min.js" type="text/javascript"></script>
+
+
+<style>
+/* チャットCSS */
+/*以下、背景色など*/
+
+.line-bc {
+  padding: 2px 5px;
+//  padding: 20px 10px;
+  max-width: 450px;
+  margin: 0px auto;
+//  margin: 15px auto;
+  text-align: right;
+  font-size: 14px;
+//  background: white;
+  background: #7da4cd;
+}
+
+/*以下、左側のコメント*/
+.balloon6 {
+  width: 100%;
+  margin: 10px 0;
+  overflow: hidden;
+}
+
+.balloon6 .faceicon {
+  float: left;
+  margin-right: -100px;
+//  margin-right: -50px;
+  width: 60px;
+//  width: 40px;
+}
+
+.balloon6 .faceicon img{
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+
+.balloon6 .chatting {
+  width: 100%;
+  text-align: left;
+}
+
+.says {
+  display: inline-block;
+  position: relative;
+  margin: 10px 0 0 70px;
+//  margin: 3px 0 0 70px;
+//  margin: 0 0 0 70px;
+  padding: 10px;
+  max-width: 170px; // 相手のコメント欄の幅
+//  max-width: 197px; // 相手のコメント欄の幅
+//  max-width: 250px;
+  border-radius: 12px;
+  background: #edf1ee;
+}
+
+.says:after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 3px;
+  left: -19px;
+  border: 8px solid transparent;
+  border-right: 18px solid #edf1ee;
+//  border-right: 18px solid #30e852;
+  -webkit-transform: rotate(35deg);
+  transform: rotate(35deg);
+}
+
+.says p {
+  margin: 0;
+  padding: 0;
+
+}
+
+.chatting:after {
+  content: "";
+  display: block;
+  clear: both
+  }
+
+  .says  {
+  float: left;
+  }
+
+.pcommentdate {
+  float: left;
+  }
+
+.pcommentdate p {
+  position: relative;
+  top: 12px;
+  left: 0px;
+  margin: 0px 10px 0 5px;
+
+  }
+
+
+/*以下、③右側のコメント*/
+
+.mycommenttop:after {
+  content: "";
+  display: block;
+  clear: both
+  }
+
+.mycomment  {
+  float: right;
+  }
+
+.mycomment p {
+  display: inline-block;
+  position: relative;
+//  margin: 10px 5px 0px 25px;
+  margin: 25px 10px 10px 0;
+//  margin: 5px 10px 0 0;
+  padding: 8px;
+  max-width: 170px; // 自分のコメント欄の幅
+//  max-width: 197px; // 自分のコメント欄の幅
+//  max-width: 250px;
+  border-radius: 12px;
+  background: #30e852;
+//  background: #edf1ee;
+  font-size: 15px:
+}
+
+.mycomment p:after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  right: -19px;
+  border: 8px solid transparent;
+  border-left: 18px solid #edf1ee;
+  border-left: 18px solid #30e852;
+  -webkit-transform: rotate(-35deg);
+  transform: rotate(-35deg);
+}
+
+.mycommentdate {
+  float: right;
+  margin:0px 0px 0 10px;
+  }
+
+.mycommentdate p {
+  position: relative;
+  top: 25px;
+  left: -5px;
+  }
+
+.faceicon {
+  float: right;
+  margin-right: -0px;
+//  margin-right: -50px;
+  width: 60px;
+//  width: 40px;
+  margin:10px 0px 10px 0px;
+}
+
+.faceicon img{
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+
+
+
+</style>
+
+    <style>
+    /* 「閉じる」ボタンのフローティング */
+    #footerFloatingMenu_search {
+        display: block;
+        width: 90%;
+        position: fixed;
+        left: auto;
+        bottom: 70px;
+        z-index: 9999;
+        text-align: center;
+        padding: 0 auto;
+    }
+
+    #footerFloatingMenu_search img {
+        max-width: 100%;
+    }
+
+    #footerFloatingMenu_search {
+        margin: auto;
+    }
+
+    </style>
+
+    <style>
+    /* 「返信」「いいね！」「保留」ボタンのフローティング */
+    #footerFloatingMenu_search_a {
+        display: block;
+        width: 90%;
+        position: fixed;
+        left: auto;
+        bottom: 70px;
+        z-index: 9999;
+        text-align: center;
+        padding: 0 auto;
+    }
+
+    .boxa.after {
+        content: "";
+        display: block;
+        clear: both
+        }
+
+    .box1 {
+        float:left;
+        margin: 0 10px 0 0;
+        }
+
+    .box2 {
+        float:left;
+        margin: 0 10px 0 0;
+        }
+
+    .box3 {
+        float:left;
+        }
+
+
+    #footerFloatingMenu_search_a img {
+        max-width: 100%;
+    }
+
+    #footerFloatingMenu_search_a {
+        margin: auto;
+        margin: 20px 0px 150px 0px;
+    }
+
+    </style>
+
+    <style>
+    /* 「返信」「いいね！」ボタンのフローティング */
+    #footerFloatingMenu_search_b {
+        display: block;
+        width: 90%;
+        position: fixed;
+        left: auto;
+        bottom: 70px;
+        z-index: 9999;
+        text-align: left;
+/*        text-align: center; */
+        padding: 0 auto;
+    }
+
+    .boxa.after {
+        content: "";
+        display: block;
+        clear: both
+        }
+
+    .box1 {
+        float:left;
+        margin: 0 10px 0 0;
+        }
+
+    .box2 {
+        float:left;
+        margin: 0 10px 0 0;
+        }
+
+
+    #footerFloatingMenu_search_b img {
+        max-width: 100%;
+    }
+
+    #footerFloatingMenu_search_b {
+        margin: auto;
+        margin: 20px 0px 150px 0px;
+    }
+
+    </style>
+
+
+
+{% endblock %}
+
+{% block contents %}
+<div class="container" style="margin: 0px 0px 150px auto;">
+    <div class="my-div-style w-100">
+
+        <p id="n_name">{{ nickname }} さん</p>
+
+        {% if out_in == 'out' %}
+        <p>{{ t_nickname }} さんとのメッセージ交換履歴</p>
+        {% else %}
+        <p>{{ f_nickname }} さんとのメッセージ交換履歴</p>
+        {% endif %}
+
+        <div class="row my-row-style1">
+
+<!--            会話表示エリア-->
+            <div id="div_message"></div>
+
+
+            <div class="table-responsive" style="margin: 0px 0px 50px 0px;">
+
+            <div style="margin: 25px 0px 0px 0px; ">
+                    <p>
+                        {% if out_in == 'out' %}
+                    <h6>{{ m_query.t_nickname }} さん のプロフィール</h6>
+                        {% else %}
+                    <h6>{{ m_query.f_nickname }} さん のプロフィール</h6>
+                        {% endif %}
+                        </p>
+            </div>
+
+            <table class="table table-bordered table-hover table-striped table-sm">
+            <tbody>
+                {% if item_gender %}
+
+            <thead class="table-active">
+                <tr align="center">
+                  <th scope="col" >プロフィール</th>
+                </tr>
+            </thead>
+                {% else %}
+            <thead>
+                <tr align="center">
+                  <th scope="col" bgcolor="#FFC0CB "><font color="#c71585 ">プロフィール</font></th>
+                </tr>
+            </thead>
+                {% endif %}
+
+                {% if item_face_photo %}
+            <tr>
+<!--                <td>写真：</td>-->
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>写真：</b></font></small><br>
+                    <div class="col-sm-6 col-md-3" style="margin: 0px 10px 10px 0px; ">
+                        <!--拡大画像ポップアップ表示-->
+                        <a href="{{ item_face_photo.url }}" data-lightbox="group"><img src="{{ item_face_photo.url }}" class="img-fluid img-thumbnail" width="30%"></a>
+<!--                <img src="{{ item.face_photo.url }}" class="img-fluid img-thumbnail" width="50%" height="auto"/>-->
+                    </div>
+                </td>
+            </tr>
+                {% endif %}
+                {% if item_what_doing_now %}
+            <tr>
+<!--                <td><font color="#c71585 "><strong>今何している！</strong></font></td>-->
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>今何している！：</b></font></small><br>
+                    {{ item_what_doing_now | linebreaksbr | urlize }}<br>（{{ item_updated_at }}）</td>
+            </tr>
+                {% endif %}
+            <tr>
+<!--                <td>自己ピーアール：</td>-->
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>自己ピーアール：</b></font></small><br>
+                    {{ item_article  | linebreaksbr | urlize }}</td>
+            </tr>
+
+                {% for h_item in hownices %}
+                {% if item_serviceclient_id == h_item.serviceclient_id and sc_id == h_item.partner_id and h_item.like_flag == 1 %}
+            <tr>
+<!--                <td><font color="#c71585 "><strong>いいね！</strong></font></td>-->
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>いいね！：</b></font></small><br>
+                    ＜ {{ h_item.my_nickname }} ＞さんから ＜ {{ h_item.partner_nickname }} ＞さんへ！
+                </td>
+            </tr>
+                {% endif %}
+                {% endfor %}
+
+                {% for l_f_l_item in like_flag_lst %}
+                {% if item_serviceclient_id == l_f_l_item.0 %}
+                {% if l_f_l_item.1 == 1 %}
+
+            <tr>
+<!--                <td>プロフィール詳細：</td>-->
+                <td>
+<!--                    <small class="form-text text-muted"><font size="2" color=royalblue><b>プロフィール詳細：</b></font></small><br>-->
+<!--                    # class="btn btn-success btn-sm message" 内の'message'は、動的にidを生成するためのクラス名-->
+<!--                    <a class="btn btn-success btn-sm message" title="{% url 'live:profile_detail_message' item_pk %}" onclick="getId(this);"><font color="white">メッセージ送信</font></a>-->
+<!--                    <a class="btn btn-primary btn-sm message" title="{% url 'live:profile_how_nice' item_pk 2 %}" onclick="getId(this);"><font color="white">いいね！</font></a>-->
+<!--                    <a class="btn btn-warning btn-sm message" title="{% url 'live:profile_how_nice' item_pk 3 %}" onclick="getId(this);"><font color="white">保留</font></a>-->
+                </td>
+
+            </tr>
+
+                {% else %}
+
+            <tr>
+<!--                <td>プロフィール詳細：{{ h_item.serviceclient_id }} {{ h_item.partner_id }} {{ h_item.like_flag }}</td>-->
+                <td>
+<!--                    <small class="form-text text-muted"><font size="2" color=royalblue><b>プロフィール詳細：</b></font></small><br>-->
+<!--                    # class="btn btn-success btn-sm message" 内の'message'は、動的にidを生成するためのクラス名-->
+<!--                    <a class="btn btn-success btn-sm message" title="{% url 'live:profile_detail_message' item_pk %}" onclick="getId(this);"><font color="white">メッセージ送信</font></a>-->
+<!--                    <a class="btn btn-primary btn-sm message" title="{% url 'live:profile_how_nice' item_pk 1 %}" onclick="getId(this);"><font color="white">いいね！</font></a>-->
+                </td>
+
+            </tr>
+
+                {% endif %}
+                {% endif %}
+
+                {% endfor %}
+
+
+            </tbody>
+
+            </table>
+
+            </div>
+
+
+            {% for l_f_l_item in like_flag_lst %}
+            {% if item_serviceclient_id == l_f_l_item.0 %}
+            {% if l_f_l_item.1 == 1 %}
+
+            <!--flaoting menu start-->
+                <div id="footerFloatingMenu_search_a">
+                    <div class="boxa">
+                        <div class="box1">
+                            <a class="btn btn-success btn-sm message" title="{% url 'live:profile_detail_message' item_pk %}" onclick="getId(this);"><font color="white">メッセージ送信</font></a>
+                        </div>
+                        <div class="box2">
+                            <a class="btn btn-primary btn-sm message" title="{% url 'live:profile_how_nice' item_pk 2 %}" onclick="getId(this);"><font color="white">いいね！</font></a>
+                        </div>
+                        <div class="box3">
+                            <a class="btn btn-warning btn-sm message" title="{% url 'live:profile_how_nice' item_pk 3 %}" onclick="getId(this);"><font color="white">保留</font></a>
+                        </div>
+                    </div>
+                </div>
+            <!--flaoting menu end-->
+
+            {% else %}
+
+            <!--flaoting menu start-->
+                <div id="footerFloatingMenu_search_b">
+                    <div class="boxa">
+                        <div class="box1">
+                            <a class="btn btn-success btn-sm message" title="{% url 'live:profile_detail_message' item_pk %}" onclick="getId(this);"><font color="white">メッセージ送信</font></a>
+                        </div>
+                        <div class="box2">
+                            <a class="btn btn-primary btn-sm message" title="{% url 'live:profile_how_nice' item_pk 1 %}" onclick="getId(this);"><font color="white">いいね！</font></a>
+                        </div>
+                    </div>
+                </div>
+            <!--flaoting menu end-->
+
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+
+
+            <!--flaoting menu start-->
+                <div id="footerFloatingMenu_search">
+                    <div class="table-responsive-sm">
+                        <table class="table table-borderless table-sm">
+                            <tr style="opacity: 1;background-color:white;">
+                                <td>
+                                    <a class="btn btn-success ml-2 mt-3 mb-3 btn-sm" href="{% url 'live:message_management' %}">戻る</a><br>
+                                </td>
+                            </tr>
+                            </table>
+                    </div>
+                </div>
+            <!--flaoting menu end-->
+
+            </div>
+        </div>
+    </div>
+
+
+
+<script>
+
+    const g_elementDivMessage = document.getElementById( "div_message" );
+
+    //Messageからメッセージ情報取得
+    var json = "{{ live_dic }}";  //Messageからメッセージ情報取得 json形式のストリングデータ（{"133": {"key": 133, "f_nick": "\u6b21\u90ce", "t_nick": "\u3060\u3044\u3054", "mes": "\u4eca\u65e5\u306f8\u670828\u65e5", "c_date": "2022/08/28 06:20"}, 、、、}）
+
+    // 文字変換 {&quot;だいご&quot;:→{"だいご":
+    json = json.split('&quot;').join('"') // 「&quot;」を「"」に変換
+
+<!--    json = JSON.stringify(json);-->
+
+
+    // JavaScript のオブジェクトを生成
+    json = json.replace(/[\u0000-\u001F]+/g, ""); // 「u0000」から「u001F」までの制御文字を取り除く
+
+    const obj = JSON.parse(json);  //JavaScript のオブジェクトを生成
+
+
+
+    // ループでメッセージ表示
+    for(var key in obj) {
+      if(obj.hasOwnProperty(key)) {
+
+        var val = obj[key];
+
+        console.log(val);
+        console.log(val.key);
+        console.log(val.f_nick);
+        console.log(val.t_nick);
+        console.log(val.mes);
+        console.log(val.c_date);
+        console.log(val.f_photo);
+        console.log(val.t_photo);
+        console.log(val.photo);
+        console.log(val.audio_file);
+        console.log(val.video_file);
+
+        }
+
+        else {
+                ;
+            }
+
+        if(val.photo != 'n' || val.audio_file != 'n' || val.video_file != 'n') {
+
+        var flg = '1'; // メディアあり
+
+        }
+
+        else {
+        flg = '0'; // メディア無し
+
+        }
+
+
+
+        if("{{ out_in }}" == "in") {
+
+
+            if(val.t_nick == "{{ nickname }}") {
+
+
+            // 拡散されたメッセージをメッセージリストに追加
+            var div_line_bc = document.createElement('div'); // <div class="line-bc">   <!--①LINE会話全体を囲う-->
+            div_line_bc.classList.add('line-bc');
+            // g_elementDivMessage.prepend(div_line_bc); //
+            g_elementDivMessage.appendChild(div_line_bc); //
+
+            var div_balloon6 = document.createElement('div'); // <div class="balloon6">   <!--②左コメント始-->
+            div_balloon6.classList.add('balloon6');
+            div_line_bc.appendChild(div_balloon6); //
+
+            var div_faceicon = document.createElement('div'); // <div class="faceicon">
+            div_faceicon.classList.add('faceicon');
+            div_balloon6.appendChild(div_faceicon);
+
+            if(val.f_photo != 'n') {
+            // 顔画像がある場合
+            // タグの生成
+            var icon = document.createElement('img');
+            // 属性の追加
+            //icon.src = "/media/profile/abata_KGNoDvb.jpg";
+            icon.src = String(val.f_photo);
+            //icon.src = "{{ p_photo.url }}";
+            // icon.src = "{% static 'img/agent.jpg' %}";
+            icon.alt = "HOME"
+            icon.width = "60"
+            icon.height = "auto"
+            // タグを表示
+            div_faceicon.appendChild(icon);
+
+            }
+
+            else {
+
+            // 顔画像が無い場合
+            // タグの生成
+            var icon = document.createElement('img');
+            // 属性の追加
+            // icon.src = "{{ p_photo.url }}";
+            icon.src = "{% static 'img/happy-face.jpg' %}";
+            icon.alt = "HOME"
+            icon.width = "60"
+            icon.height = "auto"
+            // タグを表示
+            div_faceicon.appendChild(icon);
+
+            }
+
+            var div_chatting = document.createElement('div'); // <div class="chatting">
+            div_chatting.classList.add('chatting');
+            div_balloon6.appendChild(div_chatting);
+
+            var div_says = document.createElement('div'); // <div class="says">
+            div_says.classList.add('says');
+            div_chatting.appendChild(div_says);
+
+
+            if(flg == '0') {
+
+            // タグの生成
+            var p_t = document.createElement('p'); // <p>こんにちは、今日はお元気ですか？</p>
+            // テキストを追加する
+            p_t.textContent = val.mes;
+            // p_t.textContent = strMessage;
+            div_says.appendChild(p_t);
+
+            }
+
+            else {
+
+
+            var p_t = document.createElement('p'); // <p>こんにちは、今日はお元気ですか？</p>
+            var a = document.createElement('a');
+            a.target = '_blank';
+            a.href = "{{ live_message_chat_url }}" + val.key + '/' + 'out' + '/';
+            // a.href = "{{ live_message_chat_url }}" + val.key + '/' + "{{ out_in }}" + '/';
+            a.innerText = val.mes;
+            div_says.appendChild(p_t)
+            p_t.appendChild(a)
+
+            }
+
+
+            var div_pcommentdate = document.createElement('div'); // <div class="pcommentdate">
+            div_pcommentdate.classList.add('pcommentdate');
+            div_chatting.appendChild(div_pcommentdate);
+
+            // タグの生成
+            var p_s_d = document.createElement('p'); // <p>12:30</p>
+            // テキストを追加する
+            p_s_d.textContent = val.c_date;
+            let str = p_s_d.textContent
+            p_s_d.innerHTML = str.fontsize(1);
+            div_pcommentdate.appendChild(p_s_d);
+
+
+<!--            var div_mycomment = document.createElement('div'); // <div class="mycomment">-->
+<!--            div_says.classList.add('mycomment');-->
+<!--            div_line_bc.appendChild(div_mycomment);-->
+
+<!--            // タグの生成-->
+<!--            var p_s = document.createElement('p'); // <p>はい、元気ですよ！</p>-->
+<!--            // テキストを追加する-->
+<!--            p_s.textContent = strMessage;-->
+<!--            div_mycomment.appendChild(p_s);-->
+
+
+
+            }
+
+            else {
+
+            // 拡散されたメッセージをメッセージリストに追加
+            var div_line_bc = document.createElement('div'); // <div class="line-bc">   <!--①LINE会話全体を囲う-->
+            div_line_bc.classList.add('line-bc');
+            // g_elementDivMessage.prepend(div_line_bc); //
+            g_elementDivMessage.appendChild(div_line_bc); //
+
+<!--            var div_balloon6 = document.createElement('div'); // <div class="balloon6">   &lt;!&ndash;②左コメント始&ndash;&gt;-->
+<!--            div_balloon6.classList.add('balloon6');-->
+<!--            div_line_bc.appendChild(div_balloon6); //-->
+
+<!--            var div_faceicon = document.createElement('div'); // <div class="faceicon">-->
+<!--            div_faceicon.classList.add('faceicon');-->
+<!--            div_balloon6.appendChild(div_faceicon);-->
+
+<!--            // タグの生成-->
+<!--            var icon = document.createElement('img');-->
+<!--            // 属性の追加-->
+<!--            icon.src = "{% static 'img/abata_KGNoDvb.jpg' %}";-->
+<!--            icon.alt = "HOME"-->
+<!--            icon.width = "60"-->
+<!--            icon.height = "auto"-->
+
+<!--            // タグを表示-->
+<!--            div_faceicon.appendChild(icon);-->
+
+
+<!--            var div_chatting = document.createElement('div'); // <div class="chatting">-->
+<!--            div_chatting.classList.add('chatting');-->
+<!--            div_balloon6.appendChild(div_chatting);-->
+
+<!--            var div_says = document.createElement('div'); // <div class="says">-->
+<!--            div_says.classList.add('says');-->
+<!--            div_chatting.appendChild(div_says);-->
+
+<!--            // タグの生成-->
+<!--            var p_t = document.createElement('p'); // <p>こんにちは、今日はお元気ですか？</p>-->
+<!--            // テキストを追加する-->
+<!--            p_t.textContent = strMessage;-->
+<!--            div_says.appendChild(p_t);-->
+
+            var div_mycommenttop = document.createElement('div'); // <div class="mycommenttop">
+            div_mycommenttop.classList.add('mycommenttop');
+            div_line_bc.appendChild(div_mycommenttop);
+
+
+            var div_faceicon = document.createElement('div'); // <div class="faceicon">
+            div_faceicon.classList.add('faceicon');
+            div_mycommenttop.appendChild(div_faceicon);
+
+            if(val.t_photo != 'n') {
+            // 顔画像がある場合
+            // タグの生成
+            var icon = document.createElement('img');
+            // 属性の追加
+            //icon.src = "/media/profile/abata_KGNoDvb.jpg";
+            icon.src = String(val.t_photo);
+            //icon.src = "{{ p_photo.url }}";
+            // icon.src = "{% static 'img/agent.jpg' %}";
+            icon.alt = "HOME"
+            icon.width = "60"
+            icon.height = "auto"
+            // タグを表示
+            div_faceicon.appendChild(icon);
+
+            }
+
+            else {
+
+            // 顔画像が無い場合
+            // タグの生成
+            var icon = document.createElement('img');
+            // 属性の追加
+            // icon.src = "{{ p_photo.url }}";
+            icon.src = "{% static 'img/happy-face.jpg' %}";
+            icon.alt = "HOME"
+            icon.width = "60"
+            icon.height = "auto"
+            // タグを表示
+            div_faceicon.appendChild(icon);
+
+            }
+
+
+
+            var div_mycomment = document.createElement('div'); // <div class="mycomment">
+            div_mycomment.classList.add('mycomment');
+            div_mycommenttop.appendChild(div_mycomment);
+
+
+
+            if(flg == '0') {
+
+            // タグの生成
+            var p_s = document.createElement('p'); // <p>はい、元気ですよ！</p>
+            // テキストを追加する
+            p_s.textContent = val.mes;
+            // p_s.textContent = strMessage;
+            div_mycomment.appendChild(p_s);
+
+            }
+
+            else {
+            var p_s = document.createElement('p'); // <p>はい、元気ですよ！</p>
+            var a = document.createElement('a');
+            a.target = '_blank';
+            a.href = "{{ live_message_chat_url }}" + val.key + '/' + "{{ out_in }}" + '/';
+            // a.href = "{{ live_message_chat_url }}" + val.key + '/' + 'out' + '/';
+            a.innerText = val.mes;
+            div_mycomment.appendChild(p_s)
+            p_s.appendChild(a)
+
+            }
+
+
+
+            var div_mycommentdate = document.createElement('div'); // <div class="mycommentdate">
+            div_mycommentdate.classList.add('mycommentdate');
+            div_mycommenttop.appendChild(div_mycommentdate);
+
+            // タグの生成
+            var p_s_d = document.createElement('p'); // <p>12:30</p>
+            // テキストを追加する
+            p_s_d.textContent = val.c_date;
+            let str = p_s_d.textContent
+            p_s_d.innerHTML = str.fontsize(1);
+            div_mycommentdate.appendChild(p_s_d);
+
+            }
+
+            }
+
+            else {
+
+            if(val.t_nick == "{{ nickname }}") {
+
+
+            // 拡散されたメッセージをメッセージリストに追加
+            var div_line_bc = document.createElement('div'); // <div class="line-bc">   <!--①LINE会話全体を囲う-->
+            div_line_bc.classList.add('line-bc');
+            //g_elementDivMessage.prepend(div_line_bc); //
+            g_elementDivMessage.appendChild(div_line_bc); //
+
+            var div_balloon6 = document.createElement('div'); // <div class="balloon6">   <!--②左コメント始-->
+            div_balloon6.classList.add('balloon6');
+            div_line_bc.appendChild(div_balloon6); //
+
+            var div_faceicon = document.createElement('div'); // <div class="faceicon">
+            div_faceicon.classList.add('faceicon');
+            div_balloon6.appendChild(div_faceicon);
+
+            if(val.t_photo != 'n') {
+            // 顔画像がある場合
+            // タグの生成
+            var icon = document.createElement('img');
+            // 属性の追加
+            //icon.src = "/media/profile/abata_KGNoDvb.jpg";
+            icon.src = String(val.t_photo);
+            //icon.src = "{{ p_photo.url }}";
+            // icon.src = "{% static 'img/agent.jpg' %}";
+            icon.alt = "HOME"
+            icon.width = "60"
+            icon.height = "auto"
+            // タグを表示
+            div_faceicon.appendChild(icon);
+
+            }
+
+            else {
+
+            // 顔画像が無い場合
+            // タグの生成
+            var icon = document.createElement('img');
+            // 属性の追加
+            // icon.src = "{{ p_photo.url }}";
+            icon.src = "{% static 'img/happy-face.jpg' %}";
+            icon.alt = "HOME"
+            icon.width = "60"
+            icon.height = "auto"
+            // タグを表示
+            div_faceicon.appendChild(icon);
+
+            }
+
+            var div_chatting = document.createElement('div'); // <div class="chatting">
+            div_chatting.classList.add('chatting');
+            div_balloon6.appendChild(div_chatting);
+
+            var div_says = document.createElement('div'); // <div class="says">
+            div_says.classList.add('says');
+            div_chatting.appendChild(div_says);
+
+
+            if(flg == '0') {
+
+            // タグの生成
+            var p_t = document.createElement('p'); // <p>こんにちは、今日はお元気ですか？</p>
+            // テキストを追加する
+            p_t.textContent = val.mes;
+            // p_t.textContent = strMessage;
+            div_says.appendChild(p_t);
+
+            }
+
+            else {
+            var p_t = document.createElement('p'); // <p>こんにちは、今日はお元気ですか？</p>
+            var a = document.createElement('a');
+            a.target = '_blank';
+            // a.href = "{{ live_message_chat_url }}" + val.key + '/' + 'in' + '/';
+            a.href = "{{ live_message_chat_url }}" + val.key + '/' + "{{ out_in }}" + '/';
+            a.innerText = val.mes;
+            div_says.appendChild(p_t)
+            p_t.appendChild(a)
+
+            }
+
+
+            var div_pcommentdate = document.createElement('div'); // <div class="pcommentdate">
+            div_pcommentdate.classList.add('pcommentdate');
+            div_chatting.appendChild(div_pcommentdate);
+
+            // タグの生成
+            var p_s_d = document.createElement('p'); // <p>12:30</p>
+            // テキストを追加する
+            p_s_d.textContent = val.c_date;
+            let str = p_s_d.textContent
+            p_s_d.innerHTML = str.fontsize(1);
+            div_pcommentdate.appendChild(p_s_d);
+
+
+<!--            var div_mycomment = document.createElement('div'); // <div class="mycomment">-->
+<!--            div_says.classList.add('mycomment');-->
+<!--            div_line_bc.appendChild(div_mycomment);-->
+
+<!--            // タグの生成-->
+<!--            var p_s = document.createElement('p'); // <p>はい、元気ですよ！</p>-->
+<!--            // テキストを追加する-->
+<!--            p_s.textContent = strMessage;-->
+<!--            div_mycomment.appendChild(p_s);-->
+
+
+
+            }
+
+            else {
+
+            // 拡散されたメッセージをメッセージリストに追加
+            var div_line_bc = document.createElement('div'); // <div class="line-bc">   <!--①LINE会話全体を囲う-->
+            div_line_bc.classList.add('line-bc');
+            // g_elementDivMessage.prepend(div_line_bc); //
+            g_elementDivMessage.appendChild(div_line_bc); //
+
+<!--            var div_balloon6 = document.createElement('div'); // <div class="balloon6">   &lt;!&ndash;②左コメント始&ndash;&gt;-->
+<!--            div_balloon6.classList.add('balloon6');-->
+<!--            div_line_bc.appendChild(div_balloon6); //-->
+
+<!--            var div_faceicon = document.createElement('div'); // <div class="faceicon">-->
+<!--            div_faceicon.classList.add('faceicon');-->
+<!--            div_balloon6.appendChild(div_faceicon);-->
+
+<!--            // タグの生成-->
+<!--            var icon = document.createElement('img');-->
+<!--            // 属性の追加-->
+<!--            icon.src = "{% static 'img/abata_KGNoDvb.jpg' %}";-->
+<!--            icon.alt = "HOME"-->
+<!--            icon.width = "60"-->
+<!--            icon.height = "auto"-->
+
+<!--            // タグを表示-->
+<!--            div_faceicon.appendChild(icon);-->
+
+
+<!--            var div_chatting = document.createElement('div'); // <div class="chatting">-->
+<!--            div_chatting.classList.add('chatting');-->
+<!--            div_balloon6.appendChild(div_chatting);-->
+
+<!--            var div_says = document.createElement('div'); // <div class="says">-->
+<!--            div_says.classList.add('says');-->
+<!--            div_chatting.appendChild(div_says);-->
+
+<!--            // タグの生成-->
+<!--            var p_t = document.createElement('p'); // <p>こんにちは、今日はお元気ですか？</p>-->
+<!--            // テキストを追加する-->
+<!--            p_t.textContent = strMessage;-->
+<!--            div_says.appendChild(p_t);-->
+
+            var div_mycommenttop = document.createElement('div'); // <div class="mycommenttop">
+            div_mycommenttop.classList.add('mycommenttop');
+            div_line_bc.appendChild(div_mycommenttop);
+
+
+            var div_faceicon = document.createElement('div'); // <div class="faceicon">
+            div_faceicon.classList.add('faceicon');
+            div_mycommenttop.appendChild(div_faceicon);
+
+            if(val.f_photo != 'n') {
+            // 顔画像がある場合
+            // タグの生成
+            var icon = document.createElement('img');
+            // 属性の追加
+            //icon.src = "/media/profile/abata_KGNoDvb.jpg";
+            icon.src = String(val.f_photo);
+            //icon.src = "{{ p_photo.url }}";
+            // icon.src = "{% static 'img/agent.jpg' %}";
+            icon.alt = "HOME"
+            icon.width = "60"
+            icon.height = "auto"
+            // タグを表示
+            div_faceicon.appendChild(icon);
+
+            }
+
+            else {
+
+            // 顔画像が無い場合
+            // タグの生成
+            var icon = document.createElement('img');
+            // 属性の追加
+            // icon.src = "{{ p_photo.url }}";
+            icon.src = "{% static 'img/happy-face.jpg' %}";
+            icon.alt = "HOME"
+            icon.width = "60"
+            icon.height = "auto"
+            // タグを表示
+            div_faceicon.appendChild(icon);
+
+            }
+
+            var div_mycomment = document.createElement('div'); // <div class="mycomment">
+            div_mycomment.classList.add('mycomment');
+            div_mycommenttop.appendChild(div_mycomment);
+
+
+            if(flg == '0') {
+
+            // タグの生成
+            var p_s = document.createElement('p'); // <p>はい、元気ですよ！</p>
+            // テキストを追加する
+            p_s.textContent = val.mes;
+            // p_s.textContent = strMessage;
+            div_mycomment.appendChild(p_s);
+
+            }
+
+            else {
+
+            var p_s = document.createElement('p'); // <p>はい、元気ですよ！</p>
+            var a = document.createElement('a');
+            a.target = '_blank';
+            a.href = "{{ live_message_chat_url }}" + val.key + '/' + 'in' + '/';
+            // a.href = "{{ live_message_chat_url }}" + val.key + '/' + "{{ out_in }}" + '/';
+            a.innerText = val.mes;
+            div_mycomment.appendChild(p_s)
+            p_s.appendChild(a)
+
+            }
+
+
+            var div_mycommentdate = document.createElement('div'); // <div class="mycommentdate">
+            div_mycommentdate.classList.add('mycommentdate');
+            div_mycommenttop.appendChild(div_mycommentdate);
+
+            // タグの生成
+            var p_s_d = document.createElement('p'); // <p>12:30</p>
+            // テキストを追加する
+            p_s_d.textContent = val.c_date;
+            let str = p_s_d.textContent
+            p_s_d.innerHTML = str.fontsize(1);
+            div_mycommentdate.appendChild(p_s_d);
+
+            }
+
+            } // out_in
+
+        }; // ループ
+
+
+
+
+
+</script>
+
+
+
+<script>
+
+    // 複数の要素に動的なidをつける
+    // # class="btn btn-success btn-sm message" 内の'message'は、動的にidを生成するためのクラス名-->
+
+    var moji = "messageID"
+    var tmp = document.getElementsByClassName("message") ; // クラス：messageを含む要素をtmpリストに格納
+
+    for(var i=0;i<=tmp.length-1;i++){
+        //要素にid追加（messageID0～）
+        tmp[i].setAttribute("id",moji+i);
+        }
+
+</script>
+
+<script>
+
+function getId(ele){
+    var id_value = ele.id; // eleのプロパティとしてidを取得
+//    console.log('メッセージ' + id_value); //「messageID0～」
+
+  let newWindow; // 変数newWindowを宣言
+  var url_ad = document.getElementById( id_value ).title;// urlアドレス取得
+
+  let openBtn = document.getElementById( id_value ); // 開くボタンのidを取得
+
+  openBtn.addEventListener('click', () => { // 開くボタンをクリックしたときのイベント
+    newWindow = open(url_ad); // ページを開く
+  });
+
+    }
+
+</script>
+
+<!--&lt;!&ndash;①LINE会話全体を囲う&ndash;&gt;-->
+<!--<div class="line-bc">-->
+
+  <!--②左コメント始-->
+<!--  <div class="balloon6">-->
+<!--    <div class="faceicon">-->
+<!--      <img class="" src="{% static 'img/abata_KGNoDvb.jpg' %}" width="60" height=auto title="HOME" alt="HOME">-->
+<!--    </div>-->
+<!--    <div class="chatting">-->
+<!--      <div class="says">-->
+<!--        <p>こんにちは、今日はお元気ですか？よろしくお願いいたします</p>-->
+<!--      </div>-->
+<!--      <div class="pcommentdate">-->
+<!--            <p>12:30</p>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+  <!--②/左コメント終-->
+
+
+  <!--③右コメント始-->
+<!--    <div class="mycommenttop">-->
+<!--        <div class="faceicon">-->
+<!--          <img class="" src="{% static 'img/abata_KGNoDvb.jpg' %}" width="60" height=auto title="HOME" alt="HOME">-->
+<!--        </div>-->
+<!--        <div class="mycomment">-->
+<!--            <p>はい、元気ですよ！よろしく！</p>-->
+<!--        </div>-->
+<!--        <div class="mycommentdate">-->
+<!--            <p>12:32</p>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--/③右コメント終-->
+
+<!--</div>-->
+<!--&lt;!&ndash;/①LINE会話終了&ndash;&gt;-->
+
+
+{% endblock %}
+
+

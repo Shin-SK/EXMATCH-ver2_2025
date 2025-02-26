@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block active_terms_member %}active{% endblock %}
+
+{% block title %}プロフィール検索サービス休止 | GPS-Live-Match{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block contents %}
+<div class="container">
+    <div class="my-div-style w-100">
+        <h4>プロフィール検索サービス休止</h4>
+        {% if nickname %}
+        <p>{{ nickname }} さん</p>
+        {% endif %}
+
+        <div class="row my-row-style1">
+            ※ 本当に休止しますか？ 休止する場合は、「休止」ボタンをクリックしてください。
+            <br><br>
+            本日までに紹介した会員数（{{ search_results_num }} 人） × {{ subscription_referral_fee }}円 ＋ 基本料（{{ basic_fee }}円）が課金（最大：1850円以下）されます。
+            <br>
+            登録クレジットカードまたはデビットカードから自動引き落としいたします。
+            <br><br>
+
+                        <div class="table-responsive">
+
+            <table class="table table-hover">
+              <thead class="table-active">
+                <tr>
+                  <th scope="col">項目</th>
+                  <th scope="col">内容</th>
+                  <th scope="col">備考</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>サブスクリプション基本料：</td>
+                  <td>{{ basic_fee }} 円</td>
+                  <td>月額基本料です。</td>
+                </tr>
+                <tr>
+                  <td>サブスクリプション紹介料：</td>
+                  <td>{{ subscription_referral_fee }} 円</td>
+                  <td>一人当たりの紹介料です。</td>
+                </tr>
+                <tr>
+                  <td>紹介人数：</td>
+                  <td>{{ search_results_num }} 人</td>
+                  <td>紹介した人数です。</td>
+                </tr>
+                <tr>
+                  <td>利用料合計：</td>
+                  <td>{{ referral_fee }} 円</td>
+                  <td>合計利用料です。（最大：1850円以下）</td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+
+
+            <br>
+            ※ 再開は、「検索サービス」メニューで何時でもできます。<br>
+            ※ あなたに代わって自動でマッチング相手の方を検索します。
+
+        </div>
+            <a class="btn btn-danger ml-2 mt-3 mb-3" href="{% url 'live:profile_search_service_pause' referral_fee %}">休止</a>
+            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>
+    </div>
+</div>
+
+{% endblock %}
+
+

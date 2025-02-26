@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}ロケーション square{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block contents %}
+<div class="container">
+    <div class="my-div-style w-100">
+        <div class="row my-row-style1">
+            <strong>ロケーション</strong><br>
+            {% for location in locations %}
+            {% for key, value in location.items %}
+            {{ key }} : {{ value }}<br>
+            {% endfor %}
+            {% endfor %}
+
+        </div>
+            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>
+    </div>
+</div>
+
+{% endblock %}
+
+

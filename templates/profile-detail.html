@@ -1,0 +1,217 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+<!-- テンプレートフィルタ-->
+<!-- データベースから読込んだデータがNone又は'-----'の時空白の値を返す-->
+{% load none_filter %}
+
+{% block active_terms_member %}active{% endblock %}
+
+{% block title %}プロフィール詳細 | GPS-Live-Match{% endblock %}
+
+{% block head %}
+<!--    <style>-->
+<!--    body {-->
+<!--    font-family:"ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;-->
+<!--    color:#630;-->
+<!--    line-height:25px;-->
+<!--    font-size:0.95em;-->
+<!--    }-->
+
+<!--    </style>-->
+
+
+{% endblock %}
+
+{% block contents %}
+
+<div class="container">
+    <div class="my-div-style w-100">
+
+        <h5>プロフィール</h5><br>
+
+        <p>{{ object.nickname }} さん<br></p>
+        <UL>
+            <LI>修正する場合は、「編集」ボタンをクリックしてください。</LI>
+        </UL>
+
+
+<!--        <table class="table">-->
+        <div class="table-responsive">
+            {% if p_gender %}
+        <table class="table table-bordered table-hover table-striped" style="font-size: 11pt;">
+            {% else %}
+        <table class="table table-bordered table-hover table-striped" style="font-size: 11pt;" bgcolor="#fff0f5">
+            {% endif %}
+            <tr>
+                <td>
+        <div class="form-group">
+            <label style="font-size:15px;">1．ニックネーム：</label><br>
+            　　{{ object.nickname }}
+        </div>
+        <div class="form-group">
+            <label style="font-size:15px;">2．自己ピーアール：</label><br>
+            　　{{ object.article | checkNone }}
+        </div>
+        <div class="form-group">
+            <label style="font-size:15px;">3．趣味・興味：</label><br>
+            　　{{ object.keyword | checkNone }}
+        </div>
+        <div class="form-group">
+            <label style="font-size:15px;">4．こだわり：</label><br>
+            　　{{ object.commitment | checkNone }}
+        </div>
+        <div class="form-group">
+            <label style="font-size:15px;">5．嗜好品：</label><br>
+            　　{{ object.luxury_items | checkNone }}
+        </div>
+        <div class="form-group">
+            <label style="font-size:15px;">6．誕生(月 日)：</label><br>
+            　　{{ object.birthday | checkNone }}
+        </div>
+        <div class="form-group">
+            <label style="font-size:15px;">7．出身地：</label><br>
+            　　{{ object.birthplace | checkNone }}
+        </div>
+        <div class="form-group">
+            <label style="font-size:15px;">8．出没エリア：</label><br>
+            　　{{ object.haunting_area | checkNone }}
+        </div>
+        <div class="form-group">
+            <label style="font-size:15px;">9．資格：</label><br>
+            　　{{ object.qualification | checkNone }}
+        </div>
+        <div class="form-group">
+            <label style="font-size:15px;">10．言語：</label><br>
+            　　{{ object.language | checkNone }}
+        </div>
+        <div class="form-group">
+            <label style="font-size:15px;">11．体型：</label><br>
+            {% if object.serviceclient_id.gender %}
+                　　{{ object.body_shape_man | checkNone }}
+                {% else %}
+                　　{{ object.body_shape_woman | checkNone }}
+                {% endif %}
+        </div>
+        <div class="form-group">
+            <label style="font-size:15px;">12．セクシュアリティ：</label><br>
+            　　{{ object.sexuality | checkNone }}
+        </div>
+        <div class="form-group">
+            <label style="font-size:15px;">13．血液型：</label><br>
+            　　{{ object.blood_type | checkNone }}
+        </div>
+        <div class="form-group">
+            <label style="font-size:15px;">14．年齢：</label><br>
+            　　{{ object.age | checkNone }}
+        </div>
+        <div class="form-group">
+            <label style="font-size:15px;">15．ルックス：</label><br>
+            　　{{ object.looks | checkNone }}
+        </div>
+        <div class="form-group">
+            <label style="font-size:15px;">16．お酒：</label><br>
+            　　{{ object.osake | checkNone }}
+        </div>
+        <div class="form-group">
+            <label style="font-size:15px;">17．性格：</label><br>
+            　　{{ object.personality | checkNone }}
+        </div>
+        <div class="form-group">
+            <label style="font-size:15px;">18．身長：</label><br>
+            　　{{ object.height | checkNone }}
+        </div>
+        <div class="form-group">
+            <label style="font-size:15px;">19．体重：</label><br>
+            　　{{ object.body_weight | checkNone }}
+        </div>
+        <div class="form-group">
+            <label style="font-size:15px;">20．結婚歴：</label><br>
+            　　{{ object.marriage_history | checkNone }}
+        </div>
+        <div class="form-group">
+            <label style="font-size:15px;">21．子供有無：</label><br>
+            　　{{ object.children | checkNone }}
+        </div>
+        <div class="form-group">
+            <label style="font-size:15px;">22．同居人：</label><br>
+            　　{{ object.housemate | checkNone }}
+        </div>
+        <div class="form-group">
+            <label style="font-size:15px;">23．タバコ：</label><br>
+            　　{{ object.tobacco | checkNone }}
+        </div>
+        <div class="form-group">
+            <label style="font-size:15px;">24．学歴：</label><br>
+            　　{{ object.education | checkNone }}
+        </div>
+        <div class="form-group">
+            <label style="font-size:15px;">25．お仕事：</label><br>
+            　　{{ object.occupation | checkNone }}
+        </div>
+        <div class="form-group">
+            <label style="font-size:15px;">26．運転免許証：</label><br>
+            　　{{ object.drivers_license | checkNone }}
+        </div>
+        <div class="form-group">
+            <label style="font-size:15px;">27．年収：</label><br>
+            　　{{ object.annual_income | checkNone }}
+        </div>
+
+                    <hr>
+
+        {% if object.face_photo %}
+        <div class="row my-row-style1">
+                顔写真：
+        </div>
+        <div class="col-sm-6 col-md-3" style="margin: 0px 10px 10px 0px; ">
+                <img src="{{ object.face_photo.url }}" width="100%" height="auto"/>
+        </div>
+        <hr>
+        {% endif %}
+
+        {% if object.photo1 %}
+        <div class="row my-row-style1">
+                写真１：
+        </div>
+        <div class="col-sm-6 col-md-3" style="margin: 0px 10px 10px 0px; ">
+                <img src="{{ object.photo1.url }}" width="100%" height="auto"/>
+        </div>
+        <hr>
+        {% endif %}
+
+        {% if object.photo2 %}
+        <div class="row my-row-style1">
+                写真２：
+        </div>
+        <div class="col-sm-6 col-md-3" style="margin: 0px 10px 10px 0px; ">
+                <img src="{{ object.photo2.url }}" width="100%" height="auto"/>
+        </div>
+        <hr>
+        {% endif %}
+
+        {% if object.photo3 %}
+        <div class="row my-row-style1">
+                写真３：
+        </div>
+        <div class="col-sm-6 col-md-3" style="margin: 0px 10px 10px 0px; ">
+                <img src="{{ object.photo3.url }}" width="100%" height="auto"/>
+        </div>
+        {% endif %}
+
+        </td>
+        </tr>
+        </table>
+
+    </div>
+
+            <a class="btn btn-warning mt-5 mb-3" href="{% url 'live:profile_update' object.pk %}">編集</a>
+            <a class="btn btn-success mt-5 ml-2 mb-3" href="{% url 'live:my_page' %}">OK</a><br><br>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block active_terms_service %}active{% endblock %}
+{% block active_terms_service_logout %}active{% endblock %}
+
+{% block title %}カード関連処理フロー | GPS-Live-Match{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block contents %}
+<div class="container">
+    <div class="my-div-style w-100">
+            <h5>{{ trade_name }} 利用フロー</h5><br>
+        <div class="row my-row-style1">
+
+            <div class="table-responsive">
+            <table class="table table-hover">
+                <tr>
+                    <td>
+            <ul>
+            <li><a href="{% url 'live:business_flow' %}">事前処理フロー</a></li><br>
+            <li><a href="{% url 'live:business_flow_main' %}">メイン処理フロー</a></li><br>
+            <li><h6>カード関連処理フロー</h6></li><br>
+            <li><a href="{% url 'live:business_flow_subscription' %}">プロフィール検索サービスフロー</a></li><br>
+            </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+            <ol>
+                <li>カード登録<font color="red">（必須）</font> <br>クレジットカード、デビットカードを登録します。<br>複数のカードを登録することができます。<br>当サイトを利用するにはカードを登録が必要です。</li><br>
+                <li>カード一覧<br>登録したカードの一覧を参照できます。</li><br>
+                <li>デフォルトカード<font color="red">（任意）</font><br>デフォルトカードとは、支払時に自動選定されて、支払に使われるカードです。<br>一度、登録しておけば、「デフォルトカード」が支払カードに自動選定されます。</li><br>
+                <li>カード削除<font color="red">（任意）</font><br>登録したカードを削除できます。</li><br>
+            </ol>
+                    </td>
+                </tr>
+            </table>
+            </div>
+        <div class="p-3">
+          <img class="img-fluid" src="{% static 'img/credit-card-related-flow.jpg' %}" width="100%" height="auto" alt="カード関連処理フロー"/>
+        </div>
+
+        </div>
+<!--            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>-->
+    </div>
+</div>
+
+{% endblock %}
+
+

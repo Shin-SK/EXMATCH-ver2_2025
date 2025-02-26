@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block active_card %}active{% endblock %}
+
+{% block title %}ONプロフ検索選択 | GPS-Live-Match{% endblock %}
+
+
+{% block contents %}
+
+<div class="container">
+    <div class="my-div-style w-100">
+            <h4>ONプロフ検索選択</h4>
+
+        <div class="row my-row-style1" style="margin-top:50px">
+
+            <div class="table-responsive">
+            <table class="table table-hover">
+
+                <tr>
+                    <td>
+                        全ログイン会員の検索：
+                    </td>
+                    <td>
+                        <a href="{% url 'live:member-profile-check' 5 %}" target="_blank" rel="noopener">こちら</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        検索条件を指定してログイン会員検索：
+                    </td>
+                    <td>
+                        <a href="{% url 'live:checkprofilesearchlogin' %}" target="_blank" rel="noopener">こちら</a>
+                    </td>
+                </tr>
+            </table>
+            </div>
+            <a  style="margin-left:60px;" class="btn btn-success mt-5 ml-2 mb-3" href="{% url 'live:index' %}">ホーム</a><br><br>            </div>
+        </div>
+    </div>
+
+{% endblock %}

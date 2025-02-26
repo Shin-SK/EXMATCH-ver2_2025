@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!-- My style -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sq-style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sq-payment.css' %}">
+
+      <!-- 1: References the Square payment library to initalize the SDK -->
+  <script src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
+
+</head>
+<body>
+  <form id="payment-form">
+    <div id="card-container"></div>
+    <button id="card-button" type="button">Pay</button>
+  </form>
+
+  <div id="edit_area"></div>
+
+  <!-- Configure the Web Payments SDK and Card payment method -->
+  <script type="text/javascript">
+    async function main() {
+      const payments = Square.payments('sandbox-sq0idb-MqSJUoKhuS9-Zu6D923xfQ', 'LZN4DY1CREHF1');
+      const card = await payments.card();
+      await card.attach('#card-container');
+
+      async function eventHandler(event) {
+        event.preventDefault();
+
+        try {
+          const result = await card.tokenize();
+          if (result.status === 'OK') {
+            console.log(`Payment token is ${result.token}`);
+            // tokenを表示
+            document.getElementById('edit_area').textContent = result.token ;
+          }
+        } catch (e) {
+          console.error(e);
+        }
+      };
+
+      const cardButton = document.getElementById('card-button');
+      cardButton.addEventListener('click', eventHandler);
+    }
+
+    main();
+  </script>
+</body>
+</html>

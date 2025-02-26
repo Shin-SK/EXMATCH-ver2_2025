@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}いいね！ | GPS-Live-Match{% endblock %}
+
+{% block head %}
+  <script type="text/javascript">
+    function CloseWindow() {
+      window.close();
+    }
+  </script>
+{% endblock %}
+
+{% block contents %}
+
+<div class="container">
+    <div class="my-div-style w-100">
+        <h4>いいね！</h4>
+        {% if like_flag == 1 %}
+        {% if exists1 %}
+        <div  class="row my-row-style1" style="margin: 30px 0px 10px 0px; ">
+            <p>{{ nickname }} さんは、{{ p_nickname }} さんへ「いいね！💖」済です。<br>
+                {{ p_nickname }} さんにメッセージ💌を送って見ましょう！</p>
+<!--                {{ p_nickname }} さんにメッセージ送信して、マッチングできるようにしてくださいね！</p>-->
+<!--                「{{ p_nickname }}」 さんからの応答をお待ちください。<br>-->
+<!--                チャットのルーム名は、「{{ room_name }}」です。<br>-->
+<!--                「{{ p_nickname }}」 さんがチャットに参加するまでお待ちください。</p>-->
+        </div>
+                <input class="btn btn-success ml-2 mt-3 mb-3 btn-sm" type="button" onclick="CloseWindow();" value="閉じる" />
+        {% else %}
+        <div  class="row my-row-style1" style="margin: 30px 0px 10px 0px; ">
+            <p>{{ nickname }} さん、{{ p_nickname }} さんに「いいね！💖」をお知らせしました！<br>
+                早速メッセージ💌を送ってみましょう！</p>
+
+        </div>
+<!--            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'chat:chat' 1 %}">チャット</a>-->
+                <input class="btn btn-success ml-2 mt-3 mb-3 btn-sm" type="button" onclick="CloseWindow();" value="閉じる" />
+        {% endif %}
+
+        {% elif like_flag == 2 %}
+        {% if exists2 == 1 %}
+        <div  class="row my-row-style1" style="margin: 30px 0px 10px 0px; ">
+            <p>{{ nickname }} さん、こんにちは。<br>
+                マッチングしている {{ p_nickname }} さんにメッセージを送って、チャットをしてみましょう！</p>
+        </div>
+                <input class="btn btn-success ml-2 mt-3 mb-3 btn-sm" type="button" onclick="CloseWindow();" value="閉じる" />
+        {% elif exists2 == 0 %}
+        <div  class="row my-row-style1" style="margin: 30px 0px 10px 0px; ">
+            <p>{{ nickname }} さん、おめでとうございます。 {{ p_nickname }} さんとマッチング💓しました！<br>
+                メッセージ💌を送って、チャットのお約束をしてみましょう！</p>
+        </div>
+<!--            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'chat:chat' 1 %}">チャット</a>-->
+                <input class="btn btn-success ml-2 mt-3 mb-3 btn-sm" type="button" onclick="CloseWindow();" value="閉じる" />
+        {%  elif exists2 == 2 %}
+        <div  class="row my-row-style1" style="margin: 30px 0px 10px 0px; ">
+            <p>既に、{{ p_nickname }} さんからの「いいね！」を「保留」済です。<br>
+                申し訳ございませんが、「保留」から「いいね！」には変更できません。</p>
+        </div>
+                <input class="btn btn-success ml-2 mt-3 mb-3 btn-sm" type="button" onclick="CloseWindow();" value="閉じる" />
+
+        {% endif %}
+
+        {% elif like_flag == 3 %}
+        {% if exists3 == 1 %}
+        <div  class="row my-row-style1" style="margin: 30px 0px 10px 0px; ">
+            <p>既に、{{ p_nickname }} さんからの「いいね！」を「保留」済です。</p>
+        </div>
+                <input class="btn btn-success ml-2 mt-3 mb-3 btn-sm" type="button" onclick="CloseWindow();" value="閉じる" />
+        {% elif exists3 == 0 %}
+        <div  class="row my-row-style1" style="margin: 30px 0px 10px 0px; ">
+            <p>{{ p_nickname }} さんからの「いいね！」を「保留」しました。<br>
+                「{{ p_nickname }}」 さんへ「{{ nickname }}」 さんが、「保留」しました。というメールを送信しました。</p>
+        </div>
+                <input class="btn btn-success ml-2 mt-3 mb-3 btn-sm" type="button" onclick="CloseWindow();" value="閉じる" />
+        {%  elif exists3 == 2 %}
+        <div  class="row my-row-style1" style="margin: 30px 0px 10px 0px; ">
+            <p>既に、「{{ nickname }}」 さんと「{{ p_nickname }}」 さんは双方が「いいね！」済です。<br>
+                申し訳ございませんが、「いいね！」から「保留」には変更できません。</p>
+        </div>
+                <input class="btn btn-success ml-2 mt-3 mb-3 btn-sm" type="button" onclick="CloseWindow();" value="閉じる" />
+
+        {% endif %}
+
+        {% endif %}
+
+
+    </div>
+</div>
+
+{% endblock %}

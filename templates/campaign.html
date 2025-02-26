@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}キャンペーン管理 | GPS-Live-Match{% endblock %}
+
+{% block active_terms_service %}active{% endblock %}
+{% block head %}
+
+ <style>
+ul.f_s { font-size: 14px; }
+</style>
+
+{% endblock %}
+
+{% block contents %}
+
+<div class="container">
+    <div class="my-div-style w-100">
+
+        <h5>キャンペーン管理</h5>
+        <p>{{ nickname }} さん</p>
+        <div class="row my-row-style1">
+
+        <div class="table-responsive" style="margin: 30px auto 10px auto; ">
+
+        <table class="table table-bordered table-hover table-striped">
+            <tbody>
+            <thead class="#808080">
+                <tr align="center">
+                  <th scope="col" bgcolor="#808080"><font color="white">キャンペーン管理</font></th>
+                </tr>
+            </thead>
+            <tr>
+                <td>
+                    {% if rf_pk %}
+<!--                    友達紹介キャンペーンあるか？-->
+                            <a href="{% url 'live:refer_friend_list' rf_pk %}">友達紹介</a><br><br>
+                    {% else %}
+                    友達紹介キャンペーンはありません。<br><br>
+                    {% endif %}
+                    <ul class="f_s"><li>友達紹介キャンペーンのご案内</li></ul>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="{% url 'live:refer_friend_list_history' %}">友達紹介履歴</a><br><br>
+                    <ul class="f_s"><li>友達紹介履歴参照</li></ul>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {% if qs_pk %}
+<!--                    アンケートキャンペーンあるか？-->
+                            <a href="{% url 'live:questionnaire_list' qs_pk %}">アンケート</a><br><br>
+                    {% else %}
+                    アンケートキャンペーンはありません。<br><br>
+                    {% endif %}
+                    <ul class="f_s"><li>アンケートキャンペーンのご案内</li></ul>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="{% url 'live:questionnaire_list_history' %}">アンケート履歴</a><br><br>
+                    <ul class="f_s"><li>アンケート履歴参照</li></ul>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+        </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+

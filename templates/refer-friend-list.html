@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}友達紹介リスト | GPS-Live-Match{% endblock %}
+
+
+{% block head %}
+
+  <!-- Custom styles for this template -->
+<link href="{% static 'css/clean-blog.min.css' %} rel="stylesheet">
+
+{% endblock %}
+
+{% block contents %}
+
+
+  <!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="my-div-style w-100">
+            <div class="col-lg-8 col-md-10 mx-auto">
+
+
+                <h6>会員氏名：{{ clientname }}  さん</h6><br>
+                <hr>
+                <P>
+                    キャンペーン名：{{ title }}<br>
+                    開始日：{{ s_date }}<br>
+                    終了日：{{ e_date }}<br>
+                    付与ポイント：{{ grant_point }}<br>
+                    ※ 複数のお友達を紹介することができます。<BR>
+                    ※ 紹介成立毎に、{{ grant_point }}ポイントを付与します。
+                </P>
+                <hr>
+
+                {% for item in object_list %}
+
+                    <div class="post-preview">
+                        <P><strong>お友達のお名前：</strong>
+                        <a href="{% url 'live:refer_friend_detail' item.pk rf_pk  %}">
+                            <strong>{{ item.friend_name }}</strong>
+                        </a>
+                        </P>
+                        <p class="post-subtitle">
+                            <strong>お友達Eメール：</strong>{{ item.friend_email }}
+                        </p>
+                        <p class="post-meta"><strong>登録日：</strong>{{ item.created_at }}</p>
+                    </div>
+                <hr>
+                {% empty %}
+                <p>コンテンツがありません。</p>
+                {% endfor %}
+                <!-- ページネーション処理 -->
+                {% if is_paginated %}
+                    <ul class="pagination">
+                        <!-- 前ページへのリンク -->
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+
+                        <!-- ページ数表示 -->
+                        {% for page_num in page_obj.paginator.page_range %}
+                            {% if page_obj.number == page_num %}
+                                <li class="page-item active"><a class="page-link" href="#">{{ page_num }}</a></li>
+                            {% else %}
+                                <li class="page-item"><a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+
+                        <!-- 次ページへのリンク -->
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+            <a class="btn btn-primary mt-5 ml-2 mb-3" href="{% url 'live:refer_friend_create' rf_pk %}">新規登録</a>
+            <a class="btn btn-success mt-5 ml-2 mb-3" href="{% url 'live:index' %}">ホーム</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+

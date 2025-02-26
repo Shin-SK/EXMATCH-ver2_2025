@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block active_terms_service %}active{% endblock %}
+{% block active_terms_service_logout %}active{% endblock %}
+
+{% block title %}料金体系 | GPS-Live-Match{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block contents %}
+
+<!--                課金体系フラグ １：定額課金（EXMATCH） ０：従量課金（LIVEMATCH）-->
+{% if m_b_f == 0 %}
+{% if mes_m == '' %}
+
+<div class="container">
+    <div class="my-div-style w-100">
+        <h5>料金体系</h5><br>
+        <P><strong>男性月額利用料の目安（1回の出会いを想定）：</strong><font color="red"> {{ total_fee }}P</font>です。</P><br>
+
+        <h6>課金項目とその内容</h6>
+        <p>（１P={{ unit_price }} 円）</p>
+
+        <div class="row my-row-style1">
+            <p></p>
+            <div class="table-responsive">
+
+                <table class="table table-striped">
+                    <thead class="table-active">
+                    <tr>
+                        <th scope="col">課金項目</th>
+                        <th scope="col">料金</th>
+                        <th scope="col">内容</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <ul>
+                        <tr><td colspan="3"><strong><li>いいね</li></strong></td></tr>
+                        <tr><td>男性A→男性Bへいいね</td><td>{{ like_mm }}P</td><td>男性Aに課金 プロフィールに「いいね！」</td></tr>
+                        <tr><td>女性A→女性Bへいいね</td><td>{{ like_ww }}P</td><td>女性Aに課金 プロフィールに「いいね！」</td></tr>
+                        <tr><td>男性A→女性Bへいいね</td><td>{{ like_mw }}P</td><td>男性Aに課金 プロフィールに「いいね！」</td></tr>
+                        <tr><td>女性A→男性Bへいいね</td><td>{{ like_wm }}P</td><td>女性Aに課金 プロフィールに「いいね！」</td></tr>
+                        <tr><td colspan="3"><strong><li>マッチング</li></strong></td></tr>
+                        <tr><td>男性A→男性Bのマッチング</td><td>{{ like_fee_both_men }}P</td><td>両者に課金 「いいね！」されて「いいね！」した</td></tr>
+                        <tr><td>女性A→女性Bのマッチング</td><td>{{ like_fee_both_women }}P</td><td>両者に課金 「いいね！」されて「いいね！」した</td></tr>
+                        <tr><td>男性A→女性Bへのマッチング</td><td>{{ like_fee_mw }}P</td><td>両者に課金 女性から「いいね！」されて男性が「いいね！」した</td></tr>
+                        <tr><td>女A→男性Bへのマッチング</td><td>{{ like_fee_wm }}P</td><td>両者に課金 男性から「いいね！」されて女性が「いいね！」した</td></tr>
+                        <tr><td colspan="3"><strong><li>メッセージ送信（いいね前）</li></strong></td></tr>
+                        <tr><td>男性A→男性Bへメッセージ（いいね前）</td><td>{{ message_a_mm }}P</td><td>男性Aに課金 メッセージ送信</td></tr>
+                        <tr><td>女性A→女性Bへメッセージ（いいね前）</td><td>{{ message_a_ww }}P</td><td>女性Aに課金 メッセージ送信</td></tr>
+                        <tr><td>男性A→女性Bへメッセージ（いいね前）</td><td>{{ message_a_mw }}P</td><td>男性Aに課金 メッセージ送信</td></tr>
+                        <tr><td>女性A→男性Bへメッセージ（いいね前）</td><td>{{ message_a_wm }}P</td><td>女性Aに課金 メッセージ送信</td></tr>
+                        <tr><td colspan="3"><strong><li>メッセージ送信（いいね後）</li></strong></td></tr>
+                        <tr><td>男性A→男性Bへメッセージ（いいね後）</td><td>{{ message_b_mm }}P</td><td>男性Aに課金 メッセージ送信</td></tr>
+                        <tr><td>女性A→女性Bへメッセージ（いいね後）</td><td>{{ message_b_ww }}P</td><td>女性Aに課金 メッセージ送信</td></tr>
+                        <tr><td>男性A→女性Bへメッセージ（いいね後）</td><td>{{ message_b_mw }}P</td><td>男性Aに課金 メッセージ送信</td></tr>
+                        <tr><td>女性A→男性Bへメッセージ（いいね後）</td><td>{{ message_b_wm }}P</td><td>女性Aに課金 メッセージ送信</td></tr>
+                        <tr><td colspan="3"><strong><li>メッセージ送信（マッチング後）</li></strong></td></tr>
+                        <tr><td>男性A→男性Bへメッセージ（マッチング後）</td><td>{{ message_c_mm }}P</td><td>男性Aに課金 メッセージ送信</td></tr>
+                        <tr><td>女性A→女性Bへメッセージ（マッチング後）</td><td>{{ message_c_ww }}P</td><td>女性Aに課金 メッセージ送信</td></tr>
+                        <tr><td>男性A→女性Bへメッセージ（マッチング後）</td><td>{{ message_c_mw }}P</td><td>男性Aに課金 メッセージ送信</td></tr>
+                        <tr><td>女性A→男性Bへメッセージ（マッチング後）</td><td>{{ message_c_wm }}P</td><td>女性Aに課金 メッセージ送信</td></tr>
+                        <tr><td colspan="3"><strong><li>メッセージ送信添付ファイル（任意）</li></strong></td></tr>
+                        <tr><td>写真</td><td>{{ message_image }}P</td><td>写真送信</td></tr>
+                        <tr><td>音声</td><td>{{ message_audio }}P</td><td>音声送信</td></tr>
+                        <tr><td>動画</td><td>{{ message_video }}P</td><td>動画送信</td></tr>
+                        <tr><td colspan="3"><strong><li>チャット（30分間）</li></strong></td></tr>
+                        <tr><td>男性同士のチャット</td><td>{{ chat_f_mm }}P</td><td>両者に課金</td></tr>
+                        <tr><td>女性同士のチャット</td><td>{{ chat_f_ww }}P</td><td>両者に課金</td></tr>
+                        <tr><td>男性と女性のチャット</td><td>{{ chat_f_mw }}P</td><td>男性の課金</td></tr>
+                        <tr><td>男性と女性のチャット</td><td>{{ chat_f_wm }}P</td><td>女性の課金</td></tr>
+                        <tr><td colspan="3"><strong><li>プレミアムぼっち会員（任意）</li></strong></td></tr>
+                        <tr><td>プレミアムぼっち会員</td><td>{{ premium_bocchi_membership_fee }}P</td><td>月額利用料
+                        </td></tr>
+                        <tr><td colspan="3"><strong><li>現在位置情報取得料（任意）</li></strong></td></tr>
+                        <tr><td>現在位置情報取得料</td><td>{{ current_position_acquisition_fee }}P</td><td>ログインして最初の現在位置情報取得時に発生する料金ですが、通常利用では無料です。<br>ただし、新たに位置情報を取得するためにブラウザの更新ボタンを押すと<br>その都度課金（{{ current_position_acquisition_fee }}P）されますので、<br>なるべく更新ボタンを押さないようにしてください。
+                        </td></tr>
+                        <tr><td colspan="3"><strong><li>検索サービスサブスクリプション（任意）</li></strong></td></tr>
+                        <tr><td>サブスク基本料</td><td>{{ basic_subscription_fee_p }}P/月</td><td>検索サービス（任意）</td></tr>
+                        <tr><td>サブスク紹介料</td><td>{{ subscription_referral_fee_p }}P／人</td><td>検索サービスで紹介された場合（任意）</td></tr>
+                        <tr><td colspan="3"><strong><li>ポイント購入（任意）</li></strong></td></tr>
+                        <tr><td>ポイント購入</td><td>1000～30000円</td><td>5000円～9000円（7％増）、10000円～19000円（10％増）、<br>20000円～30000円（15％増） ポイントを事前に購入するとお得になります。
+                    </ul>
+
+                    </td></tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <br><br>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <tr>
+                        <td colspan="3">
+                            <h6>（１）男性利用料シミュレーション</h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <ol>
+                                <li>男性から女性に「いいね！」：{{ like_mw }}P</li><br>
+                                <li>女性から「いいね！」されて、マッチング成立：{{ like_fee_mw }}P</li><br>
+                                <li>男性から女性へメッセージ送信3回</li><br>
+                                <ol>
+                                    <li>メッセージ送信（いいね前）：{{ message_a_mw }}P</li><br>
+                                    <li>メッセージ送信（いいね後）：{{ message_b_mw }}P</li><br>
+                                    <li>メッセージ送信（マッチング後）：{{ message_c_mw }}P</li><br>
+                                </ol>
+                                <li>チャット1回：{{ chat_f_mw }}P</li><br>
+                                <li>合計：{{ total_fee }}P</li><br>
+                            </ol>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <h6>（２）サブスク利用料シミュレーション</h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            一ヶ月の利用料（男性・女性）
+                        </td>
+                        <td>
+                            {{ basic_subscription_fee_p }}P+{{ subscription_referral_fee_p }}P×{{ referral_num }}人＝{{ subscription_fee }}P
+                        </td>
+                        <td>
+                            基本料{{ basic_subscription_fee_p }}P、サブスク紹介料{{ subscription_referral_fee_p }}P/人、紹介者{{ referral_num }}人として
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <p></p>
+            <!--            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>-->
+
+        </div>
+    </div>
+</div>
+
+{% else %}
+<p>{{ mes_m }}</p>
+{% endif %}
+
+{% else %}
+
+<div class="container">
+    <div class="my-div-style w-100">
+        <h5>料金体系</h5><br>
+
+        <div class="row my-row-style1">
+            {% if mes_m == '' %}
+
+            <p>EXMATCHの料金体系を記述</p>
+
+            {% else %}
+            <p>{{ mes_m }}</p>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+

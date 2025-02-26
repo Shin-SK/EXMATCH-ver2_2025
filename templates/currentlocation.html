@@ -1,0 +1,357 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}現在位置情報 | Live-Match{% endblock %}
+
+
+{% block head %}
+
+  <!-- Custom styles for this template -->
+<!--<link href="{% static 'css/clean-blog.min.css' %}" rel="stylesheet">-->
+ <style>
+ul.f_s { font-size: 14px; }
+</style>
+
+<style>
+.boxA:after{
+content:"";
+display:block;
+clear:both;
+
+}
+
+.boxA{
+float:left;
+width: 100%
+}
+
+
+#boxB:after{
+content:"";
+display:block;
+clear:both;
+
+}
+
+#boxB{
+float:left;
+width: 100%
+}
+
+
+        #boxB {
+            display: none; /* 初期状態非表示 */
+        }
+
+</style>
+<style>
+
+/*currentlocationマーカーをアニメーション（ドロップダウン上から下へ1秒）で表示する*/
+.bounce {
+	/*animation: bounce 1s ease-in-out infinite;*/
+	animation: bounce 1s ease-in-out;
+}
+@keyframes bounce {
+	0% {
+		transform: translateY( -150px );
+	}
+	100% {
+		transform: translateY( 0px );
+	}
+}
+</style>
+
+
+{% endblock %}
+
+
+{% block contents %}
+
+
+<div class="container">
+    <div class="my-div-style w-100">
+        <h5>GPS 位置情報</h5><br>
+            <p>{{ nickname }} さん</p>
+
+            <div class="post-preview">
+                <ul class="f_s" style="list-style: none;">
+                    <li>検索ページでは半径{{ radius }}ｍの円内の、ランダムな位置に場所が表示されます。</li>
+                </ul>
+            </div>
+
+        <div class="row my-row-style1">
+            <div id="gmap" style="height:400px;width:600px"></div> <!-- 地図を表示する領域 -->
+
+
+            <div class="table-responsive">
+            <table class="table table-borderless">
+                <tr>
+                    <td>
+
+<!--            formブロックを地図エリアの下に配置するためclass="boxA"にCSSを摘要-->
+            <div id="id-boxA" class="boxA">
+                        <form action="{% url 'live:currentlocation' %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+
+                            <div class="form-group">
+<!--                            <label style="font-size:13px;">現在位置緯度：</label>-->
+                            <input type="hidden" class="form-control form-control-sm" id="id_lat" name="lat" value="">
+                            </div>
+                            <div class="form-group">
+<!--                            <label style="font-size:13px;">現在位置経度：</label>-->
+                            <input type="hidden" class="form-control form-control-sm" id="id_lng" name="lng" value="">
+                            </div>
+                            <div class="form-group">
+<!--                            <label style="font-size:13px;">ランダム緯度：</label>-->
+                            <input type="hidden" class="form-control form-control-sm" id="id_randomlat" name="rlat" value="">
+                            </div>
+                            <div class="form-group">
+<!--                            <label style="font-size:13px;">ランダム緯度：</label>-->
+                            <input type="hidden" class="form-control form-control-sm" id="id_randomlng" name="rlng" value="">
+                            </div>
+
+                            <input type="submit"  class="btn btn-primary mt-5 ml-2 mb-3" value="次へ">
+<!--                            <input type="submit"  class="btn btn-success mt-5 ml-2 mb-3" value="「今何してる！」を登録して、近くにいるお友達を探す！">-->
+<!--                            <input type="submit"  class="btn btn-success btn-sm btn-block" value="近くにいるお友達を探す！">-->
+<!--                            <input id="image" type="image" src="{% static 'img/search1.jpg' %}" alt="近くにいるお友達を探す！">-->
+                        </form>
+<!--                <a type="button" class="btn btn-secondary btn-sm btn-block" href="{% url 'live:member-profile-check' 18 %}" role="button">GPS 位置情報を登録しないでお友達を探す！</a>-->
+<!--                <a type="button" class="btn btn-secondary btn-sm btn-block" href="{% url 'live:gps_point_subtraction' %}" role="button">会員検索はこちら！</a>-->
+<!--                <a href="{% url 'live:gps_point_subtraction' %}"><img src="{% static 'img/search2.jpg' %}" alt="会員検索はこちら！"></a>-->
+
+            </div>
+
+            <div id="boxB" style="margin-top:30px">
+                <p><font color="red">現在、位置情報取得が許可されていません。</font><br>
+                    従って、他のメンバーから地図上では検索されません。<br>
+                    リアルタイムにお相手を検索する場合は、位置情報取得の「許可」をお勧めします。<br>
+                    位置情報取得の「許可」の設定方法は、<a href="{% url 'live:location_permission' %}" target="_blank" rel="noopener">こちら</a>を参照<br>
+                    <a  style="margin-left:60px;" class="btn btn-success mt-5 ml-2 mb-3" href="{% url 'live:index' %}">ホーム</a><br><br>
+                </p>
+            </div>
+                        </td>
+                    </tr>
+                <tr>
+                    <td>
+            <ul class="f_s">
+                <li>個人の正確な位置情報は、検索ページではご確認頂けません。</li>
+                <li>ログアウト時に、位置情報は廃棄されます。</li><br>
+                <li>位置情報取得の「許可」の設定方法は、<a href="{% url 'live:location_permission' %}" target="_blank" rel="noopener">こちら</a>を参照</li><br>
+                <li>GPS 位置情報を登録してお友達を探すとリアルタイムで近くのお友達が見つかります！</li>
+            </ul>
+                    </td>
+                </tr>
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--<script src="https://maps.googleapis.com/maps/api/js?key={{ googleapikey }}&callback=initMap" async defer></script>-->
+<!--&lt;!&ndash; YOUR_API_KEYの部分は取得した APIキーで置き換えます &ndash;&gt;-->
+
+<!--&lt;!&ndash;</script>&ndash;&gt;-->
+<!--<script>-->
+
+<script>
+  (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+    key: "{{ googleapikey }}",
+    v: "weekly",
+    // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
+    // Add other bootstrap parameters as needed, using camel case.
+  });
+</script>
+
+<script>
+async function initMap() {
+  var target = document.getElementById('gmap');
+
+  const g_elementDivBoxB = document.getElementById( "boxB" );
+  const g_elementDivBoxA = document.getElementById( "id-boxA" );
+
+  // Request needed libraries.
+  //@ts-ignore
+  const { Map } = await google.maps.importLibrary("maps");
+  const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+
+
+  //マップを生成して表示
+  var map = new google.maps.Map(document.getElementById('gmap'), {
+  //吉祥寺駅の緯度経度
+    center: {lat: 35.70341777725161, lng: 139.5797336679452},
+    zoom: 15,
+    mapId: "{{ map_ID }}"  //マップID  live match　地図
+  });
+
+  //情報ウィンドウのインスタンスの生成
+  var infoWindow = new google.maps.InfoWindow;
+
+  //ブラウザが Geolocation に対応しているかを判定
+  //対応していない場合の処理
+  if(!navigator.geolocation){
+    //情報ウィンドウの位置をマップの中心位置に指定
+    infoWindow.setPosition(map.getCenter());
+    //情報ウィンドウのコンテンツを設定
+    infoWindow.setContent('Geolocation に対応していません。');
+    //情報ウィンドウを表示
+    infoWindow.open(map);
+
+    // 画面の切り替え------------new-----
+    g_elementDivBoxA.style.display = "none";  // Form画面の非表示
+    g_elementDivBoxB.style.display = "flex";  // boxB画面の表示
+  }
+
+
+  //ブラウザが対応している場合、position にユーザーの位置情報が入る
+  navigator.geolocation.getCurrentPosition(function(position) {
+    //position から緯度経度（ユーザーの位置）のオブジェクトを作成し変数に代入
+    var pos = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude
+    };
+
+
+  //ユーザーの位置情報をコンソールに出力
+<!--  console.log(pos['lat']);-->
+<!--  console.log(pos['lng']);-->
+
+  //ランダムに算出された緯度経度
+  var randomlat = pos['lat']+{{lat_y_axis}};
+  var randomlng = pos['lng']+{{lng_x_axis}};
+
+
+  //ユーザーの位置情報
+  var center = pos;  //{lat: 35.68190139957492, lng: 139.574362957492}
+  //Circle（円）のインスタンスを生成。中心は、ユーザーの位置情報の座標を指定
+  var myCircle = new google.maps.Circle({
+    strokeColor: '#FF0000',
+    strokeOpacity: 0.8,
+    strokeWeight: 1,
+    fillColor: '#FF0000',
+    fillOpacity: 0.13,
+    map: map,
+    center: center,
+    draggable: true,  //円をドラッグできるように
+    radius: {{ radius }}  //半径300メートル
+  });
+
+
+    //情報ウィンドウに現在位置を指定
+    infoWindow.setPosition(pos);
+
+    //情報ウィンドウのコンテンツを設定
+<!--    infoWindow.setContent('現在位置を取得しました。');-->
+
+    //情報ウィンドウを表示
+<!--    infoWindow.open(map);-->
+
+    //マップの中心位置を指定
+    map.setCenter(pos);
+
+      const img = document.createElement('img');
+      icon_val = "https://maps.google.com/mapfiles/ms/micons/green-dot.png";
+      img.src = icon_val;
+
+
+    //グリーンマーカーの表示
+      var marker = new AdvancedMarkerElement({
+      position: map.getCenter(),
+      map: map,
+      title: "一人ぼっちさんだよ !",
+<!--      animation: google.maps.Animation.DROP,-->
+      content: img
+    });
+
+    //アニメーション用セレクタを追加
+      marker.content.classList.add( 'bounce' );
+
+<!--      var marker = new google.maps.Marker({-->
+<!--      position: map.getCenter(),-->
+<!--      map: map,-->
+<!--      title: "一人ぼっちさんだよ !",-->
+<!--      animation: google.maps.Animation.DROP,-->
+<!--      icon: "https://maps.google.com/mapfiles/ms/micons/green-dot.png"-->
+<!--    });-->
+
+      const img1 = document.createElement('img');
+      icon_val = "https://maps.google.com/mapfiles/ms/micons/man.png";
+      img1.src = icon_val;
+
+    //manマーカーの表示
+      var position = {lat: randomlat, lng: randomlng}
+      var marker = new AdvancedMarkerElement({
+      position: position,
+      map: map,
+      title: "{{ nickname }} さんの架空の現在地です！",
+<!--      animation: google.maps.Animation.DROP,-->
+      content: img1
+    });
+
+    //アニメーション用セレクタを追加
+      marker.content.classList.add( 'bounce' );
+
+
+<!--      var marker = new google.maps.Marker({-->
+<!--      position: position,-->
+<!--      map: map,-->
+<!--      title: "{{ nickname }} さんの架空の現在地です！",-->
+<!--      animation: google.maps.Animation.DROP,-->
+<!--      icon: "https://maps.google.com/mapfiles/ms/micons/man.png"-->
+<!--    });-->
+
+
+
+  }, function() {  //位置情報の取得をユーザーがブロックした場合のコールバック
+    //情報ウィンドウの位置をマップの中心位置に指定
+    infoWindow.setPosition(map.getCenter());
+    //情報ウィンドウのコンテンツを設定
+    infoWindow.setContent('位置情報の取得を許可してください！');
+    //情報ウィンドウを表示
+    infoWindow.open(map);
+
+    // 画面の切り替え------------new-----
+    g_elementDivBoxA.style.display = "none";  // Form画面の非表示
+    g_elementDivBoxB.style.display = "flex";  // boxB画面の表示
+
+  });
+
+  //----------------------------
+
+
+
+  //ブラウザが対応している場合、position にユーザーの位置情報が入る
+  navigator.geolocation.getCurrentPosition(function(position) {
+    //position から緯度経度（ユーザーの位置）のオブジェクトを作成し変数に代入
+
+<!--    var pos = {-->
+<!--      lat: position.coords.latitude,-->
+<!--      lng: position.coords.longitude-->
+<!--    };-->
+<!--    }),-->
+
+  //posをグローバル変数に定義（verを削除するとグローバル変数になる）
+    pos = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude,
+      //ランダムに算出された緯度経度を追加
+      rlat: position.coords.latitude + {{lat_y_axis}},
+      rlng: position.coords.longitude + {{lng_x_axis}}
+    };
+<!--  console.log(pos['rlat']);-->
+<!--  console.log(pos['rlng']);-->
+
+    document.getElementById('id_lat').value = pos['lat'];
+    document.getElementById('id_lng').value = pos['lng'];
+    document.getElementById('id_randomlat').value = pos['rlat'];
+    document.getElementById('id_randomlng').value = pos['rlng'];
+
+    });
+
+}
+
+initMap();
+
+</script>
+
+
+{% endblock %}

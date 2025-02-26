@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block active_terms_service %}active{% endblock %}
+{% block active_terms_service_logout %}active{% endblock %}
+
+{% block title %}お相手のプロフィール | GPS-Live-Match{% endblock %}
+
+{% block head %}
+
+<!--https://toretama.jp/click-big-image-floaty.html-->
+<!--拡大画像ポップアップ表示-->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/css/lightbox.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/js/lightbox.min.js" type="text/javascript"></script>
+
+{% endblock %}
+
+{% block contents %}
+<div class="container">
+    <div class="my-div-style w-100">
+        {% if out_in == 'out' %}
+            <h6>「いいね！」しているお相手のプロフィール</h6><br>
+                <p>{{ nickname }} さん</p>
+            <h6>お相手のプロフィール</h6><br>
+        {% else %}
+            <h6>「いいね！」されているお相手のプロフィール</h6><br>
+                <p>{{ nickname }} さん</p>
+            <h6>お相手のプロフィール</h6><br>
+        {% endif %}
+        <div class="row my-row-style1">
+
+            <p>
+                {% if out_in == 'out' %}
+                {{ h_query.partner_nickname }} さん のプロフィール
+                {% else %}
+                {{ h_query.my_nickname }} さん のプロフィール
+                {% endif %}
+                </p>
+
+
+            <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped table-sm">
+            <tbody>
+<!--            # object_listには検索された会員のプロフィールが格納されている-->
+                {% for item in object_list %}
+                {% if item.serviceclient_id.gender %}
+
+            <thead class="table-active">
+                <tr align="center">
+<!--                  <th scope="col" >項目</th>-->
+                  <th scope="col" >プロフィール</th>
+                </tr>
+            </thead>
+                {% else %}
+            <thead>
+                <tr align="center">
+<!--                  <th scope="col" bgcolor="#FFC0CB "><font color="#c71585 ">項目</font></th>-->
+                  <th scope="col" bgcolor="#FFC0CB "><font color="#c71585 ">プロフィール</font></th>
+                </tr>
+            </thead>
+                {% endif %}
+
+            <tr>
+<!--                <td>ニックネーム：</td>-->
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>ニックネーム：</b></font></small><br>
+                    {{ item.nickname }}</td>
+            </tr>
+                {% if item.face_photo %}
+            <tr>
+<!--                <td>写真：</td>-->
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>写真：</b></font></small><br>
+                    <div class="col-sm-6 col-md-3" style="margin: 0px 10px 10px 0px; ">
+                        <!--拡大画像ポップアップ表示-->
+                        <a href="{{ item.face_photo.url }}" data-lightbox="group"><img src="{{ item.face_photo.url }}" class="img-fluid img-thumbnail" width="90%"></a>
+<!--                <img src="{{ item.face_photo.url }}" class="img-fluid img-thumbnail" width="50%" height="auto"/>-->
+                    </div>
+                </td>
+            </tr>
+                {% endif %}
+                {% if item.what_doing_now %}
+            <tr>
+<!--                <td><font color="#c71585 "><strong>今何している！</strong></font></td>-->
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>今何している！：</b></font></small><br>
+                    {{ item.what_doing_now | linebreaksbr | urlize }}<br>（{{ item.updated_at }}）</td>
+            </tr>
+                {% endif %}
+            <tr>
+<!--                <td>自己ピーアール：</td>-->
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>自己ピーアール：</b></font></small><br>
+                    {{ item.article  | linebreaksbr | urlize }}</td>
+            </tr>
+                {% if item.keyword %}
+            <tr>
+<!--                <td>趣味・興味：</td>-->
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>趣味・興味：</b></font></small><br>
+                    {{ item.keyword  | linebreaksbr | urlize }}</td>
+            </tr>
+                {% endif %}
+
+                {% for h_item in hownices %}
+<!--                # プロフィール検索された自分が「いいね！」されているかいないか？-->
+                {% if item.serviceclient_id == h_item.serviceclient_id and sc_id == h_item.partner_id and h_item.like_flag == 1 %}
+            <tr>
+<!--                <td><font color="#c71585 "><strong>いいね！</strong></font></td>-->
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>いいね！：</b></font></small><br>
+                    ＜ {{ h_item.my_nickname }} ＞さんから ＜ {{ h_item.partner_nickname }} ＞さんへ！
+                </td>
+            </tr>
+                {% endif %}
+                {% endfor %}
+
+<!--                # （１７）会員IDといいね！有無リスト作成 [(<Serviceclient: ichiko>, 1), (<Serviceclient: hanako>, 0)]-->
+                {% for l_f_l_item in like_flag_lst %}
+<!--                いいね！有無リストのserviceclient_idとProfileのserviceclient_idが一致しているか？-->
+                {% if item.serviceclient_id == l_f_l_item.0 %}
+<!--                いいねフラグ １か？「いいね！」されているか？-->
+                {% if l_f_l_item.1 == 1 %}
+            <tr>
+<!--                <td>プロフィール詳細：</td>-->
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>プロフィール詳細：</b></font></small><br>
+<!--                    # class="btn btn-success btn-sm message" 内の'message'は、動的にidを生成するためのクラス名-->
+                    <a class="btn btn-success btn-sm message" title="{% url 'live:profile_detail_message' item.pk %}" onclick="getId(this);"><font color="white">メッセージ送信</font></a>
+                    <a class="btn btn-primary btn-sm message" title="{% url 'live:profile_how_nice' item.pk 2 %}" onclick="getId(this);"><font color="white">いいね！</font></a>
+                    <a class="btn btn-warning btn-sm message" title="{% url 'live:profile_how_nice' item.pk 3 %}" onclick="getId(this);"><font color="white">保留</font></a></td>
+
+<!--                    <a class="btn btn-success btn-sm" href="{% url 'live:profile_detail_message' item.pk %}" target="_blank" rel="noopener">メッセージ送信</a>-->
+<!--                    <a class="btn btn-primary btn-sm" href="{% url 'live:profile_how_nice' item.pk 2 %}" target="_blank" rel="noopener">いいね！</a>-->
+<!--                    <a class="btn btn-warning btn-sm" href="{% url 'live:profile_how_nice' item.pk 3 %}" target="_blank" rel="noopener">保留</a></td>-->
+            </tr>
+                {% else %}
+            <tr>
+<!--                <td>プロフィール詳細：{{ h_item.serviceclient_id }} {{ h_item.partner_id }} {{ h_item.like_flag }}</td>-->
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>プロフィール詳細：</b></font></small><br>
+<!--                    # class="btn btn-success btn-sm message" 内の'message'は、動的にidを生成するためのクラス名-->
+                    <a class="btn btn-success btn-sm message" title="{% url 'live:profile_detail_message' item.pk %}" onclick="getId(this);"><font color="white">メッセージ送信</font></a>
+                    <a class="btn btn-primary btn-sm message" title="{% url 'live:profile_how_nice' item.pk 1 %}" onclick="getId(this);"><font color="white">いいね！</font></a>
+
+<!--                    <a class="btn btn-success btn-sm" href="{% url 'live:profile_detail_message' item.pk %}" target="_blank" rel="noopener">メッセージ送信</a>-->
+<!--                    <a class="btn btn-primary btn-sm" href="{% url 'live:profile_how_nice' item.pk 1 %}" target="_blank" rel="noopener">いいね！</a></td>-->
+            </tr>
+                {% endif %}
+
+                {% endif %}
+
+                {% endfor %}
+
+<!--                # object_list（検索結果のプロフィールのendfor）-->
+                {% endfor %}
+
+            </tbody>
+
+            </table>
+            </div>
+
+            </div>
+        </div>
+    <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:like_management' %}">戻る</a><br>
+<!--    <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>-->
+
+    </div>
+
+
+<script>
+
+    // 複数の要素に動的なidをつける
+    // # class="btn btn-success btn-sm message" 内の'message'は、動的にidを生成するためのクラス名-->
+
+    var moji = "messageID"
+    var tmp = document.getElementsByClassName("message") ; // クラス：messageを含む要素をtmpリストに格納
+
+    for(var i=0;i<=tmp.length-1;i++){
+        //要素にid追加（messageID0～）
+        tmp[i].setAttribute("id",moji+i);
+        }
+
+</script>
+
+<script>
+
+function getId(ele){
+    var id_value = ele.id; // eleのプロパティとしてidを取得
+//    console.log('メッセージ' + id_value); //「messageID0～」
+
+  let newWindow; // 変数newWindowを宣言
+  var url_ad = document.getElementById( id_value ).title;// urlアドレス取得
+
+  let openBtn = document.getElementById( id_value ); // 開くボタンのidを取得
+
+  openBtn.addEventListener('click', () => { // 開くボタンをクリックしたときのイベント
+    newWindow = open(url_ad); // ページを開く
+  });
+
+    }
+
+</script>
+
+
+{% endblock %}
+
+

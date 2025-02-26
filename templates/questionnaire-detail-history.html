@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block active_terms_campaign %}active{% endblock %}
+
+{% block title %}アンケート履歴詳細 | GPS-Live-Match{% endblock %}
+
+
+
+{% block contents %}
+
+<div class="container" xmlns:margin-bottom="http://www.w3.org/1999/xhtml">
+    <div class="my-div-style w-100">
+
+        <h3>アンケート詳細</h3>
+        <br>
+
+        <div class="row my-row-style1">
+                <strong>会員氏名：</strong>
+        </div>
+        <div class="row my-row-style1">
+                {{ clientname }}  さん
+        </div>
+
+        <table class="table">
+        <tr><td><strong>質問１：</strong></td><td>{{ question1 }}</td></tr>
+        <tr><td><strong>質問２：</strong></td><td>{{ question2 }}</td></tr>
+        <tr><td><strong>質問３：</strong></td><td>{{ question3 }}</td></tr>
+        </table>
+        <hr>
+
+
+
+        <div class="row my-row-style1">
+                <strong>質問１の回答：</strong>
+        </div>
+        <div class="row my-row-style1">
+                {{ object.answer1 }}
+        </div>
+        <hr>
+
+        <div class="row my-row-style1">
+                <strong>質問２の回答：</strong>
+        </div>
+        <div class="row my-row-style1">
+                {{ object.answer2 }}
+        </div>
+        <hr>
+
+        <div class="row my-row-style1">
+                <strong>質問３の回答：</strong>
+        </div>
+        <div class="row my-row-style1">
+                {{ object.answer3 }}
+        </div>
+        <hr>
+
+        {% if object.requirements %}
+        <div class="row my-row-style1">
+                <strong>要望事項：</strong>
+        </div>
+        <div class="row my-row-style1">
+                {{ object.requirements }}
+        </div>
+        <hr>
+        {% endif %}
+
+        <div class="row my-row-style1">
+                <strong>アンケート回答状況：</strong>
+        </div>
+        <div class="row my-row-style1">
+                {{ object.status }}
+        </div>
+        <hr>
+
+        <div class="row my-row-style1">
+                <strong>アンケート登録日：</strong>
+        </div>
+        <div class="row my-row-style1">
+                {{ object.created_at }}
+        </div>
+        <hr>
+
+
+            <a class="btn btn-success ml-2" href="{% url 'live:questionnaire_list_history' %}">戻る</a>
+            <a class="btn btn-success ml-2" href="{% url 'live:index' %}">ホーム</a><br><br>
+
+    </div>
+</div>
+{% endblock %}

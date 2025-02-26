@@ -1,0 +1,403 @@
+{% extends 'lrallybase.html' %}
+{% load static %}
+
+{% block active_line_liff %}active{% endblock %}
+
+{% block title %}LRally | Line-Liff{% endblock %}
+
+{% block head %}
+<!--    LIFFアプリにLIFF SDKを組み込む-->
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+
+
+{% endblock %}
+
+{% block contents %}
+
+<div class="container">
+    <div class="my-div-style w-100">
+
+        <div class="row my-row-style1">
+
+        <div class="table-responsive-sm" style="margin: 0px 0px 0px 0px; ">
+        <table class="table table-borderless" align="center">
+            <tr align="center">
+                <td>
+                    <div style="text-align: center;">
+<!--                        <h3><font color="red">ラリー</font></h3>-->
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div style="text-align: center;" style="margin: 0px 0px 50px 0px; ">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+<!--                    <p><h5>ようこそ！<font color="red">ラリー</font>へ</h5></p>-->
+                </td>
+            </tr>
+            <tr>
+                <td>
+<!--                    {% if lid == '1657544165-8jx0xap1' %}-->
+<!--                    {% else %}-->
+<!--                    {% endif %}-->
+                </td>
+            </tr>
+            <tr>
+                <td>
+<!--                    <div>line 名前： <span id="name">world</span></div><br><br>-->
+<!--                    <div>line メールアドレス： <span id="e_mail">world</span></div><br><br>-->
+<!--                    <div>line ユーザーID： <span id="l_userid">world</span></div><br><br>-->
+<!--                    <div>line 写真：  <span id="l_picture">world</span></div><br><br>-->
+                </td>
+            </tr>
+            <tr>
+                <td>
+<!--                <div class="col-sm-6 col-md-3" style="margin: 0px 10px 10px 0px; ">-->
+<!--                    <img src="{% static 'img/iwateyuki.jpg' %}" width="300" height=auto title="岩手雪まつり" alt="岩手雪まつり"/>-->
+<!--                </div>-->
+                </td>
+            </tr>
+            <tr>
+                <td>
+<!--                    <p>QRコードでスタンプ GET !</p><br>-->
+<!--                    <div><h4 id="qr_text_a"></h4></div><br>-->
+
+<!--                    <div><p id="qr_text"></p></div>-->
+<!--                    <input type="button" value="QRスキャン" id="qr_button">-->
+                </td>
+            </tr>
+        </table>
+        </div>
+
+                        {% if state == "2" %}
+
+
+            <form action="{% url 'live:liveliff' lid rid  %}" method="post" enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+                <div class="table-responsive">
+                    <table class="table table-borderless">
+                        <tr>
+                            <td>
+
+                    <div class="form-group">
+                        <input id="l_name" type="hidden" name="name" placeholder="Input">
+<!--                        <input id="l_name" type="hidden" name="name" placeholder="Input">-->
+                    </div>
+                    <div class="form-group">
+                        <input id="l_mail" type="hidden" name="mail" placeholder="Input">
+                    </div>
+                    <div class="form-group">
+                        <input id="l_picture1" type="hidden" name="picture" placeholder="Input">
+                    </div>
+                    <div class="form-group">
+                        <input id="l_sub" type="hidden" name="sub" placeholder="Input">
+                    </div>
+                    <div class="form-group">
+                        <input id="l_rid" type="hidden" name="rid" placeholder="Input">
+                    </div>
+                    <div class="form-group">
+                        <input id="l_lid" type="hidden" name="lid" placeholder="Input">
+                    </div>
+
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                <button id="start" class="btn btn-primary ml-2 mt-3 mb-3" type="submit" style="display:none;">ログイン</button>
+<!--                <button id="start" class="btn btn-primary ml-2 mt-3 mb-3" type="submit"></button>-->
+<!--                <button id="start" type="submit"></button>-->
+<!--                <input id="start" type="submit" value="" style="display:none;">-->
+<!--                <input id="start" type="submit">-->
+
+            </form>
+
+            {% endif %}
+
+
+<!--            {% if state == "2" %}-->
+
+
+
+<!--                {% csrf_token %}-->
+
+<!--                <div class="table-responsive">-->
+<!--                    <table class="table table-borderless">-->
+<!--                        <tr>-->
+<!--                            <td>-->
+
+<!--                    <div class="form-group">-->
+<!--                        <input id="l_name" type="text" name="name" placeholder="Input">-->
+<!--&lt;!&ndash;                        <input id="l_name" type="hidden" name="name" placeholder="Input">&ndash;&gt;-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <input id="l_mail" type="text" name="mail" placeholder="Input">-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <input id="l_picture1" type="text" name="picture" placeholder="Input">-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <input id="l_sub" type="text" name="sub" placeholder="Input">-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <input id="l_rid" type="text" name="rid" placeholder="Input">-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <input id="l_lid" type="text" name="lid" placeholder="Input">-->
+<!--                    </div>-->
+
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                        </table>-->
+<!--                    </div>-->
+<!--                <button id="start" class="btn btn-primary ml-2 mt-3 mb-3" type="submit">ログイン</button>-->
+
+<!--                </form>-->
+
+<!--            {% endif %}-->
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+
+window.onload = function (e) {
+
+// LIFFの初期化を行う
+// LIFFアプリを初期化します。このメソッドを実行すると、LIFF SDKの他のメソッドを実行できるようになります。
+// このとき、LIFF SDKは、現在のユーザーのアクセストークンやIDトークンをLINEプラットフォームから取得します。
+
+liff.init({
+// 自分のLIFF ID（URLから『https://liff.line.me/』を除いた文字列）を入力する
+// liffId: "1657544165-8jx0xap1",
+
+liffId: "{{ lid }}",
+
+
+// withLoginOnExternalBrowser: true, // Enable automatic login process
+
+// 初期化完了. 以降はLIFF SDKの各種メソッドを利用できる
+}).then(() => {
+
+
+// liff.ready内に書いた処理はliff.init()が完了された後に実行される
+liff.ready.then(() => {
+
+
+if (!liff.isInClient()) {
+
+console.log("外部ブラウザです！");
+
+if (!liff.isLoggedIn()) {
+  liff.login();
+
+}
+
+}
+
+// LIFF SDKが取得したIDトークンのペイロードを利用するには、liff.getDecodedIDToken()を呼び出します。
+// ペイロードには、ユーザーの表示名、プロフィール画像のURL、メールアドレスなどの情報が含まれます。
+const idToken = liff.getDecodedIDToken();
+
+console.log(idToken); // print decoded idToken object
+
+const u_profile = JSON.stringify(idToken)
+const u_profile_parse = JSON.parse(u_profile)
+
+console.log(u_profile_parse); // print decoded idToken object
+
+console.log(u_profile_parse.name); // print name
+console.log(u_profile_parse.sub); // print sub
+console.log(u_profile_parse.email); // print email
+
+const l_name = u_profile_parse.name //名前
+const l_sub = u_profile_parse.sub // User ID
+const l_email = u_profile_parse.email // メールアドレス
+const l_picture = u_profile_parse.picture // 写真
+
+
+        var str = '';
+        str += l_name + '_' + l_email + '_' + l_sub + '_' + l_picture;
+
+        post_sample(str);
+
+
+
+
+// HTMLに挿入
+
+<!--document.getElementById("l_name").value = l_name; // 名前-->
+<!--document.getElementById("l_mail").value = l_email; // メールアドレス-->
+<!--document.getElementById("l_picture1").value = l_picture; // 写真-->
+<!--document.getElementById("l_sub").value = l_sub; // User ID-->
+<!--document.getElementById("l_rid").value = "{{ rid }}"; // rid-->
+<!--document.getElementById("l_lid").value = "{{ lid }}"; // rid-->
+
+<!--document.querySelector("#name").innerText = l_name;-->
+<!--document.getElementById('name').textContent = l_name;-->
+<!--document.getElementById('l_userid').textContent = l_sub;-->
+<!--document.getElementById('e_mail').textContent = l_email;-->
+
+
+<!--    var x = document.getElementById("l_picture");-->
+<!--    console.log('<img src="' + l_picture + '" width="30" height="auto" alt="写真" />');-->
+
+<!--    x.innerHTML = '<img src="' + l_picture + '" width="150" height="auto" alt="写真" />';-->
+
+
+
+// startボタン自動クリック、 defer パラメーターでHTMLパースが完了後、scriptを実行する。
+
+// 自動でbuttonクリック処理
+    const start = document.getElementById('start');
+
+    // HTMLElement.click()を使う場合
+    function startLogin (l_name) {
+    if (l_name) {
+        console.log(l_name);
+        console.log('Start!');
+<!--        start.click();-->
+    }
+
+    else {
+    console.log('No Start!');
+    }
+
+    }
+
+<!--    startLogin(l_name);-->
+
+
+
+
+
+// QRコード読取り
+<!--document.getElementById('qr_button').addEventListener('click', function() {-->
+<!--    word = '1'-->
+<!--    if (word == '1') {-->
+
+ // LIFFアプリをLIFFブラウザで動作させているかどうかを取得します。
+<!--    if (liff.isInClient()) {-->
+<!--        liff.scanCodeV2().then(result => {-->
+<!--            document.getElementById('qr_text_a').textContent = 'QRコード読取り成功！';-->
+<!--            document.getElementById('qr_text').textContent = result.value;-->
+<!--        }).catch(err => {-->
+<!--            document.getElementById('qr_text').textContent = err.message;-->
+
+<!--        });-->
+<!--    }-->
+<!--});-->
+
+
+
+
+}) // liff.ready
+
+}) // liff_init
+
+}; // window_onload
+
+
+
+  </script>
+
+<script>
+        // DjangoでPOSTメッセージにCSRFtokenを含ませる方法
+        // https://own-search-and-study.xyz/2017/11/12/django%E3%81%A7post%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%81%ABcsrftoken%E3%82%92%E5%90%AB%E3%81%BE%E3%81%9B%E3%82%8B%E6%96%B9%E6%B3%95%E3%81%BE%E3%81%A8%E3%82%81/
+        // csrftokenは、以下のような関数を作って取得
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+
+        // 次にcreatElemntでformを作り、TEXTのINPUTとしてNAMEが”csrfmiddlewaretoken”、
+        // VALUEがcsrftokenのElementを加え、formをSubmitすればOKです。
+        function post_sample(str)
+        {
+            var form = document.createElement("form");
+            // 本番環境では、以下をコメントアウト
+            // form.setAttribute("action", "http://localhost:8000/live/liveliff/" + "{{ lid }}/" + "{{ rid }}/"); // 投げたいURLを書く。
+            form.setAttribute("action", "http://localhost:8000/liveliff/" + "{{ lid }}/" + "{{ rid }}/"); // 投げたいURLを書く。
+            // 本番環境では、以下のコメントアウトを外す
+            // form.setAttribute("action", "{{ action_url }}" + "{{ lid }}/" + "{{ rid }}/"); // 投げたいURLを書く。
+            form.setAttribute("method", "POST"); // POSTリクエストもしくはGETリクエストを書く。
+            form.style.display = "none"; // 画面に表示しないことを指定する
+
+            // csrtokenを設定する部分
+            my_tb=document.createElement('INPUT');
+            my_tb.type='TEXT';
+            my_tb.name='csrfmiddlewaretoken';
+            my_tb.value=[getCookie('csrftoken')];
+            form.appendChild(my_tb);
+
+            my_tb=document.createElement('INPUT');
+            my_tb.type='TEXT';
+            my_tb.name='str';
+            my_tb.value=[str];
+
+            form.appendChild(my_tb);
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+
+</script>
+
+
+
+
+
+<!--// 以下の検証要！！-->
+<!--const idToken = liff.getIDToken();-->
+<!--console.log(idToken); // print raw idToken object-->
+
+<!--var send_data = new XMLHttpRequest();-->
+
+<!--send_data.open('POST', 'https://api.line.me/oauth2/v2.1/verify');-->
+<!--send_data.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');-->
+<!--send_data.send('id_token=idToken&client_id=1657544165');-->
+<!--&lt;!&ndash;send_data.send('id_token=idToken&client_id=1657544129');&ndash;&gt;-->
+
+<!--send_data.onreadystatechange = function() {-->
+<!--    if(send_data.readyState === 4 && send_data.status === 200) {-->
+<!--       console.log(send_data.responseText);-->
+<!--    }-->
+<!--}-->
+
+
+
+<!--    function butotnClick(){-->
+<!--        let d = new Date();-->
+<!--        document.getElementById('qr_text').textContent = d;-->
+<!--        console.log(d.toString());-->
+<!--    }-->
+
+<!--    let button = document.getElementById('mybutton');-->
+<!--    button.addEventListener('click', butotnClick);-->
+
+<!--<script src="{% static 'js/clickstart.js' %}" defer></script>-->
+
+
+{% endblock %}

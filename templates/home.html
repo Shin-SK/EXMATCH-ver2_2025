@@ -1,0 +1,649 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}ホーム {% endblock %}
+
+{% block head %}
+<header>
+
+    <!--    -----以下をコメントアウト中--->
+
+    <!--<header class="masthead text-center text-white">-->
+    <!--  <div class="masthead-content">-->
+    <!--    <div class="container">-->
+
+    <!--&lt;!&ndash;      <h1 class="masthead-heading mb-0">{{ trade_name }}</h1><br><br>&ndash;&gt;-->
+    <!--      <h1 class="masthead-heading mb-0">いま ココ ぼっち</h1><br>-->
+    <!--      <h2 class="mb-0">リアルタイムで友達さがそう！</h2>-->
+    <!--        {% if not user.is_authenticated %}-->
+    <!--        <a href="{% url 'account_signup' %}" class="btn btn-primary btn-xl rounded-pill mt-5">無料会員登録</a>-->
+    <!--        <a href="{% url 'account_login' %}" class="btn btn-primary btn-xl rounded-pill mt-5">ログイン</a>-->
+    <!--        {% endif %}-->
+
+    <!--    </div>-->
+    <!--  </div>-->
+    <!--  <div class="bg-circle-1 bg-circle"></div>-->
+    <!--  <div class="bg-circle-2 bg-circle"></div>-->
+    <!--  <div class="bg-circle-3 bg-circle"></div>-->
+    <!--  <div class="bg-circle-4 bg-circle"></div>-->
+
+    <!--    -----上記をコメントアウト中--->
+
+
+    <!--    <style>-->
+    <!--.exampleflex2{-->
+    <!--    display: flex;-->
+    <!--    /*コレ*/flex-wrap:wrap;-->
+    <!--}-->
+    <!--.exampleflex2>div{-->
+    <!--    /*コレ*/width: 100%;-->
+    <!--    box-sizing: border-box;-->
+    <!--    margin: 5px 0;-->
+    <!--    padding: 10px;-->
+    <!--    margin: 5px;-->
+    <!--    /*background: #41538e;*/-->
+    <!--    background: #0ad907;-->
+    <!--    color: #FFFFFF;-->
+    <!--    font-coler: #FFF;-->
+    <!--    font-weight: bold;-->
+    <!--    text-align: center;-->
+    <!--}-->
+
+    <!--a {-->
+    <!--  color: #FFF;-->
+    <!--  color: #0FF;-->
+    <!--}-->
+    <!--</style>-->
+
+
+    <script type="text/javascript">
+var description = new Array(
+'ひとり飲み即日マッチング！',
+'キーワードで繋がる！',
+'スマホで今すぐ仲間GET！',
+'一人飲みGPS即日マッチング！',
+'GPSマップでリアルタイムに仲間GET！',
+'GPSビジュアル検索！'
+);
+var no = Math.floor(Math.random() * description.length);
+</script>
+
+
+    <style>
+.example {/*親div*/
+  position: relative;
+  font-size: 1em;
+  }
+
+.example #p1 {
+  position: absolute;
+  color: white;/*文字は白に*/
+  font-weight: bold; /*太字に*/
+  font-size: 1.5em;/*サイズ2倍*/
+  font-family :Quicksand, sans-serif;/*Google Font*/
+  top: 10;
+  left: 20;
+  }
+
+.example #p2 {
+  position: absolute;
+  color: white;/*文字は白に*/
+  font-weight: bold; /*太字に*/
+  font-size: 2.0vw;/*画面の表示幅に対する割合。100vw=表示幅と等しい*/
+  font-family :Quicksand, sans-serif;/*Google Font*/
+<!--  left: 20%;-->
+    top: 0;
+    bottom: 0;
+    left: 30%;
+  }
+
+.example img {
+  width: 100%;
+  }
+
+</style>
+
+    <!--instagram feed スタイル-->
+    <style>
+    .insta_list{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+/*    justify-content: space-around; */ /* 等間隔にレイアウト */
+    list-style: none;
+/*    margin: 3vw 0 2vw; */
+    margin: 2vw 0 2vw; /* 上下のマージン */
+}
+
+.insta_list img{
+/*   width: 13vw; */
+/*    width: 21vw; */
+    width: auto;
+    height: 100px;
+/*    padding: 0 .25vw; */
+    padding: 0.3px 0.3px;
+}
+</style>
+
+    <!--はてなアイコン    -->
+    <style>
+.fa-hatena:before {
+    content: "B!";
+    font-family: Verdana; /* はてなのフォントにもっとも近い */
+    font-weight: bold
+}
+</style>
+
+    <style>
+    .tbl{
+        margin: auto;
+    }
+</style>
+
+    <style>
+.wrap {
+  display:flex;
+  flex-flow: column;
+}
+</style>
+
+
+    <style>
+
+ul{
+  padding-left:0;
+}
+
+li{
+  list-style:none;
+}
+
+/* スライドする要素 */
+.content {
+  width: 300px;
+  height: 400px;
+
+  padding: 20;
+  margin: 150 10 100 0;
+}
+.content:nth-child(1) {
+  background-color: #C7CCCA;
+}
+.content:nth-child(2) {
+  background-color: #E0E5E3;
+}
+.content:nth-child(3) {
+  background-color: #C7CCCA;
+}
+.content:nth-child(4) {
+  background-color: #E0E5E3;
+}
+.content:nth-child(5) {
+  background-color: #C7CCCA;
+}
+.content:nth-child(6) {
+  background-color: #E0E5E3;
+}
+.content:nth-child(7) {
+  background-color: #C7CCCA;
+}
+.content:nth-child(8) {
+  background-color: #E0E5E3;
+}
+.content:nth-child(9) {
+  background-color: #C7CCCA;
+}
+.content:nth-child(10) {
+  background-color: #E0E5E3;
+}
+
+/* スライドレールの枠 */
+.wrap1 {
+  display: flex;
+  align-items: center;
+  height: 400px;
+  overflow: hidden;
+}
+
+/* content4つをまとめたスライドブロック */
+.slideshow {
+  display: flex;
+  animation: loop-slide 20s infinite linear 1s both;
+}
+@-webkit-keyframes loop-slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+@keyframes loop-slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* ホバー時に動きを止める（パターン2・3）*/
+.slide-paused:hover .slideshow {
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
+}
+
+/* ホバー時の装飾（パターン3） */
+.content-hover {
+  transition: all 0.2s;
+<!--  margin-right: 20px;-->
+  margin-right: 15px;
+}
+.content-hover:hover {
+  transform: translateY(-20px);
+  border-radius: 0 10%;
+  box-shadow: 0 3px 10px 0 #333;
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+
+</style>
+
+</header>
+
+
+{% endblock %}
+
+{% block contents %}
+
+<!--課金体系フラグ １：定額課金（EXMATCH） ０：従量課金（LIVEMATCH）-->
+{% if m_b_f == 1 %}
+
+<div class="container">
+    <div class="my-div-style w-100">
+
+        <div class="row my-row-style1">
+            {% if mes_m == '' %}
+            <!--        ヘッダー画像をランダムに表示withテキスト＆アイコン-->
+            <!--        <div class="example" style="text-align: center" width=400px>-->
+            <div class="example" style="display: block; margin: auto;" width=400px>
+                {% with 'img/'|add:r_int as image_static %}
+                <img src="{% static image_static %}" class="monster-img" alt="" width="400px" height=auto>
+                {% endwith %}
+                <!--            <p>{{ blurb }}</p>-->
+                <p id="p1">{{ blurb }}</p>
+                <p id="p2">Love communication excellence !<br>
+                    EXMATCH</p>
+                <!--                <p id="p1">{{ blurb }}</p>-->
+                <!--                <p id="p2">Real Live Match !<br>-->
+                <!--                    いまココぼっち</p>-->
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-borderless">
+                    <tr>
+                        <td>
+                            <div class="wrap1 slide-paused" ontouchstart="">
+                                {% for i in list %}
+                                <ul class="slideshow">
+                                    {% for item in p_query %}
+                                    <li class="content content-hover">
+
+                                        <div class="table-responsive">
+                                            <table class="table table-borderless">
+                                                <tr>
+                                                    <td>
+                                                        {% if item.4 %}
+                                                        <div class="col-sm-6 col-md-3" style="margin: 0px 10px 10px 0px; ">
+                                                            <img src="{{ item.4 }}" width=140 height="auto"/>
+                                                        </div>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <p><font size="2">愛称：{{item.0}}<br>
+                                                            年齢：{{item.1}}<br>
+                                                            {% if item.2 %}
+                                                            趣味：{{item.2 | truncatechars:30 }}<br>
+                                                            {% endif %}
+                                                            紹介：{{item.3 | truncatechars:30 }}</font></p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </li>
+
+                                    {% endfor %}
+                                </ul>
+                                {% endfor %}
+                            </div>
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-borderless">
+                    <tr>
+                        <td>
+                            {% if not user.is_authenticated %}
+                            <!--            ◆ LINEアカウントをお持ちの方は、LINE ログインしてくださいね！<br>-->
+                            <!-- 本番環境-->
+<!--                            <a type="button" class="btn btn-success btn-sm btn-block" href="https://liff.line.me/2004995913-K46MgX1g/2004995913-K46MgX1g/exmatch_login_hp" role="button">LINE ログイン</a><br>-->
+                            <!-- 開発環境-->
+                            <a type="button" class="btn btn-success btn-sm btn-block" href="https://liff.line.me/2004991318-0pk378Da/2004991318-0pk378Da/harada_login_sns_x" role="button">LINE ログイン</a><br>
+                            <!--            <a type="button" class="btn btn-success btn-sm btn-block" href="{% url 'linelink:line_login' %}" role="button">LINE ログイン</a><br>-->
+                            <a type="button" class="btn btn-secondary btn-sm btn-block" href="{% url 'account_login' %}" role="button">ぼっち ログイン</a><br>
+                            <a type="button" class="btn btn-info btn-sm btn-block" href="{% url 'account_signup' %}" role="button">ぼっち 無料会員登録</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <script>
+// インスタグラム
+$(function(){
+    $.ajax({
+    type: 'GET',
+    // url: 'https://graph.facebook.com/v12.0/17841452303479416?fields=name%2Cmedia.limit(3)%7Bcaption%2Clike_count%2Cmedia_url%2Cpermalink%2Ctimestamp%2Cthumbnail_url%2Cmedia_type%2Cusername%7D&access_token=EAAHMYLW53XABAP6HSqfIx5kMp0JO0e34figHKdd7j7M8Q8HPW0OiyiM0ZA5piQ4MN0IoAvl52ZCJ3yZAiwYRhEkcOiyC9r6ZB5RH8SZAqn9WFnYrMXBTKCeZCSzg9ZCSOZAxcI7mReMFD0CZBKYCM9mSnI052akyu5mgxzgpWy0Qg4Ut7JBsFHQn8',
+    // media.limit(6) 6は画像枚数
+    url: 'https://graph.facebook.com/v12.0/17841452303479416?fields=name%2Cmedia.limit(6)%7Bcaption%2Clike_count%2Cmedia_url%2Cpermalink%2Ctimestamp%2Cthumbnail_url%2Cmedia_type%2Cusername%7D&access_token=EAAHMYLW53XABAP6HSqfIx5kMp0JO0e34figHKdd7j7M8Q8HPW0OiyiM0ZA5piQ4MN0IoAvl52ZCJ3yZAiwYRhEkcOiyC9r6ZB5RH8SZAqn9WFnYrMXBTKCeZCSzg9ZCSOZAxcI7mReMFD0CZBKYCM9mSnI052akyu5mgxzgpWy0Qg4Ut7JBsFHQn8',
+        dataType: 'json',
+        success: function(json) {
+
+        var html = '';
+        var insta = json.media.data;
+        for (var i = 0; i < insta.length; i++) {
+        var media_type = insta[i].media_type;
+                if ( insta[i].media_type == "IMAGE" || insta[i].media_type == "CAROUSEL_ALBUM" ) {
+        html += '<li><a href="' + insta[i].permalink + '" target="_blank"><img src="' + insta[i].media_url + '"></a></li>';
+                } else if (media_type == "VIDEO" ) {
+        html += '<li><a href="' + insta[i].permalink + '" target="_blank"><img src="' + insta[i].thumbnail_url + '"></a></li>';
+        var media_type = '';
+                }
+        }
+          $(".insta_list").append(html);
+    },
+    error: function() {
+
+    //エラー時の処理
+    }
+    });
+});
+
+</script>
+
+
+            <!--    SNSリンク-->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+            <div class="table-responsive">
+                <table align="center" cellpadding="15">
+                    <tr>
+                        <td>
+                            <!-- Facebook -->
+                            <!--                本番環境の場合は、以下のコメントアウトを外すこと！-->
+                            <a class="js-sns-link" href="//www.facebook.com/sharer/sharer.php?u=&t=" target="_blank" rel="nofollow noopener noreferrer"><i class="fab fa-facebook fa-lg"></i></a>
+                            <!--                本番環境の場合は、以下をコメントアウトすること！-->
+                            <!--                <a href="//www.facebook.com/share.php?u=" rel="nofollow" target="_blank" rel="nofollow noopener noreferrer" title="facebookシェア"><i class="fab fa-facebook fa-lg"></i></a>-->
+                        </td>
+                        <td>
+                            <!-- Twitter -->
+                            <a class="js-sns-link" href="//twitter.com/intent/tweet?text=&url=" target="_blank" rel="nofollow noopener noreferrer" title="twitterシェア"><i class="fab fa-twitter fa-lg"></i></a>
+                        </td>
+                        <td>
+                            <!-- LINE -->
+                            <a class="js-sns-link" href="//timeline.line.me/social-plugin/share?url=&text=" target="_blank" rel="nofollow noopener noreferrer" title="lineシェア"><i class="fab fa-line fa-lg"></i></a>
+                        </td>
+                        <td>
+                            <!-- はてなブログ -->
+                            <a class="js-sns-link" href="//b.hatena.ne.jp/add?mode=confirm&url=&title=" target="_blank" rel="nofollow noopener noreferrer" title="hatenaシェア"><i class="fa fa-hatena fa-lg"></i></a>
+                        </td>
+                        <td>
+                            <!-- ピンタレスト -->
+                            <a class="js-sns-link" href="//www.pinterest.com/pin/create/button/?url=&media=" target="_blank" rel="nofollow noopener noreferrer" title="pinterestシェア"><i class="fab fa-pinterest fa-lg"></i></a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+
+            <script>
+    let url = location.href
+    let snsLinks=$(".js-sns-link")
+    for(let i=0; i<snsLinks.length; i++){
+        let href=snsLinks.eq(i).attr('href');
+        //シェアページのURL上書き
+        href=href.replace("u=","u="+url)     //facebook
+        href=href.replace("url=","url="+url) //twitter,LINE,はてなブログ
+        snsLinks.eq(i).attr('href',href);
+    }
+</script>
+
+            <div class="table-responsive">
+                <table class="table table-borderless">
+                    <tr align="center">
+                        <td>
+
+                            <p><font size="2">会員登録（無料）で、{{ member_registration_points }} ポイント付与中！</font></p><br>
+
+                            <a href="https://lin.ee/d0k81Jr"><font size="2">「いまココぼっち」LINE公式アカウント</font></a>
+                            <a href="https://lin.ee/d0k81Jr"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" height="36" border="0"></a>
+                        </td>
+                    </tr>
+                    <tr align="center">
+                        <td align="center">
+                            imakoko.bocchi Instagram Feed<br>
+                            <ul class="insta_list"></ul>
+                            <a href="https://www.instagram.com/imakoko.bocchi/" align="center" target="_blank" rel="noopener"><font size="2">いまココぼっち</font></a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="table-responsive">
+
+                <table align="center" cellpadding="7">
+                    <tr align="center">
+                        <td align="center">
+                            <font size="2">いまココぼっちサイト</font>
+                        </td>
+                        <td align="center">
+                            <font size="2">LINE公式アカウント</font>
+                        </td>
+                    </tr>
+                    <tr align="center">
+                        <td align="center">
+                            <img class="img-fluid" src="{% static 'img/QR_465032.png' %}" alt="いまココぼっちサイト"width="100" height=auto>
+                        </td>
+                        <td align="center">
+                            <img class="img-fluid" src="https://qr-official.line.me/sid/M/930tlvpf.png?shortenUrl=true" alt="いまココぼっちLINE公式アカウント" width="100" height=auto>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+
+            <!--    <div class="table-responsive">-->
+            <!--        <table  align="center" class="table table-borderless">-->
+            <!--            <tr align="center">-->
+            <!--                <td>-->
+            <!--                    公式SNS-->
+            <!--                </td>-->
+            <!--                <td>-->
+            <!--                    Credit-->
+            <!--                </td>-->
+            <!--                <td>-->
+            <!--                    Security-->
+            <!--                </td>-->
+            <!--            </tr>-->
+            <!--        </table>-->
+            <!--    </div>-->
+
+            <div class="table-responsive">
+                <table align="center" style="font-size: 10pt;">
+                    <tr align="center">
+                        <td align="left">
+                            <ul>
+                                <li><a href="https://live-match.biz"><font color="gray">いまココぼっちTOP</font></a></li>
+                                <li><a href="{% url 'live:site_map' %}" target="_blank" rel="noopener"><font color="gray">サイトマップ</font></a></li>
+                                <li><a href="{% url 'live:services_provided' %}" target="_blank" rel="noopener"><font color="gray">いまココぼっちとは？</font></a></li>
+                                <li><a href="{% url 'live:price_list' %}" target="_blank" rel="noopener"><font color="gray">料金について</font></a></li>
+                                <li><a href="{% url 'account_signup' %}" target="_blank" rel="noopener"><font color="gray">新規女性会員登録 18歳以上</font></a></li>
+                                <li><a href="{% url 'account_signup' %}" target="_blank" rel="noopener"><font color="gray">新規男性会員登録 18歳以上</font></a></li>
+                                <li><a href="{% url 'linelink:line_login' %}" target="_blank" rel="noopener"><font color="gray">LINEログイン</font></a></li>
+                                <li><a href="{% url 'account_login' %}" target="_blank" rel="noopener"><font color="gray">会員ログイン</font></a></li>
+                                <li><a href="{% url 'live:faq' %}" target="_blank" rel="noopener"><font color="gray">よくある質問</font></a></li>
+                                <li><a href="{% url 'live:terms_service' %}" target="_blank" rel="noopener"><font color="gray">会員規約</font></a></li>
+                                <li><a href="{% url 'live:operation' %}" target="_blank" rel="noopener"><font color="gray">会社概要/特定商取引法に基づく表記</font></a></li>
+                                <!--                    <li>プライバシーポリシー</li>-->
+                                <!--                    出会い成功談<br>-->
+                                <!--                    お褒めの言葉<br>-->
+                                <!--                    いまココぼっち（出会い・恋愛コラム）<br>-->
+                                <!--                    <li>プライバシーポリシー</li>-->
+                                <!--                    出会い成功談<br>-->
+                                <!--                    お褒めの言葉<br>-->
+                                <li><a href="https://www.instagram.com/imakoko.bocchi/" align="center" target="_blank" rel="noopener"><font  color="gray" size="2">いまココぼっち公式instagram</font></a></li>
+                                <li><a href="https://www.facebook.com/imakoko.bocchi" align="center" target="_blank" rel="noopener"><font  color="gray" size="2">いまココぼっち公式facebook</font></a></li>
+                                <li><a href="https://twitter.com/imakoko_bocchi" align="center" target="_blank" rel="noopener"><font  color="gray" size="2">いまココぼっち公式twitter</font></a></li>
+                                <li><a href="https://www.facebook.com/Orange-Biz-Limited-Liability-Company-100237922793607" align="center" target="_blank" rel="noopener"><font  color="gray" size="2">オレンジビズ公式facebook</font></a></li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="table-responsive" style="margin: 30px 0px 10px 0px; ">
+
+                <div class="table-responsive">
+                    <table align="center" class="table-borderless" style="font-size: 10pt;">
+                        <tr align="center">
+                            <td align="left">
+                                <ul style="list-style: none;">
+                                    <li># いますぐ逢える</li>
+                                    <li># 地域・エリアで繋がる</li>
+                                    <li># ひとりぼっちの友達探し</li>
+                                </ul>
+                                <ul>
+                                    <li>いまココぼっちは、リアルタイムで、いま近くにいるお友達・仲間が見つかる、マッチングサイトです。</li>
+                                    <li>ひとり飲みの場で、イベント会場で、スポーツ・アウトドア・ビジネス交流・おしゃべり・お花見・ゲームの相手など、あなたの目的に合った出逢いを、全力サポート！</li>
+                                    <li>恋愛対象から、同性の気の合う仲間まで、今すぐ新しいお友達をGETしよう！</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+            <!--            162-->
+            <!--        </div>-->
+
+
+
+            <section>
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 order-lg-2">
+                            <div class="p-5">
+                                <img class="img-fluid rounded-circle" src="{% static 'img/lm-20.jpg' %}" alt="">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 order-lg-1">
+                            <div class="p-5">
+                                <h3 class="display-4">一人飲みGPS即日マッチング！</h3>
+                                <p>Real-time matching with GPS!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
+                            <div class="p-5">
+                                <img class="img-fluid rounded-circle" src="{% static 'img/lm-02.jpg' %}" alt="">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="p-5">
+                                <h3 class="display-4">スマホでGPS即日仲間GET！</h3>
+                                <p>Get friends in real time with GPS!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 order-lg-2">
+                            <div class="p-5">
+                                <img class="img-fluid rounded-circle" src="{% static 'img/lm-03.jpg' %}" alt="">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 order-lg-1">
+                            <div class="p-5">
+                                <h3 class="display-4">会員登録してください</h3>
+                                <a class="nav-link" href="{% url 'account_signup' %}">Please register as a member.</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!--    footer-->
+            <div style="margin: 0px 0px 90px 0px; ">
+                <footer class="footer">
+                    <div class="container">
+                        <p class="text-center text-dark"><font size="2">Copyright &copy; いまココぼっち 2022</font></p>
+                    </div>
+                </footer>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% else %}
+
+<div class="container">
+    <div class="my-div-style w-100">
+
+        <div class="row my-row-style1">
+            <div class="wrap">
+                <p>EXMATCH Top画面</p>
+
+                <!--    footer-->
+                <div style="margin: 0px 0px 90px 0px; ">
+                    <footer class="footer">
+                        <div class="container">
+                            <p class="text-center text-dark"><font size="2">Copyright &copy; EXMATCH 2024</font></p>
+                        </div>
+                    </footer>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endif %}
+
+{% else %}
+<p>{{ mes_m }}</p>
+{% endif %}
+
+</div>
+</div>
+</div>
+{% endblock %}
+
+

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block active_terms_service %}active{% endblock %}
+{% block active_terms_service_logout %}active{% endblock %}
+
+{% block title %}メイン処理フロー | GPS-Live-Match{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block contents %}
+<div class="container">
+    <div class="my-div-style w-100">
+            <h5>{{ trade_name }} 利用フロー</h5><br>
+        <div class="row my-row-style1">
+            <div class="table-responsive">
+            <table class="table table-hover">
+                <tr>
+                    <td>
+            <ul>
+            <li><a href="{% url 'live:business_flow' %}">事前処理フロー</a></li><br>
+            <li><h6>メイン処理フロー</h6></li><br>
+            <li><a href="{% url 'live:business_flow_card' %}">カード関連処理フロー</a></li><br>
+            <li><a href="{% url 'live:business_flow_subscription' %}">プロフィール検索サービスフロー</a></li><br>
+            </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+            <ol>
+                <li>現在位置GPS情報登録<font color="red">（任意）</font> <br>ログイン時の現在位置登録は任意です。<br>個人情報保護のため、実際に参照される現在位置は、半径{{ radius }}ｍの円内のランダムな位置を自動で設定しています。</li><br>
+                <li>「今何してる！」登録<font color="red">（任意）</font><br>ログイン時の登録は任意です。<br>300文字以内で、あなたの今の様子をお書きください！<br>「今何してる！」の内容はプロフィール検索の対象になります。</li><br>
+                <li>プロフィール検索<font color="red">（必須）</font><br>検索条件（自己ピーアール、趣味・興味、結婚歴、年収など）を入力して会員のプロフィールを検索してください。<br>お気に入りの方がおりましたら「いいね！」をしてください。<br>「いいね！」をするとその方へ自動で「いいね！」された旨のメール送信します。<br>お相手のかたからも「いいね！」され双方が「いいね！」となると、めでたしめでたしで次の「チャット」ステップへ進むことができます。</li><br>
+                <li>チャットの事前準備<font color="red">（必須）</font><br>「チャット」をするための事前準備をします。<br>「日時予約」、「連絡」でチャットの日時調整を行います。<br>お互いに調整した日時に「チャット」を開始してください。</li><br>
+                <li>「チャット」開始<font color="red">（必須）</font><br>双方がログインして「チャット」を開始して、双方が「チャット」から「退室」するまでを1回とカウントします。<br>{{ chat_release_count }}回までは連絡先（メールアドレス、電話番号、URLなど）交換不可ですが、{{ chat_release_count_plus }}回以上で連絡先交換可能です。{{ maximum_number_chats }}回まで「チャット」可能です。</li><br>
+            </ol>
+                    </td>
+                </tr>
+            </table>
+            </div>
+        <div class="p-3">
+          <img class="img-fluid" src="{% static 'img/main-processing-flow.jpg' %}" width="100%" height="auto" alt="メイン処理フロー"/>
+        </div>
+
+        </div>
+<!--            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>-->
+    </div>
+</div>
+
+{% endblock %}
+
+

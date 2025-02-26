@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block active_terms_member %}active{% endblock %}
+
+{% block title %}購入ポイント | GPS-Live-Match{% endblock %}
+
+
+{% block contents %}
+
+<div class="container" xmlns:margin-bottom="http://www.w3.org/1999/xhtml">
+    <div class="my-div-style w-100">
+
+        <h3>購入ポイント</h3>
+        {% if nickname %}
+        <p>{{ nickname }} さん</p>
+        {% endif %}
+        <br>
+
+        <P><strong>ポイント残高：</strong> {{ point_balance }} ポイント</P>
+
+        <div class="row my-row-style1">
+            {% if error %}
+            {{ error }}<br>
+            {{ error_contents }}
+            {% else %}
+            <div>
+                <P>ポイントを購入しました。</P>
+                <p><strong>購入ポイント：</strong> {{ point }} ポイント<br><br>
+                カードブランド： {{ card }}<br>
+                カードナンバー下4桁： {{ last }}</p>
+                <p>ポイント購入料（{{ point }} 円）をカード（{{ card }} {{ last }}）から引き落としました。<br>
+                    ご利用ありがとうございました。</p>
+            </div>
+            {% endif %}
+        </div>
+        <br>
+
+            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>
+    </div>
+
+</div>
+
+{% endblock %}

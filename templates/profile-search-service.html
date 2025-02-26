@@ -1,0 +1,886 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block active_terms_member %}active{% endblock %}
+
+{% block title %}プロフィール検索サービス | GPS-Live-Match{% endblock %}
+
+{% block head %}
+
+
+<!--    https://gokansoichiro.com/blog/javascript-modal/-->
+<!--    以下の<script>３つはモーダルウィンドウ表示のために必要-->
+<!--    以下のjqueryは、basev1.html側にjqueryがあるためコメントアウトした。20210618-->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script></div>-->
+<!--<script src="{% static 'js/jquery.layerBoard.js' %}"></script>-->
+<!--<script src="{% static 'js/jquery.cookie.js' %}"></script>-->
+
+
+<!--    <script>-->
+<!--        $(document).ready(function() {-->
+<!--            $("#open").on("click", function(e) {-->
+<!--                e.preventDefault();-->
+<!--                $("#overlay, #modal").addClass("active");-->
+
+<!--                $("#close, #overlay").on("click", function() {-->
+<!--                    $("#overlay, #modal").removeClass("active");-->
+<!--                    return false;-->
+<!--                });-->
+<!--            });-->
+<!--        });-->
+<!--    </script>-->
+
+
+<!--    <style>-->
+<!--    button {-->
+<!--        cursor: pointer;-->
+<!--    }-->
+<!--    #overlay {-->
+<!--        display: none;-->
+<!--        position: fixed;-->
+<!--        left: 0;-->
+<!--        top: 0;-->
+<!--        right: 0;-->
+<!--        bottom: 0;-->
+<!--        z-index: 9;-->
+<!--        background-color: rgba(0, 0, 0, .65);-->
+<!--    }-->
+<!--    #modal {-->
+<!--        display: none;-->
+<!--        position: fixed;-->
+<!--        left: 50%;-->
+<!--        top: 50%;-->
+<!--        z-index: 99;-->
+<!--        transform: translate(-50%, -50%);-->
+<!--        max-width: 70vw;-->
+<!--        max-height: 70vh;-->
+<!--        box-sizing: border-box;-->
+<!--        padding: 32px;-->
+<!--        border-radius: 8px;-->
+<!--        background-color: #fff;-->
+<!--    }-->
+<!--    .active {-->
+<!--        display: block !important;-->
+<!--    }-->
+<!--</style>-->
+
+<!--    検索結果の詳細表示のhtml要素を無効にする。-->
+        <style>
+        .visibility {
+            display: none;
+        }
+        </style>
+
+
+
+
+
+{% endblock %}
+
+{% block contents %}
+<div class="container">
+    <div class="my-div-style w-100">
+            <h5 class="mt-5 pt-4 text-left">プロフィール検索サービス</h5>
+        {{ q_word }}
+
+        <div class="row my-row-style1">
+
+
+<!--&lt;!&ndash;          モーダルウィンドウを開く&ndash;&gt;-->
+<!--            {% if f %}-->
+<!--        <p>いいね！-->
+<!--        <button type="button" class="btn btn-outline-info ml-2 mt-3 mb-3 btn-sm" id="open">OPEN!</button></p>-->
+<!--        <div id="modal">-->
+<!--            <p> 「いいね！」があります！</p>-->
+<!--              <p style="white-space:pre-wrap; word-wrap:break-word; text-align:left">{{ info }}</p>-->
+<!--            <div>-->
+<!--                <button type="button" class="btn btn-outline-info ml-2 mt-3 mb-3 btn-sm" id="close">CLOSE</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div id="overlay"></div>-->
+<!--            {% endif %}-->
+<!--&lt;!&ndash;          モーダルウィンドウを開く&ndash;&gt;-->
+            <br>
+
+            <!-- 検索フォーム -->
+
+<!--        <table class="table">-->
+            {% if simple_search_conditions %}
+            <p><small>現在の検索内容です。これを参考に検索内容を設定してください。</small></p>
+        <div class="table-responsive">
+        <table class="table table-bordered table-hover table-striped table-sm">
+            <tbody>
+<!--              <thead class="table-active">-->
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">項目</th>
+                  <th scope="col">内容</th>
+                </tr>
+              </thead>
+            <tr><th scope="row">1</th>
+                <td>検索会員：</td>
+                <td>{{ search_member }}</td>
+            </tr>
+            <tr><th scope="row">2</th>
+                <td>週間メール回数：</td>
+                <td>{{ number_emails_week }}</td>
+            </tr>
+            <tr><th scope="row">3</th>
+                <td>検索条件：</td>
+                <td>{{ simple_search_conditions }}</td>
+            </tr>
+<!--            <tr><th scope="row">3</th>-->
+<!--                <td>検索条件：</td>-->
+<!--                <td>{{ search_word }}</td>-->
+<!--            </tr>-->
+            </tbody>
+        </table>
+            {% endif %}
+
+
+
+
+
+        <div class="table-responsive">
+            <form class="form-inline my-2" method="GET" action="{% url 'live:profile_search_service' %}">
+                {% csrf_token %}
+
+
+
+                <div class="row my-row-style1">
+
+                            <table class="table table-borderless">
+                                <tr>
+                                    <td>
+                <div class="form-group">
+                    <label for="formGroup0" style="font-size:13px;"><strong>検索会員：</strong></label>
+                <select class="form-control form-control-sm"  id="formGroup0"  aria-describedby="groupHelp2" name="search_conditions">
+                    {% for g in s_search_conditions %}
+                    {% if g.0 == request.GET.search_conditions %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                <small id="groupHelp2" class="form-text text-muted">　※ 検索会員を選択してください。</small>
+                </div>
+                                    </td>
+                                    </tr>
+                                <tr>
+                                    <td>
+                <div class="form-group">
+                    <label for="formGroup1" style="font-size:13px;"><strong>週間メール回数：</strong></label>
+                <select class="form-control form-control-sm"  id="formGroup1"  aria-describedby="groupHelp3" name="number_emails_week">
+                    {% for g in s_number_emails_week %}
+                    {% if g.0 == request.GET.number_emails_week %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                <small id="groupHelp3" class="form-text text-muted">　※ 週間メール回数を選択してください。</small>
+                </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <small>以下の項目で検索条件を設定して、「検索条件確認」ボタンをクリックしてください。</small>
+
+                                        </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                            <strong>検索結果：</strong><font color="red"> {{ cnt }} 件</font>検索されました。
+                                        </td>
+                                </tr>
+                                <tr>
+                                    <td><small><strong>検索条件：</strong></small></td>
+                                </tr>
+                            </table>
+                </div>
+<!--                    </div>-->
+
+
+                <div class="table-responsive">
+
+        <table class="table table-bordered table-hover table-striped table-sm">
+            <tbody>
+              <thead class="table-active">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">項目</th>
+                  <th scope="col">内容</th>
+                </tr>
+              </thead>
+
+            <tr><th scope="row">1</th>
+                <td><font size="2">自己ピーアール：<br>（～15文字）</font></td>
+                <td>
+                    {% if request.GET.article is None %}
+                    <textarea class="form-control" name="article" rows="1" cols=100% placeholder="" value={{ request.GET.article }}>{{ request.GET.article }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）長野県出身　独身　優しい</font></small>
+                    {% else %}
+                    <textarea class="form-control" name="article" rows="1" cols=100% placeholder="" value={{ request.GET.article }}>{{ request.GET.article }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）長野県出身　独身　優しい</font></small>
+                    {% endif %}
+                </td>
+            </tr>
+
+<!--            <tr><th scope="row">3</th>-->
+<!--                <td><font size="2">今何している！：<br>（～15文字）</font></td>-->
+<!--                <td>-->
+<!--                    {% if request.GET.what_doing_now is None %}-->
+<!--                    <textarea class="form-control" name="what_doing_now" rows="1" cols=100% placeholder="" value={{ request.GET.what_doing_now }}>{{ request.GET.what_doing_now }}</textarea>-->
+<!--                    <small class="form-text text-muted"><font size="2" color=black>例）一人飲み　日本酒</font></small>-->
+<!--                    {% else %}-->
+<!--                    <textarea class="form-control" name="what_doing_now" rows="1" cols=100% placeholder="" value={{ request.GET.what_doing_now }}>{{ request.GET.what_doing_now }}</textarea>-->
+<!--                    <small class="form-text text-muted"><font size="2" color=black>例）一人飲み　日本酒</font></small>-->
+<!--                    {% endif %}-->
+<!--                </td>-->
+<!--            </tr>-->
+
+            <tr><th scope="row">2</th>
+                <td><font size="2">趣味・興味：<br>（～15文字）</font></td>
+                <td>
+                    {% if request.GET.keyword is None %}
+                    <textarea class="form-control" name="keyword" rows="1" cols=100% placeholder="" value={{ request.GET.keyword }}>{{ request.GET.keyword }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）ゴルフ　映画　食べること</font></small>
+                    {% else %}
+                    <textarea class="form-control" name="keyword" rows="1" cols=100% placeholder="" value={{ request.GET.keyword }}>{{ request.GET.keyword }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）ゴルフ　映画　食べること</font></small>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr><th scope="row">3</th>
+                <td><font size="2">こだわり：<br>（～15文字）</font></td>
+                <td>
+                    {% if request.GET.commitment is None %}
+                    <textarea class="form-control" name="commitment" rows="1" cols=100% placeholder="" value={{ request.GET.commitment }}>{{ request.GET.commitment }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）国産ウイスキー　国産車</font></small>
+                    {% else %}
+                    <textarea class="form-control" name="commitment" rows="1" cols=100% placeholder="" value={{ request.GET.commitment }}>{{ request.GET.commitment }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）国産ウイスキー　国産車</font></small>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr><th scope="row">4</th>
+                <td><font size="2">嗜好品：<br>（～15文字）</font></td>
+                <td>
+                    {% if request.GET.luxury_items is None %}
+                    <textarea class="form-control" name="luxury_items" rows="1" cols=100% placeholder="" value={{ request.GET.luxury_items }}>{{ request.GET.luxury_items }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）お酒　コーヒー</font></small>
+                    {% else %}
+                    <textarea class="form-control" name="luxury_items" rows="1" cols=100% placeholder="" value={{ request.GET.luxury_items }}>{{ request.GET.luxury_items }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）お酒　コーヒー</font></small>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr><th scope="row">5</th>
+                <td><font size="2">誕生(月 日)：<br>（4文字）</font></td>
+                <td>
+                    {% if request.GET.birthday is None %}
+                    <textarea class="form-control" name="birthday" rows="1" cols=100% placeholder="" value={{ request.GET.birthday }}>{{ request.GET.birthday }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）0418、1005、1120ー</font></small>
+                    {% else %}
+                    <textarea class="form-control" name="birthday" rows="1" cols=100% placeholder="" value={{ request.GET.birthday }}>{{ request.GET.birthday }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）0418、1005、1120</font></small>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr><th scope="row">6</th>
+                <td><font size="2">出身地：<br>（～15文字）</font></td>
+                <td>
+                    {% if request.GET.birthplace is None %}
+                    <textarea class="form-control" name="birthplace" rows="1" cols=100% placeholder="" value={{ request.GET.birthplace }}>{{ request.GET.birthplace }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）東京都　市町村名　学校名70期</font></small>
+                    {% else %}
+                    <textarea class="form-control" name="birthplace" rows="1" cols=100% placeholder="" value={{ request.GET.birthplace }}>{{ request.GET.birthplace }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）東京都　市町村名　学校名70期</font></small>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr><th scope="row">7</th>
+                <td><font size="2">出没エリア：<br>（～15文字)</font></td>
+                <td>
+                    {% if request.GET.haunting_area is None %}
+                    <textarea class="form-control" name="haunting_area" rows="1" cols=100% placeholder="" value={{ request.GET.haunting_area }}>{{ request.GET.haunting_area }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）吉祥寺ハモニカ横丁　中野　渋谷</font></small>
+                    {% else %}
+                    <textarea class="form-control" name="haunting_area" rows="1" cols=100% placeholder="" value={{ request.GET.haunting_area }}>{{ request.GET.haunting_area }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）吉祥寺ハモニカ横丁　中野　渋谷</font></small>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr><th scope="row">8</th>
+                <td><font size="2">資格：<br>（～15文字）</font></td>
+                <td>
+                    {% if request.GET.qualification is None %}
+                    <textarea class="form-control" name="qualification" rows="1" cols=100% placeholder="" value={{ request.GET.qualification }}>{{ request.GET.qualification }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）教育職員免許状</font></small>
+                    {% else %}
+                    <textarea class="form-control" name="qualification" rows="1" cols=100% placeholder="" value={{ request.GET.qualification }}>{{ request.GET.qualification }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）教育職員免許状</font></small>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr><th scope="row">9</th>
+                <td><font size="2">言語：<br>（～15文字）</font></td>
+                <td>
+                    {% if request.GET.language is None %}
+                    <textarea class="form-control" name="language" rows="1" cols=100% placeholder="" value={{ request.GET.language }}>{{ request.GET.language }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）日本語　英語</font></small>
+                    {% else %}
+                    <textarea class="form-control" name="language" rows="1" cols=100% placeholder="" value={{ request.GET.language }}>{{ request.GET.language }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）日本語　英語</font></small>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr><th scope="row">10</th>
+                <td><font size="2">郵便番号：<br>（7文字）</font></td>
+                <td>
+                    {% if request.GET.postalcode is None %}
+                    <textarea class="form-control" name="postalcode" rows="1" cols=100% placeholder="" value={{ request.GET.postalcode }}>{{ request.GET.postalcode }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）1810002</font></small>
+                    {% else %}
+                    <textarea class="form-control" name="postalcode" rows="1" cols=100% placeholder="" value={{ request.GET.postalcode }}>{{ request.GET.postalcode }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）1810002</font></small>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr><th scope="row">11</th>
+                <td><font size="2">都道府県：<br>（～10文字）</font></td>
+                <td>
+                    {% if request.GET.address1 is None %}
+                    <textarea class="form-control" name="address1" rows="1" cols=100% placeholder="" value={{ request.GET.address1 }}>{{ request.GET.address1 }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）東京都　埼玉県</font></small>
+                    {% else %}
+                    <textarea class="form-control" name="address1" rows="1" cols=100% placeholder="" value={{ request.GET.address1 }}>{{ request.GET.address1 }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）東京都　埼玉県</font></small>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr><th scope="row">12</th>
+                <td><font size="2">市区町村：<br>（～30文字）</font></td>
+                <td>
+                    {% if request.GET.address2 is None %}
+                    <textarea class="form-control" name="address2" rows="1" cols=100% placeholder="" value={{ request.GET.address2 }}>{{ request.GET.address2 }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）三鷹市牟礼</font></small>
+                    {% else %}
+                    <textarea class="form-control" name="address2" rows="1" cols=100% placeholder="" value={{ request.GET.address2 }}>{{ request.GET.address2 }}</textarea>
+                    <small class="form-text text-muted"><font size="2" color=black>例）三鷹市牟礼</font></small>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr><th scope="row">13</th>
+                <td><font size="2">セクシュアリティ：</font></td>
+                <td>
+                <select class="form-control form-control-sm" name="sexuality">
+                    {% for g in s_sexuality %}
+                    {% if g.0 == request.GET.sexuality %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+
+            <tr><th scope="row">14</th>
+                <td><font size="2">血液型：</font></td>
+                <td>
+                <select class="form-control form-control-sm" name="blood_type">
+                    {% for g in s_blood_type %}
+                    {% if g.0 == request.GET.blood_type %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+
+            <tr><th scope="row">15</th>
+                <td><font size="2">年齢：</font></td>
+                <td>
+                <select class="form-control form-control-sm" name="age">
+                    {% for g in s_age %}
+                    {% if g.0 == request.GET.age %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+
+            <tr><th scope="row">16</th>
+                <td><font size="2">ルックス：</font></td>
+                <td>
+                <select class="form-control form-control-sm" name="looks">
+                    {% for g in s_looks %}
+                    {% if g.0 == request.GET.looks %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+
+            <tr><th scope="row">17</th>
+                <td><font size="2">お酒：</font></td>
+                <td>
+                <select class="form-control form-control-sm" name="osake">
+                    {% for g in s_osake %}
+                    {% if g.0 == request.GET.osake %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+
+            <tr><th scope="row">18</th>
+                <td><font size="2">性格：</font></td>
+                <td>
+                <select class="form-control form-control-sm" name="personality">
+                    {% for g in s_personality %}
+                    {% if g.0 == request.GET.personality %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+
+            <tr><th scope="row">19</th>
+                <td><font size="2">身長：</font></td>
+                <td>
+                <select class="form-control form-control-sm" name="height">
+                    {% for g in s_height %}
+                    {% if g.0 == request.GET.height %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+
+
+            <tr><th scope="row">20</th>
+                <td><font size="2">体重：</font></td>
+                <td>
+                <select class="form-control form-control-sm" name="body_weight">
+                    {% for g in s_weight %}
+                    {% if g.0 == request.GET.body_weight %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+               </td>
+            </tr>
+            <tr><th scope="row">21</th>
+                <td><font size="2">男性体型：</font></td>
+                <td>
+                <select class="form-control form-control-sm" name="body_shape_man">
+                    {% for g in s_body_shape_man %}
+                    {% if g.0 == request.GET.body_shape_man %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+            <tr><th scope="row">22</th>
+                <td><font size="2">女性体型：</font></td>
+                <td>
+                <select class="form-control form-control-sm" name="body_shape_woman">
+                    {% for g in s_body_shape_woman %}
+                    {% if g.0 == request.GET.body_shape_woman %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+            <tr><th scope="row">23</th>
+                <td><font size="2">結婚歴：</font></td>
+                <td>
+                <select class="form-control form-control-sm" name="marriage_history">
+                    {% for g in s_m_history %}
+                    {% if g.0 == request.GET.marriage_history %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+            <tr><th scope="row">24</th>
+                <td><font size="2">子供有無：</font></td>
+                <td>
+                <select class="form-control form-control-sm" name="children">
+                    {% for g in s_children %}
+                    {% if g.0 == request.GET.children %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+            <tr><th scope="row">25</th>
+                <td><font size="2">同居人：</font></td>
+                <td>
+                <select class="form-control form-control-sm" name="housemate">
+                    {% for g in s_housemate %}
+                    {% if g.0 == request.GET.housemate %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+            <tr><th scope="row">26</th>
+                <td><font size="2">タバコ：</font></td>
+                <td>
+                <select class="form-control form-control-sm" name="tobacco">
+                    {% for g in s_tobacco %}
+                    {% if g.0 == request.GET.tobacco %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+            <tr><th scope="row">27</th>
+                <td><font size="2">学歴：</font></td>
+                <td>
+                <select class="form-control form-control-sm" name="education">
+                    {% for g in s_education %}
+                    {% if g.0 == request.GET.education %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+            <tr><th scope="row">28</th>
+                <td><font size="2">お仕事：</font></td>
+                <td>
+                <select class="form-control form-control-sm" name="occupation">
+                    {% for g in s_occupation %}
+                    {% if g.0 == request.GET.occupation %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+            <tr><th scope="row">29</th>
+                <td><font size="2">運転免許証：</font></td>
+                <td>
+                <select class="form-control form-control-sm" name="drivers_license">
+                    {% for g in s_d_license %}
+                    {% if g.0 == request.GET.drivers_license %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+            <tr><th scope="row">30</th>
+                <td><font size="2">年収：</font></td>
+                <td>
+                <select class="form-control form-control-sm" name="annual_income">
+                    {% for g in s_income %}
+                    {% if g.0 == request.GET.annual_income %}
+                    <option value="{{ g.0 }}" selected> {{ g.0 }}</option>
+                    {% else %}
+                    <option value="{{ g.0 }}"> {{ g.0 }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+                </div>
+             <button type="submit" value="search" class="btn btn-primary ml-2 mt-3 mb-3">検索条件確認</button>
+<!--                <input class="btn btn-danger ml-2 mt-3 mb-3" type="reset" value="リセット">-->
+                <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:profile_search_service' %}">検索条件全リセット</a>
+
+            </form>
+        </div>
+
+
+<!--            </tbody>-->
+<!--        </table>-->
+<!--                </div>-->
+<!--             <button type="submit" value="search" class="btn btn-primary ml-2 mt-3 mb-3">検索</button>-->
+<!--                <input class="btn btn-danger ml-2 mt-3 mb-3" type="reset" value="リセット">-->
+<!--                <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:profile_search' nick_name %}">検索条件全リセット</a>-->
+
+<!--            </form>-->
+        </div>
+
+
+
+<!--                <P>検索条件：{{ search_word }}<br>-->
+    {% if search_word_hi %}
+        <P>以下の検索サービス内容でよろしければ、下の「検索サービス確認」ボタンをクリックして検索サービス内容を確認してください。</P>
+        <P>「検索サービス内容」を変更する場合は、上の検索内容を変更して「検索条件確認」ボタンをクリックしてください。</P>
+
+        <div class="table-responsive">
+
+        <table class="table table-bordered table-hover table-striped table-sm">
+            <tbody>
+              <thead class="table-active">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">項目</th>
+                  <th scope="col">内容</th>
+                </tr>
+              </thead>
+            <tr><th scope="row">1</th>
+                <td><strong>検索会員：</strong></td>
+                <td>{{ request.GET.search_conditions }}</td>
+            </tr>
+
+            <tr><th scope="row">2</th>
+                <td><strong>週間メール回数：</strong></td>
+                <td>{{ request.GET.number_emails_week }}</td>
+            </tr>
+            <tr><th scope="row">3</th>
+                <td><strong>検索条件：</strong></td>
+                <td>{{ search_word_hi }}</td>
+            </tr>
+
+            </tbody>
+        </table>
+                </div>
+
+        {% else %}
+        <P><strong>検索条件：</strong><font color="red"> 上の検索条件が設定されていません！　検索条件を設定してください！</font></P>
+        {% endif %}
+            <div class="table-responsive">
+            <table>
+                <tr>
+                    <td>
+        <P>※ 上記の検索条件での検索結果です。</P>
+                    </td>
+                    <td></td>
+                    </tr>
+                <tr>
+                    <td>
+        <p><strong>検索結果：</strong><font color="red"> {{ cnt }} 件</font>検索されました。</P>
+                    </td>
+                    <td></td>
+                    </tr>
+                {% if search_nickname %}
+                <tr>
+                    <td>
+        <p><strong>検索結果（ニックネーム）：</P>
+                    </td>
+                    <td>
+                        {% for nickname in search_nickname %}
+                        {{ nickname }} さん<br>
+                        {% endfor %}
+                    </td>
+                    </tr>
+                {% endif %}
+            </table>
+            </div>
+
+        <!--        visibility設定-->
+        <div class="visibility">
+
+            <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped table-sm">
+            <tbody>
+                {% for item in object_list %}
+                {% if item.serviceclient_id.gender %}
+
+            <thead class="table-active">
+                <tr>
+                  <th scope="col" >項目</th>
+                  <th scope="col" >内容</th>
+                </tr>
+            </thead>
+                {% else %}
+            <thead>
+                <tr>
+                  <th scope="col" bgcolor="#FFC0CB "><font color="#c71585 ">項目</font></th>
+                  <th scope="col" bgcolor="#FFC0CB "><font color="#c71585 ">内容</font></th>
+                </tr>
+            </thead>
+                {% endif %}
+
+            <tr>
+                <td>ニックネーム：</td>
+                <td>{{ item.nickname }}</td>
+            </tr>
+                {% if item.face_photo %}
+            <tr>
+                <td>写真：</td>
+                <td>
+                    <div class="col-sm-6 col-md-3" style="margin: 0px 10px 10px 0px; ">
+                <img src="{{ item.face_photo.url }}" class="img-fluid img-thumbnail" width="50%" height="auto"/>
+                    </div>
+                </td>
+            </tr>
+                {% endif %}
+            <tr>
+                <td>自己ピーアール：</td>
+                <td>{{ item.article  | linebreaksbr | urlize }}</td>
+            </tr>
+                {% if item.keyword %}
+            <tr>
+                <td>趣味・興味：</td>
+                <td>{{ item.keyword  | linebreaksbr | urlize }}</td>
+            </tr>
+                {% endif %}
+                {% for h_item in hownices %}
+                {% if item.serviceclient_id == h_item.serviceclient_id and sc_id == h_item.partner_id and h_item.like_flag == 1 %}
+            <tr>
+                <td><font color="#c71585 "><strong>いいね！</strong></font></td>
+                <td>
+                    ＜ {{ h_item.my_nickname }} ＞さんから ＜ {{ h_item.partner_nickname }} ＞さんへ！
+                </td>
+            </tr>
+                {% endif %}
+                {% endfor %}
+
+                {% for l_f_l_item in like_flag_lst %}
+                {% if item.serviceclient_id == l_f_l_item.0 %}
+                {% if l_f_l_item.1 == 1 %}
+
+
+<!--                {% for h_item in hownices %}-->
+<!--                {% if item.serviceclient_id == h_item.serviceclient_id and sc_id == h_item.partner_id and h_item.like_flag == 1 %}-->
+            <tr>
+                <td>プロフィール詳細：</td>
+<!--                <td><a class="btn btn-outline-primary btn-sm" href="{% url 'live:profile_detail_view' item.pk %}" target="_blank" rel="noopener">詳細</a>  <a class="btn btn-outline-success btn-sm" href="{% url 'live:profile_how_nice' item.pk 2 %}" target="_blank" rel="noopener">いいね！</a> <a class="btn btn-outline-success btn-sm" href="{% url 'live:profile_how_nice' item.pk 3 %}" target="_blank" rel="noopener">保留</a></td>-->
+                <td><a class="btn btn-outline-primary btn-sm" href="{% url 'live:profile_detail_view' item.pk %}" target="_blank" rel="noopener">詳細</a></td>
+            </tr>
+<!--                {% endif %}-->
+<!--                {% endfor %}-->
+                {% else %}
+
+            <tr>
+                <td>プロフィール詳細：{{ h_item.serviceclient_id }} {{ h_item.partner_id }} {{ h_item.like_flag }}</td>
+<!--                <td><a class="btn btn-outline-primary btn-sm" href="{% url 'live:profile_detail_view' item.pk %}" target="_blank" rel="noopener">詳細</a>  <a class="btn btn-outline-success btn-sm" href="{% url 'live:profile_how_nice' item.pk 1 %}" target="_blank" rel="noopener">いいね！</a></td>-->
+                <td><a class="btn btn-outline-primary btn-sm" href="{% url 'live:profile_detail_view' item.pk %}" target="_blank" rel="noopener">詳細</a></td>
+            </tr>
+
+                {% endif %}
+                {% endif %}
+
+
+                {% endfor %}
+
+                {% endfor %}
+            </tbody>
+
+            </table>
+            </div>
+
+<!--            &lt;!&ndash;        visibility設定&ndash;&gt;-->
+<!--            </div>-->
+
+        {% if object_list.has_other_pages %}
+        <nav class="d-flex justify-content-center">
+         <ul class="pagination">
+           {% if object_list.has_previous %}
+           <li class="page-item">
+
+             <a class="page-link" href="?page={{ object_list.previous_page_number }}{% if request.GET.search_conditions %}&search_conditions={{ request.GET.search_conditions }}{% endif %}{% if request.GET.number_searches %}&number_searches={{ request.GET.number_searches }}{% endif %}{% if request.GET.article %}&article={{ request.GET.article }}{% endif %}{% if request.GET.keyword %}&keyword={{ request.GET.keyword }}{% endif %}{% if request.GET.nickname %}&nickname={{ request.GET.nickname }}{% endif %}{% if request.GET.height %}&height={{ request.GET.height }}{% endif %}{% if request.GET.body_weight %}&body_weight={{ request.GET.body_weight }}{% endif %}{% if request.GET.body_shape_man %}&body_shape_man={{ request.GET.body_shape_man }}{% endif %}{% if request.GET.body_shape_woman %}&body_shape_woman={{ request.GET.body_shape_woman }}{% endif %}{% if request.GET.marriage_history %}&marriage_history={{ request.GET.marriage_history }}{% endif %}{% if request.GET.children %}&children={{ request.GET.children }}{% endif %}{% if request.GET.tobacco %}&tobacco={{ request.GET.tobacco }}{% endif %}{% if request.GET.education %}&education={{ request.GET.education }}{% endif %}{% if request.GET.occupation %}&occupation={{ request.GET.occupation }}{% endif %}{% if request.GET.drivers_license %}&drivers_license={{ request.GET.drivers_license }}{% endif %}{% if request.GET.annual_income %}&annual_income={{ request.GET.annual_income }}{% endif %}" tabindex="-1">Previous</a>
+           </li>
+           {% else %}
+           <li class="page-item disabled"><a class="page-link" href="#!">Previous</a></li>
+           {% endif %}
+           {% for num in object_list.paginator.page_range %}
+           {% if object_list.number == num %}
+           <li class="page-item active">
+             <a class="page-link" href="#!">{{ num }}<span class="sr-only">(current)</span></a>
+           </li>
+           {% else %}
+           <li class="page-item">
+             <a class="page-link" href="?page={{ num }}{% if request.GET.search_conditions %}&search_conditions={{ request.GET.search_conditions }}{% endif %}{% if request.GET.number_searches %}&number_searches={{ request.GET.number_searches }}{% endif %}{% if request.GET.article %}&article={{ request.GET.article }}{% endif %}{% if request.GET.keyword %}&keyword={{ request.GET.keyword }}{% endif %}{% if request.GET.nickname %}&nickname={{ request.GET.nickname }}{% endif %}{% if request.GET.height %}&height={{ request.GET.height }}{% endif %}{% if request.GET.body_weight %}&body_weight={{ request.GET.body_weight }}{% endif %}{% if request.GET.body_shape_man %}&body_shape_man={{ request.GET.body_shape_man }}{% endif %}{% if request.GET.body_shape_woman %}&body_shape_woman={{ request.GET.body_shape_woman }}{% endif %}{% if request.GET.marriage_history %}&marriage_history={{ request.GET.marriage_history }}{% endif %}{% if request.GET.children %}&children={{ request.GET.children }}{% endif %}{% if request.GET.tobacco %}&tobacco={{ request.GET.tobacco }}{% endif %}{% if request.GET.education %}&education={{ request.GET.education }}{% endif %}{% if request.GET.occupation %}&occupation={{ request.GET.occupation }}{% endif %}{% if request.GET.drivers_license %}&drivers_license={{ request.GET.drivers_license }}{% endif %}{% if request.GET.annual_income %}&annual_income={{ request.GET.annual_income }}{% endif %}">{{ num }}</a></li>
+           {% endif %}
+           {% endfor %}
+           {% if object_list.has_next %}
+           <li class="page-item">
+             <a class="page-link" href="?page={{ object_list.next_page_number }}{% if request.GET.search_conditions %}&search_conditions={{ request.GET.search_conditions }}{% endif %}{% if request.GET.number_searches %}&number_searches={{ request.GET.number_searches }}{% endif %}{% if request.GET.article %}&article={{ request.GET.article }}{% endif %}{% if request.GET.keyword %}&keyword={{ request.GET.keyword }}{% endif %}{% if request.GET.nickname %}&nickname={{ request.GET.nickname }}{% endif %}{% if request.GET.height %}&height={{ request.GET.height }}{% endif %}{% if request.GET.body_weight %}&body_weight={{ request.GET.body_weight }}{% endif %}{% if request.GET.body_shape_man %}&body_shape_man={{ request.GET.body_shape_man }}{% endif %}{% if request.GET.body_shape_woman %}&body_shape_woman={{ request.GET.body_shape_woman }}{% endif %}{% if request.GET.marriage_history %}&marriage_history={{ request.GET.marriage_history }}{% endif %}{% if request.GET.children %}&children={{ request.GET.children }}{% endif %}{% if request.GET.tobacco %}&tobacco={{ request.GET.tobacco }}{% endif %}{% if request.GET.education %}&education={{ request.GET.education }}{% endif %}{% if request.GET.occupation %}&occupation={{ request.GET.occupation }}{% endif %}{% if request.GET.drivers_license %}&drivers_license={{ request.GET.drivers_license }}{% endif %}{% if request.GET.annual_income %}&annual_income={{ request.GET.annual_income }}{% endif %}">Next</a>
+           </li>
+           {% else %}
+           <li class="page-item disabled"><a class="page-link" href="#!">Next</a></li>
+           {% endif %}
+         </ul>
+        </nav>
+        {% endif %}
+
+            <!--        visibility設定-->
+            </div>
+
+        </div>
+        {% if search_word_hi %}
+<!--                <a class="btn btn-primary ml-2 mt-3 mb-3" href="{% url 'live:index' %}">検索サービス登録</a>-->
+                <a class="btn btn-primary ml-2 mt-3 mb-3" href="{% url 'live:profile_search_service_entrance' %}">検索サービス確認</a>
+        {% else %}
+            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>
+
+        {% endif %}
+
+<!--            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>-->
+    </div>
+</div>
+
+
+{% endblock %}
+
+
+

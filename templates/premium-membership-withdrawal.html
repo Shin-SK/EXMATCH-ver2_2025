@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block title %}プレミアムぼっち会員退会 | GPS-Live-Match{% endblock %}
+
+{% block active_terms_service %}active{% endblock %}
+
+{% block head %}
+
+ <style>
+ul.f_s { font-size: 14px; }
+</style>
+
+{% endblock %}
+
+{% block contents %}
+
+<div class="container">
+    <div class="my-div-style w-100">
+
+        <h5>プレミアムぼっち会員退会</h5>
+        <p>{{ nickname }} さん</p>
+        <ul class="f_s">
+            <li>「プレミアムぼっち会員」登録すると、利用料は定額制となり格安料金（{{ premium_bocchi_membership_fee| intcomma }}円/月）で利用できます。</li>
+            <li>当月26日までに「プレミアムぼっち会員」登録するとその月から適応されます。</li>
+            <li>27日は、「プレミアムぼっち会員」登録不可となります。</li>
+            <li>28日以降に登録すると翌月から「プレミアムぼっち会員」扱いとなります。</li>
+            <li>プレミアムぼっち会員の退会は、登録日から {{ withdrawal_period_limit }} 日以上経過していないと退会不可となります。</li>
+            <li>退会月の課金は、当該月に利用した分が課金されます。</li>
+          </ul>
+            <br>
+
+        <div class="row my-row-style1">
+
+            {% if registration == '退会済' %}
+            <p><font color="red">「プレミアムぼっち会員」を退会済です。</font></p>
+            {% else %}
+
+            {% if withdrawal == '退会可能' %}
+            <p><font color="red">「プレミアムぼっち会員」を退会しました。</font></p>
+            {% else %}
+            <p><font color="red">ただいま、「プレミアムぼっち会員」登録中です。<br>
+            {{ unsubscribe_date }} 以降に退会できます。</font></p>
+            {% endif %}
+
+            {% endif %}
+
+        </div>
+<!--        <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>-->
+
+    </div>
+</div>
+
+{% endblock %}
+
+
+

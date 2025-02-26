@@ -1,0 +1,261 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block active_terms_search %}active{% endblock %}
+
+{% block title %}チャット管理 | GPS-Live-Match{% endblock %}
+
+{% block contents %}
+
+<div class="container">
+    <div class="my-div-style w-100">
+        <h4>チャット管理</h4>
+        <p>{{ nickname }} さん</p>
+
+        <div  class="row my-row-style1" style="margin: 30px 0px 10px 0px; ">
+
+            {% if ch_query %}
+            <div>
+                <ul>
+                    <li><font color="red">「日時予約」</font>ボタンでチャットしたい日時を指定してください。</li>
+                    <li><font color="red">「連絡」</font>ボタンでチャット開始日時をお互いに調整してください。</li>
+                    <li>項目の「オン/オフ」はお相手の方が「ログオン」中か「ログオフ」中かを示します。</li>
+                </ul>
+            </div>
+
+            {% for item in ch_query %}
+        <div class="table-responsive" style="margin: 30px 0px 10px 0px; ">
+        <p>いいね！ : {{ item.my_nickname }} さん > {{ item.partner_nickname }} さん</p>
+
+        <table class="table table-bordered table-hover table-striped">
+            <tbody>
+            {% if item.my_nickname == nickname %}
+                {% if item.partner_id.gender %}
+            <thead class="table-active">
+                <tr align="center">
+<!--                  <th scope="col" >#</th>-->
+<!--                  <th scope="col" >項目</th>-->
+                  <th scope="col" >チャットのお相手</th>
+                </tr>
+            </thead>
+                {% else %}
+            <thead>
+                <tr align="center">
+<!--                  <th scope="col" bgcolor="#FFC0CB "><font color="#c71585 ">#</font></th>-->
+<!--                  <th scope="col" bgcolor="#FFC0CB "><font color="#c71585 ">項目</font></th>-->
+                  <th scope="col" bgcolor="#FFC0CB "><font color="#c71585 ">チャットのお相手</font></th>
+                </tr>
+            </thead>
+                {% endif %}
+
+            {% else %}
+                {% if item.serviceclient_id.gender %}
+            <thead class="table-active">
+                <tr align="center">
+<!--                  <th scope="col" >#</th>-->
+<!--                  <th scope="col" >項目</th>-->
+                  <th scope="col" >チャットのお相手</th>
+                </tr>
+            </thead>
+                {% else %}
+            <thead>
+                <tr align="center">
+<!--                  <th scope="col" bgcolor="#FFC0CB "><font color="#c71585 ">#</font></th>-->
+<!--                  <th scope="col" bgcolor="#FFC0CB "><font color="#c71585 ">項目</font></th>-->
+                  <th scope="col" bgcolor="#FFC0CB "><font color="#c71585 ">チャットのお相手</font></th>
+                </tr>
+            </thead>
+                {% endif %}
+            {% endif %}
+
+            <tr>
+<!--                <th scope="row">1</th>-->
+<!--                <td>チャット相手のニックネーム：</td>-->
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>1）チャット相手のニックネーム：</b></font></small><br>
+                    {% if item.my_nickname == nickname %}
+                    {{ item.partner_nickname }}
+                    {% else %}
+                    {{ item.my_nickname }}
+                    {% endif %}
+                    </td>
+            </tr>
+<!--            <tr>-->
+<!--&lt;!&ndash;                <th scope="row">2</th>&ndash;&gt;-->
+<!--&lt;!&ndash;                <td>ルーム名：</td>&ndash;&gt;-->
+<!--                <td>-->
+<!--                    <small class="form-text text-muted"><font size="2" color=royalblue><b>1）ルーム名：</b></font></small><br>-->
+<!--                    {{ item.room_name }}</td>-->
+<!--            </tr>-->
+            <tr>
+<!--                <th scope="row">2</th>-->
+<!--                <td>-->
+<!--                    {% if item.my_nickname == nickname %}-->
+<!--                    オン/オフ（{{ item.partner_nickname }}）：-->
+<!--                    {% else %}-->
+<!--                    オン/オフ（{{ item.my_nickname }}）：-->
+<!--                    {% endif %}-->
+<!--                </td>-->
+                <td>
+                    {% if item.my_nickname == nickname %}
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>2）オン/オフ（{{ item.partner_nickname }}）：</b></font></small><br>
+                    {% else %}
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>2）オン/オフ（{{ item.my_nickname }}）：</b></font></small><br>
+                    {% endif %}
+                    {% if item.my_nickname == nickname %}
+                    {% if item.partner_id.id in serviceclient_id_list %}
+                    ログオン中！
+                    {% else %}
+                    ログオフ中！
+                    {% endif %}
+                    {% else %}
+                    {% if item.serviceclient_id.id in serviceclient_id_list %}
+                    ログオン中！
+                    {% else %}
+                    ログオフ中！
+                    {% endif %}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+<!--                <th scope="row">3</th>-->
+<!--                <td>チャット回数：</td>-->
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>3）セッション回数：</b></font></small><br>
+                    {{ item.number_chats }}</td>
+            </tr>
+            <tr>
+<!--                <th scope="row">4</th>-->
+<!--                <td>予約日時（{{ item.my_nickname }}）：</td>-->
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>4）予約日時（{{ item.my_nickname }}）：</b></font></small><br>
+                    {% if item.reservation_date_time_a1 %}
+                    {{ item.reservation_date_time_a1 | date:"Y-m-d　H:i" }}<br>
+                    {% else %}
+                    予約日時１：未登録<br>
+                    {% endif %}
+                    {% if item.reservation_date_time_a2 %}
+                    {{ item.reservation_date_time_a2 | date:"Y-m-d　H:i" }}<br>
+                    {% else %}
+                    予約日時２：未登録<br>
+                    {% endif %}
+                    {% if item.reservation_date_time_a3 %}
+                    {{ item.reservation_date_time_a3 | date:"Y-m-d　H:i" }}<br>
+                    {% else %}
+                    予約日時３：未登録<br>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+<!--                <th scope="row">5</th>-->
+<!--                <td>予約日時（{{ item.partner_nickname }}）：</td>-->
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>5）予約日時（{{ item.partner_nickname }}）：</b></font></small><br>
+                    {% if item.reservation_date_time_b1 %}
+                    {{ item.reservation_date_time_b1 | date:"Y-m-d　H:i" }}<br>
+                    {% else %}
+                    予約日時１：未登録<br>
+                    {% endif %}
+                    {% if item.reservation_date_time_b2 %}
+                    {{ item.reservation_date_time_b2 | date:"Y-m-d　H:i" }}<br>
+                    {% else %}
+                    予約日時２：未登録<br>
+                    {% endif %}
+                    {% if item.reservation_date_time_b3 %}
+                    {{ item.reservation_date_time_b3 | date:"Y-m-d　H:i" }}<br>
+                    {% else %}
+                    予約日時３：未登録<br>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+<!--                <th scope="row">6</th>-->
+<!--                <td>直近一致予約日時：</td>-->
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>6）直近一致予約日時：</b></font></small><br>
+                    {% if item.chat_match_date_time %}
+                    {{ item.chat_match_date_time | date:"Y-m-d　H:i" }}
+                    {% else %}
+                    無し
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+<!--                <th scope="row">7</th>-->
+<!--                <td> メッセージ（{{ item.my_nickname }}）：</td>-->
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>7）メッセージ（{{ item.my_nickname }}）：</b></font></small><br>
+                    {% if item.message_a %}
+                    {{ item.message_a }}
+                    {% else %}
+                    無し
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+<!--                <th scope="row">8</th>-->
+<!--                <td> メッセージ（{{ item.partner_nickname }}）：</td>-->
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>8）メッセージ（{{ item.partner_nickname }}）：</b></font></small><br>
+                    {% if item.message_b %}
+                    {{ item.message_b }}
+                    {% else %}
+                    無し
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+<!--                <th scope="row">9</th>-->
+<!--                <td>日時予約：</td>-->
+                <td>
+                    <small class="form-text text-muted"><font size="2" color=royalblue><b>9）日時予約・連絡・チャット：</b></font></small><br>
+                    <a class="btn btn-success" href="{% url 'live:chat_service_date_time' item.pk 'entry' %}">日時予約</a>
+                    <a class="btn btn-info" href="{% url 'live:chat_service_message' item.pk 'entry' %}">連　　絡</a>
+                    <a class="btn btn-primary" href="{% url 'chat:chat' item.pk %}">チャット</a>
+                </td>
+
+            </tr>
+<!--            <tr><th scope="row">10</th>-->
+<!--                <td>連絡：</td>-->
+<!--                <td><a class="btn btn-outline-primary btn-sm" href="{% url 'live:chat_service_message' item.pk 'entry' %}">連　　絡</a></td>-->
+<!--            </tr>-->
+<!--            <tr><th scope="row">11</th>-->
+<!--                <td>チャット：</td>-->
+<!--                <td><a class="btn btn-outline-primary btn-sm" href="{% url 'chat:chat' item.pk %}">チャット</a></td>-->
+<!--            </tr>-->
+
+            </tbody>
+        </table>
+        </div>
+            {% endfor %}
+
+            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:chat_management' %}">戻る</a><br><br>
+<!--            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>-->
+
+            {% else %}
+            <div class="table-responsive">
+                <table class="table table-borderless">
+                <tr>
+                    <td>
+            <p>現在、「チャット」はできません！<br>
+            「プロフィール検索」メニューでチャット相手を探してください。</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:chat_management' %}">戻る</a><br>
+                        <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>
+                    </td>
+                </tr>
+                </table>
+                </div>
+
+            {% endif %}
+
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

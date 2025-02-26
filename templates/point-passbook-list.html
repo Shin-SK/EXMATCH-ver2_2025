@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block active_terms_member %}active{% endblock %}
+
+{% block title %}ポイント通帳 | GPS-Live-Match{% endblock %}
+
+
+{% block head %}
+
+  <!-- Custom styles for this template -->
+<!--<link href="{% static 'css/clean-blog.min.css' %} rel="stylesheet">-->
+
+{% endblock %}
+
+{% block contents %}
+
+
+  <!-- Main Content -->
+<div class="container">
+    <div class="my-div-style w-100">
+        <h5>ポイント通帳</h5><br>
+        <div class="row my-row-style1">
+                <P>{{ nickname }}  さん</P><br>
+
+                <div class="table-responsive">
+                <h6>残高ポイント：{{ balance_point }}</h6>
+                    <table class="table table-borderless table-sm">
+                {% for item in object_list %}
+                        <tr>
+                            <td>
+                    <div class="post-preview">
+                        <p class="post-meta">
+                            登録日：{{ item.created_at }}<br>
+                            利用ポイント：{{ item.use_point }}<br>
+                            付与ポイント：{{ item.grant_point }}<br>
+                            残高ポイント：{{ item.balance_point }}<br>
+                            取引内容：{{ item.transaction }}
+                        </p>
+                    </div>
+                            </td>
+                            </tr>
+                        <tr>
+                            <td>
+                {% empty %}
+                <p>コンテンツがありません。</p>
+                {% endfor %}
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+
+
+
+                <!-- ページネーション処理 -->
+                {% if is_paginated %}
+
+                <div class="table-responsive">
+                    <table class="table table-borderless table-sm">
+                        <tr>
+                            <td>
+
+                    <ul class="pagination">
+                        <!-- 前ページへのリンク -->
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+
+                        <!-- ページ数表示 -->
+                        {% for page_num in page_obj.paginator.page_range %}
+                            {% if page_obj.number == page_num %}
+                                <li class="page-item active"><a class="page-link" href="#">{{ page_num }}</a></li>
+                            {% else %}
+                                <li class="page-item"><a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+
+                        <!-- 次ページへのリンク -->
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                            </td>
+
+                        </tr>
+                    </table>
+                </div>
+
+                {% endif %}
+
+    </div>
+</div>
+</div>
+{% endblock %}
+
+

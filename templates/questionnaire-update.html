@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}アンケート情報編集 | GPS-Live-Match{% endblock %}
+
+
+
+{% block contents %}
+
+<div class="container">
+    <div class="my-div-style w-100">
+            <h5>アンケート編集</h5>
+            <p>会員氏名：{{ clientname }}  さん<br><br>
+            アンケート回答を編集してください。
+            </p>
+
+        <div class="row my-row-style1">
+            <table class="table">
+            <tr><td><strong>質問１：</strong></td><td>{{ question1 }}</td></tr>
+            <tr><td><strong>質問２：</strong></td><td>{{ question2 }}</td></tr>
+            <tr><td><strong>質問３：</strong></td><td>{{ question3 }}</td></tr>
+            </table>
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <table class="table">
+                    {% bootstrap_form form%}
+
+                </table>
+                <button class="btn btn-primary" type="submit">更新</button>
+                <a class="btn btn-success ml-2" href="{% url 'live:questionnaire_detail' object.pk qs_pk %}">戻る</a>
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
