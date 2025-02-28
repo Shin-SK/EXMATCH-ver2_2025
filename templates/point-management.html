@@ -17,8 +17,8 @@ ul.f_s { font-size: 14px; }
 <div class="container">
     <div class="my-div-style w-100">
 
-        <h5>ポイント管理</h5>
-        <p>{{ nickname }} さん</p>
+        <div class="mainTitle">ポイント管理</div>
+        <div class="nickname">{{ nickname }} さん</div>
         <div class="row my-row-style1">
             {% if mes_m == '' %}
             <div class="table-responsive">
@@ -43,13 +43,13 @@ ul.f_s { font-size: 14px; }
 
                     <tr>
                         <td>
-                            <a href="{% url 'live:member-profile-check' 63 %}">ポイント通帳</a><br><br>
+                            <a class="button" href="{% url 'live:member-profile-check' 63 %}">ポイント通帳</a><br><br>
                             <ul class="f_s"><li>ポイント利用履歴参照</li></ul>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <a href="{% url 'live:member-profile-check' 79 %}">通帳CSVダウンロード</a><br><br>
+                            <a class="button" href="{% url 'live:member-profile-check' 79 %}">通帳CSVダウンロード</a><br><br>
                             <ul class="f_s"><li>ポイント利用履歴をcsv形式でローカル端末にダウンロードできます。</li></ul>
                         </td>
                     </tr>

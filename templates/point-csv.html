@@ -6,21 +6,17 @@
 
 {% block contents %}
 
-<div class="container">
+<div class="container point">
     <div class="my-div-style w-100">
 
-        <h5>通帳CSVダウンロード</h5><br>
-        <ul>
-            <li>ポイント利用履歴をcsv形式でローカル端末にダウンロードできます。</li>
-            <li>ダウンロード後は、直近のポイント利用履歴が {{ num_t_h }} 件残ります。</li>
-        </ul>
+        <div class="mainTitle">通帳CSVダウンロード</div>
+        <div class="info">
+            ポイント利用履歴をcsv形式でダウンロードできます。<br>
+            ダウンロード後は、直近のポイント利用履歴が {{ num_t_h }} 件残ります。
+        </div>
 
-        <div class="row my-row-style1">
-
-        <p>
-            <a href="{% url 'live:point_csv_download' %}" class="">通帳CSVダウンロード</a>
-        </p>
-
+        <div class="wrap">
+            <a href="{% url 'live:point_csv_download' %}" class="button">ダウンロード</a>
         </div>
     </div>
 </div>

@@ -16,22 +16,33 @@
 
   <!-- Main Content -->
 <div class="container">
-    <div class="row">
+    <div class="row refer">
         <div class="my-div-style w-100">
             <div class="col-lg-8 col-md-10 mx-auto">
 
 
-                <h6>会員氏名：{{ clientname }}  さん</h6><br>
-                <hr>
-                <P>
-                    キャンペーン名：{{ title }}<br>
-                    開始日：{{ s_date }}<br>
-                    終了日：{{ e_date }}<br>
-                    付与ポイント：{{ grant_point }}<br>
-                    ※ 複数のお友達を紹介することができます。<BR>
-                    ※ 紹介成立毎に、{{ grant_point }}ポイントを付与します。
-                </P>
-                <hr>
+                <div class="mainTitle">会員氏名：{{ clientname }}  さん</div>
+                
+                <div class="campaign-info">
+                    <div class="grid-container">
+                        <div class="head">キャンペーン名</div>
+                        <div class="value">{{ title }}</div>
+                
+                        <div class="head">開始日</div>
+                        <div class="value">{{ s_date }}</div>
+                
+                        <div class="head">終了日</div>
+                        <div class="value">{{ e_date }}</div>
+                
+                        <div class="head">付与ポイント</div>
+                        <div class="value">{{ grant_point }}</div>
+                    </div>
+                    <!-- <p>
+                        ※ 複数のお友達を紹介することができます。<BR>
+                        ※ 紹介成立毎に、{{ grant_point }}ポイントを付与します。
+                    </p> -->
+                </div>
+                
 
                 {% for item in object_list %}
 
@@ -48,7 +59,7 @@
                     </div>
                 <hr>
                 {% empty %}
-                <p>コンテンツがありません。</p>
+                <p class="text-center">コンテンツがありません。</p>
                 {% endfor %}
                 <!-- ページネーション処理 -->
                 {% if is_paginated %}
@@ -82,7 +93,7 @@
                     </ul>
                 {% endif %}
             <a class="btn btn-primary mt-5 ml-2 mb-3" href="{% url 'live:refer_friend_create' rf_pk %}">新規登録</a>
-            <a class="btn btn-success mt-5 ml-2 mb-3" href="{% url 'live:index' %}">ホーム</a>
+            <a class="link-plane" href="{% url 'live:index' %}">ホーム</a>
             </div>
         </div>
     </div>

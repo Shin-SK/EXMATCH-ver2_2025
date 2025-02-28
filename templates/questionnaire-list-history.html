@@ -23,13 +23,13 @@ ul.f_s { font-size: 14px; }
   <!-- Main Content -->
 <div class="container">
     <div class="my-div-style w-100">
-        <h5>アンケート履歴</h5><br>
-        <p>{{ nickname }} さん</p>
+        <div class="mainTitle">アンケート履歴</div><br>
+        <div class="nickname">{{ nickname }} さん</div>
         <div class="row my-row-style1">
             <div class="col-lg-8 col-md-10">
 <!--            <div class="col-lg-8 col-md-10 mx-auto">-->
                 {% if tf %}
-                <h6>最近のアンケートキャンペーン情報</h6><br>
+                <h6>最近のアンケートキャンペーン情報</h6>
 
                 <ul class="f_s" style="list-style: none;">
                     <li>キャンペーン名：{{ title }}</li>

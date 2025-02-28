@@ -14,45 +14,33 @@
         <p>{{ nickname }} さん</p>
         {% endif %}
 
-        <div  class="row my-row-style1" style="margin: 30px 0px 10px 0px; ">
-            {% if card_list %}
-
-            <table class="table table-hover">
-              <thead class="table-active">
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">card</th>
-                  <th scope="col">number</th>
-                  <th scope="col">availability</th>
-                </tr>
-<!--                <tr>-->
-<!--                  <th scope="col">#</th>-->
-<!--                  <th scope="col">cardカードブランド名</th>-->
-<!--                  <th scope="col">カードナンバー下4桁</th>-->
-<!--                  <th scope="col">カード利用可/不可</th>-->
-<!--                </tr>-->
-              </thead>
-              <tbody>
-              {% for card in card_list %}
-                <tr>
-                  <th scope="row">{{ card.0 }}</th>
-                  <td>{{ card.1 }}</td>
-                  <td>{{ card.2 }}</td>
-                  <td>{{ card.3 }}</td>
-                </tr>
-              {% endfor %}
-              </tbody>
-            </table>
-            {% else %}
-            <p>カードは未登録です。<br>
-            カード登録は「カード登録」メニューで登録できます。</p>
+        <div  class="row my-row-style1">
+          {% if card_list %}
+          <div class="card-table">
+              <div class="grid-container">
+                  <div class="head">#</div>
+                  <div class="head">Card</div>
+                  <div class="head">Number</div>
+                  <div class="head">Availability</div>
+          
+                  {% for card in card_list %}
+                  <div class="value">{{ card.0 }}</div>
+                  <div class="value">{{ card.1 }}</div>
+                  <div class="value">{{ card.2 }}</div>
+                  <div class="value">{{ card.3 }}</div>
+                  {% endfor %}
+              </div>
+          </div>
+          {% else %}
+          
+            <p class="text-center my-5">カードは未登録です</p>
 
             {% endif %}
 
 
         </div>
 
-<!--        <a class="btn btn-success mt-5 ml-2 mb-3" href="{% url 'live:index' %}">ホーム</a><br><br>-->
+       <a class="link-plane" href="{% url 'live:index' %}">ホーム</a><br><br>
 
 
     </div>

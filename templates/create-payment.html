@@ -9,16 +9,19 @@
 
 {% block contents %}
 <div class="container">
-    <div class="my-div-style w-100">
-        <div class="row my-row-style1">
-            <strong>支払</strong><br>
-            {{ result_body }}
-<!--            {% for key, value in result_body.items %}-->
-<!--            {{ key }} : {{ value }}<br>-->
-<!--            {% endfor %}-->
+    <div class="area">
+        <div class="box">
+            <div class="title">お支払い</div>
+            <div class="wrap">
 
+                {{ result_body }}
+    <!--            {% for key, value in result_body.items %}-->
+    <!--            {{ key }} : {{ value }}-->
+    <!--            {% endfor %}-->
+
+            </div>
+            <a class="link-plane" href="{% url 'live:index' %}">ホーム</a>
         </div>
-            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>
     </div>
 </div>
 

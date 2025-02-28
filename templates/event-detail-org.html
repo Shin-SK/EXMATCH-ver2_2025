@@ -12,104 +12,75 @@
 <div class="container" xmlns:margin-bottom="http://www.w3.org/1999/xhtml">
     <div class="my-div-style w-100">
 
-        <h3>イベント詳細</h3>
-        <br>
+        <div class="mainTitle">イベント詳細</div>
 
-        <div class="row my-row-style1">
-                <strong>お名前：</strong>
-        </div>
-        <div class="row my-row-style1">
-                {{ clientname }} さん
-        </div>
-        <hr>
+        <div class="grid-container">
 
-        <div class="row my-row-style1">
-                <strong>開始日：</strong>
-        </div>
-        <div class="row my-row-style1">
-                {{ object.s_date }}
-        </div>
-        <hr>
 
-        <div class="row my-row-style1">
-                <strong>終了日：</strong>
-        </div>
-        <div class="row my-row-style1">
-                {{ object.e_date }}
-        </div>
-        <hr>
+                <div class="head">お名前</div>
+                <div class="value">{{ clientname }} さん</div>
+        
+                <div class="head">開始日</div>
+                <div class="value">{{ object.s_date }}</div>
+        
+                <div class="head">終了日</div>
+                <div class="value">{{ object.e_date }}</div>
+        
+                <div class="head">イベントタイトル</div>
+                <div class="value">{{ object.title }}</div>
+        
+                <div class="head">イベント内容</div>
+                <div class="value">{{ object.letter_body }}</div>
 
-        <div class="row my-row-style1">
-                <strong>イベントタイトル：</strong>
-        </div>
-        <div class="row my-row-style1">
-                {{ object.title }}
-        </div>
-        <hr>
-
-        <div class="row my-row-style1">
-                <strong>イベント内容：</strong>
-        </div>
-        <div class="row my-row-style1">
-                {{ object.letter_body }}
-        </div>
-        <hr>
 
 <!--            {% if object.big %}-->
 <!--        <div class="row my-row-style1">-->
-<!--                <strong>大画像：</strong>-->
+<!--                <strong>大画像</strong>-->
 <!--        </div>-->
 <!--        <div class="col-sm-6 col-md-3" style="margin: 0px 10px 10px 0px; ">-->
 <!--&lt;!&ndash;                <img src="{{ object.big.url }}" width="100%" height="auto"/>&ndash;&gt;-->
 <!--                <img src="{{ object.big.url }}" width="1280" height="auto"/>-->
 <!--        </div>-->
-<!--        <hr>-->
+<!---->
 <!--            {% endif %}-->
 
 
             {% if object.photo %}
-        <div class="row my-row-style1">
-                <strong>写真：</strong>
-        </div>
-        <div class="col-sm-6 col-md-3" style="margin: 0px 10px 10px 0px; ">
+            <div class="head">写真</div>
+            <div class="value">
 <!--                <img src="{{ object.photo.url }}" width="100%" height="auto"/>-->
                 <img src="{{ object.photo.url }}" width="100%" height="auto"/>
-        </div>
-        <hr>
+            </div>
+
             {% endif %}
 
 <!--            {% if object.thumbnail %}-->
 <!--        <div class="row my-row-style1">-->
-<!--                <strong>サムネイル画像：</strong>-->
+<!--                <strong>サムネイル画像</strong>-->
 <!--        </div>-->
 <!--        <div class="col-sm-6 col-md-3" style="margin: 0px 10px 10px 0px; ">-->
 <!--&lt;!&ndash;                <img src="{{ object.thumbnail.url }}" width="100%" height="auto"/>&ndash;&gt;-->
 <!--                <img src="{{ object.thumbnail.url }}" width="250" height="auto"/>-->
 <!--        </div>-->
-<!--        <hr>-->
+<!---->
 <!--            {% endif %}-->
 
 <!--            {% if object.small %}-->
 <!--        <div class="row my-row-style1">-->
-<!--                <strong>小画像：</strong>-->
+<!--                <strong>小画像</strong>-->
 <!--        </div>-->
 <!--        <div class="col-sm-6 col-md-3" style="margin: 0px 10px 10px 0px; ">-->
 <!--&lt;!&ndash;                <img src="{{ object.small.url }}" width="100%" height="auto"/>&ndash;&gt;-->
 <!--                <img src="{{ object.small.url }}" width="75" height="auto"/>-->
 <!--        </div>-->
-<!--        <hr>-->
+<!---->
 <!--            {% endif %}-->
 
+                <div class="head">登録日時</div>
+                <div class="value">{{ object.created_at }}</div>
 
-        <div class="row my-row-style1">
-                <strong>登録日時：</strong>
-        </div>
-        <div class="row my-row-style1">
-                {{ object.created_at }}
-        </div>
-        <hr>
-
-            <a class="btn btn-success ml-2" href="{% url 'live:index' %}">ホーム</a><br><br>
+        </div><!-- grid-container -->
+            <a class="button" href="{% url 'live:index' %}">ホーム</a>
 
     </div>
 </div>

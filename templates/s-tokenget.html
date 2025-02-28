@@ -11,28 +11,26 @@
 
         <div  class="row my-row-style1" style="margin: 30px 0px 10px 0px; ">
 
-            {% if token %}
-                {% if errors_customer %}
-                <p>クレジットカードの登録ができませんでした。</p>
-                {% else %}
-                    {% if errors_cards %}
-                    <p>クレジットカードの登録ができませんでした。</p>
+            <p class="text-center">
+                {% if token %}
+                    {% if errors_customer or errors_cards %}
+                        クレジットカードの登録ができませんでした。
                     {% else %}
-                    <p>クレジットカードを登録しました。<br><br>
-                    ※ クレジットカードを複数登録することができます。<br>
-                        ※ 「カード登録」メニューから登録してください。</p>
+                        クレジットカードを登録しました。<br>
+                        クレジットカードは複数登録することができます。<br>
+                        「カード登録」メニューから登録してください。
                     {% endif %}
+                {% else %}
+                    クレジットカードの登録ができませんでした。<br>
+                    有効期限などをお確かめのうえ再登録お願いいたします。
                 {% endif %}
-            {% else %}
-            <p>クレジットカードの登録ができませんでした。<br>
-            有効期限などをお確かめのうえ再登録お願いいたします。<br>
             </p>
-            {% endif %}
+            
 
 
         </div>
 
-        <a class="btn btn-success mt-5 ml-2 mb-3" href="{% url 'live:index' %}">ホーム</a><br><br>
+        <a class="link-plane my-5" href="{% url 'live:index' %}">ホーム</a><br><br>
 
 
     </div>

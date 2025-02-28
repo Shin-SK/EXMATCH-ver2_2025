@@ -70,8 +70,8 @@ width: 100%
 
 <div class="container">
     <div class="my-div-style w-100">
-        <h5>GPS 位置情報</h5><br>
-            <p>{{ nickname }} さん</p>
+        <div class="mainTitle">GPS 位置情報</div><br>
+        <div class="nickname">{{ nickname }} さん</div>
 
             <div class="post-preview">
                 <ul class="f_s" style="list-style: none;">
@@ -122,11 +122,11 @@ width: 100%
             </div>
 
             <div id="boxB" style="margin-top:30px">
-                <p><font color="red">現在、位置情報取得が許可されていません。</font><br>
+                <p><span style="color:red;">現在、位置情報取得が許可されていません。</span><br>
                     従って、他のメンバーから地図上では検索されません。<br>
                     リアルタイムにお相手を検索する場合は、位置情報取得の「許可」をお勧めします。<br>
                     位置情報取得の「許可」の設定方法は、<a href="{% url 'live:location_permission' %}" target="_blank" rel="noopener">こちら</a>を参照<br>
-                    <a  style="margin-left:60px;" class="btn btn-success mt-5 ml-2 mb-3" href="{% url 'live:index' %}">ホーム</a><br><br>
+                    <a class="button mx-auto my-5" href="{% url 'live:index' %}">ホーム</a>
                 </p>
             </div>
                         </td>
@@ -135,9 +135,9 @@ width: 100%
                     <td>
             <ul class="f_s">
                 <li>個人の正確な位置情報は、検索ページではご確認頂けません。</li>
-                <li>ログアウト時に、位置情報は廃棄されます。</li><br>
-                <li>位置情報取得の「許可」の設定方法は、<a href="{% url 'live:location_permission' %}" target="_blank" rel="noopener">こちら</a>を参照</li><br>
+                <li>ログアウト時に、位置情報は廃棄されます。</li>
                 <li>GPS 位置情報を登録してお友達を探すとリアルタイムで近くのお友達が見つかります！</li>
+                <a class="button" href="{% url 'live:location_permission' %}" target="_blank" rel="noopener">設定方法</a>
             </ul>
                     </td>
                 </tr>

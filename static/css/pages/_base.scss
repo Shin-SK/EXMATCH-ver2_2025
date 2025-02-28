@@ -1,6 +1,21 @@
 @use "../global/global" as g;
 @use "../global/reset";
 
+.form-control{
+    all: unset;
+}
+
+.btn{
+    all: unset;
+}
+.btn-success{
+    all: unset;
+}
+
+[type="button"]{
+    all: unset;
+}
+
 
 .base{
     .container{
@@ -10,7 +25,7 @@
         opacity: 1 !important;
     }
 
-    .mainTitle{
+    .mainTitle,h5,h3,h6,h4{
         @include fs(40);
         @include flex();
         font-weight: bold;
@@ -167,4 +182,354 @@
 
 .mt-40{
     margin-top: 40px;
+}
+
+.nickname{
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+.area{
+    .box{
+        .title{
+            font-weight: bold;
+            text-align: center;
+            color: $mc;
+            @include fs(18);
+            margin-bottom: 16px;
+        }
+    }
+}
+
+a.link{
+    color:$mc;
+    border-bottom: 1px $mc solid;
+    padding: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    text-align: left;
+    @include fs(18);
+    &::after{
+        content: "";
+        background-image: url(../img/arrow.svg);
+        width: 14px;
+        height: 16px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+}
+.link-plane, .btn-success{
+    border-bottom: 1px $mc solid;
+    text-align: center;
+    width: fit-content;
+    margin: 16px auto;
+    @include flex();
+}
+a.button, [type="submit"], .button[type="reset"], .btn{
+    color: white;
+    padding: 4px;
+    @include flex();
+    background-color: $mc;
+    border-radius: 10px !important;
+    width: fit-content;
+    width: 50%;
+    margin: 16px auto;
+    @include fs(16);
+    @include md{
+        width: 100%;
+    }
+}
+.grid-container{
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 16px;
+    margin: 40px auto;
+    width: fit-content;
+    @include md{
+        grid-template-columns: 1fr;
+    }
+    .head{
+        font-weight: bold;
+    }
+    .value{
+        width: fit-content;
+    }
+}
+
+.button{
+    &__white{
+        padding: 8px 16px;
+        @include flex();
+        background-color: white;
+        border: 1px $mc solid;
+        width: fit-content;
+        font-weight: bold;
+        color: $mc;
+    }
+}
+
+.campaign{
+    .area{
+        .box{
+            width: 100%;
+            margin-bottom: 40px;
+
+            p{
+                text-align: center;
+            }
+            a{
+                margin: auto;
+                display: inline;
+                border-bottom: 1px $mc solid;
+                display: flex;
+                align-items: center;
+                width: fit-content;
+            }
+        }
+    }
+}
+
+.Card{
+    .area{
+        .box{
+            margin-bottom: 40px;
+            .title{
+                font-weight: bold;
+                margin-bottom: 8px;
+                text-align: center;
+                @include fs(18);
+            }
+            p{
+                margin-bottom: 16px;
+                text-align: center;
+            }
+        }
+    }
+}
+
+.title{
+    &__base{
+        font-weight: bold;
+        text-align: center;
+        color: $mc;
+        margin: 16px auto;
+    }
+}
+
+
+.like{
+    .area{
+        .title{
+            font-weight: bold;
+            text-align: center;
+            color: $mc;
+        }
+        .numb{
+            display: block;
+            text-align: center;
+            span{
+                @include fs(18);
+                color: red;
+            }
+        }
+    }
+    .liked-by{
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        gap: 16px;
+        .like-item{
+            @include flex();
+            flex-direction: column;
+            img{
+                margin-bottom: 8px;
+                width: 100%;
+                height: auto;
+                object-fit: cover;
+                object-position: center;
+                aspect-ratio: 1/1;
+            }
+            .like-text{
+                font-weight: bold;
+            }
+        }
+    }
+    .no-likes{
+        text-align: center;
+        margin: 40px auto;
+    }
+}
+
+
+.imadoko{
+    .map{
+        .area{
+            @include flex();
+            gap: 40px;
+            .icon{
+                @include flex();
+                flex-direction: column;
+                gap: 8px;
+                color: $green;
+                i{
+                    @include fs(40);
+                }
+                &.female{
+                    color: $pink;
+                }
+            }
+        }
+        .caution{
+            @include fs(8);
+        }
+        .result{
+            @include flex();
+            gap: 8px;
+            width: fit-content;
+            margin: 16px auto;
+            .title{
+                border: 1px $mc solid;
+                padding: 4px 16px;
+                color: $mc;
+            }
+            .numb{
+                span{
+                    @include fs(20);
+                    color: red;
+                }
+            }
+        }
+        .notwork{
+            margin-top: 16px;
+            span{
+                color: red;
+                @include flex();
+            }
+        }
+        &__area{
+            .contents{
+                width: 100%;
+                height: 500px;
+            }
+        }
+    }
+}
+
+.search-options{
+    .option{
+        @include flex();
+        flex-direction: column;
+        span{
+            font-weight: bold;
+        }
+    }
+}
+
+
+.member{
+    .area{
+        .box{
+            margin: 40px auto;
+        }
+        label.title{
+            font-weight: normal;
+            text-align: left;
+            @include fs(16);
+            margin-bottom: 0;
+        }
+    }
+}
+
+.chat{
+    .wrap{
+        &.title{
+            margin-bottom: 16px;
+            >p{
+                text-align: center;
+                @include flex();
+                gap: 4px;
+                color: $mc;
+            }
+        }
+    }
+    .profile{
+        &.title{
+            margin-bottom: 16px;
+            .name{
+                text-align: center;
+                @include flex();
+                gap: 4px;
+                color: $mc;
+            }
+        }
+    }
+    .news{
+        .info{
+            p{
+                text-align: center;
+                font-weight: bold;
+                padding: 8px;
+            }
+            .recieve{
+                background-color: $pink;
+                font-weight: bold;
+                text-align: center;
+                color: white;
+            }
+        }
+    }
+    &.management{
+        .title{
+            padding: 8px;
+            text-align: center;
+            font-weight: bold;
+        }
+    }
+}
+
+.point{
+    .info{
+        text-align: center;
+        margin: 40px auto;
+    }
+}
+
+
+.premium{
+    .info{
+
+    }
+}
+
+.profile{
+    .title{
+        &__sub{
+            @include fs(18);
+            text-align: center;
+        }
+    }
+}
+
+
+.refer{
+    .campaign-info{
+        p{
+            @include fs(1);
+        }
+    }
+}
+
+.service{
+    .list-group{
+        li{
+            margin-bottom: 16px;
+            a{
+                display: block;
+                text-align: center;
+            }
+        }
+    }
 }

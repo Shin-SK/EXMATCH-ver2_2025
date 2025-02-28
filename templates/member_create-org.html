@@ -8,51 +8,42 @@
 
 {% block contents %}
 
-<div class="container">
-    <div class="my-div-style w-100">
+<div class="container member form">
+    <div class="w-100">
 <!-- エラーメッセージ表示 -->
             {{form.errors}}
-            <br>
-            <h4>会員情報登録</h4>
-        <div class="row my-row-style1">
-                        <div id="div0"></div>
+            <div class="mainTitle">会員情報登録</div>
+            <div id="div0"></div>
 
 
+            <form action="{% url 'live:member_create' %}" method="post" class="form__wrap">
 
+                    {% csrf_token %}
+                <div class="area">
+                    <div class="box">
+                        <label class="title" for="id_zip_code">郵便番号</label>
+                        <input type="text" name="zip_code" maxlength="7" required="" id="id_zip_code" placeholder="郵便番号">
+                    </div>
+                    <button id="search-button" type="button">住所取得</button>
 
+                    <div class="box">
+                        <label for="id_address1">都道府県</label>
+                        <input type="text" name="address1" maxlength="5" required="" id="id_address1" placeholder="都道府県">
+                    </div>
+                    <div class="box">
+                        <label for="id_address2">市区町村・番地</label><br>
+                        <input type="text" name="address2" maxlength="50" required="" id="id_address2" placeholder="市区町村・番地">
+                    </div>
+                    <div class="box">
+                        <label for="id_address3">建物名・部屋番号</label><br>
+                        <input type="text" name="address3" maxlength="50" id="id_address3" placeholder="建物名・部屋番号">
+                    </div>
+                    <div class="box">
+                        <input type="submit" value="保存">
+                    </div>
+                </div><!-- area -->
 
-            <form action="{% url 'live:member_create' %}" method="post">
-
-                {% csrf_token %}
-
-        <label for="id_zip_code">郵便番号</label><br>
-        <div>
-            <input type="text" name="zip_code" maxlength="7" required="" id="id_zip_code" placeholder="郵便番号">
-            <span>
-                <button id="search-button" type="button">
-                    住所取得
-                </button>
-            </span>
-        </div>
-    </p>
-    <p>
-        <label for="id_address1">都道府県</label><br>
-        <input type="text" name="address1" maxlength="5" required="" id="id_address1" placeholder="都道府県">
-    </p>
-    <p>
-        <label for="id_address2">市区町村・番地</label><br>
-        <input type="text" name="address2" maxlength="50" required="" id="id_address2" placeholder="市区町村・番地">
-    </p>
-    <p>
-        <label for="id_address3">建物名・部屋番号</label><br>
-        <input type="text" name="address3" maxlength="50" id="id_address3" placeholder="建物名・部屋番号">
-    </p>
-    <div>
-        <input type="submit" value="保存">
-    </div>
-</form>
-
-        </div>
+            </form>
     </div>
 </div>
 

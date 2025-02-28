@@ -4,34 +4,46 @@
 {% block title %}live検索 | Live-Match{% endblock %}
 
 
-{% block head %}
-
-  <!-- Custom styles for this template -->
-<link href="{% static 'css/clean-blog.min.css' %} rel="stylesheet">
-
-
-{% endblock %}
-
-
 {% block contents %}
 
 <div class="container">
-    <div class="my-div-style w-100">
-            <h5>live検索</h5>
-            <div class="post-preview">
-                <P>※ 現在、ログイン中の会員様の現在位置です。<br>
-                ※ 個人情報保護のため、実際の位置は、半径{{ radius }}ｍの円内のランダムな位置を自動で設定しています。<br>
-                ※ 男性は緑、女性はピンクのマーカー表示です。</p>
+    <div class="imadoko">
+      <div class="map">
 
-                <p>ニックネーム：{{ nickname }} さん<br>
-                </p>
+            <div class="mainTitle">イマどこ検索</div>
+            <div class="nickname">{{ nickname }} さん</div>
+
+            <div class="text text-center my-5">
+              今誰がどこにいるかわかるイマどこ検索！<br>
+              運命の相手が近くにいるかも！？
+            </div>
+            <div class="area">
+                <div class="icon male">
+                  <i class="fas fa-male"></i>
+                  <span>男性</span>
+                </div>
+                <div class="icon female">
+                  <i class="fas fa-female"></i>
+                  <span>女性</span>
+                </div>
             </div>
 
-        <div class="row my-row-style1">
+          <div class="map__area">
 
+            <div id="gmap" class="contents"></div> <!-- 地図を表示する領域 -->
 
-<div id="gmap" style="height:400px;width:600px"></div> <!-- 地図を表示する領域 -->
+          </div>
 
+          <div class="caution">
+            <P>※ 現在、ログイン中の会員様の現在位置です。個人情報保護のため、実際の位置は、半径{{ radius }}ｍの円内のランダムな位置を自動で設定しています。</p>
+          </div>
+
+          <!-- YOUR_API_KEYの部分は取得した APIキーで置き換えます -->
+            <button id="button_id" type="button" class="my-5">OK</button>
+
+      </div>
+    </div>
+</div>
 <script>
 
 
@@ -159,13 +171,7 @@ function initMap() {
 </script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key={{ googleapikey }}&callback=initMap" async defer></script>
-                <!-- YOUR_API_KEYの部分は取得した APIキーで置き換えます -->
 
-            </div>
-            <br>
-                            <button id="button_id" type="button" class="btn btn-success ml-2 mt-3 mb-3">ＯＫ</button>
-
-        </div>
 </div>
 
 {% endblock %}

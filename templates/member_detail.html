@@ -10,10 +10,10 @@
 
 {% block contents %}
 
-<div class="container">
-    <div class="my-div-style w-100">
+<div class="container member form">
+    <div class="w-100">
 
-        <h5>会員情報</h5><br>
+        <div class="mainTitle">会員情報</div>
 
 <!--        <div class="row my-row-style1">-->
 <!--            <div>-->
@@ -31,18 +31,26 @@
 
 <!--        <hr>-->
 
-        <div class="row my-row-style1">
-            <div>
-                <strong>性別：</strong><br>
-                {% if object.gender == False %}
-                女性
-                {% else %}
-                男性
-                {% endif %}
+        <div class="area">
+            <div class="box grid-container">
+                <div class="head">性別</div>
+                <div class="value">
+                    {% if object.gender == False %}
+                    女性
+                    {% else %}
+                    男性
+                    {% endif %}
+                </div>
+                <div class="head">郵便番号</div>
+                <div class="value">{{ object.postalcode }}</div>
+                
+                <div class="head">都道府県</div>
+                <div class="value">{{ object.address1 }}</div>
+
+                <div class="head">市区町村</div>
+                <div class="value">{{ object.address2 }}</div>
             </div>
         </div>
-
-        <hr>
 
 <!--        <div class="row my-row-style1">-->
 <!--            <div>-->
@@ -52,29 +60,6 @@
 
 <!--        <hr>-->
 
-        <div class="row my-row-style1">
-            <div>
-                <strong>郵便番号：</strong><br>{{ object.postalcode }}
-            </div>
-        </div>
-
-        <hr>
-
-        <div class="row my-row-style1">
-            <div>
-                <strong>都道府県：</strong><br>{{ object.address1 }}
-            </div>
-        </div>
-
-        <hr>
-
-        <div class="row my-row-style1">
-            <div>
-                <strong>市区町村：</strong><br> {{ object.address2 }}
-            </div>
-        </div>
-
-        <hr>
 
 <!--        <div class="row my-row-style1">-->
 <!--            <div>-->
@@ -129,12 +114,12 @@
 <!--        </div>-->
 
 <!--        <hr>-->
-            <a class="btn btn-warning mt-5 mb-3" href="{% url 'live:member_update' object.pk %}">編集</a>
-            <a class="btn btn-success mt-5 ml-2 mb-3" href="{% url 'live:my_page' %}">OK</a><br><br>
+            <a class="button" href="{% url 'live:member_update' object.pk %}">編集</a>
+            <a class="button" href="{% url 'live:my_page' %}">OK</a><br><br>
 <!--            <a class="btn btn-success mt-5 ml-2 mb-3" href="{% url 'live:index' %}">ホーム</a><br><br>-->
         {% else %}
 <!--            <a class="btn btn-success mt-5 ml-2 mb-3" href="{% url 'live:index' %}">ホーム</a><br><br> provider:p_index-->
-            <a class="btn btn-success mt-5 ml-2 mb-3" href="{% url 'live:index' %}">ホーム</a><br><br>
+            <a class="link-plane" href="{% url 'live:index' %}">ホーム</a><br><br>
         {% endif %}
 
     </div>

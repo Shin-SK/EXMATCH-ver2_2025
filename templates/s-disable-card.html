@@ -10,9 +10,9 @@
 
 <div class="container">
     <div class="my-div-style w-100">
-            <h6>カード削除</h6>
+        <div class="mainTitle">カード削除</div>
         {% if nickname %}
-        <p>{{ nickname }} さん</p>
+        <div class="nickname">{{ nickname }} さん</div>
         {% endif %}
 
         {% if card_list %}
@@ -35,18 +35,18 @@
                 <small id="groupHel3" class="form-text text-muted">※ 削除するカードを選択してください。</small>
                 </div>
 
-
-                <button class="btn btn-primary ml-2 mt-3 mb-3" type="submit">削除</button>
-                <input class="btn btn-danger ml-2 mt-3 mb-3"type="reset" value="リセット">
+                <div class="d-flex gap-5">
+                    <button class="btn btn-primary ml-2 mt-3 mb-3" type="submit">削除</button>
+                    <input class="btn btn-danger ml-2 mt-3 mb-3"type="reset" value="リセット">
+                </div>
             </form>
 
         </div>
         {% else %}
-        <p>カードは未登録です。<br>
-            カード登録は「カード登録」メニューで登録できます。</p>
+        <p class="text-center">カードは未登録です。</p>
         {% endif %}
 
-<!--            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>-->
+           <a class="link-plane" href="{% url 'live:index' %}">ホーム</a>
     </div>
 </div>
 

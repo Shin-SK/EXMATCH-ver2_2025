@@ -12,15 +12,8 @@
 <div class="container" xmlns:margin-bottom="http://www.w3.org/1999/xhtml">
     <div class="my-div-style w-100">
 
-        <h3>アンケート詳細</h3>
-        <br>
-
-        <div class="row my-row-style1">
-                <strong>会員氏名：</strong>
-        </div>
-        <div class="row my-row-style1">
-                {{ clientname }}  さん
-        </div>
+        <div class="mainTitle">アンケート詳細</div>
+        <div class="nickname">{{ clientname }}  さん</div>
 
         <table class="table">
         <tr><td><strong>質問１：</strong></td><td>{{ question1 }}</td></tr>
@@ -28,7 +21,6 @@
         <tr><td><strong>質問３：</strong></td><td>{{ question3 }}</td></tr>
         </table>
         <hr>
-
 
 
         <div class="row my-row-style1">
@@ -83,7 +75,7 @@
 
 
             <a class="btn btn-success ml-2" href="{% url 'live:questionnaire_list_history' %}">戻る</a>
-            <a class="btn btn-success ml-2" href="{% url 'live:index' %}">ホーム</a><br><br>
+            <a class="link-plane" href="{% url 'live:index' %}">ホーム</a><br><br>
 
     </div>
 </div>

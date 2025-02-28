@@ -16,9 +16,8 @@
 <!--            {{form.errors}}-->
             <br>
 
-            <h5>プロフィール編集</h5>
-        <p>{{ object.nickname }} さん</p>
-        <hr>
+        <div class="mainTitle">プロフィール編集</div>
+        <div class="nickname">{{ object.nickname }} さん</div>
 
         <div class="row my-row-style1">
             <form action="{% url 'live:profile_update' object.pk %}" method="post" enctype="multipart/form-data">

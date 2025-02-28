@@ -9,76 +9,59 @@
 {% block contents %}
 
 <div class="container">
-    <div class="my-div-style w-100">
-<!-- エラーメッセージ表示 -->
-<!--            {{form.errors}}-->
-            <h4>会員情報登録</h4>
-        <P>初回のみ、「性別」、「郵便番号」を登録してください。後から変更できます。</P>
+    <div class="form">
+        <div class="mainTitle">会員情報登録</div>
+        <p class="subtitle text-center">初回のみ、「性別」、「郵便番号」を登録してください。後から変更できます。</p>
 
-        <p id="div0"></p>
-
-        <div class="row my-row-style1">
-
+        <div class="form__wrap">
             <form action="{% url 'live:line_create_user' %}" method="post">
-
                 {% csrf_token %}
 
-                <div class="table-responsive">
-                    <table class="table table-borderless">
-                        <tr>
-                            <td>
-
-                    <div class="form-group">
-                        <label style="font-size:15px;"><strong>性別：</strong></label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="gender" id="exampleRadios1" value="True" checked>
-                            <label class="form-check-label" for="exampleRadios1" style="font-size:13px;">
-                                男性
-                            </label>
+                <div class="area">
+                    <div class="title__base">性別</div>
+                        <div class="radio">
+                            <div class="radio__wrap">
+                                <label for="exampleRadios1" class="radio__wrap--label">男性</label>
+                                <input type="radio" name="gender" id="exampleRadios1" value="True" checked>
+                            </div>
+                            <div class="radio__wrap">
+                                <input type="radio" name="gender" id="exampleRadios2" value="False">
+                                <label for="exampleRadios2" class="radio__wrap--label">女性</label>
+                            </div>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="gender" id="exampleRadios2" value="False">
-                            <label class="form-check-label" for="exampleRadios2" style="font-size:13px;">
-                                女性
-                            </label>
-                        </div>
+                    <div class="box">
+                        <div class="title__base">郵便番号</div>
+                        <input type="text" maxlength="7" id="id_zip_code" name="postalcode" placeholder="1810002">
+                        <span class="caution">※ 郵便番号を入力して「住所取得」をクリックしてください。</span>
                     </div>
-                    <div class="form-group">
-                        <label for="id_zip_code" style="font-size:15px;"><strong>郵便番号：</strong>（例：1810002）</label>
+                </div>
 
-                        <input type="text" class="form-control form-control-sm" maxlength="7" id="id_zip_code" aria-describedby="emailHelp" placeholder="" name="postalcode">
+                    <div class="box">
+                        <input type="hidden" id="id_address1" name="address1" size="25" readonly>
+                    </div>
+                    <p id="ad1"></p>
 
-                        <small id="emailHelp" class="form-text text-muted" style="color:red;font-size:12px;">※ 郵便番号を入力して「住所取得」をクリックしてください。</small>
+                    <div class="box">
+                        <input type="hidden" id="id_address2" name="address2" size="25" readonly>
                     </div>
-                    <div class="form-group">
-                        <input type="hidden" class="form-control form-control-sm" id="id_address1" placeholder="" name="address1" size="25" readonly>
-                    </div>
-                                <p id="ad1"></p>
-                    <div class="form-group">
-                        <input type="hidden" class="form-control form-control-sm" id="id_address2" placeholder="" name="address2" size="25" readonly>
-                    </div>
-                                <p id="ad2"></p>
+                    <p id="ad2"></p>
 
-                    <div class="form-group">
-                        <input type="hidden" class="form-control form-control-sm" id="id_address3" placeholder="" name="address3" size="25" readonly>
+                    <div class="box">
+                        <input type="hidden" id="id_address3" name="address3" size="25" readonly>
                     </div>
 
-                                <button id="search-button" class="btn btn-info ml-2 mt-3 mb-3" type="button">住所取得</button>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
+                    <button class="button" id="search-button" type="button">住所取得</button>
 
-                <p id="conf">住所がよろしければ「登録」してください。</p>
-                <button id="search" class="btn btn-primary ml-2 mt-3 mb-3" type="submit">登録</button>
+                    <p id="conf">住所がよろしければ「登録」してください。</p>
+                    <button class="button" id="search" type="submit">登録</button>
 
-                </form>
-            </div>
-<!--        <input class="btn btn-danger ml-2 mt-3 mb-3" type="reset" value="リセット">-->
-
-        <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>
+            </form>
         </div>
+
+        <a class="link-plane" href="{% url 'live:index' %}">ホーム</a>
     </div>
+</div>
+
 
 <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 

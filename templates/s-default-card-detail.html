@@ -12,23 +12,24 @@
 <div class="container" xmlns:margin-bottom="http://www.w3.org/1999/xhtml">
     <div class="my-div-style w-100">
 
-        <h3>デフォルトカード</h3>
+        <div class="mainTitle">デフォルトカード</div>
         {% if nickname %}
-        <p>{{ nickname }} さん</p>
+        <p class="nickname">{{ nickname }} さん</p>
         {% endif %}
-        <br>
-        <P>下記のカードを「デフォルトカード」に設定しました。</P>
+        <p class="text-center">下記のカードを「デフォルトカード」に設定しました。</p>
 
 
         <div class="row my-row-style1">
-            <div>
-                カードブランド： {{ card }}<br>
-                カードナンバー下4桁： {{ last }}
+            <div class="grid-container my-5">
+                <div class="head">カード</div>
+                <div class="value">{{ card }}</div>
+                <div class="head">ナンバー</div>
+                <div class="value">{{ last }}</div>
             </div>
         </div>
         <br>
 
-            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>
+            <a class="link-plane" href="{% url 'live:index' %}">ホーム</a>
     </div>
 
 </div>

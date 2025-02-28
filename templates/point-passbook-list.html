@@ -17,14 +17,16 @@
 
 
   <!-- Main Content -->
-<div class="container">
+<div class="container point">
     <div class="my-div-style w-100">
-        <h5>ポイント通帳</h5><br>
+        <div class="mainTitle">ポイント通帳</div>
+        <div class="nickname">{{ nickname }}  さん</div>
         <div class="row my-row-style1">
-                <P>{{ nickname }}  さん</P><br>
-
-                <div class="table-responsive">
-                <h6>残高ポイント：{{ balance_point }}</h6>
+            <div class="table-responsive">
+                <div class="button">
+                    <span class="button__white">残高ポイント</span>
+                    {{ balance_point }}
+                </div>
                     <table class="table table-borderless table-sm">
                 {% for item in object_list %}
                         <tr>
@@ -43,7 +45,7 @@
                         <tr>
                             <td>
                 {% empty %}
-                <p>コンテンツがありません。</p>
+                <p class="my-5 text-center">コンテンツがありません。</p>
                 {% endfor %}
                             </td>
                         </tr>

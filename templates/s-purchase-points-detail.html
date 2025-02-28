@@ -9,16 +9,20 @@
 
 {% block contents %}
 
-<div class="container" xmlns:margin-bottom="http://www.w3.org/1999/xhtml">
+<div class="container point" xmlns:margin-bottom="http://www.w3.org/1999/xhtml">
     <div class="my-div-style w-100">
 
         <h3>購入ポイント</h3>
         {% if nickname %}
-        <p>{{ nickname }} さん</p>
+        <p class="nickname">{{ nickname }} さん</p>
         {% endif %}
-        <br>
 
-        <P><strong>ポイント残高：</strong> {{ point_balance }} ポイント</P>
+        <P class="h2">
+            <div class="grid-container">
+                <div class="head">ポイント残高</div>
+                <div class="value">{{ point_balance }}</div>
+            </div>
+        </P>
 
         <div class="row my-row-style1">
             {% if error %}
@@ -26,12 +30,23 @@
             {{ error_contents }}
             {% else %}
             <div>
-                <P>ポイントを購入しました。</P>
-                <p><strong>購入ポイント：</strong> {{ point }} ポイント<br><br>
-                カードブランド： {{ card }}<br>
-                カードナンバー下4桁： {{ last }}</p>
-                <p>ポイント購入料（{{ point }} 円）をカード（{{ card }} {{ last }}）から引き落としました。<br>
-                    ご利用ありがとうございました。</p>
+                <P class="text-center">
+                    ポイントを購入しました！<br>
+                    素敵な出会いはすぐそこです！
+                </P>
+
+                    <div class="card-info">
+                        <div class="grid-container">
+                            <div class="head">購入ポイント</div>
+                            <div class="value"> {{ point }}</div>
+                            <div class="head">カード</div>
+                            <div class="value">{{ card }}</div>
+                    
+                            <div class="head">ナンバー</div>
+                            <div class="value">{{ last }}</div>
+                        </div>
+                    </div>
+
             </div>
             {% endif %}
         </div>

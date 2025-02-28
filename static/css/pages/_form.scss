@@ -5,8 +5,13 @@
 
 $formBg: #f2f2f2;
 .form{
+    .subtitle{
+        text-align: center;
+        font-weight: bold;
+        margin: 40px auto;
+    }
     &__wrap{
-        .area{
+        .area, .form-group{
             margin-bottom: 24px;
             label{
                 &.title{
@@ -103,6 +108,7 @@ $formBg: #f2f2f2;
                 @include fs(10);
                 margin-top: 4px;
             }
+
         }//area
         .radio {
             display: grid;
@@ -186,5 +192,18 @@ $formBg: #f2f2f2;
     }
     .back{
         background-color: gray;
+    }
+}
+
+
+.form-control{
+    width: 100%;
+    border: unset;
+    background-color: $formBg;
+    padding: 16px;
+    @include fs(14);
+    &::placeholder {
+        color: #999; /* プレースホルダーのテキストカラー */
+        @include fs(10);
     }
 }

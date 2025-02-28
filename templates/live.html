@@ -70,57 +70,50 @@ ul.f_s { font-size: 14px; }
 <!--<script src="https://maps.googleapis.com/maps/api/js?key={{ googleapikey }}&callback=initMap" async defer></script>-->
 
 
-<div class="container">
-    <div class="my-div-style w-100">
-            <h5>GPS-Live全検索</h5><br>
-        <p>{{ nickname }} さん<br><br>
-            <strong>検索結果：</strong><font color="red"> {{ cnt }} 件</font></P>
-        <ul class="f_s">
-            <Li>マーカーをクリックするとプロフィールが確認できます！</Li>
-        </ul>
+<div class="container imadoko">
+    <div class="map">
+        <div class="mainTitle">イマどこ検索</div>
+        <div class="nickname">{{ nickname }} さん</div>
 
-        <div class="row my-row-style1">
-            <div class="table-responsive">
-                <table>
-                    <tr>
-                        <td>
-                            <div id="gmap" style="height:400px;width:600px">
-
-                            </div> <!-- 地図を表示する領域 -->
-                        </td>
-                    </tr>
-                </table>
+        <div class="text text-center my-5">
+            今誰がどこにいるかわかるイマどこ検索！<br>
+            運命の相手が近くにいるかも！？
+        </div>
+        <div class="area">
+            <div class="icon male">
+                <i class="fas fa-male"></i>
+                <span>男性</span>
+            </div>
+            <div class="icon female">
+                <i class="fas fa-female"></i>
+                <span>女性</span>
             </div>
         </div>
 
-            <div class="post-preview" style="margin-top:30px">
-                <ul class="f_s">
+        <div class="result">
+            <div class="title">検索結果</div>
+            <div class="numb"><span> {{ cnt }}</span>件</div>
+        </div>
 
-                    <li>
-                        現在、ログイン中の会員さんの現在位置です。
-                    </li>
-                    <li>
-                        個人情報保護のため、実際の位置の半径{{ radius }}ｍの円内のランダムな位置を自動で設定しています。
-                    </li>
-                    <li>
-                        男性は緑、女性はピンクのマーカー表示です。
-                    </li>
-                    <li>
-                        位置情報取得の「許可」の設定方法は、<a href="{% url 'live:location_permission' %}" target="_blank" rel="noopener">こちら</a>を参照
-                    </li>
-                </ul>
+        <!-- error -->
+        <div id="boxB" class="notwork">
+            <span>現在、位置情報取得が許可されていません。</span>
+            
+            <a href="{% url 'live:location_permission' %}" class="link-plane" target="_blank" rel="noopener">位置情報取得の「許可」の設定方法</a>
+        </div>
 
-            </div>
+        <div class="map__area">
+            <div id="gmap" class="contents"></div> <!-- 地図を表示する領域 -->
+        </div>
 
-            <div id="boxB" style="margin-top:30px">
 
-                <p><font color="red">現在、位置情報取得が許可されていません。</font><br>
-                    従って、他のメンバーを地図上で検索することができません。<br>
-                    リアルタイムにお相手を検索する場合は、位置情報取得の「許可」をお勧めします。<br>
-                    位置情報取得の「許可」の設定方法は、<a href="{% url 'live:location_permission' %}" target="_blank" rel="noopener">こちら</a>を参照<br>
-                    </p>
+        <div class="caution">
+            <p>※ 現在、ログイン中の会員様の現在位置です。個人情報保護のため、実際の位置は、半径{{ radius }}ｍの円内のランダムな位置を自動で設定しています。</p>
+        </div>
 
-            </div>
+
+        </div><!-- map -->
+
 
 <!--            # -----Profile表示------->
         <div class="row my-row-style1">
@@ -306,10 +299,8 @@ ul.f_s { font-size: 14px; }
         {% endif %}
         </div>
 
-            </div>
-<!--        <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>-->
-
-            </div>
+        <!--        <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>-->
+</div><!-- imadoko -->
 
 
 <!-- YOUR_API_KEYの部分は取得した APIキーで置き換えます -->

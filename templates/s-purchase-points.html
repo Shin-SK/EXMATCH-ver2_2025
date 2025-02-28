@@ -10,9 +10,9 @@
 
 <div class="container">
     <div class="my-div-style w-100">
-            <h5>ポイント購入</h5>
+        <h5>ポイント購入</h5>
         {% if nickname %}
-        <p>{{ nickname }} さん</p>
+        <p class="nickname">{{ nickname }} さん</p>
         {% endif %}
         <br>
 
@@ -57,16 +57,16 @@
 
 
                 <button class="btn btn-primary ml-2 mt-3 mb-3" type="submit">購入</button>
-                <input class="btn btn-danger ml-2 mt-3 mb-3"type="reset" value="リセット">
+                <input class="link-plane"type="reset" value="リセット">
             </form>
 
         </div>
         {% else %}
-        <p>カードは未登録です。<br>
+        <p class="text-center">カードは未登録です。<br>
             カード登録は「カード登録」メニューで登録できます。</p>
         {% endif %}
 
-<!--            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>-->
+           <a class="link-plane" href="{% url 'live:index' %}">ホーム</a>
     </div>
 </div>
 

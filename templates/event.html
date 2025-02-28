@@ -17,55 +17,30 @@
   <!-- Main Content -->
 <div class="container">
     <div class="my-div-style w-100">
-            <h5>お知らせ</h5><br>
-
-        <div class="row my-row-style1">
-                <h7>{{ nickname }} さん</h7><br><br>
-        </div>
+            <div class="mainTitle">お知らせ</div>
+            <div class="nickname">{{ nickname }} さん</div>
 
         {% for item in object_list %}
 
-        <div class="row my-row-style1">
-                <strong>イベントタイトル：</strong>
-        </div>
-        <div class="row my-row-style1">
-                {{ item.title }}
-        </div>
-        <hr>
-
-        <div class="row my-row-style1">
-                <strong>イベント内容：</strong>
-        </div>
-        <div class="row my-row-style1">
-                {{ item.letter_body }}
-        </div>
-        <hr>
-
-            {% if item.photo %}
-        <div class="row my-row-style1">
-                <strong>写真：</strong>
-        </div>
-        <div class="col-sm-6 col-md-3" style="margin: 0px 10px 10px 0px; ">
+        <div class="head">イベントタイトル：</div>
+        <div class="value">{{ item.title }}</div>
+        
+        <div class="head">イベント内容：</div>
+        <div class="value">{{ item.letter_body }}</div>
+        
+        {% if item.photo %}
+            <div class="head">写真：</div>
+            <div class="value">
                 <img src="{{ item.photo.url }}" width="100%" height="auto"/>
-        </div>
-        <hr>
-            {% endif %}
-        <div class="row my-row-style1">
-                <strong>開始日：</strong>
-        </div>
-        <div class="row my-row-style1">
-                {{ item.s_date }}
-        </div>
-        <hr>
-
-        <div class="row my-row-style1">
-                <strong>終了日：</strong>
-        </div>
-        <div class="row my-row-style1">
-                {{ item.e_date }}
-        </div>
-        <hr>
-
+            </div>
+        {% endif %}
+        
+        <div class="head">開始日：</div>
+        <div class="value">{{ item.s_date }}</div>
+        
+        <div class="head">終了日：</div>
+        <div class="value">{{ item.e_date }}</div>
+        
 <!--        <div class="row my-row-style1">-->
 <!--                <strong>登録日時：</strong>-->
 <!--        </div>-->
@@ -75,7 +50,7 @@
 <!--        <hr>-->
 <!--                <hr>-->
                 {% empty %}
-                <p>コンテンツがありません。</p>
+                <p class="text-center mx-auto my-5">コンテンツがありません。</p>
                 {% endfor %}
                 <!-- ページネーション処理 -->
                 {% if is_paginated %}
@@ -109,7 +84,7 @@
                     </ul>
                 {% endif %}
                 <br>
-<!--            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a><br><br>-->
+<!--            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>-->
             </div>
         </div>
 {% endblock %}

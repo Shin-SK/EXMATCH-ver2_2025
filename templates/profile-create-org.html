@@ -8,17 +8,17 @@
 
 {% block contents %}
 
-<div class="container">
+<div class="container form">
     <div class="my-div-style w-100">
 <!-- エラーメッセージ表示 -->
             {{form.errors}}
             <br>
-            <h4>プロフィール登録</h4>
+            <div class="mainTitle">プロフィール登録</div>
         <br>
         <p>ニックネーム、自己ピーアール以外は全て任意入力です。<br>
         できるだけ多くの項目を入力してください！</p>
         <div class="row my-row-style1">
-            <form action="{% url 'live:profile_create' %}" method="post" enctype="multipart/form-data">
+            <form action="{% url 'live:profile_create' %}" method="post" enctype="multipart/form-data" class="form__wrap">
 
                 {% csrf_token %}
 
@@ -205,13 +205,14 @@
                 <label for="formGroup14" style="font-size:13px;">写真３：（任意）</label>
                 <input type="file" class="form-control-file" id="formGroup14" name="photo3">
                 </div>
-
-                <button class="btn btn-primary ml-2 mt-3 mb-3" type="submit">登録</button>
-                <input class="btn btn-danger ml-2 mt-3 mb-3"type="reset" value="リセット">
+                <div class="d-flex gap-5 my-5">
+                    <button class="button" type="submit">登録</button>
+                    <input class="button" type="reset" value="リセット">
+                </div>
             </form>
 
         </div>
-            <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>
+            <a class="link-plane" href="{% url 'live:index' %}">ホーム</a>
     </div>
 </div>
 

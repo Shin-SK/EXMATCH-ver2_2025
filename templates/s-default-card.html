@@ -19,29 +19,29 @@ ul.f_s { font-size: 14px; }
 <div class="container">
     <div class="my-div-style w-100">
             <h6>デフォルトカード登録</h6>
+            <!-- <div class="subtitle">
+                デフォルトカードとは、支払時に自動選定されて、支払に使われるカードです。
+                一度、登録しておけば、「デフォルトカード」が支払カードに自動選定されます。
+                何時でも「デフォルトカード」を変更できます。
+            </div> -->
         {% if nickname %}
-        <p>{{ nickname }} さん</p>
+        <div class="nickname">{{ nickname }} さん</div>
         {% endif %}
 
         {% if card_list %}
 
         {% if d_card %}
-        <P><strong>現在のデフォルトカード：</strong> {{ d_card }}</P>
+        <div class="grid-container">
+            <div class="head">現在のデフォルトカード</div>
+            <div class="value">{{ d_card }}</div>
+        </div>
         {% else %}
-        <P>現在、「デフォルトカード」は未設定です。</P>
+        <P class="text-center">現在、「デフォルトカード」は未設定です。</P>
 
         {% endif %}
-        <ul class="f_s">
-            <Li>デフォルトカードとは、支払時に自動選定されて、支払に使われるカードです。</Li>
-            <Li>一度、登録しておけば、「デフォルトカード」が支払カードに自動選定されます。</Li>
-            <Li>何時でも「デフォルトカード」を変更できます。</Li>
-        </ul>
 
-<!--        <p>デフォルトカードとは、支払時に自動選定されて、支払に使われるカードです。<br>-->
-<!--            一度、登録しておけば、「デフォルトカード」が支払カードに自動選定されます。<br>-->
-<!--            何時でも「デフォルトカード」を変更できます。</p>-->
-        <div class="row my-row-style1">
-            <form action="{% url 'live:s_default_card' %}" method="post" enctype="multipart/form-data">
+        <div class="row my-row-style1 form">
+            <form action="{% url 'live:s_default_card' %}" method="post" enctype="multipart/form-data" class="form__wrap">
 
                 {% csrf_token %}
 
@@ -63,10 +63,9 @@ ul.f_s { font-size: 14px; }
 
         </div>
         {% else %}
-        <p>カードは未登録です。<br>
-            カード登録は「カード登録」メニューで登録できます。</p>
+        <p class="text-center my-5">カードは未登録です</p>
         {% endif %}
-
+        <a class="link-plane" href="{% url 'live:index' %}">ホーム</a>
     </div>
 </div>
 

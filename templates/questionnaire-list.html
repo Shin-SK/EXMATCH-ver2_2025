@@ -9,7 +9,7 @@
 {% block head %}
 
   <!-- Custom styles for this template -->
-<link href="{% static 'css/clean-blog.min.css' %} rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/clean-blog.min.css' %}">
 
 {% endblock %}
 
@@ -23,15 +23,17 @@
             <div class="col-lg-8 col-md-10 mx-auto">
 
 
-                <h6>会員氏名：{{ clientname }}  さん</h6><br>
-                <hr>
-                <P>
-                    キャンペーン名：{{ title }}<br>
-                    開始日：{{ s_date }}<br>
-                    終了日：{{ e_date }}<br>
-                    付与ポイント：{{ grant_point }}<br>
-                </P>
-                <hr>
+                <div class="nickname">{{ clientname }}  さん</div>
+                <div class="grid-container">
+                    <div class="head">キャンペーン名</div>
+                    <div class="cell">{{ title }}</div>
+                    <div class="head"> 開始日</div>
+                    <div class="cell">{{ s_date }}</div>
+                    <div class="head">終了日</div>
+                    <div class="cell">{{ e_date }}</div>
+                    <div class="head">付与ポイント</div>
+                    <div class="cell">{{ grant_point }}</div>
+                </div>
 
                 {% for item in object_list %}
 
@@ -46,7 +48,7 @@
                     </div>
                 <hr>
                 {% empty %}
-                <p>コンテンツがありません。</p>
+                <p class="text-center">コンテンツがありません。</p>
                 {% endfor %}
                 <!-- ページネーション処理 -->
                 {% if is_paginated %}

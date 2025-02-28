@@ -10,48 +10,33 @@
 <div class="container" xmlns:margin-bottom="http://www.w3.org/1999/xhtml">
     <div class="my-div-style w-100">
 
-        <h3>友達紹介詳細</h3>
-        <br>
-
-        <div class="row my-row-style1">
-                <strong>会員氏名：</strong>
-        </div>
-        <div class="row my-row-style1">
+        <div class="mainTitle">友達紹介詳細</div>
+        <div class="nickname">
                 {{ clientname }}  さん
         </div>
-        <hr>
 
-        <div class="row my-row-style1">
-                <strong>お友達のお名前：</strong>
-        </div>
-        <div class="row my-row-style1">
-                {{ object.friend_name }}
-        </div>
-        <hr>
-
-        <div class="row my-row-style1">
-                <strong>お友達のメールアドレス：</strong>
-        </div>
-        <div class="row my-row-style1">
-                {{ object.friend_email }}
-        </div>
-        <hr>
-
-        <div class="row my-row-style1">
-                <strong>お友達の会員登録状況：</strong>
-        </div>
-        <div class="row my-row-style1">
-                {{ object.status }}
-        </div>
-        <hr>
+        <div class="friend-info">
+                <div class="grid-container">
+                    <div class="head">お友達のお名前</div>
+                    <div class="value">{{ object.friend_name }}</div>
+            
+                    <div class="head">お友達のメールアドレス</div>
+                    <div class="value">{{ object.friend_email }}</div>
+            
+                    <div class="head">お友達の会員登録状況</div>
+                    <div class="value">{{ object.status }}</div>
+                </div>
+            </div>
         {% if object.status == '未登録' %}
 
         <p>修正する場合は「編集」ボタンをクリックしてください。</p>
+        <div class="d-flex gap-5">
             <a class="btn btn-warning mt-5 ml-2 mb-3" href="{% url 'live:refer_friend_update' object.pk rf_pk %}">編集</a>
             <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'live:refer_friend_delete' object.pk rf_pk r_num %}">削除</a>
+        </div>
         {% endif %}
             <a class="btn btn-success mt-5 ml-2 mb-3" href="{% url 'live:refer_friend_list' rf_pk %}">戻る</a>
-            <a class="btn btn-success mt-5 ml-2 mb-3" href="{% url 'live:index' %}">ホーム</a>
+            <a class="link-plane" href="{% url 'live:index' %}">ホーム</a>
 
     </div>
 </div>

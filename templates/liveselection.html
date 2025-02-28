@@ -10,33 +10,25 @@
 
 <div class="container">
     <div class="my-div-style w-100">
-            <h4>ONプロフ検索選択</h4>
+        <div class="mainTitle">ONプロフ検索選択</div>
 
         <div class="row my-row-style1" style="margin-top:50px">
+            <div class="search-options">
 
-            <div class="table-responsive">
-            <table class="table table-hover">
+                <div class="option">
+                    <span>全ログイン会員の検索</span>
+                    <a href="{% url 'live:member-profile-check' 5 %}" target="_blank" rel="noopener" class="button">こちら</a>
+                </div>
 
-                <tr>
-                    <td>
-                        全ログイン会員の検索：
-                    </td>
-                    <td>
-                        <a href="{% url 'live:member-profile-check' 5 %}" target="_blank" rel="noopener">こちら</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        検索条件を指定してログイン会員検索：
-                    </td>
-                    <td>
-                        <a href="{% url 'live:checkprofilesearchlogin' %}" target="_blank" rel="noopener">こちら</a>
-                    </td>
-                </tr>
-            </table>
+                <div class="option">
+                    <span>検索条件を指定してログイン会員検索</span>
+                    <a href="{% url 'live:checkprofilesearchlogin' %}" target="_blank" rel="noopener" class="button">こちら</a>
+                </div>
             </div>
-            <a  style="margin-left:60px;" class="btn btn-success mt-5 ml-2 mb-3" href="{% url 'live:index' %}">ホーム</a><br><br>            </div>
+            <a class="link-plane" href="{% url 'live:index' %}">ホーム</a>
         </div>
     </div>
+</div>
+
 
 {% endblock %}

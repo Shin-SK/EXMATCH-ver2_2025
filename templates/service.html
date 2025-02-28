@@ -13,74 +13,25 @@ ul.f_s { font-size: 14px; }
 
 {% block contents %}
 
-<div class="container">
+<div class="container service">
     <div class="my-div-style w-100">
 
-        <h5>サービス内容</h5>
-        <p>{{ nickname }} さん</p>
+        <div class="mainTitle">サービス内容</div>
+        <div class="nickname">{{ nickname }} さん</div>
         <div class="row my-row-style1">
-
-        <div class="table-responsive" style="margin: 30px 0px 10px 0px; ">
-
-        <table class="table table-bordered table-hover table-striped">
-            <tbody>
-            <thead class="#808080">
-                <tr align="center">
-                  <th scope="col" bgcolor="#808080"><font color="white">サービス内容</font></th>
-                </tr>
-            </thead>
-            <tr>
-                <td>
-                    <a href="{% url 'live:services_provided' %}">いまココぼっち</a><br><br>
-                    <ul class="f_s"><li>いまココぼっちとは</li></ul>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="{% url 'live:faq' %}">よくある質問</a><br><br>
-                    <ul class="f_s"><li>よくある質問です。</li></ul>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="{% url 'live:price_list' %}">料金体系</a><br><br>
-                    <ul class="f_s"><li>料金体系です。</li></ul>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="{% url 'live:business_flow' %}">利用フロー</a><br><br>
-                    <ul class="f_s"><li>利用方法です。</li></ul>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="{% url 'live:service_area' %}">サービスエリア</a><br><br>
-                    <ul class="f_s"><li>サービスエリアです。</li></ul>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="{% url 'live:terms_service' %}">会員規約</a><br><br>
-                    <ul class="f_s"><li>会員規約です。</li></ul>
-                </td>
-            </tr>
-            </tr>
-            <tr>
-                <td>
-                    <a href="{% url 'live:operation' %}">会社概要</a><br><br>
-                    <ul class="f_s"><li>会社概要です。</li></ul>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="{% url 'live:bank_accounts' %}">銀行口座</a><br><br>
-                    <ul class="f_s"><li>銀行口座です。</li></ul>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        </div>
+            <div class="list-group">
+                <ul class="list-group">
+                    <li><a href="{% url 'live:services_provided' %}">いまココぼっち</a></li>
+                    <li><a href="{% url 'live:faq' %}">よくある質問</a></li>
+                    <li><a href="{% url 'live:price_list' %}">料金体系</a></li>
+                    <li><a href="{% url 'live:business_flow' %}">利用フロー</a></li>
+                    <li><a href="{% url 'live:service_area' %}">サービスエリア</a></li>
+                    <li><a href="{% url 'live:terms_service' %}">会員規約</a></li>
+                    <li><a href="{% url 'live:operation' %}">会社概要</a></li>
+                    <li><a href="{% url 'live:bank_accounts' %}">銀行口座</a></li>
+                </ul>
+            </div>
+            
         </div>
     </div>
 </div>

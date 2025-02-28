@@ -3,6 +3,7 @@ _static-full/
 _templates-full/
 .vscode/
 master/
+media/
 
 # ファイルを無視
 db.sqlite3

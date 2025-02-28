@@ -14,66 +14,51 @@ ul.f_s { font-size: 14px; }
 {% block contents %}
 
 <div class="container">
-    <div class="my-div-style w-100">
+    <div class="Card w-100">
 
-        <h6>カード管理</h6>
-        <p>{{ nickname }} さん</p>
-        <div class="row my-row-style1">
+        <div class="mainTitle">カード管理</div>
+        <div class="nickname">{{ nickname }} さん</div>
 
-        <div class="table-responsive">
-
-        <table class="table table-bordered table-hover table-striped">
-            <tbody>
-            <thead class="#808080">
-                <tr align="center">
-<!--                    <th scope="col" bgcolor="#808080"><font color="white">#</font></th>-->
-<!--                  <th scope="col" bgcolor="#808080"><font color="white">項目</font></th>-->
-                  <th scope="col" bgcolor="#808080"><font color="white">カード管理</font></th>
-                </tr>
-            </thead>
-            <tr>
-<!--                <th scope="row">1</th>-->
-                <td>
-                    <a href="{% url 'live:member-profile-check' 32 %}">カード登録</a><br><br>
-                    <ul class="f_s"><li>クレジットカード、デビットカードを登録します。</li></ul>
-                </td>
-<!--                <td>-->
-<!--                    クレジットカード、デビットカードを登録します。-->
-<!--                </td>-->
-            </tr>
-            <tr>
-<!--                <th scope="row">2</th>-->
-                <td><a href="{% url 'live:member-profile-check' 36 %}">カード一覧</a><br><br>
-                    <ul class="f_s"><li>登録したカードの一覧を参照できます。</li></ul>
-                </td>
-<!--                <td>-->
-<!--                    登録したカードの一覧を参照できます。-->
-<!--                </td>-->
-            </tr>
-            <tr>
-<!--                <th scope="row">3</th>-->
-                <td><a href="{% url 'live:member-profile-check' 37 %}">デフォルトカード</a><br><br>
-                    <ul class="f_s"><li>デフォルトカードとは、支払時に自動選定されて、支払に使われるカードです。</li></ul>
-                </td>
-<!--                <td>-->
-<!--                    デフォルトカードとは、支払時に自動選定されて、支払に使われるカードです。-->
-<!--                </td>-->
-            </tr>
-            <tr>
-<!--                <th scope="row">4</th>-->
-                <td><a href="{% url 'live:member-profile-check' 39 %}">カード削除</a><br><br>
-                    <ul class="f_s"><li>登録したカードを削除できます。</li></ul>
-                </td>
-<!--                <td>-->
-<!--                    登録したカードを削除できます。-->
-<!--                </td>-->
-            </tr>
-
-            </tbody>
-        </table>
+        <div class="area">
+                <div class="box">
+                    <div class="title">クレジットカード</div>
+                    <p>クレジットカード、デビットカードを登録します。</p>
+            <!--                <th scope="row">1</th>-->
+                    <a class="button" href="{% url 'live:member-profile-check' 32 %}">登録</a>
+                    
+            <!--                <td>-->
+            <!--                    クレジットカード、デビットカードを登録します。-->
+            <!--                </td>-->
+                </div>
+                <div class="box">
+                    <div class="title">デフォルトカード</div>
+                    <p>デフォルトカードとは、支払時に自動選定されて、支払に使われるカードです。</p>
+            <!--                <th scope="row">3</th>-->
+                    <a class="button" href="{% url 'live:member-profile-check' 37 %}">登録</a>
+                    
+            <!--                <td>-->
+            <!--                    デフォルトカードとは、支払時に自動選定されて、支払に使われるカードです。-->
+            <!--                </td>-->
+                </div>
+                <div class="box">
+                    <div class="title">デフォルトカード</div>
+                    <p>登録したカードの一覧を参照できます。</p>
+                    <!--                <th scope="row">2</th>-->
+                            <a class="button" href="{% url 'live:member-profile-check' 36 %}">登録</a>
+                    <!--                <td>-->
+                    <!--                    登録したカードの一覧を参照できます。-->
+                    <!--                </td>-->
+                </div>
+                <div class="box">
+                    <div class="title">カード削除</div>
+                    <p>登録したカードを削除できます</p>
+            <!--                <th scope="row">4</th>-->
+                    <a class="button" href="{% url 'live:member-profile-check' 39 %}">削除</a>
+            <!--                <td>-->
+            <!--                    登録したカードを削除できます。-->
+            <!--                </td>-->
+                </div>
         </div>
-        </div>
-    </div>
 </div>
 {% endblock %}
 

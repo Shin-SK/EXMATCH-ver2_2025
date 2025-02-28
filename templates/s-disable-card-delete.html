@@ -9,22 +9,26 @@
 {% block contents %}
 <div class="container">
     <div class="my-div-style w-100">
-        <h4>カード削除</h4>
+        <div class="mainTitle">カード削除</div>
         {% if nickname %}
-        <p>{{ nickname }} さん</p>
+        <div class="nickname">{{ nickname }} さん</div>
         {% endif %}
 
-        <p>以下のカードを削除しました。</p>
+        <p class="text-center">以下のカードを削除しました。</p>
 
 
         <div class="row my-row-style1">
-            <div>
-                カードブランド： {{ card }}<br>
-                カードナンバー下4桁： {{ last }}
+            <div class="card-info">
+                <div class="grid-container">
+                    <div class="head">カード</div>
+                    <div class="value">{{ card }}</div>
+            
+                    <div class="head">ナンバー下4桁</div>
+                    <div class="value">{{ last }}</div>
+                </div>
             </div>
-
         </div>
-        <a class="btn btn-success ml-2 mt-3 mb-3" href="{% url 'live:index' %}">ホーム</a>
+        <a class="link-plane" href="{% url 'live:index' %}">ホーム</a>
 
     </div>
 </div>

@@ -11,12 +11,13 @@
 
 <div class="container">
     <div class="my-div-style w-100">
-            <h5>アンケート登録</h5>
-            <p>会員氏名：{{ clientname }}  さん<br><br>
+            <div class="mainTitle">アンケート登録</div>
+            <div class="nickname">会員氏名：{{ clientname }}  さん</div>
+            <p>
             ※ 質問１～３の回答を登録してください。<br>
             ※ 回答者には、{{ grant_point }}ポイントを付与いたします。<br>
-            ※ 要望事項がございましたらお気軽にお申し付けください。<br><br>
-
+            ※ 要望事項がございましたらお気軽にお申し付けください。
+            </p>
         <div class="row my-row-style1">
 
             <table class="table">
@@ -25,7 +26,7 @@
             <tr><td><strong>質問３：</strong></td><td>{{ question3 }}</td></tr>
             </table>
 
-            </p>
+            </div>
 
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
