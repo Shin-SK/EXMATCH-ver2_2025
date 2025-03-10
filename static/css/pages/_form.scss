@@ -151,6 +151,9 @@ $formBg: #f2f2f2;
     &.d-flex{
         @include flex();
         gap: 16px;
+        @include md{
+            flex-direction: column;
+        }
     }
     button{
         &[type="submit"]{
