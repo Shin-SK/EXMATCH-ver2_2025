@@ -4903,6 +4903,11 @@ button a {
   grid-template-columns: 130px 1fr;
   align-items: center;
 }
+@media screen and (max-width: 768px) {
+  .ex.ex-prs .grid {
+    grid-template-columns: 1fr;
+  }
+}
 .ex.ex-prs .grid .head {
   font-weight: bold;
 }
@@ -4975,10 +4980,30 @@ button a {
   display: block;
   text-align: center;
 }
-.ex.ex-prs .btnArea button {
+.ex.ex-prs .floating {
+  position: fixed;
+  bottom: 80px;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  background-color: #f6fcff;
+  padding: 16px;
+}
+.ex.ex-prs .floating.btnArea {
+  gap: unset;
+}
+.ex.ex-prs .floating.btnArea button {
   padding: 8px;
   background-color: #004C71;
   font-weight: bold;
+}
+.ex.ex-prs .floating.btnArea button[type=reset] {
+  border-bottom: 1px #004C71 solid;
+  color: #004C71;
+  background-color: unset;
+  width: auto;
+  border-radius: unset;
+  padding: 4px 16px;
 }
 .ex.ex-upd .example {
   font-size: clamp(1.2rem, 1.1346938776rem + 0.2040816327vw, 1.4rem);

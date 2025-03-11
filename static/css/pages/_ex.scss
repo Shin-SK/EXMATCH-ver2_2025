@@ -277,6 +277,9 @@
             display: grid;
             grid-template-columns: 130px 1fr;
             align-items: center;
+            @include md{
+                grid-template-columns: 1fr;
+            }
             .head{
                 font-weight: bold;
             }
@@ -356,11 +359,29 @@
                 }
             }
         }//search-result
-        .btnArea{
-            button{
-                padding: 8px;
-                background-color: $mc;
-                font-weight: bold;
+        .floating{
+            position: fixed;
+            bottom: 80px;
+            left: 0;
+            width: 100%;
+            z-index: 1;
+            background-color: lighten($color: $mc, $amount: 76%);
+            padding: 16px;
+            &.btnArea{
+                gap: unset;
+                button{
+                    padding: 8px;
+                    background-color: $mc;
+                    font-weight: bold;
+                    &[type="reset"]{
+                        border-bottom: 1px $mc solid;
+                        color: $mc;
+                        background-color: unset;
+                        width: auto;
+                        border-radius: unset;
+                        padding: 4px 16px;
+                    }
+                }
             }
         }
     }//ex-prs
