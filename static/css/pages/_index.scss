@@ -2,7 +2,6 @@
 @use "../global/reset";
 
 .index{
- 
     main{
         .kv{
             position: relative;
@@ -108,7 +107,7 @@
                     flex-direction: column;
                     background-image: url(../img/kv.webp);
                     background-size: cover;
-                    background-position: center;
+                    background-position: 20%;
                     background-repeat: no-repeat;
                 }
                 >div{
@@ -191,7 +190,8 @@
                     img{
                         width: 100%;
                         height: auto;
-                        object-fit: contain
+                        aspect-ratio: 2/1;
+                        object-fit: cover;
                     }
                 }
             }//__wrap
@@ -214,12 +214,16 @@
                 margin-bottom: 40px;
             }
             .banner{
+                &--single{
+                    @include flex();
+                }
                 &__wrap{
                     width: 70%;
                     margin: 0 auto;
                     @include md{
                         width: 100%;
                     }
+
                     a{
                         display: block;
                         height: 80px;
@@ -305,6 +309,7 @@
                         img{
                             aspect-ratio: 1/1;
                             max-height: 300px;
+                            object-fit: cover;
                         }
                         p{
                             max-width: 300px;
@@ -808,6 +813,7 @@
 .header{
     &__wrap{
         @include flex();
+        display: none;
     }
 }
 

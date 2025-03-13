@@ -11,6 +11,7 @@
 @import url(https://use.typekit.net/lpz2crc.css);
 @import url(https://use.typekit.net/lpz2crc.css);
 @import url(https://use.typekit.net/lpz2crc.css);
+@import url(https://use.typekit.net/lpz2crc.css);
 html {
   font-size: 62.5%;
 }
@@ -1409,7 +1410,7 @@ img {
     flex-direction: column;
     background-image: url(../img/kv.webp);
     background-size: cover;
-    background-position: center;
+    background-position: 20%;
     background-repeat: no-repeat;
   }
 }
@@ -1508,8 +1509,9 @@ img {
 .index main .kv__wrap .image img {
   width: 100%;
   height: auto;
-  -o-object-fit: contain;
-     object-fit: contain;
+  aspect-ratio: 2/1;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .index main .midashi {
   display: flex;
@@ -1532,6 +1534,11 @@ img {
 .index main .midashi p {
   text-align: center;
   margin-bottom: 40px;
+}
+.index main .midashi .banner--single {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .index main .midashi .banner__wrap {
   width: 70%;
@@ -1643,6 +1650,8 @@ img {
 .index main .feature__area .area .box img {
   aspect-ratio: 1/1;
   max-height: 300px;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .index main .feature__area .area .box p {
   max-width: 300px;
@@ -2141,6 +2150,7 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
+  display: none;
 }
 .index .footer {
   margin-top: 0;
@@ -2435,100 +2445,6 @@ img {
   .base main {
     padding-top: 80px;
   }
-}
-
-.price__wrap {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 40px;
-  margin-top: 40px;
-  overflow-x: auto;
-  padding: 16px;
-}
-.price__wrap .box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 16px;
-  padding: 80px 16px;
-  box-shadow: 0px 0px 15px -10px #777777;
-  justify-content: flex-start;
-  min-width: 300px;
-}
-.price__wrap .box .numb {
-  font-size: clamp(6rem, 5.9346938776rem + 0.2040816327vw, 6.2rem);
-  font-weight: bold;
-  height: 100px;
-}
-.price__wrap .box .numb::before {
-  content: "¥";
-  font-size: clamp(3rem, 2.9346938776rem + 0.2040816327vw, 3.2rem);
-  margin-right: 8px;
-}
-.price__wrap .box .numb span {
-  display: block;
-  text-align: center;
-  font-size: clamp(1rem, 0.9346938776rem + 0.2040816327vw, 1.2rem);
-  width: 100%;
-  font-weight: normal;
-}
-.price__wrap .box .plan {
-  font-size: clamp(2.5rem, 2.4346938776rem + 0.2040816327vw, 2.7rem);
-  font-weight: bold;
-  text-align: center;
-}
-.price__wrap .box .plan span {
-  display: block;
-  text-align: center;
-  font-size: clamp(1rem, 0.9346938776rem + 0.2040816327vw, 1.2rem);
-}
-.price__wrap .box .disc {
-  text-align: center;
-  font-size: clamp(1.2rem, 1.1346938776rem + 0.2040816327vw, 1.4rem);
-}
-.price__wrap .box button {
-  background-color: #004C71;
-  transition: background-color 0.3s ease;
-}
-.price__wrap .box button:hover {
-  background-color: #006ea4;
-}
-.price__wrap .box button a {
-  color: white;
-  display: block;
-  font-weight: bold;
-  padding: 8px;
-  width: 100%;
-  text-align: center;
-}
-.price__wrap .box ul li {
-  font-size: clamp(1.2rem, 1.1346938776rem + 0.2040816327vw, 1.4rem);
-  margin-bottom: 4px;
-}
-.price__wrap .box ul li::before {
-  font: var(--fa-font-solid);
-  content: "\f00c";
-  color: #004C71;
-  margin-right: 4px;
-}
-.price__wrap .free button {
-  background-color: #80b567;
-}
-.price__wrap .free button:hover {
-  background-color: #9dc689;
-}
-.price__wrap .free ul li::before {
-  color: #80b567;
-}
-.price__wrap .advanced button {
-  background-color: #F07884;
-}
-.price__wrap .advanced button:hover {
-  background-color: #f5a6ae;
-}
-.price__wrap .advanced ul li::before {
-  color: #F07884;
 }
 
 .contents {
@@ -2869,6 +2785,581 @@ a.button, [type=submit], .button[type=reset], .btn {
 .service .list-group li a {
   display: block;
   text-align: center;
+}
+
+/* 除算math.divを使うのに必要な記述 */
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: clamp(1.4rem, 1.3346938776rem + 0.2040816327vw, 1.6rem);
+}
+
+body a {
+  color: #0f0f0f;
+}
+
+body a :hover {
+  transition: 0.5s;
+  -webkit-transition: 0.5s; /* Chrome、Safari用 */
+  -moz-transition: 0.5s; /* Firefox用 */
+  -o-transition: 0.5s; /* Opera用 */
+  opacity: 0.5;
+}
+
+body img {
+  max-width: 100%;
+  height: auto;
+}
+
+body .mincho {
+  font-family: "Times New Roman", "YuMincho", "Hiragino Mincho ProN", "Yu Mincho", "MS PMincho", serif;
+  font-size: clamp(3rem, 2.9346938776rem + 0.2040816327vw, 3.2rem);
+}
+
+body section {
+  margin-bottom: 40px;
+}
+
+/* 非表示状態 */
+.inactive {
+  display: none;
+  opacity: 0;
+}
+
+/* 表示状態 */
+.active {
+  display: block;
+  opacity: 1;
+}
+
+html {
+  /*IE(Internet Explorer)・Microsoft Edgeへの対応*/
+  -ms-overflow-style: none;
+  /*Firefoxへの対応*/
+  scrollbar-width: none;
+  /*Google Chrome、Safariへの対応*/
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  background-color: #004C71;
+  border: unset;
+  box-shadow: unset;
+  border-radius: 100px;
+  width: 100%;
+  padding: 8px;
+  transition: background-color 0.3s ease;
+  color: white;
+}
+
+button:hover {
+  background-color: #006ea4;
+}
+
+button a {
+  width: 100%;
+  color: white;
+  text-decoration: none;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+[data-color=blue] {
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+[data-color=blue]:hover {
+  background-color: #004C71 !important;
+  border: unset !important;
+  color: white !important;
+  opacity: 1;
+}
+
+[data-color=blue]:hover * {
+  color: inherit !important;
+}
+
+[data-color=blue]:hover::before, [data-color=blue]:hover::after {
+  color: inherit !important;
+}
+
+[data-color=pink] {
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+[data-color=pink]:hover {
+  background-color: #F07884 !important;
+  border: unset !important;
+  color: white !important;
+  opacity: 1;
+}
+
+[data-color=pink]:hover * {
+  color: inherit !important;
+}
+
+[data-color=pink]:hover::before, [data-color=pink]:hover::after {
+  color: inherit !important;
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-style: normal;
+  text-align: left;
+  zoom: 1;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+table {
+  border-collapse: collapse;
+  font-family: inherit;
+}
+
+h1, h2, h3, h4, h5 {
+  font-size: 100%;
+  font-weight: normal;
+  line-height: 1;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: 16px;
+}
+
+input[type=button], input[type=text], input[type=submit] {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+textarea {
+  resize: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+th, td {
+  border-collapse: collapse;
+}
+
+table th, table td {
+  white-space: nowrap;
+}
+
+ul, ol {
+  list-style-type: none;
+}
+
+img {
+  vertical-align: text-bottom;
+  vertical-align: -webkit-baseline-middle;
+  max-width: 100%;
+  height: auto;
+  width: auto;
+}
+
+.price__wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 40px;
+  margin-top: 40px;
+  overflow-x: auto;
+  padding: 16px;
+}
+.price__wrap .box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 16px;
+  padding: 80px 16px;
+  box-shadow: 0px 0px 15px -10px #777777;
+  justify-content: flex-start;
+  min-width: 300px;
+}
+.price__wrap .box .numb {
+  font-size: clamp(6rem, 5.9346938776rem + 0.2040816327vw, 6.2rem);
+  font-weight: bold;
+  height: 100px;
+}
+.price__wrap .box .numb::before {
+  content: "¥";
+  font-size: clamp(3rem, 2.9346938776rem + 0.2040816327vw, 3.2rem);
+  margin-right: 8px;
+}
+.price__wrap .box .numb span {
+  display: block;
+  text-align: center;
+  font-size: clamp(1rem, 0.9346938776rem + 0.2040816327vw, 1.2rem);
+  width: 100%;
+  font-weight: normal;
+}
+.price__wrap .box .plan {
+  font-size: clamp(2.5rem, 2.4346938776rem + 0.2040816327vw, 2.7rem);
+  font-weight: bold;
+  text-align: center;
+}
+.price__wrap .box .plan span {
+  display: block;
+  text-align: center;
+  font-size: clamp(1rem, 0.9346938776rem + 0.2040816327vw, 1.2rem);
+}
+.price__wrap .box .disc {
+  text-align: center;
+  font-size: clamp(1.2rem, 1.1346938776rem + 0.2040816327vw, 1.4rem);
+}
+.price__wrap .box button {
+  background-color: #004C71;
+  transition: background-color 0.3s ease;
+}
+.price__wrap .box button:hover {
+  background-color: #006ea4;
+}
+.price__wrap .box button a {
+  color: white;
+  display: block;
+  font-weight: bold;
+  padding: 8px;
+  width: 100%;
+  text-align: center;
+}
+.price__wrap .box ul li {
+  font-size: clamp(1.2rem, 1.1346938776rem + 0.2040816327vw, 1.4rem);
+  margin-bottom: 4px;
+}
+.price__wrap .box ul li::before {
+  font: var(--fa-font-solid);
+  content: "\f00c";
+  color: #004C71;
+  margin-right: 4px;
+}
+.price__wrap .free button {
+  background-color: #80b567;
+}
+.price__wrap .free button:hover {
+  background-color: #9dc689;
+}
+.price__wrap .free ul li::before {
+  color: #80b567;
+}
+.price__wrap .advanced button {
+  background-color: #F07884;
+}
+.price__wrap .advanced button:hover {
+  background-color: #f5a6ae;
+}
+.price__wrap .advanced ul li::before {
+  color: #F07884;
+}
+.price__special .toggle {
+  margin-top: 80px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+}
+@media screen and (max-width: 768px) {
+  .price__special .toggle {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px 24px;
+  }
+}
+.price__special .toggle button {
+  color: #004C71;
+  background-color: white;
+  border: #004C71 1px solid;
+  border-radius: 5px;
+  position: relative;
+  font-weight: bold;
+}
+.price__special .toggle button.active {
+  background-color: #004C71;
+  color: white;
+  border: transparent 1px solid;
+}
+.price__special .toggle button::after {
+  content: "無料";
+  position: absolute;
+  background-color: #F07884;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  color: white;
+  font-weight: bold;
+  right: -30px;
+  top: -30px;
+}
+@media screen and (max-width: 768px) {
+  .price__special .toggle button::after {
+    right: -8px;
+  }
+}
+.price__special .toggle button:first-of-type::after {
+  content: "";
+  width: unset;
+  height: unset;
+  background-color: unset;
+}
+.price__special .toggle button span {
+  position: absolute;
+  top: -45px;
+  right: 25px;
+  color: #F07884;
+  font-weight: bold;
+}
+.price__special .toggle button span::first-letter {
+  font-size: clamp(4rem, 3.9346938776rem + 0.2040816327vw, 4.2rem);
+}
+@media screen and (max-width: 768px) {
+  .price__special .toggle button span {
+    right: 45px;
+  }
+}
+.price__special__wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-top: 40px;
+  overflow-x: auto;
+  padding: 16px;
+}
+@media screen and (max-width: 768px) {
+  .price__special__wrap {
+    grid-template-columns: 1fr;
+  }
+}
+.price__special__wrap .box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 16px;
+  padding: 80px 16px;
+  box-shadow: 0px 0px 15px -10px #777777;
+  justify-content: flex-start;
+  min-width: 500px;
+}
+@media screen and (max-width: 768px) {
+  .price__special__wrap .box {
+    min-width: auto;
+  }
+}
+.price__special__wrap .box .numb {
+  font-size: clamp(6rem, 5.9346938776rem + 0.2040816327vw, 6.2rem);
+  font-weight: bold;
+  height: auto;
+}
+.price__special__wrap .box .numb::before {
+  content: "¥";
+  font-size: clamp(3rem, 2.9346938776rem + 0.2040816327vw, 3.2rem);
+  margin-right: 8px;
+}
+.price__special__wrap .box .numb span {
+  display: block;
+  text-align: center;
+  font-size: clamp(1rem, 0.9346938776rem + 0.2040816327vw, 1.2rem);
+  width: 100%;
+  font-weight: normal;
+}
+.price__special__wrap .box .plan {
+  font-size: clamp(2.5rem, 2.4346938776rem + 0.2040816327vw, 2.7rem);
+  font-weight: bold;
+  text-align: center;
+}
+.price__special__wrap .box .plan span {
+  display: block;
+  text-align: center;
+  font-size: clamp(1rem, 0.9346938776rem + 0.2040816327vw, 1.2rem);
+}
+.price__special__wrap .box .disc {
+  text-align: center;
+  font-size: clamp(1.2rem, 1.1346938776rem + 0.2040816327vw, 1.4rem);
+}
+.price__special__wrap .box button {
+  background-color: #004C71;
+  transition: background-color 0.3s ease;
+}
+.price__special__wrap .box button:hover {
+  background-color: #006ea4;
+}
+.price__special__wrap .box button a {
+  color: white;
+  display: block;
+  font-weight: bold;
+  padding: 8px;
+  width: 100%;
+  text-align: center;
+}
+.price__special__wrap .box ul li {
+  font-size: clamp(1.2rem, 1.1346938776rem + 0.2040816327vw, 1.4rem);
+  margin-bottom: 4px;
+}
+.price__special__wrap .box ul li::before {
+  font: var(--fa-font-solid);
+  content: "\f00c";
+  color: #004C71;
+  margin-right: 4px;
+}
+.price__special__wrap .box .amount {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+.price__special__wrap .box .amount .wrap {
+  background-color: #004C71;
+  padding: 4px 16px;
+  color: white;
+  border-radius: 5px;
+}
+.price__special__wrap .box .amount .inner {
+  font-size: clamp(4rem, 3.9346938776rem + 0.2040816327vw, 4.2rem);
+  font-weight: bold;
+  color: #004C71;
+}
+.price__special__wrap .box .amount .inner::before {
+  content: "¥";
+  font-size: clamp(2rem, 1.9346938776rem + 0.2040816327vw, 2.2rem);
+  margin-right: 8px;
+}
+.price__special__wrap .box .agel .sarani {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+.price__special__wrap .box .agel .sarani .wrap {
+  position: relative;
+}
+.price__special__wrap .box .agel .sarani .wrap::before {
+  content: "";
+  background-image: url(../img/sarani.svg);
+  background-repeat: no-repeat;
+  position: absolute;
+  top: -6px;
+  left: -10px;
+  width: 15px;
+  height: 15px;
+}
+.price__special__wrap .box .agel .present {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+.price__special__wrap .box .agel .present .img img {
+  width: 150px;
+  height: auto;
+}
+@media screen and (max-width: 768px) {
+  .price__special__wrap .box .agel .present .img img {
+    width: 100px;
+  }
+}
+.price__special__wrap .box .agel .present .text {
+  font-size: clamp(2rem, 1.9346938776rem + 0.2040816327vw, 2.2rem);
+  background: linear-gradient(transparent 70%, #F07884 60%);
+}
+@media screen and (max-width: 768px) {
+  .price__special__wrap .box .agel .present .text {
+    background: unset;
+  }
+}
+.price__special__wrap .box .agel .present .text .wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media screen and (max-width: 768px) {
+  .price__special__wrap .box .agel .present .text .wrap {
+    display: block;
+  }
+}
+@media screen and (max-width: 768px) {
+  .price__special__wrap .box .agel .present .text .wrap .inner {
+    background: linear-gradient(transparent 70%, #F07884 60%);
+  }
+}
+.price__special__wrap .box .agel .present .text .wrap .inner span {
+  font-size: clamp(4rem, 3.9346938776rem + 0.2040816327vw, 4.2rem);
+}
+.price__special__wrap .free button {
+  background-color: #80b567;
+}
+.price__special__wrap .free button:hover {
+  background-color: #9dc689;
+}
+.price__special__wrap .free ul li::before {
+  color: #80b567;
+}
+.price__special__wrap .hidden {
+  display: none;
+}
+.price__special .advansed {
+  padding-top: 40px;
+}
+.price__special .advansed .title {
+  font-weight: bold;
+  font-size: clamp(2rem, 1.9346938776rem + 0.2040816327vw, 2.2rem);
+  text-align: center;
+}
+.price__special .advansed p {
+  text-align: center;
+}
+.price__special .advansed .toggle {
+  margin-top: 40px;
+}
+.price__special .advansed .toggle span {
+  font-size: clamp(4rem, 3.9346938776rem + 0.2040816327vw, 4.2rem);
+}
+.price__special .advansed .toggle span::first-letter {
+  all: unset;
+}
+.price__special .advansed .toggle button::after {
+  content: "OFF";
+}
+.price__special .advansed .price__special__wrap {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.price__special .advansed .box button {
+  background-color: #F07884;
+}
+.price__special .advansed .box button:hover {
+  background-color: #f5a6ae;
+}
+.price__special .advansed .box ul li::before {
+  color: #F07884;
 }
 
 /* 除算math.divを使うのに必要な記述 */
