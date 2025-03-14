@@ -1,24 +1,42 @@
 @charset "UTF-8";
 /* 除算math.divを使うのに必要な記述 */
+@import url("https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Cinzel:wght@400..900&display=swap");
 @import url(https://use.typekit.net/lpz2crc.css);
+@import url("https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Cinzel:wght@400..900&display=swap");
 @import url(https://use.typekit.net/lpz2crc.css);
+@import url("https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Cinzel:wght@400..900&display=swap");
 @import url(https://use.typekit.net/lpz2crc.css);
+@import url("https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Cinzel:wght@400..900&display=swap");
 @import url(https://use.typekit.net/lpz2crc.css);
+@import url("https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Cinzel:wght@400..900&display=swap");
 @import url(https://use.typekit.net/lpz2crc.css);
+@import url("https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Cinzel:wght@400..900&display=swap");
 @import url(https://use.typekit.net/lpz2crc.css);
+@import url("https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Cinzel:wght@400..900&display=swap");
 @import url(https://use.typekit.net/lpz2crc.css);
+@import url("https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Cinzel:wght@400..900&display=swap");
 @import url(https://use.typekit.net/lpz2crc.css);
+@import url("https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Cinzel:wght@400..900&display=swap");
 @import url(https://use.typekit.net/lpz2crc.css);
+@import url("https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Cinzel:wght@400..900&display=swap");
 @import url(https://use.typekit.net/lpz2crc.css);
+@import url("https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Cinzel:wght@400..900&display=swap");
 @import url(https://use.typekit.net/lpz2crc.css);
+@import url("https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Cinzel:wght@400..900&display=swap");
 @import url(https://use.typekit.net/lpz2crc.css);
+body {
+  font-size: clamp(1.4rem, 1.3346938776rem + 0.2040816327vw, 1.6rem);
+  font-family: "BIZ UDPGothic", system-ui, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: 1px;
+}
+
 html {
   font-size: 62.5%;
 }
 
-body {
-  font-size: clamp(1.4rem, 1.3346938776rem + 0.2040816327vw, 1.6rem);
-}
 body a {
   color: #0f0f0f;
 }
@@ -197,12 +215,17 @@ img {
 }
 
 /* 除算math.divを使うのに必要な記述 */
-html {
-  font-size: 62.5%;
-}
-
 body {
   font-size: clamp(1.4rem, 1.3346938776rem + 0.2040816327vw, 1.6rem);
+  font-family: "BIZ UDPGothic", system-ui, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: 1px;
+}
+
+html {
+  font-size: 62.5%;
 }
 
 body a {
@@ -682,12 +705,17 @@ body {
 }
 
 /* 除算math.divを使うのに必要な記述 */
-html {
-  font-size: 62.5%;
-}
-
 body {
   font-size: clamp(1.4rem, 1.3346938776rem + 0.2040816327vw, 1.6rem);
+  font-family: "BIZ UDPGothic", system-ui, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: 1px;
+}
+
+html {
+  font-size: 62.5%;
 }
 
 body a {
@@ -1100,12 +1128,17 @@ img {
 }
 
 /* 除算math.divを使うのに必要な記述 */
-html {
-  font-size: 62.5%;
-}
-
 body {
   font-size: clamp(1.4rem, 1.3346938776rem + 0.2040816327vw, 1.6rem);
+  font-family: "BIZ UDPGothic", system-ui, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: 1px;
+}
+
+html {
+  font-size: 62.5%;
 }
 
 body a {
@@ -1478,7 +1511,6 @@ img {
   height: 100px;
   width: 100px;
   color: #004C71;
-  line-height: 100%;
   font-size: clamp(1.2rem, 1.1346938776rem + 0.2040816327vw, 1.4rem);
   gap: 8px;
 }
@@ -1567,6 +1599,7 @@ img {
   font-weight: bold;
   color: #004C71;
   letter-spacing: 10px;
+  gap: 16px;
 }
 @media screen and (max-width: 768px) {
   .index main .mainTitle {
@@ -1840,6 +1873,7 @@ img {
 }
 .index main .cv__wrap button a {
   font-weight: bold;
+  letter-spacing: 10px;
 }
 .index main .merit__wrap {
   display: flex;
@@ -2198,12 +2232,17 @@ img {
   padding: 40px 0px;
 }
 /* 除算math.divを使うのに必要な記述 */
-html {
-  font-size: 62.5%;
-}
-
 body {
   font-size: clamp(1.4rem, 1.3346938776rem + 0.2040816327vw, 1.6rem);
+  font-family: "BIZ UDPGothic", system-ui, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: 1px;
+}
+
+html {
+  font-size: 62.5%;
 }
 
 body a {
@@ -2432,6 +2471,7 @@ img {
   }
 }
 .base .subTitle {
+  margin-top: 16px;
   text-align: center;
 }
 .base.guest-user .profile img {
@@ -2788,12 +2828,17 @@ a.button, [type=submit], .button[type=reset], .btn {
 }
 
 /* 除算math.divを使うのに必要な記述 */
-html {
-  font-size: 62.5%;
-}
-
 body {
   font-size: clamp(1.4rem, 1.3346938776rem + 0.2040816327vw, 1.6rem);
+  font-family: "BIZ UDPGothic", system-ui, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: 1px;
+}
+
+html {
+  font-size: 62.5%;
 }
 
 body a {
@@ -3361,14 +3406,370 @@ img {
 .price__special .advansed .box ul li::before {
   color: #F07884;
 }
-
-/* 除算math.divを使うのに必要な記述 */
-html {
-  font-size: 62.5%;
+.price__ver3 .catch {
+  margin: 40px auto;
+  text-align: center;
+  font-size: clamp(2rem, 1.9346938776rem + 0.2040816327vw, 2.2rem);
+  font-weight: bold;
+}
+.price__ver3 .catch p {
+  text-align: center;
+}
+.price__ver3 .catch span {
+  font-size: clamp(1.4rem, 1.3346938776rem + 0.2040816327vw, 1.6rem);
+}
+.price__ver3 .numb, .price__ver3 .numb-month {
+  font-weight: bold;
+  font-size: clamp(4rem, 3.9346938776rem + 0.2040816327vw, 4.2rem);
+  letter-spacing: 0px;
+}
+.price__ver3 .numb::before, .price__ver3 .numb-month::before {
+  content: "¥";
+  font-size: 0.8em;
+}
+.price__ver3 .numb-month::after {
+  content: "/月";
+  font-size: 0.5em;
+}
+.price__ver3 ul.check li {
+  font-size: clamp(1.2rem, 1.1346938776rem + 0.2040816327vw, 1.4rem);
+  margin-bottom: 4px;
+}
+.price__ver3 ul.check li::before {
+  font: var(--fa-font-solid);
+  content: "\f00c";
+  margin-right: 4px;
+}
+.price__ver3 .base-area {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media screen and (max-width: 768px) {
+  .price__ver3 .base-area {
+    grid-template-columns: 1fr;
+  }
+}
+.price__ver3 .base-area .box {
+  display: flex;
+  flex-direction: column;
+}
+.price__ver3 .base-area .box .head {
+  background-color: #004C71;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 8px;
+  color: white;
+}
+.price__ver3 .base-area .box .disc {
+  text-align: center;
+  width: 100%;
+}
+.price__ver3 .base-area .box .wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px #004C71 solid;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  flex: 1;
+}
+.price__ver3 .base-area .box .wrap .inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+@media screen and (max-width: 768px) {
+  .price__ver3 .base-area .box .wrap .inner {
+    flex-direction: column;
+  }
+}
+.price__ver3 .base-area .box .wrap .inner .left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 16px;
+}
+.price__ver3 .base-area .box .wrap .inner .right li::before {
+  color: #004C71;
+}
+.price__ver3 .pack-area {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  margin-top: 40px;
+  overflow-x: auto;
+}
+.price__ver3 .pack-area .box {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  box-shadow: 0px 0px 15px -10px #777777;
+  padding: 16px 0px;
+}
+@media screen and (max-width: 768px) {
+  .price__ver3 .pack-area .box {
+    width: 90vw;
+    max-width: 350px;
+  }
+}
+.price__ver3 .pack-area .box .head .inner {
+  text-align: center;
+  font-weight: bold;
+}
+.price__ver3 .pack-area .box .head .getugaku {
+  font-size: clamp(4rem, 3.9346938776rem + 0.2040816327vw, 4.2rem);
+  text-align: center;
+  padding: 8px;
+  background-color: #80b567;
+  color: white;
+}
+.price__ver3 .pack-area .box .amount {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-items: baseline;
+}
+.price__ver3 .pack-area .box .amount::before {
+  content: "合計";
+  padding: 4px 16px;
+  background-color: #80b567;
+  font-size: clamp(1rem, 0.9346938776rem + 0.2040816327vw, 1.2rem);
+  color: white;
+  margin-right: 16px;
+}
+.price__ver3 .pack-area .box .amount .numb-month {
+  font-size: clamp(2rem, 1.9346938776rem + 0.2040816327vw, 2.2rem);
+}
+.price__ver3 .pack-area .box .agel .sarani {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+.price__ver3 .pack-area .box .agel .sarani .wrap {
+  position: relative;
+}
+.price__ver3 .pack-area .box .agel .sarani .wrap::before {
+  content: "";
+  background-image: url(../img/sarani.svg);
+  background-repeat: no-repeat;
+  position: absolute;
+  top: -6px;
+  left: -10px;
+  width: 15px;
+  height: 15px;
+}
+.price__ver3 .pack-area .box .agel .present {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+}
+.price__ver3 .pack-area .box .agel .present .img img {
+  width: 100px;
+  height: auto;
+}
+@media screen and (max-width: 768px) {
+  .price__ver3 .pack-area .box .agel .present .img img {
+    width: 100px;
+  }
+}
+.price__ver3 .pack-area .box .agel .present .text {
+  background: linear-gradient(transparent 70%, #F07884 60%);
+  font-size: clamp(2rem, 1.9346938776rem + 0.2040816327vw, 2.2rem);
+  font-weight: bold;
+}
+@media screen and (max-width: 768px) {
+  .price__ver3 .pack-area .box .agel .present .text {
+    background: unset;
+  }
+}
+@media screen and (max-width: 768px) {
+  .price__ver3 .pack-area .box .agel .present .text span {
+    display: block;
+    background: linear-gradient(transparent 70%, #F07884 60%);
+  }
+}
+.price__ver3 .pack-area .box .agel .about {
+  text-align: center;
+  margin-top: 16px;
+}
+.price__ver3 .pack-area .box .camp .head {
+  font-weight: bold;
+  background-image: url("../img/price_ashirai-1.svg");
+  background-repeat: no-repeat;
+  background-image: contain;
+  background-position: bottom;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  text-align: center;
+  font-size: clamp(2rem, 1.9346938776rem + 0.2040816327vw, 2.2rem);
+  margin: auto 16px;
+}
+.price__ver3 .pack-area .box .camp p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-items: baseline;
+  gap: 16px;
+  color: #F07884;
+}
+.price__ver3 .pack-area .box .camp p::before, .price__ver3 .pack-area .box .camp p::after {
+  content: "";
+  background-image: url("../img/price_ashirai-2.svg");
+  background-repeat: no-repeat;
+  background-image: contain;
+  background-position: bottom;
+  width: 20px;
+  height: 20px;
+}
+.price__ver3 .pack-area .box .camp p::before {
+  transform: scaleX(-1);
+}
+.price__ver3 .pack-area .box .camp p span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: clamp(4rem, 3.9346938776rem + 0.2040816327vw, 4.2rem);
+  font-weight: bold;
+}
+.price__ver3 .pack-area .box .camp p span::before {
+  content: "+";
+}
+@media screen and (max-width: 768px) {
+  .price__ver3 .pack-area .box .camp p span {
+    font-size: clamp(3rem, 2.9346938776rem + 0.2040816327vw, 3.2rem);
+  }
+}
+.price__ver3 .option-area {
+  margin-top: 40px;
+}
+.price__ver3 .option-area .contents {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 40px;
+}
+.price__ver3 .option-area .contents .check {
+  display: block;
+}
+.price__ver3 .option-area .contents .check li {
+  background-color: #F07884;
+  color: white;
+  font-weight: bold;
+  padding: 8px 40px;
+  font-size: clamp(2rem, 1.9346938776rem + 0.2040816327vw, 2.2rem);
+}
+@media screen and (max-width: 768px) {
+  .price__ver3 .option-area .contents .check li {
+    padding: 8px;
+  }
+}
+.price__ver3 .option-area .contents .check li::before {
+  color: white;
+}
+.price__ver3 .option-area .contents .price {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.price__ver3 .option-area .contents .price::after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f078";
+  font-size: clamp(3rem, 2.9346938776rem + 0.2040816327vw, 3.2rem);
+}
+.price__ver3 .option-area .camp {
+  max-width: 500px;
+  margin: auto;
+}
+.price__ver3 .option-area .camp .head {
+  font-weight: bold;
+  background-image: url("../img/price_ashirai-1.svg");
+  background-repeat: no-repeat;
+  background-image: contain;
+  background-position: bottom;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  text-align: center;
+  font-size: clamp(2rem, 1.9346938776rem + 0.2040816327vw, 2.2rem);
+  margin: auto 16px;
+}
+.price__ver3 .option-area .camp .head span {
+  font-size: clamp(4rem, 3.9346938776rem + 0.2040816327vw, 4.2rem);
+  color: #F07884;
+  font-weight: bold;
+}
+.price__ver3 .option-area .camp .numb {
+  text-align: center;
+}
+.price__ver3 .option-area .about {
+  margin-top: 24px;
+}
+.price__ver3 .option-area .about .toggle {
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+.price__ver3 .option-area .about .toggle::after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f054";
+  transition: transform 0.3s;
+  transform: rotate(0deg);
+}
+.price__ver3 .option-area .about .toggle.open::after {
+  transform: rotate(90deg);
+}
+.price__ver3 .option-area .about .toggle-contents {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  max-width: 500px;
+  margin: auto;
+  margin-top: 24px;
+}
+@media screen and (max-width: 768px) {
+  .price__ver3 .option-area .about .toggle-contents {
+    flex-direction: column;
+  }
+}
+.price__ver3 .option-area .about .toggle-contents img {
+  max-width: 200px;
+}
+.price__ver3 .option-area .toggle-contents {
+  max-height: 0;
+  overflow: hidden; /* はみ出しを隠す */
+  transition: max-height 1s ease-in-out;
+}
+.price__ver3 .option-area .toggle-contents.open {
+  max-height: 500px; /* 中身が収まる程度に大きめにしておく */
 }
 
+/* 除算math.divを使うのに必要な記述 */
 body {
   font-size: clamp(1.4rem, 1.3346938776rem + 0.2040816327vw, 1.6rem);
+  font-family: "BIZ UDPGothic", system-ui, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: 1px;
+}
+
+html {
+  font-size: 62.5%;
 }
 
 body a {
@@ -3766,12 +4167,17 @@ img {
 }
 
 /* 除算math.divを使うのに必要な記述 */
-html {
-  font-size: 62.5%;
-}
-
 body {
   font-size: clamp(1.4rem, 1.3346938776rem + 0.2040816327vw, 1.6rem);
+  font-family: "BIZ UDPGothic", system-ui, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: 1px;
+}
+
+html {
+  font-size: 62.5%;
 }
 
 body a {
@@ -4200,12 +4606,17 @@ img {
 }
 
 /* 除算math.divを使うのに必要な記述 */
-html {
-  font-size: 62.5%;
-}
-
 body {
   font-size: clamp(1.4rem, 1.3346938776rem + 0.2040816327vw, 1.6rem);
+  font-family: "BIZ UDPGothic", system-ui, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: 1px;
+}
+
+html {
+  font-size: 62.5%;
 }
 
 body a {
@@ -4581,12 +4992,17 @@ img {
 }
 
 /* 除算math.divを使うのに必要な記述 */
-html {
-  font-size: 62.5%;
-}
-
 body {
   font-size: clamp(1.4rem, 1.3346938776rem + 0.2040816327vw, 1.6rem);
+  font-family: "BIZ UDPGothic", system-ui, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: 1px;
+}
+
+html {
+  font-size: 62.5%;
 }
 
 body a {
@@ -4805,12 +5221,17 @@ img {
 }
 
 /* 除算math.divを使うのに必要な記述 */
-html {
-  font-size: 62.5%;
-}
-
 body {
   font-size: clamp(1.4rem, 1.3346938776rem + 0.2040816327vw, 1.6rem);
+  font-family: "BIZ UDPGothic", system-ui, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: 1px;
+}
+
+html {
+  font-size: 62.5%;
 }
 
 body a {
@@ -5020,12 +5441,17 @@ img {
 }
 
 /* 除算math.divを使うのに必要な記述 */
-html {
-  font-size: 62.5%;
-}
-
 body {
   font-size: clamp(1.4rem, 1.3346938776rem + 0.2040816327vw, 1.6rem);
+  font-family: "BIZ UDPGothic", system-ui, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: 1px;
+}
+
+html {
+  font-size: 62.5%;
 }
 
 body a {

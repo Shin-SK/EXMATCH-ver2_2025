@@ -1,22 +1,21 @@
+@use "sass:math"; /* 除算math.divを使うのに必要な記述 */
+
 $mc: #004C71;
 $pink: #F07884;
 $green: #706C00;
 $lb: #EAF2F4;
-
-
 $lciq: #F6AB00;
-
 $brown: #bb9e52;
 $green: #80b567;
 $black: #0f0f0f;
-
 $gray: lighten($black, 40%);
 $lightgray: lighten($black, 90%);
-$gosic: system-ui;
+
+
 $mincho: "Times New Roman", "YuMincho", "Hiragino Mincho ProN", "Yu Mincho", "MS PMincho", serif;
 $cinzel: 'Cinzel', serif;
 $tegaki: 'Satisfy', cursive;
-@use "sass:math"; /* 除算math.divを使うのに必要な記述 */
+
 @mixin fs($fs_min) {
 $width_small: 320;
 $width_large: 1300;
@@ -26,9 +25,7 @@ $preferred_vw: ($preferred_vw_base * 100) * 1vw;
 $preferred_rem: ($width_small * -1 * $preferred_vw_base + $fs_min) * .1rem;
 font-size: clamp($fs_min * .1rem, $preferred_rem + $preferred_vw, $fs_max * .1rem);
 }
-
 $footerHgith: 80px;
-
 $sp: 768px;//576pxだと小さすぎるのでいっそタブレットと同じにしちゃう
 $md: 768px;
 @mixin sp {
@@ -60,10 +57,40 @@ $time: 0.5s;
     align-items: center;
 }
 
+@mixin fa($unicode) {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "#{$unicode}";
+}
+
+
+
+
+// --------------------- font --------------------- ///
+
+@import url('https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Cinzel:wght@400..900&display=swap');
+
+@mixin gosic{
+  font-family: "BIZ UDPGothic", system-ui, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: 1px;
+}
+
+body{
+  @include fs(14);
+  @include gosic();
+}
+
+
+
+
+
 html {font-size: 62.5%;}
 
 body{
-    @include fs(14);
+
     a{
         color: $black;
         :hover{

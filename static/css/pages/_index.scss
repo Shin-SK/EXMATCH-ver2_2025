@@ -158,7 +158,6 @@
                             height: 100px;
                             width: 100px;
                             color: g.$mc;
-                            line-height: 100%;
                             @include fs(12);
                             gap: 8px;
                         }
@@ -242,6 +241,7 @@
             font-weight: bold;
             color: g.$mc;
             letter-spacing: 10px;
+            gap: 16px;
             @include md{
                 @include fs(25);
                 letter-spacing: normal;
@@ -485,6 +485,7 @@
                     }
                     a{
                         font-weight: bold;
+                        letter-spacing: 10px;
                     }
                 }
             }
